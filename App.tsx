@@ -1,118 +1,70 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
+// import React, { useState } from 'react';
+// import { Alert, Button, SafeAreaView, StyleSheet, Text, TextInput, View } from 'react-native';
 
-import React from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+// const Login = () => {
+//   const [dataLogin, setDataLogin] = useState({ username: '', password: '' });
+//   const handlerSubmit = async () => {
+//     try {
+//       const response = await fetch('http://rpm.demo.app24h.net:81/api/v1/user/signup', {
+//         method: 'POST',
+//         headers: {
+//           'Content-Type': 'application/json',
+//         },
+//         body: JSON.stringify(dataLogin),
+//       });
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+//       const result = await response.json();
+//       console.log(dataLogin);
+//       if (response.ok) {
+//         Alert.alert('Login successful');
+//       } else {
+//         Alert.alert('Login failed', result.message || 'Please try again');
+//       }
+//     } catch (error) {
+//       console.error('Login error:', error);
+//       Alert.alert('Login failed', 'Something went wrong');
+//     }
+//   };
 
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
+//   return (
+//     <SafeAreaView>
+//       <View>
+//         <Text/>
+//         <TextInput
+//           style={style.input}
+//           placeholder="Username"
+//           value={dataLogin.username}
+//           onChangeText={(username)=> setDataLogin({...dataLogin, username})}
+//         />
+//         <TextInput
+//           style={style.input}
+//           placeholder="Password"
+//           secureTextEntry={true}
+//           value={dataLogin.password}
+//           onChangeText={(password)=> setDataLogin({...dataLogin, password})}
+//         />
+//         <Button title="Login" onPress={handlerSubmit} />
+//         <Text style={style.footer}>Don't have an account ?
+//           <View>
+//             <Text>Register</Text>
+//           </View>
+//         </Text>
+//       </View>
+//     </SafeAreaView>
+//   );
+// };
 
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-}
+// const style = StyleSheet.create({
+//   input: {
+//     height: 40,
+//     borderWidth: 1,
+//     margin: 10,
+//     paddingLeft: 10,
+//   },
+//   footer:{
+//     textAlign:'center',
+//     flex: 1,
+//   },
+// });
 
-function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
-}
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
-
-export default App;
+// export default Login;
