@@ -8,11 +8,8 @@ import {
   Pressable,
   Alert,
 } from 'react-native';
-// import LinearGradient from 'react-native-linear-gradient';
-import Icon from 'react-native-vector-icons/FontAwesome5';
-// import { NavigationContainer } from '@react-navigation/native';
-// import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Toast from 'react-native-toast-message'
+import { facebookImg, googleImg, imgloginResgister } from './login';
 export default function Register({navigation}) {
   const [dataRegister, setDataRegister] = useState({
     email: '',
@@ -34,17 +31,16 @@ export default function Register({navigation}) {
         const result = await res.json;
         console.log(dataRegister);
         if (res.ok) {
-          // Alert.alert('Đăng Ký Thành Công !');
           Toast.show({
             type: 'success',
             text1: 'Đăng ký thành công'
           })
           navigation.navigate('Login');
         } else {
-          // Alert.alert('Đăng Ký Thất Bại !');
-          // Toast.show({
-            
-          // })
+          Toast.show({
+            type: 'error',
+            text1: 'Đăng ký thất bại'
+          })
         }
       } catch (err) {
         Alert.alert('Không Thành Công');
@@ -53,10 +49,9 @@ export default function Register({navigation}) {
     };
   return (
     <View style={styles.container}>
-      {/* <Image
-        style={styles.headerImg}
-        source={require('../assets/image/Image 2451.png')}
-      /> */}
+      <Image
+        source={imgloginResgister}
+      />
       <View style={styles.formContainer} >
         <Text style={styles.titleFrom}>Đăng Ký</Text>
         <TextInput
@@ -97,10 +92,10 @@ export default function Register({navigation}) {
           <Text style={styles.orTextLogin}>Hoặc đăng nhập bằng tài khoản</Text>
           <View style={styles.socialContainer}>
             <Pressable style={styles.socialButton}>
-              <Icon name="facebook" size={24} color="#fff" />
+              <Image source={facebookImg}/>
             </Pressable>
             <Pressable style={styles.socialButton}>
-              <Icon name="facebook" size={24} color="#fff" />
+              <Image source={googleImg}/>
             </Pressable>
           </View>
         <View style={styles.signUp}>
@@ -236,7 +231,6 @@ const styles = StyleSheet.create({
     width: 47,
     height: 47,
     borderRadius: 25,
-    borderWidth: 1,
     justifyContent: 'center',
     marginHorizontal: 10.45,
   },
