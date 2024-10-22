@@ -9,12 +9,12 @@ import {
   Alert,
 } from 'react-native';
 import Toast from 'react-native-toast-message'
-import { facebookImg, googleImg, imgloginResgister } from './login';
+import {icon, image} from '../../assets/index'
 export default function Register({navigation}) {
   const [dataRegister, setDataRegister] = useState({
-    email: '',
+    username: '',
+    phone: '',
     password: '',
-    rePassword: '',
   });
     const handlerRegister = async () => {
       try {
@@ -50,26 +50,25 @@ export default function Register({navigation}) {
   return (
     <View style={styles.container}>
       <Image
-        source={imgloginResgister}
+        source={image.img_bg}
       />
       <View style={styles.formContainer} >
         <Text style={styles.titleFrom}>Đăng Ký</Text>
         <TextInput
           style={styles.input}
-          placeholder="Email"
-          onChangeText={email => setDataRegister({...dataRegister, email})}
+          placeholder="Username hoặc Email"
+          onChangeText={username => setDataRegister({...dataRegister, username})}
         />
         <TextInput
           style={[styles.input, {top: 124}]}
-          placeholder="Nhập mật khẩu"
-          secureTextEntry={true}
-          onChangeText={password => setDataRegister({...dataRegister, password})}
+          placeholder="Số điện thoại"
+          onChangeText={phone => setDataRegister({...dataRegister, phone})}
         />
         <TextInput
           style={[styles.input, {top: 181}]}
-          placeholder="Xác nhận mật khẩu"
+          placeholder="Nhập mật khẩu"
           secureTextEntry={true}
-          onChangeText={rePassword => setDataRegister({...dataRegister, rePassword})}
+          onChangeText={password => setDataRegister({...dataRegister, password})}
         />
         <View style={styles.textAgree}>
           <Text style={{textAlign: 'center'}}>
@@ -92,10 +91,10 @@ export default function Register({navigation}) {
           <Text style={styles.orTextLogin}>Hoặc đăng nhập bằng tài khoản</Text>
           <View style={styles.socialContainer}>
             <Pressable style={styles.socialButton}>
-              <Image source={facebookImg}/>
+              <Image source={icon.icon_facebook}/>
             </Pressable>
             <Pressable style={styles.socialButton}>
-              <Image source={googleImg}/>
+              <Image source={icon.icon_google}/>
             </Pressable>
           </View>
         <View style={styles.signUp}>

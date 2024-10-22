@@ -9,12 +9,13 @@ import {
   Alert,
 } from 'react-native';
 import Toast from 'react-native-toast-message';
-export const facebookImg = require('../../assets/image/MaskGroup29.png')
-export const googleImg = require('../../assets/image/MaskGroup38179.png')
-export const imgloginResgister = require('../../assets/image/Image2451.png')
+import { icon, image} from '../../assets/index';
+import { useSelector } from 'react-redux';
+
 export default function Login({navigation}) {
   const [dataLogin, setDataLogin] = useState({username: '', password: ''});
-  
+  const data = useSelector(state => state.signInUser)
+  console.log('2',data);
   const handlerLogin = async () => {
     try {
       const res = await fetch(
@@ -28,7 +29,7 @@ export default function Login({navigation}) {
         },
       );
       const result = await res.json;
-      console.log(dataLogin);
+      // console.log(dataLogin);
       if (res.ok) {
         Toast.show({
           type: 'success',
@@ -50,7 +51,7 @@ export default function Login({navigation}) {
   };
   return (
     <View style={styles.container}>
-        <Image source={imgloginResgister}/>
+        <Image source={image.img_bg}/>
         <View style={styles.formContainer}>
           <Text style={styles.titleFrom}>Đăng Nhập</Text>
           <TextInput
@@ -74,10 +75,10 @@ export default function Login({navigation}) {
           <Text style={styles.orTextLogin}>Hoặc đăng nhập bằng tài khoản</Text>
           <View style={styles.socialContainer}>
             <Pressable style={styles.socialButton}>
-              <Image source={facebookImg}/>
+              <Image source={icon.icon_facebook}/>
             </Pressable>
             <Pressable style={styles.socialButton}>
-              <Image source={googleImg}/>
+              <Image source={icon.icon_google}/>
             </Pressable>
           </View>
           <View style={styles.signUp}>
@@ -87,7 +88,6 @@ export default function Login({navigation}) {
             </Pressable>
           </View>
         </View>
-        {/* <BottomTabNavigator/> */}
     </View>
   );
 }

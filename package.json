@@ -11,9 +11,11 @@
   },
   "dependencies": {
     "@fortawesome/react-fontawesome": "^0.2.2",
+    "@kanelloc/react-native-animated-header-scroll-view": "^1.0.0",
     "@react-navigation/bottom-tabs": "^6.6.1",
     "@react-navigation/native": "^6.1.18",
     "@react-navigation/native-stack": "^6.11.0",
+    "axios": "^1.7.7",
     "react": "18.3.1",
     "react-native": "0.75.1",
     "react-native-config": "^1.5.3",
@@ -23,7 +25,10 @@
     "react-native-screens": "^3.34.0",
     "react-native-toast-message": "^2.2.1",
     "react-native-vector-icons": "^10.2.0",
-    "react-navigation": "^5.0.0"
+    "react-navigation": "^5.0.0",
+    "react-redux": "^9.1.2",
+    "redux": "^5.0.1",
+    "redux-saga": "^1.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
