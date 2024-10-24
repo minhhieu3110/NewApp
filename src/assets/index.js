@@ -38,6 +38,11 @@ export const icon ={
     icon_unlike: require('./icon/ic_unlike.png'),
     icon_like: require('./icon/ic_like.png'),
     icon_unsave_product: require('./icon/ic_unsave_product.png'),
+    icon_range_rate_star: require('./icon/ic_range_rate_star.png'),
+    icon_eye_seen: require('./icon/ic_eye_seen.png'),
+    icon_arrow_down: require('./icon/ic_arrow_down.png'),
+    icon_see_all: require('./icon/ic_see_all.png'),
+    icon_avatar_comment: require('./icon/ic_avatar_comment.png'),
 }
 
 export const image = {
@@ -46,5 +51,11 @@ export const image = {
 
     //Image Product Demo
     image_product_demo_1: require('./image/img_kixx_first.png'),
-    image_product_demo_2: require('./image/img_kixx_second.png')
+    image_product_demo_2: require('./image/img_kixx_second.png'),
+    image_product_demo_3: require('./image/img_kixx_third.png'),
+
+    //Image Comment demo
+
+    image_comment_demo_1: require('./image/img_comment_demo_first.png'),
+    image_comment_demo_2: require('./image/img_comment_demo_second.png'),
 }

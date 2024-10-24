@@ -11,54 +11,54 @@ import {icon, image} from '../../assets/index';
 export default function Account({navigation}) {
   return (
     <View style={style.container}>
-      <ScrollView
-        contentContainerStyle={{alignItems: 'center', backgroundColor: '#212121'}}
-        showsVerticalScrollIndicator={true}>
-        <Pressable
-          style={style.editContainer}
-          onPress={() => navigation.navigate('InfoAccount')}>
-          <Image style={style.iconEditContainer} source={icon.icon_edit} />
-        </Pressable>
-        <View style={style.avatar}>
-          <Image source={image.img_avatar} />
-        </View>
-        <Text style={style.usernameText}>Trung Nguyen</Text>
-        <Text style={style.emailText}>trungnguyen123@gmail.com</Text>
-        <View style={style.accumulatedpoints}>
-          <Text style={style.accumulatedpointsText}>Điểm tích lũy : 1200</Text>
-        </View>
-        <View style={style.containerMenuAccount}>
+      <Pressable
+        style={style.editContainer}
+        onPress={() => navigation.navigate('InfoAccount')}>
+        <Image style={style.iconEditContainer} source={icon.icon_edit} />
+      </Pressable>
+      <View style={style.avatar}>
+        <Image source={image.img_avatar} />
+      </View>
+      <Text style={style.usernameText}>Trung Nguyen</Text>
+      <Text style={style.emailText}>trungnguyen123@gmail.com</Text>
+      <View style={style.accumulatedpoints}>
+        <Text style={style.accumulatedpointsText}>Điểm tích lũy : 1200</Text>
+      </View>
+      <View style={{flex: 1, top: 217}}>
+        <ScrollView contentContainerStyle={style.containerMenuAccount}>
           <View style={style.ordersTitle}>
             <Text style={style.orders}>Đơn hàng</Text>
             <View style={style.seeAll}>
               <Text style={style.seeAllText}>Xem tất cả</Text>
             </View>
           </View>
-          <View style={style.ordersItem}>
-            <View style={[style.item, {left: 18}]}>
-              <View style={style.iconItem}>
-                <Image source={icon.icon_wait_confirm_order} />
+          <View style={{flex: 1, top: 47}}>
+            <ScrollView contentContainerStyle={style.ordersItem} horizontal>
+              <View style={[style.item, {left: 18}]}>
+                <View style={style.iconItem}>
+                  <Image source={icon.icon_wait_confirm_order} />
+                </View>
+                <Text style={style.iconItemText}>Chờ xác nhận</Text>
               </View>
-              <Text style={style.iconItemText}>Chờ xác nhận</Text>
-            </View>
-            <View style={[style.item, {left: 122}]}>
-              <View style={style.iconItem}>
-                <Image source={icon.icon_wait_get_order} />
+              <View style={[style.item, {left: 122}]}>
+                <View style={style.iconItem}>
+                  <Image source={icon.icon_wait_get_order} />
+                </View>
+                <Text style={style.iconItemText}>Chờ lấy hàng</Text>
               </View>
-              <Text style={style.iconItemText}>Chờ lấy hàng</Text>
-            </View>
-            <View style={[style.item, {left: 226}]}>
-              <View style={style.iconItem}>
-                <Image source={icon.icon_processing_order} />
+              <View style={[style.item, {left: 226}]}>
+                <View style={style.iconItem}>
+                  <Image source={icon.icon_processing_order} />
+                </View>
+                <Text style={style.iconItemText}>Đang giao</Text>
               </View>
-              <Text style={style.iconItemText}>Đang giao</Text>
-            </View>
-            <View style={[style.item, {left: 330}]}>
-              <View style={style.iconItem}>
-                <Image source={icon.icon_finished_order} />
+              <View style={[style.item, {left: 330}]}>
+                <View style={style.iconItem}>
+                  <Image source={icon.icon_finished_order} />
+                </View>
+                <Text style={style.iconItemText}>Đã giao</Text>
               </View>
-              <Text style={style.iconItemText}>Đã giao</Text>
-            </View>
+            </ScrollView>
           </View>
           <View style={style.seperator}></View>
           <View style={style.accountMenu}>
@@ -223,13 +223,15 @@ export default function Account({navigation}) {
               </View>
             </View>
             <View style={[style.seperator2, {top: 471}]} />
-            <View style={[style.menuAccountTitle, {top: 700}]}>
+            <View style={[style.menuAccountTitle, {top: 490}]}>
               <View>
                 <Image
                   style={style.iconMenuAccount}
-                  source={icon.icon_center_help}
+                  source={icon.icon_term_policies}
                 />
-                <Text style={[style.textMenuAccount, {top: 1}]}>Đăng xuất</Text>
+                <Text style={[style.textMenuAccount, {top: 1}]}>
+                  Điều khoản và chính sách
+                </Text>
               </View>
               <View>
                 <Image
@@ -238,9 +240,14 @@ export default function Account({navigation}) {
                 />
               </View>
             </View>
+            <View style={[style.seperator, {top: 531}]} />
+            <Pressable style={{width: 72, height: 21, top: 550, left: 173}} onPress={() =>navigation.navigate('Login')}>
+              <Text style={{color: '#FD6C31', fontSize: 16, fontWeight: 'medium', fontFamily: 'Be Vietnam Pro'}}>Đăng xuất</Text>
+            </Pressable>
           </View>
-        </View>
-      </ScrollView>
+        </ScrollView>
+      </View>
+      {/* </ScrollView> */}
     </View>
   );
 }
@@ -302,8 +309,8 @@ const style = StyleSheet.create({
   containerMenuAccount: {
     width: 428,
     height: 1156,
-    position: 'absolute',
-    top: 217,
+    // position: 'absolute',
+    // top: 217,
     left: 0,
     backgroundColor: '#ffffff',
     borderTopLeftRadius: 15,
@@ -341,11 +348,6 @@ const style = StyleSheet.create({
   ordersItem: {
     width: 404,
     height: 106,
-    position: 'absolute',
-    top: 47,
-    left: 18,
-    flexDirection: 'row',
-    gap: 24,
   },
   item: {
     width: 80,
@@ -377,10 +379,9 @@ const style = StyleSheet.create({
   accountMenu: {
     width: 404,
     height: 510,
-    position: 'absolute',
     left: 12,
     top: 185,
-    // borderWidth: 1
+    position: 'absolute',
   },
   menuAccountTitle: {
     width: 403.93,
@@ -388,7 +389,8 @@ const style = StyleSheet.create({
     position: 'absolute',
     left: 12,
     // borderWidth: 1,
-    // justifyContent: 'space-between'
+    // justifyContent: 'space-between',
+    // flexDirection: 'row',
   },
   iconMenuAccount: {
     width: 24,
@@ -405,7 +407,6 @@ const style = StyleSheet.create({
   iconSubMenuAccount: {
     width: 6.1,
     height: 10.17,
-    position: 'absolute',
     left: 355,
   },
   seperator2: {
@@ -413,21 +414,17 @@ const style = StyleSheet.create({
     height: 0,
     borderWidth: 1,
     borderColor: '#F3F7FC',
-    position: 'absolute',
     left: 12,
   },
   editContainer: {
     width: 35,
     height: 35,
-    position: 'absolute',
     left: 389,
     top: 7,
-    borderWidth: 1,
   },
   iconEditContainer: {
     width: 18.27,
     height: 18,
-    position: 'absolute',
     top: 8,
     left: 8.36,
   },

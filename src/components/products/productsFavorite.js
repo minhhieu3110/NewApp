@@ -168,6 +168,7 @@ const style = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     backgroundColor: '#F3F7FC',
+    // backgroundColor: '#212121'
   },
   titleContainer: {
     width: 428,
@@ -203,6 +204,7 @@ const style = StyleSheet.create({
     justifyContent: 'center',
     width: 404,
     top: 66,
+    paddingBottom: 150
   },
   itemFavoriteContainer: {
     width: 404,

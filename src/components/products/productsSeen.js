@@ -45,6 +45,7 @@ export default function ProductsSeen({navigation}) {
               </View>
             </View>
           </View>
+          
           <View style={style.itemSeenContainer}>
             <View style={style.imgItemSeen}>
               <Image source={image.image_product_demo_2} />
@@ -128,6 +129,7 @@ const style = StyleSheet.create({
     justifyContent: 'center',
     width: 404,
     top: 66,
+    paddingBottom: 150
   },
   itemSeenContainer: {
     width: 404,
