@@ -12,7 +12,10 @@ import {
   View,
 } from 'react-native';
 import {icon, image} from '../../assets/index';
-export default function ProductDetail({navigation}) {
+export default function ProductDetail({navigation, route}) {
+  const getData = route.params;
+  const checkDataFromNavigate = getData.data
+  console.log(checkDataFromNavigate);
   const contentApplication = [
     {id: 1, content: 'Xe điện hybrid (HEV) được trang bị động cơ xăng'},
     {
@@ -55,14 +58,24 @@ export default function ProductDetail({navigation}) {
       time: '15:15 , 23/10/2024',
     },
   ];
-  const [saveProduct, setSaveProduct] = useState('Lưu sản phẩm');
-  const [iconSaveProduct, setIconSaveProduct] = useState(
-    `${icon.icon_save_product_gray}`,
-  );
-  const [favoriteProduct, setFavoriteProduct] = useState('Yêu thích');
-  const [iconFavoriteProduct, setIconFavoriteProduct] = useState(
-    `${icon.icon_like}`,
-  );
+  // 
+  const setTitleNavigateSave = () => {
+    return checkDataFromNavigate === 'ProductsSave' ? 'Bỏ lưu sản phẩm' : 'Lưu sản phẩm';
+  }
+  const setTitleNavigateFavorite = () =>{
+    return checkDataFromNavigate === 'ProductsFavorite' ? 'Bỏ thích' : 'Yêu thích';
+  }
+  const setIconNavigateSave = () => {
+    return checkDataFromNavigate === 'ProductsSave' ? `${icon.icon_unsave_product}` : `${icon.icon_save_product_gray}`
+  }
+  const setIconNavigateFavorite = () => {
+    return checkDataFromNavigate === 'ProductsFavorite' ? `${icon.icon_unlike}` : `${icon.icon_like}`
+  }
+  // 
+  const [saveProduct, setSaveProduct] = useState(setTitleNavigateSave);
+  const [iconSaveProduct, setIconSaveProduct] = useState(setIconNavigateSave);
+  const [favoriteProduct, setFavoriteProduct] = useState(setTitleNavigateFavorite);
+  const [iconFavoriteProduct, setIconFavoriteProduct] = useState(setIconNavigateFavorite);
   const [displayMenuThreePoint, setDisplayMenuThreePoint] = useState(false);
   const handlerSaveProduct = () => {
     setSaveProduct(prevSaveProduct =>
@@ -76,12 +89,12 @@ export default function ProductDetail({navigation}) {
   };
   const handlerFavoriteProduct = () => {
     setFavoriteProduct(prevFavoriteProduct =>
-      prevFavoriteProduct === 'Yêu thích' ? 'Bỏ yêu thích' : 'Yêu thích',
+      prevFavoriteProduct === 'Bỏ thích' ? 'Yêu thích' : 'Bỏ thích',
     );
     setIconFavoriteProduct(prevIconFavoriteProduct =>
-      prevIconFavoriteProduct === `${icon.icon_like}`
-        ? `${icon.icon_unlike}`
-        : `${icon.icon_like}`,
+      prevIconFavoriteProduct === `${icon.icon_unlike}`
+        ? `${icon.icon_like}`
+        : `${icon.icon_unlike}`,
     );
   };
   const handlerMenuThreePoint = () => {
@@ -465,13 +478,64 @@ export default function ProductDetail({navigation}) {
                 </View>
               </View>
               <View style={style.bottomItemSimilar}>
-                <Text style={{height: 43, width: 180, fontSize: 16, lineHeight: 22, fontWeight: 'semibold', color: '#212121'}}>Kixx HYBRID - Dầu động cơ cao cấp</Text>
-                <Text style={{ height: 21, top: 18, fontSize: 16, fontWeight: 'bold', color: '#0060af'}}>1.243.000đ</Text>
-                <Text style={{height: 16, fontSize: 12, fontWeight: 'regular', top: 22, color: '#212121', textDecorationLine: 'line-through'}}>1.300.000đ</Text>
-                <View style={{width: 70.38, height: 16, top: 33, flexDirection: 'row', alignItems: 'center', gap: 6.5}}>
-                    <Text style={{color: '#FD6C31', fontSize: 12, fontWeight: 'bold'}}>4.1</Text>
-                    <Image source={icon.icon_rate_star}/>
-                    <Text style={{fontSize: 12, fontWeight: 'regular', color: '#AAAAAA'}}>(234)</Text>
+                <Text
+                  style={{
+                    height: 43,
+                    width: 180,
+                    fontSize: 16,
+                    lineHeight: 22,
+                    fontWeight: 'semibold',
+                    color: '#212121',
+                  }}>
+                  Kixx HYBRID - Dầu động cơ cao cấp
+                </Text>
+                <Text
+                  style={{
+                    height: 21,
+                    top: 18,
+                    fontSize: 16,
+                    fontWeight: 'bold',
+                    color: '#0060af',
+                  }}>
+                  1.243.000đ
+                </Text>
+                <Text
+                  style={{
+                    height: 16,
+                    fontSize: 12,
+                    fontWeight: 'regular',
+                    top: 22,
+                    color: '#212121',
+                    textDecorationLine: 'line-through',
+                  }}>
+                  1.300.000đ
+                </Text>
+                <View
+                  style={{
+                    width: 70.38,
+                    height: 16,
+                    top: 33,
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    gap: 6.5,
+                  }}>
+                  <Text
+                    style={{
+                      color: '#FD6C31',
+                      fontSize: 12,
+                      fontWeight: 'bold',
+                    }}>
+                    4.1
+                  </Text>
+                  <Image source={icon.icon_rate_star} />
+                  <Text
+                    style={{
+                      fontSize: 12,
+                      fontWeight: 'regular',
+                      color: '#AAAAAA',
+                    }}>
+                    (234)
+                  </Text>
                 </View>
               </View>
             </View>
@@ -515,13 +579,62 @@ export default function ProductDetail({navigation}) {
                 </View> */}
               </View>
               <View style={style.bottomItemSimilar}>
-                <Text style={{height: 43, width: 180, fontSize: 16, lineHeight: 22, fontWeight: 'semibold', color: '#212121'}}>Kixx HYBRID - Dầu động cơ cao cấp</Text>
-                <Text style={{ height: 21, top: 18, fontSize: 16, fontWeight: 'bold', color: '#0060af'}}>143.000đ</Text>
-                <Text style={{height: 16, fontSize: 12, fontWeight: 'regular', top: 22, color: '#212121', textDecorationLine: 'line-through'}}></Text>
-                <View style={{width: 70.38, height: 16, top: 33, flexDirection: 'row', alignItems: 'center', gap: 6.5}}>
-                    <Text style={{color: '#FD6C31', fontSize: 12, fontWeight: 'bold'}}>4.1</Text>
-                    <Image source={icon.icon_rate_star}/>
-                    <Text style={{fontSize: 12, fontWeight: 'regular', color: '#AAAAAA'}}>(234)</Text>
+                <Text
+                  style={{
+                    height: 43,
+                    width: 180,
+                    fontSize: 16,
+                    lineHeight: 22,
+                    fontWeight: 'semibold',
+                    color: '#212121',
+                  }}>
+                  Kixx HYBRID - Dầu động cơ cao cấp
+                </Text>
+                <Text
+                  style={{
+                    height: 21,
+                    top: 18,
+                    fontSize: 16,
+                    fontWeight: 'bold',
+                    color: '#0060af',
+                  }}>
+                  143.000đ
+                </Text>
+                <Text
+                  style={{
+                    height: 16,
+                    fontSize: 12,
+                    fontWeight: 'regular',
+                    top: 22,
+                    color: '#212121',
+                    textDecorationLine: 'line-through',
+                  }}></Text>
+                <View
+                  style={{
+                    width: 70.38,
+                    height: 16,
+                    top: 33,
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    gap: 6.5,
+                  }}>
+                  <Text
+                    style={{
+                      color: '#FD6C31',
+                      fontSize: 12,
+                      fontWeight: 'bold',
+                    }}>
+                    4.1
+                  </Text>
+                  <Image source={icon.icon_rate_star} />
+                  <Text
+                    style={{
+                      fontSize: 12,
+                      fontWeight: 'regular',
+                      color: '#AAAAAA',
+                    }}>
+                    (234)
+                  </Text>
                 </View>
               </View>
             </View>
@@ -565,13 +678,62 @@ export default function ProductDetail({navigation}) {
                 </View> */}
               </View>
               <View style={style.bottomItemSimilar}>
-                <Text style={{height: 43, width: 180, fontSize: 16, lineHeight: 22, fontWeight: 'semibold', color: '#212121'}}>Kixx HYBRID - Dầu động cơ cao cấp</Text>
-                <Text style={{ height: 21, top: 18, fontSize: 16, fontWeight: 'bold', color: '#0060af'}}>143.000đ</Text>
-                <Text style={{height: 16, fontSize: 12, fontWeight: 'regular', top: 22, color: '#212121', textDecorationLine: 'line-through'}}></Text>
-                <View style={{width: 70.38, height: 16, top: 33, flexDirection: 'row', alignItems: 'center', gap: 6.5}}>
-                    <Text style={{color: '#FD6C31', fontSize: 12, fontWeight: 'bold'}}>4.1</Text>
-                    <Image source={icon.icon_rate_star}/>
-                    <Text style={{fontSize: 12, fontWeight: 'regular', color: '#AAAAAA'}}>(234)</Text>
+                <Text
+                  style={{
+                    height: 43,
+                    width: 180,
+                    fontSize: 16,
+                    lineHeight: 22,
+                    fontWeight: 'semibold',
+                    color: '#212121',
+                  }}>
+                  Kixx HYBRID - Dầu động cơ cao cấp
+                </Text>
+                <Text
+                  style={{
+                    height: 21,
+                    top: 18,
+                    fontSize: 16,
+                    fontWeight: 'bold',
+                    color: '#0060af',
+                  }}>
+                  143.000đ
+                </Text>
+                <Text
+                  style={{
+                    height: 16,
+                    fontSize: 12,
+                    fontWeight: 'regular',
+                    top: 22,
+                    color: '#212121',
+                    textDecorationLine: 'line-through',
+                  }}></Text>
+                <View
+                  style={{
+                    width: 70.38,
+                    height: 16,
+                    top: 33,
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    gap: 6.5,
+                  }}>
+                  <Text
+                    style={{
+                      color: '#FD6C31',
+                      fontSize: 12,
+                      fontWeight: 'bold',
+                    }}>
+                    4.1
+                  </Text>
+                  <Image source={icon.icon_rate_star} />
+                  <Text
+                    style={{
+                      fontSize: 12,
+                      fontWeight: 'regular',
+                      color: '#AAAAAA',
+                    }}>
+                    (234)
+                  </Text>
                 </View>
               </View>
             </View>
@@ -615,13 +777,64 @@ export default function ProductDetail({navigation}) {
                 </View>
               </View>
               <View style={style.bottomItemSimilar}>
-                <Text style={{height: 43, width: 180, fontSize: 16, lineHeight: 22, fontWeight: 'semibold', color: '#212121'}}>Kixx HYBRID - Dầu động cơ cao cấp</Text>
-                <Text style={{ height: 21, top: 18, fontSize: 16, fontWeight: 'bold', color: '#0060af'}}>1.243.000đ</Text>
-                <Text style={{height: 16, fontSize: 12, fontWeight: 'regular', top: 22, color: '#212121', textDecorationLine: 'line-through'}}>1.300.000đ</Text>
-                <View style={{width: 70.38, height: 16, top: 33, flexDirection: 'row', alignItems: 'center', gap: 6.5}}>
-                    <Text style={{color: '#FD6C31', fontSize: 12, fontWeight: 'bold'}}>4.1</Text>
-                    <Image source={icon.icon_rate_star}/>
-                    <Text style={{fontSize: 12, fontWeight: 'regular', color: '#AAAAAA'}}>(234)</Text>
+                <Text
+                  style={{
+                    height: 43,
+                    width: 180,
+                    fontSize: 16,
+                    lineHeight: 22,
+                    fontWeight: 'semibold',
+                    color: '#212121',
+                  }}>
+                  Kixx HYBRID - Dầu động cơ cao cấp
+                </Text>
+                <Text
+                  style={{
+                    height: 21,
+                    top: 18,
+                    fontSize: 16,
+                    fontWeight: 'bold',
+                    color: '#0060af',
+                  }}>
+                  1.243.000đ
+                </Text>
+                <Text
+                  style={{
+                    height: 16,
+                    fontSize: 12,
+                    fontWeight: 'regular',
+                    top: 22,
+                    color: '#212121',
+                    textDecorationLine: 'line-through',
+                  }}>
+                  1.300.000đ
+                </Text>
+                <View
+                  style={{
+                    width: 70.38,
+                    height: 16,
+                    top: 33,
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    gap: 6.5,
+                  }}>
+                  <Text
+                    style={{
+                      color: '#FD6C31',
+                      fontSize: 12,
+                      fontWeight: 'bold',
+                    }}>
+                    4.1
+                  </Text>
+                  <Image source={icon.icon_rate_star} />
+                  <Text
+                    style={{
+                      fontSize: 12,
+                      fontWeight: 'regular',
+                      color: '#AAAAAA',
+                    }}>
+                    (234)
+                  </Text>
                 </View>
               </View>
             </View>
@@ -665,13 +878,62 @@ export default function ProductDetail({navigation}) {
                 </View> */}
               </View>
               <View style={style.bottomItemSimilar}>
-                <Text style={{height: 43, width: 180, fontSize: 16, lineHeight: 22, fontWeight: 'semibold', color: '#212121'}}>Kixx HYBRID - Dầu động cơ cao cấp</Text>
-                <Text style={{ height: 21, top: 18, fontSize: 16, fontWeight: 'bold', color: '#0060af'}}>143.000đ</Text>
-                <Text style={{height: 16, fontSize: 12, fontWeight: 'regular', top: 22, color: '#212121', textDecorationLine: 'line-through'}}></Text>
-                <View style={{width: 70.38, height: 16, top: 33, flexDirection: 'row', alignItems: 'center', gap: 6.5}}>
-                    <Text style={{color: '#FD6C31', fontSize: 12, fontWeight: 'bold'}}>4.1</Text>
-                    <Image source={icon.icon_rate_star}/>
-                    <Text style={{fontSize: 12, fontWeight: 'regular', color: '#AAAAAA'}}>(234)</Text>
+                <Text
+                  style={{
+                    height: 43,
+                    width: 180,
+                    fontSize: 16,
+                    lineHeight: 22,
+                    fontWeight: 'semibold',
+                    color: '#212121',
+                  }}>
+                  Kixx HYBRID - Dầu động cơ cao cấp
+                </Text>
+                <Text
+                  style={{
+                    height: 21,
+                    top: 18,
+                    fontSize: 16,
+                    fontWeight: 'bold',
+                    color: '#0060af',
+                  }}>
+                  143.000đ
+                </Text>
+                <Text
+                  style={{
+                    height: 16,
+                    fontSize: 12,
+                    fontWeight: 'regular',
+                    top: 22,
+                    color: '#212121',
+                    textDecorationLine: 'line-through',
+                  }}></Text>
+                <View
+                  style={{
+                    width: 70.38,
+                    height: 16,
+                    top: 33,
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    gap: 6.5,
+                  }}>
+                  <Text
+                    style={{
+                      color: '#FD6C31',
+                      fontSize: 12,
+                      fontWeight: 'bold',
+                    }}>
+                    4.1
+                  </Text>
+                  <Image source={icon.icon_rate_star} />
+                  <Text
+                    style={{
+                      fontSize: 12,
+                      fontWeight: 'regular',
+                      color: '#AAAAAA',
+                    }}>
+                    (234)
+                  </Text>
                 </View>
               </View>
             </View>
@@ -715,13 +977,62 @@ export default function ProductDetail({navigation}) {
                 </View> */}
               </View>
               <View style={style.bottomItemSimilar}>
-                <Text style={{height: 43, width: 180, fontSize: 16, lineHeight: 22, fontWeight: 'semibold', color: '#212121'}}>Kixx HYBRID - Dầu động cơ cao cấp</Text>
-                <Text style={{ height: 21, top: 18, fontSize: 16, fontWeight: 'bold', color: '#0060af'}}>143.000đ</Text>
-                <Text style={{height: 16, fontSize: 12, fontWeight: 'regular', top: 22, color: '#212121', textDecorationLine: 'line-through'}}></Text>
-                <View style={{width: 70.38, height: 16, top: 33, flexDirection: 'row', alignItems: 'center', gap: 6.5}}>
-                    <Text style={{color: '#FD6C31', fontSize: 12, fontWeight: 'bold'}}>4.1</Text>
-                    <Image source={icon.icon_rate_star}/>
-                    <Text style={{fontSize: 12, fontWeight: 'regular', color: '#AAAAAA'}}>(234)</Text>
+                <Text
+                  style={{
+                    height: 43,
+                    width: 180,
+                    fontSize: 16,
+                    lineHeight: 22,
+                    fontWeight: 'semibold',
+                    color: '#212121',
+                  }}>
+                  Kixx HYBRID - Dầu động cơ cao cấp
+                </Text>
+                <Text
+                  style={{
+                    height: 21,
+                    top: 18,
+                    fontSize: 16,
+                    fontWeight: 'bold',
+                    color: '#0060af',
+                  }}>
+                  143.000đ
+                </Text>
+                <Text
+                  style={{
+                    height: 16,
+                    fontSize: 12,
+                    fontWeight: 'regular',
+                    top: 22,
+                    color: '#212121',
+                    textDecorationLine: 'line-through',
+                  }}></Text>
+                <View
+                  style={{
+                    width: 70.38,
+                    height: 16,
+                    top: 33,
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    gap: 6.5,
+                  }}>
+                  <Text
+                    style={{
+                      color: '#FD6C31',
+                      fontSize: 12,
+                      fontWeight: 'bold',
+                    }}>
+                    4.1
+                  </Text>
+                  <Image source={icon.icon_rate_star} />
+                  <Text
+                    style={{
+                      fontSize: 12,
+                      fontWeight: 'regular',
+                      color: '#AAAAAA',
+                    }}>
+                    (234)
+                  </Text>
                 </View>
               </View>
             </View>
@@ -766,7 +1077,7 @@ export default function ProductDetail({navigation}) {
               borderRadius: 10,
               alignItems: 'center',
               justifyContent: 'center',
-              right: 12
+              right: 12,
             }}>
             <Text
               style={{

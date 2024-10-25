@@ -9,6 +9,11 @@ import {
 } from 'react-native';
 import {icon, image} from '../../assets/index';
 export default function Account({navigation}) {
+  // const data = {routeName: [
+  //   {id: 1, route: 'SaveProducts'}
+  // ]}
+  // console.log(data);
+  
   return (
     <View style={style.container}>
       <Pressable
@@ -102,7 +107,7 @@ export default function Account({navigation}) {
             <View style={[style.seperator2, {top: 93}]} />
             {/* // */}
             <Pressable
-              onPress={() => navigation.navigate('ProductsFavorite')}
+              onPress={() => navigation.navigate('ProductsFavorite', {routeName: 'ProductsFavorite'})}
               style={[style.menuAccountTitle, {top: 108}]}>
               <View>
                 <Image style={style.iconMenuAccount} source={icon.icon_heart} />
@@ -119,7 +124,7 @@ export default function Account({navigation}) {
             </Pressable>
             <View style={[style.seperator2, {top: 147}]} />
             {/* // */}
-            <View style={[style.menuAccountTitle, {top: 162}]}>
+            <Pressable onPress={() => navigation.navigate('ProductsSave', {routeName: 'ProductsSave'})} style={[style.menuAccountTitle, {top: 162}]}>
               <View>
                 <Image
                   style={style.iconMenuAccount}
@@ -135,10 +140,10 @@ export default function Account({navigation}) {
                   source={icon.icon_arrow_sub_menu}
                 />
               </View>
-            </View>
+            </Pressable>
             <View style={[style.seperator2, {top: 201}]} />
             {/* // */}
-            <View style={[style.menuAccountTitle, {top: 216}]}>
+            <Pressable onPress={() => navigation.navigate('AddressSaved')} style={[style.menuAccountTitle, {top: 216}]}>
               <View>
                 <Image
                   style={style.iconMenuAccount}
@@ -154,7 +159,7 @@ export default function Account({navigation}) {
                   source={icon.icon_arrow_sub_menu}
                 />
               </View>
-            </View>
+            </Pressable>
             <View style={[style.seperator2, {top: 255}]} />
             {/* // */}
             <View style={[style.menuAccountTitle, {top: 270}]}>

@@ -43,6 +43,8 @@ export const icon ={
     icon_arrow_down: require('./icon/ic_arrow_down.png'),
     icon_see_all: require('./icon/ic_see_all.png'),
     icon_avatar_comment: require('./icon/ic_avatar_comment.png'),
+    icon_edit_address: require('./icon/ic_edit_address.png'),
+    icon_default_address: require('./icon/ic_default_address.png'),
 }
 
 export const image = {

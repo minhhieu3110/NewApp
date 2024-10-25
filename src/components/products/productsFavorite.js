@@ -9,7 +9,9 @@ import {
 } from 'react-native';
 import {icon, image} from '../../assets/index';
 
-export default function ProductsFavorite({navigation}) {
+export default function ProductsFavorite({navigation, route}) {
+  const getData = route.params;
+
   return (
     <View style={style.container}>
       <View style={style.titleContainer}>
@@ -28,7 +30,7 @@ export default function ProductsFavorite({navigation}) {
           contentContainerStyle={{alignItems: 'center'}}>
           <Pressable
             style={style.itemFavoriteContainer}
-            onPress={() => navigation.navigate('ProductDetail_1')}>
+            onPress={() => navigation.navigate('ProductDetail' , {data: getData.routeName})}>
             <View style={style.imgItemFavorite}>
               <View style={style.percentDiscounts}>
                 <Text style={style.textPercentDiscount}>-15%</Text>
