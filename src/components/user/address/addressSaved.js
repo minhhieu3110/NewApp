@@ -9,9 +9,10 @@ import {
   FlatList,
 } from 'react-native';
 import {icon, image} from '../../../assets/index';
+import {useState, useEffect} from 'react';
 
-export default function AddressSaved({navigation}) {
-  const address = [
+export default function AddressSaved({navigation, route}) {
+  const [address, setAddress] = useState([
     {
       id: 1,
       name: 'Nguyễn Ngọc Trung',
@@ -43,7 +44,12 @@ export default function AddressSaved({navigation}) {
       address: '23 Đường Quốc lộ 20, Túc Trưng, Định Quán, Đồng Nai',
       default: false,
     },
-  ];
+  ]);
+  useEffect(() => {
+    if (route.params?.dataInfo) {
+      setAddress([...address, route.params.dataInfo]);
+    }
+  }, [route.params?.dataInfo]);
   return (
     <View style={style.container}>
       <View style={style.titleContainer}>
@@ -98,9 +104,22 @@ export default function AddressSaved({navigation}) {
           />
         </ScrollView>
         <View style={style.containerBtnAddAddress}>
-            <Pressable  onPress={() => navigation.navigate('Add_Address')} style={{width: 395, height: 45, left: 0, backgroundColor: '#0060af' , alignItems: 'center', justifyContent: 'center', borderRadius: 10}}>
-                <Text style={{fontSize: 15, fontWeight: 'medium', color: '#ffffff'}}>Thêm địa chỉ</Text>
-            </Pressable>
+          <Pressable
+            onPress={() => navigation.navigate('Add_Address')}
+            style={{
+              width: 395,
+              height: 45,
+              left: 0,
+              backgroundColor: '#0060af',
+              alignItems: 'center',
+              justifyContent: 'center',
+              borderRadius: 10,
+            }}>
+            <Text
+              style={{fontSize: 15, fontWeight: 'medium', color: '#ffffff'}}>
+              Thêm địa chỉ
+            </Text>
+          </Pressable>
         </View>
       </View>
     </View>
@@ -178,6 +197,6 @@ const style = StyleSheet.create({
     top: 730,
     position: 'absolute',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
 });
