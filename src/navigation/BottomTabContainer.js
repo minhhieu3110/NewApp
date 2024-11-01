@@ -6,8 +6,8 @@
 // import Login from '../components/user/login';
 // const Tab = createBottomTabNavigator();
 // export default function BottomTabNavigator() {
-//     const iconHome = require('../assets/image/IconHome.png')
-//     const iconUser = require('../assets/image/IconUser.png')
+//     // const iconHome = require('../assets/image/IconHome.png')
+//     // const iconUser = require('../assets/image/IconUser.png')
 //   return (
 //     <NavigationContainer independent={true}>
 //         <Tab.Navigator initialRouteName='AccountNoSignIn'

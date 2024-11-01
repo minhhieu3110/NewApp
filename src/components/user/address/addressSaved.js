@@ -50,6 +50,11 @@ export default function AddressSaved({navigation, route}) {
       setAddress([...address, route.params.dataInfo]);
     }
   }, [route.params?.dataInfo]);
+  const handlerEditAddress = id => {
+   const addressEdit=  address.find((add) => add.id === id)
+    // console.log(addressEdit);
+    navigation.navigate('Edit_Address', {dataEdit: addressEdit});
+  };
   return (
     <View style={style.container}>
       <View style={style.titleContainer}>
@@ -67,6 +72,7 @@ export default function AddressSaved({navigation, route}) {
           <FlatList
             scrollEnabled={false}
             data={address}
+            keyExtractor={item => item.id}
             renderItem={({item}) => {
               return (
                 <View style={style.itemAddressSaved}>
@@ -78,9 +84,11 @@ export default function AddressSaved({navigation, route}) {
                         {item.numberPhone}
                       </Text>
                     </View>
-                    <View style={{top: 1, left: 75}}>
+                    <Pressable
+                      onPress={() => handlerEditAddress(item.id)}
+                      style={{top: 1, left: 75}}>
                       <Image source={icon.icon_edit_address} />
-                    </View>
+                    </Pressable>
                   </View>
                   <View style={style.address}>
                     <Text

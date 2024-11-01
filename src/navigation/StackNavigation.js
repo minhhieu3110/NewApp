@@ -16,13 +16,25 @@ import ProductDetail from '../components/products/productDetail';
 import ProductsSave from '../components/products/productsSave';
 import AddressSaved from '../components/user/address/addressSaved';
 import Add_Address from '../components/user/address/add_Address';
+import Edit_Address from '../components/user/address/edit_Address';
+import CenterHelp from '../components/user/centerhelp/centerHelp';
+import HelpWithEmail from '../components/user/centerhelp/helpWithEmail';
+import Contract from '../components/contract/contracts';
+import Debt from '../components/debt/debt';
+import Setting from '../components/user/setting/setting';
+import ChangePassword from '../components/user/setting/changePassword';
+import ForgotPassword from '../components/user/setting/forgotPassword';
+import AboutCompany from '../components/company/aboutCompany';
+import Recruitment from '../components/company/recruitment';
+import Video from '../components/company/video';
+import DetailRecuitment from '../components/company/detailRecruitment';
 export default function StackNavigation() {
   const Stack = createNativeStackNavigator();
   return (
     <NavigationContainer>
       <Provider store={store}>
         <Stack.Navigator
-          initialRouteName="Account"
+          initialRouteName="Video"
           screenOptions={{headerShown: false}}>
           <Stack.Screen name="AccountNoSignIn" component={AccountNoSignIn} />
           <Stack.Screen name="Login" component={Login} />
@@ -35,6 +47,18 @@ export default function StackNavigation() {
           <Stack.Screen name="ProductsSave" component={ProductsSave}/>
           <Stack.Screen name="AddressSaved" component={AddressSaved}/>
           <Stack.Screen name='Add_Address' component={Add_Address}/>
+          <Stack.Screen name='Edit_Address' component={Edit_Address}/>
+          <Stack.Screen name='CenterHelp' component={CenterHelp}/>
+          <Stack.Screen name='HelpWithEmail' component={HelpWithEmail}/>
+          <Stack.Screen name='Contract' component={Contract}/>
+          <Stack.Screen name='Debt' component={Debt}/>
+          <Stack.Screen name='Setting' component={Setting}/>
+          <Stack.Screen name='ChangePassword' component={ChangePassword}/>
+          <Stack.Screen name='ForgotPassword' component={ForgotPassword}/>
+          <Stack.Screen name='AboutCompany' component={AboutCompany}/>
+          <Stack.Screen name='Recruitment' component={Recruitment}/>
+          <Stack.Screen name='Video' component={Video}/>
+          <Stack.Screen name='DetailRecruitment' component={DetailRecuitment}/>
         </Stack.Navigator>
       </Provider>
       <Toast />

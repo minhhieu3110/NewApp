@@ -18,30 +18,31 @@ export default function Register({navigation}) {
   });
     const handlerRegister = async () => {
       try {
-        const res = await fetch(
-          'http://rpm.demo.app24h.net:81/api/v1/user/signup',
-          {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(dataRegister),
-          },
-        );
-        const result = await res.json;
-        console.log(dataRegister);
-        if (res.ok) {
-          Toast.show({
-            type: 'success',
-            text1: 'Đăng ký thành công'
-          })
-          navigation.navigate('Login');
-        } else {
-          Toast.show({
-            type: 'error',
-            text1: 'Đăng ký thất bại'
-          })
-        }
+        // const res = await fetch(
+        //   'http://rpm.demo.app24h.net:81/api/v1/user/signup',
+        //   {
+        //     method: 'POST',
+        //     headers: {
+        //       'Content-Type': 'application/json',
+        //     },
+        //     body: JSON.stringify(dataRegister),
+        //   },
+        // );
+        // const result = await res.json;
+        // console.log(dataRegister);
+        // if (res.ok) {
+        //   Toast.show({
+        //     type: 'success',
+        //     text1: 'Đăng ký thành công'
+        //   })
+        //   navigation.navigate('Login');
+        // } else {
+        //   Toast.show({
+        //     type: 'error',
+        //     text1: 'Đăng ký thất bại'
+        //   })
+        // }
+        navigation.navigate('Login')
       } catch (err) {
         Alert.alert('Không Thành Công');
         console.log(err);

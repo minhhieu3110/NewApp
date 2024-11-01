@@ -45,6 +45,25 @@ export const icon ={
     icon_avatar_comment: require('./icon/ic_avatar_comment.png'),
     icon_edit_address: require('./icon/ic_edit_address.png'),
     icon_default_address: require('./icon/ic_default_address.png'),
+    icon_set_default_off: require('./icon/ic_set_default_off.png'),
+    icon_set_default_on: require('./icon/ic_set_default_on.png'),
+    icon_help_with_phone: require('./icon/ic_help_with_phone.png'),
+    icon_help_with_email: require('./icon/ic_help_with_email.png'),
+    icon_notification_setting: require('./icon/ic_notification_setting.png'),
+    icon_change_password: require('./icon/ic_change_password.png'),
+    icon_language: require('./icon/ic_language.png'),
+    icon_language_vietnamese: require('./icon/ic_language_vietnamese.png'),
+    icon_language_united_states: require('./icon/ic_language_united_states.png'),
+    icon_arrow_sub_down: require('./icon/ic_arrow_sub_down.png'),
+    icon_salary: require('./icon/ic_salary.png'),
+    icon_time_work: require('./icon/ic_time_work.png'),
+    icon_experience: require('./icon/ic_experience.png'),
+    icon_sex: require('./icon/ic_sex.png'),
+    icon_rank: require('./icon/ic_rank.png'),
+    icon_quantity: require('./icon/ic_quantity.png'),
+    icon_subtraction_left: require('./icon/ic_subtraction_left.png'),
+    icon_subtraction_right: require('./icon/ic_subtraction_right.png'),
+    icon_play_video: require('./icon/ic_play_video.png'),
 }
 
 export const image = {
@@ -60,4 +79,19 @@ export const image = {
 
     image_comment_demo_1: require('./image/img_comment_demo_first.png'),
     image_comment_demo_2: require('./image/img_comment_demo_second.png'),
+
+    //Image About Company demo
+
+    image_about_company_demo_1: require('./image/img_about_company_demo_1.png'),
+    image_about_company_demo_2: require('./image/img_about_company_demo_2.png'),
+    image_about_company_demo_3: require('./image/img_about_company_demo_3.png'),
+    image_about_company_demo_4: require('./image/img_about_company_demo_4.png'),
+    image_about_company_demo_5: require('./image/img_about_company_demo_5.png'),
+
+    image_background: require('./image/img_background.png'),
+    image_certificate: require('./image/img_certificate.png'),
+}
+export const video = {
+    video_1: require('./image/video_1.png'),
+    video_2: require('./image/video_2.png'),
 }
