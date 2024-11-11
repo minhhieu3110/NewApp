@@ -7,10 +7,11 @@ import {
   Image,
   ScrollView,
   FlatList,
+  Button,
 } from 'react-native';
 import {icon, image} from '../../../assets/index';
-import {useState, useEffect} from 'react';
-
+import {useState, useEffect, useMemo} from 'react';
+import {RadioGroup} from 'react-native-radio-buttons-group';
 export default function AddressSaved({navigation, route}) {
   const [address, setAddress] = useState([
     {
@@ -51,16 +52,25 @@ export default function AddressSaved({navigation, route}) {
     }
   }, [route.params?.dataInfo]);
   const handlerEditAddress = id => {
-   const addressEdit=  address.find((add) => add.id === id)
+    const addressEdit = address.find(add => add.id === id);
     // console.log(addressEdit);
     navigation.navigate('Edit_Address', {dataEdit: addressEdit});
   };
+
+  function handlerBack() {
+    if (route.params?.flag) {
+      navigation.navigate('Pay');
+      console.log(route.params.flag);
+    } else {
+      navigation.navigate('Account');
+    }
+  }
+  const radioButtonsData = useMemo(() => [...address]);
+  const [selectedId, setSelectedId] = useState();
   return (
     <View style={style.container}>
       <View style={style.titleContainer}>
-        <Pressable
-          style={style.titleAddressSaved}
-          onPress={() => navigation.navigate('Account')}>
+        <Pressable style={style.titleAddressSaved} onPress={handlerBack}>
           <Image source={icon.icon_arrow_left} />
           <Text style={style.textTitleAddressSaved}>Địa chỉ đã lưu</Text>
         </Pressable>
@@ -78,6 +88,9 @@ export default function AddressSaved({navigation, route}) {
                 <View style={style.itemAddressSaved}>
                   <View style={{flexDirection: 'row'}}>
                     <View style={style.nameNumberPhone}>
+                      {/* {route.params?.flag && (
+                        <Button />
+                      )} */}
                       <Text style={style.textNameNumberPhone}>{item.name}</Text>
                       <Text style={style.textNameNumberPhone}>|</Text>
                       <Text style={style.textNameNumberPhone}>

@@ -246,7 +246,7 @@ export default function Account({navigation}) {
               </View>
             </View>
             <View style={[style.seperator, {top: 531}]} />
-            <Pressable style={{width: 72, height: 21, top: 550, left: 173}} onPress={() =>navigation.navigate('AccountNoSignIn')}>
+            <Pressable style={{width: 72, height: 21, top: 550, left: 173}} onPress={() =>navigation.navigate('Home')}>
               <Text style={{color: '#FD6C31', fontSize: 16, fontWeight: 'medium', fontFamily: 'Be Vietnam Pro'}}>Đăng xuất</Text>
             </Pressable>
           </View>

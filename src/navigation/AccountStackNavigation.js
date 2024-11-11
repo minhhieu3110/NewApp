@@ -2,7 +2,6 @@ import * as React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Toast from 'react-native-toast-message';
-import BottomTabNavigator from './BottomTabContainer';
 import {Provider} from 'react-redux';
 import store from '../redux/store/index'
 import Login from '../components/user/login';
@@ -24,17 +23,13 @@ import Debt from '../components/debt/debt';
 import Setting from '../components/user/setting/setting';
 import ChangePassword from '../components/user/setting/changePassword';
 import ForgotPassword from '../components/user/setting/forgotPassword';
-import AboutCompany from '../components/company/aboutCompany';
-import Recruitment from '../components/company/recruitment';
-import Video from '../components/company/video';
-import DetailRecuitment from '../components/company/detailRecruitment';
-export default function StackNavigation() {
+export default function AccountStackNavigation() {
   const Stack = createNativeStackNavigator();
   return (
-    <NavigationContainer>
+    // <NavigationContainer>
       <Provider store={store}>
         <Stack.Navigator
-          initialRouteName="Video"
+          initialRouteName="Account"
           screenOptions={{headerShown: false}}>
           <Stack.Screen name="AccountNoSignIn" component={AccountNoSignIn} />
           <Stack.Screen name="Login" component={Login} />
@@ -55,14 +50,9 @@ export default function StackNavigation() {
           <Stack.Screen name='Setting' component={Setting}/>
           <Stack.Screen name='ChangePassword' component={ChangePassword}/>
           <Stack.Screen name='ForgotPassword' component={ForgotPassword}/>
-          <Stack.Screen name='AboutCompany' component={AboutCompany}/>
-          <Stack.Screen name='Recruitment' component={Recruitment}/>
-          <Stack.Screen name='Video' component={Video}/>
-          <Stack.Screen name='DetailRecruitment' component={DetailRecuitment}/>
         </Stack.Navigator>
       </Provider>
-      <Toast />
-      {/* <BottomTabNavigator/> */}
-    </NavigationContainer>
+      // <Toast />
+    // </NavigationContainer>
   );
 }

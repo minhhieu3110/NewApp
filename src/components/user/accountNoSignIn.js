@@ -1,6 +1,5 @@
 import * as React from 'react';
 import {Pressable, StyleSheet, Text, View, Image} from 'react-native';
-import BottomTabNavigator from '../../navigation/BottomTabContainer';
 import { icon } from '../../assets/index';
 export default function AccountNoSignIn({navigation}) {
   return (

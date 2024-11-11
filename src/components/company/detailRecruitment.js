@@ -77,7 +77,7 @@ export default function DetailRecuitment({navigation}) {
         <View style={style.titleContainer}>
           <Pressable
             style={style.titleAddressSaved}
-            onPress={() => navigation.navigate('AccountNoSignIn')}>
+            onPress={() => navigation.navigate('Home')}>
             <Image source={icon.icon_arrow_left} />
             <Text style={style.textTitleAddressSaved}>Chi tiết tuyển dụng</Text>
           </Pressable>

@@ -37,7 +37,7 @@ export default function AboutCompany({navigation}) {
       <View style={style.titleContainer}>
         <Pressable
           style={style.titleAddressSaved}
-          onPress={() => navigation.navigate('AccountNoSignIn')}>
+          onPress={() => navigation.navigate('Home')}>
           <Image source={icon.icon_arrow_left} />
           <Text style={style.textTitleAddressSaved}>Giới thiệu về công ty</Text>
         </Pressable>
