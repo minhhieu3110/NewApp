@@ -89,6 +89,13 @@ export const icon = {
   icon_radio_button_no_select: require('./icon/ic_radio_button_no_select.png'),
   icon_order_summary: require('./icon/ic_order_summary.png'),
   icon_success: require('./icon/ic_success.png'),
+  icon_wait_confirm_order_detail: require('./icon/ic_wait_confirm_order_detail.png'),
+  icon_wait_get_order_detail: require('./icon/ic_wait_get_order_detail.png'),
+  icon_processing_order_detail: require('./icon/ic_processing_order_detail.png'),
+  icon_completed_order_detail: require('./icon/ic_completed_order_detail.png'),
+  icon_cancel_order_detail: require('./icon/ic_cancel_order_detail.png'),
+  icon_upload_image: require('./icon/ic_upload_image.png'),
+  icon_rpm: require('./icon/ic_rpm.png'),
 };
 
 export const image = {

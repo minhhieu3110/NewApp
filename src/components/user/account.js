@@ -26,9 +26,9 @@ export default function Account({navigation}) {
       </View>
       <Text style={style.usernameText}>Trung Nguyen</Text>
       <Text style={style.emailText}>trungnguyen123@gmail.com</Text>
-      <View style={style.accumulatedpoints}>
+      <Pressable onPress={() => navigation.navigate('CumulativePoints')} style={style.accumulatedpoints}>
         <Text style={style.accumulatedpointsText}>Điểm tích lũy : 1200</Text>
-      </View>
+      </Pressable>
       <View style={{flex: 1, top: 217}}>
         <ScrollView contentContainerStyle={style.containerMenuAccount}>
           <View style={style.ordersTitle}>

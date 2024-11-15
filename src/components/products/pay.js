@@ -9,6 +9,7 @@ import {
   TextInput,
   ScrollView,
   Modal,
+  TouchableOpacity,
 } from 'react-native';
 import {icon, image} from '../../assets/index';
 import {formatCurrency} from '../../utils/fomatCurrency';
@@ -251,6 +252,8 @@ export default function Pay({navigation, route}) {
   };
   const handlerDetailVoucher = id => {
     setSelectDetailVoucher(id);
+    console.log(selectDetailVoucher);
+    
     setDetailVoucher([
       {
         id: getDetailVoucher()[0].id,
@@ -274,6 +277,8 @@ export default function Pay({navigation, route}) {
         conditionApply: [],
       },
     ]);
+    console.log(detailVoucher);
+    
   };
   const handlerUseNow = () => {
     setModalVisible(false);
@@ -304,35 +309,9 @@ export default function Pay({navigation, route}) {
   };
   const totalMoney =
     provisionalMoney + feeShipping - (saveMoney + discountVoucher);
-  // useEffect(() => {
-  //   if(modalVisible === false){
-  //     setSelectDetailVoucher(null)
-  //   }
-  // })
+ 
   return (
-    <View
-      style={[
-        style.container,
-        {
-          // backgroundColor:
-          //   showFormChooseMethodPayment ||
-          //   showFormChooseMethodShipping ||
-          //   showFormChooseVoucher ||
-          //   showPopupOrderSuccess
-          //     ? '#000'
-          //     : '#fff',
-          // opacity:
-          //   showFormChooseMethodPayment ||
-          //   showFormChooseMethodShipping ||
-          //   showFormChooseVoucher ||
-          //   showPopupOrderSuccess
-          //     ? 0.6
-          //     : 1,
-          // position: 'absolute',
-          // zIndex: -100,
-          
-        },
-      ]}>
+    <View style={style.container}>
       <View style={style.titleContainer}>
         <Pressable
           style={style.title}
@@ -347,7 +326,8 @@ export default function Pay({navigation, route}) {
           scrollEnabled={
             showFormChooseMethodPayment ||
             showFormChooseMethodShipping ||
-            showFormChooseVoucher || showPopupOrderSuccess
+            showFormChooseVoucher ||
+            showPopupOrderSuccess
               ? false
               : true
           }
@@ -893,417 +873,457 @@ export default function Pay({navigation, route}) {
           </Pressable>
         </View>
         {showFormChooseMethodPayment && (
-          <View style={style.chooseMethodPayShippingVoucher}>
-            <View
-              style={{
-                width: 395,
-                height: 30,
-                left: 12,
-                top: 10,
-                flexDirection: 'row',
-                alignItems: 'center',
-              }}>
-              <Text
-                style={{
-                  width: 277,
-                  height: 22,
-                  fontSize: 18,
-                  fontWeight: 'bold',
-                  color: '#0060af',
-                  textTransform: 'uppercase',
-                }}>
-                Phương thức thanh toán
-              </Text>
-              <Pressable
-                onPress={handlerFormChooseMethodPayment}
-                style={{width: 30, height: 30, right: 0, position: 'absolute'}}>
-                <Image source={icon.icon_close} />
-              </Pressable>
-            </View>
-            <View style={[style.menuChoose, {height: 'auto'}]}>
-              <Pressable
-                onPress={() => handlerChoose('bankTransfer')}
-                style={style.itemMenuChoose}>
-                <View style={style.titleItemChoose}>
-                  <View style={style.radioButton}>
-                    <Image
-                      source={
-                        selectOption === 'bankTransfer'
-                          ? radioButton
-                          : radioButtonNoSelect
-                      }
-                    />
-                  </View>
-                  <Text style={style.textItemMenuChoose}>Chuyển khoản</Text>
-                </View>
-                {selectOption === 'bankTransfer' && (
-                  <View
-                    style={{
-                      height: 147,
-                      borderRadius: 10,
-                      backgroundColor: '#F3F7FC',
-                    }}>
-                    <View style={{height: 118, left: 30, top: 14, rowGap: 15}}>
-                      <Text style={style.textInfoBankTransfer}>
-                        STK:{' '}
-                        <Text
-                          style={[
-                            style.textInfoBankTransfer,
-                            {color: '#FD6C31'},
-                          ]}>
-                          123 456 789
-                        </Text>
-                      </Text>
-                      <Text style={style.textInfoBankTransfer}>
-                        Chủ tài khoản:{' '}
-                        <Text
-                          style={[
-                            style.textInfoBankTransfer,
-                            {fontWeight: 'regular'},
-                          ]}>
-                          Nguyen Van A
-                        </Text>
-                      </Text>
-                      <Text style={style.textInfoBankTransfer}>
-                        Ngân hàng:{' '}
-                        <Text
-                          style={[
-                            style.textInfoBankTransfer,
-                            {fontWeight: 'regular'},
-                          ]}>
-                          Vietcombank
-                        </Text>
-                      </Text>
-                      <Text style={style.textInfoBankTransfer}>
-                        Nội dung:{' '}
-                        <Text
-                          style={[
-                            style.textInfoBankTransfer,
-                            {fontWeight: 'regular'},
-                          ]}>
-                          Số điện thoại
-                        </Text>
-                      </Text>
-                    </View>
-                  </View>
-                )}
-              </Pressable>
-              <Pressable
-                onPress={() => handlerChoose('COD')}
-                style={style.itemMenuChoose}>
-                <View style={style.titleItemChoose}>
-                  <View style={style.radioButton}>
-                    <Image
-                      source={
-                        selectOption === 'COD'
-                          ? radioButton
-                          : radioButtonNoSelect
-                      }
-                    />
-                  </View>
-                  <Text style={style.textItemMenuChoose}>
-                    Thanh toán khi nhận hàng
-                  </Text>
-                </View>
-                {selectOption === 'COD' && (
-                  <View style={style.payOrther}>
-                    <Text style={style.textPayOrther}>
-                      Quý Khách Hàng vui lòng thanh toán tiền mặt khi nhận hàng
-                    </Text>
-                  </View>
-                )}
-              </Pressable>
-              <Pressable
-                onPress={() => handlerChoose('payCompany')}
-                style={style.itemMenuChoose}>
-                <View style={style.titleItemChoose}>
-                  <View style={style.radioButton}>
-                    <Image
-                      source={
-                        selectOption === 'payCompany'
-                          ? radioButton
-                          : radioButtonNoSelect
-                      }
-                    />
-                  </View>
-                  <Text style={style.textItemMenuChoose}>
-                    Thanh toán tại công ty
-                  </Text>
-                </View>
-                {selectOption === 'payCompany' && (
-                  <View style={style.payOrther}>
-                    <Text style={style.textPayOrther}>
-                      Quý Khách Hàng có thể mua hàng và thanh toán trực tiếp tại
-                      công ty
-                    </Text>
-                  </View>
-                )}
-              </Pressable>
-              <Pressable
-                onPress={() => handlerChoose('payOnline')}
-                style={style.itemMenuChoose}>
-                <View style={style.titleItemChoose}>
-                  <View style={style.radioButton}>
-                    <Image
-                      source={
-                        selectOption === 'payOnline'
-                          ? radioButton
-                          : radioButtonNoSelect
-                      }
-                    />
-                  </View>
-                  <Text style={style.textItemMenuChoose}>
-                    Thanh toán online
-                  </Text>
-                </View>
-                {selectOption === 'payOnline' && (
-                  <View style={style.payOrther}>
-                    <Text style={style.textPayOrther}>
-                      Quý Khách Hàng có thể mua hàng và thanh toán online
-                    </Text>
-                  </View>
-                )}
-              </Pressable>
-            </View>
-            <View style={style.confirmContainer}>
-              <Pressable onPress={handlerConfirm} style={style.btnConfirm}>
-                <Text style={style.textConfirm}>Xác nhận</Text>
-              </Pressable>
-            </View>
-          </View>
-        )}
-        {showFormChooseMethodShipping && (
-          <View style={style.chooseMethodPayShippingVoucher}>
-            <View
-              style={{
-                width: 395,
-                height: 30,
-                left: 12,
-                top: 10,
-                flexDirection: 'row',
-                alignItems: 'center',
-              }}>
-              <Text
-                style={{
-                  width: 277,
-                  height: 22,
-                  fontSize: 18,
-                  fontWeight: 'bold',
-                  color: '#0060af',
-                  textTransform: 'uppercase',
-                }}>
-                Phương thức vận chuyển
-              </Text>
-              <Pressable
-                onPress={handlerFormChooseMethodShipping}
-                style={{width: 30, height: 30, right: 0, position: 'absolute'}}>
-                <Image source={icon.icon_close} />
-              </Pressable>
-            </View>
-            <View style={[style.menuChoose, {height: 'auto'}]}>
-              <Pressable
-                onPress={() => handlerChoose('fastDelivery')}
-                style={style.itemMenuChoose}>
+          <Modal
+            transparent={true}
+            animationType="fade"
+            visible={showFormChooseMethodPayment}>
+            <TouchableOpacity activeOpacity={1} style={style.styleOpacity}>
+              <View style={style.chooseMethodPayShippingVoucher}>
                 <View
-                  style={[
-                    style.titleItemChoose,
-                    {height: 'auto', alignItems: 'flex-start'},
-                  ]}>
-                  <View style={[style.radioButton, {top: 0}]}>
-                    <Image
-                      source={
-                        selectOption === 'fastDelivery'
-                          ? radioButton
-                          : radioButtonNoSelect
-                      }
-                    />
-                  </View>
-                  <View style={{rowGap: 4.4}}>
-                    <Text style={style.textItemMenuChoose}>
-                      Giao hàng nhanh
-                    </Text>
-                    <Text
-                      style={{
-                        fontSize: 14,
-                        fontWeight: 'medium',
-                        color: '#FD6C31',
-                      }}>
-                      37.000đ
-                    </Text>
-                  </View>
-                </View>
-              </Pressable>
-              <Pressable
-                onPress={() => handlerChoose('economyDelivery')}
-                style={style.itemMenuChoose}>
-                <View
-                  style={[
-                    style.titleItemChoose,
-                    {height: 'auto', alignItems: 'flex-start'},
-                  ]}>
-                  <View style={[style.radioButton, {top: 0}]}>
-                    <Image
-                      source={
-                        selectOption === 'economyDelivery'
-                          ? radioButton
-                          : radioButtonNoSelect
-                      }
-                    />
-                  </View>
-                  <View style={{rowGap: 4.4}}>
-                    <Text style={style.textItemMenuChoose}>
-                      Giao hàng tiết kiệm
-                    </Text>
-                    <Text
-                      style={{
-                        fontSize: 14,
-                        fontWeight: 'medium',
-                        color: '#FD6C31',
-                      }}>
-                      35.000đ
-                    </Text>
-                  </View>
-                </View>
-              </Pressable>
-            </View>
-            <View style={style.confirmContainer}>
-              <Pressable onPress={handlerConfirm} style={style.btnConfirm}>
-                <Text style={style.textConfirm}>Xác nhận</Text>
-              </Pressable>
-            </View>
-          </View>
-        )}
-        {showFormChooseVoucher && (
-          <View style={style.chooseMethodPayShippingVoucher}>
-            <View
-              style={{
-                width: 395,
-                height: 30,
-                left: 12,
-                top: 10,
-                flexDirection: 'row',
-                alignItems: 'center',
-              }}>
-              <Text
-                style={{
-                  width: 277,
-                  height: 22,
-                  fontSize: 18,
-                  fontWeight: 'bold',
-                  color: '#0060af',
-                  textTransform: 'uppercase',
-                }}>
-                Voucher/Mã khuyến mãi
-              </Text>
-              <Pressable
-                onPress={handlerFormChooseVoucher}
-                style={{width: 30, height: 30, right: 0, position: 'absolute'}}>
-                <Image source={icon.icon_close} />
-              </Pressable>
-            </View>
-            <ScrollView
-              showsVerticalScrollIndicator={false}
-              contentContainerStyle={{
-                width: 395,
-                paddingBottom: 100,
-                left: 12,
-                backgroundColor: '#fafafa',
-                gap: 10,
-              }}>
-              {fakeDataVoucher.map((item, index) => (
-                <View
-                  key={index}
                   style={{
                     width: 395,
-                    height: 124,
-                    backgroundColor: '#fff',
-                    borrderRadius: 10,
+                    height: 30,
+                    left: 12,
+                    top: 10,
+                    flexDirection: 'row',
                     alignItems: 'center',
-                    justifyContent: 'center',
                   }}>
-                  <View style={{width: 371, height: 100, rowGap: 10}}>
-                    <Pressable
-                      onPress={() => handlerChooseVoucher(item.id)}
-                      style={{width: 371, height: 64, gap: 5}}>
+                  <Text
+                    style={{
+                      width: 277,
+                      height: 22,
+                      fontSize: 18,
+                      fontWeight: 'bold',
+                      color: '#0060af',
+                      textTransform: 'uppercase',
+                    }}>
+                    Phương thức thanh toán
+                  </Text>
+                  <Pressable
+                    onPress={handlerFormChooseMethodPayment}
+                    style={{
+                      width: 30,
+                      height: 30,
+                      right: 0,
+                      position: 'absolute',
+                    }}>
+                    <Image source={icon.icon_close} />
+                  </Pressable>
+                </View>
+                <View style={[style.menuChoose, {height: 'auto'}]}>
+                  <Pressable
+                    onPress={() => handlerChoose('bankTransfer')}
+                    style={style.itemMenuChoose}>
+                    <View style={style.titleItemChoose}>
+                      <View style={style.radioButton}>
+                        <Image
+                          source={
+                            selectOption === 'bankTransfer'
+                              ? radioButton
+                              : radioButtonNoSelect
+                          }
+                        />
+                      </View>
+                      <Text style={style.textItemMenuChoose}>Chuyển khoản</Text>
+                    </View>
+                    {selectOption === 'bankTransfer' && (
                       <View
                         style={{
-                          height: 21,
-                          flexDirection: 'row',
-                          alignItems: 'center',
+                          height: 147,
+                          borderRadius: 10,
+                          backgroundColor: '#F3F7FC',
                         }}>
-                        <Text
-                          style={{
-                            fontSize: 16,
-                            fontWeight: 'semibold',
-                            color: '#212121',
-                          }}>
-                          Giảm{' '}
-                          <Text>
-                            {item.number}
-                            <Text>{item.unit}</Text>
-                          </Text>
-                        </Text>
                         <View
-                          style={[
-                            style.radioButton,
-                            {right: 0, position: 'absolute'},
-                          ]}>
-                          <Image
-                            source={
-                              selectOption === item.id
-                                ? radioButton
-                                : radioButtonNoSelect
-                            }
-                          />
+                          style={{height: 118, left: 30, top: 14, rowGap: 15}}>
+                          <Text style={style.textInfoBankTransfer}>
+                            STK:{' '}
+                            <Text
+                              style={[
+                                style.textInfoBankTransfer,
+                                {color: '#FD6C31'},
+                              ]}>
+                              123 456 789
+                            </Text>
+                          </Text>
+                          <Text style={style.textInfoBankTransfer}>
+                            Chủ tài khoản:{' '}
+                            <Text
+                              style={[
+                                style.textInfoBankTransfer,
+                                {fontWeight: 'regular'},
+                              ]}>
+                              Nguyen Van A
+                            </Text>
+                          </Text>
+                          <Text style={style.textInfoBankTransfer}>
+                            Ngân hàng:{' '}
+                            <Text
+                              style={[
+                                style.textInfoBankTransfer,
+                                {fontWeight: 'regular'},
+                              ]}>
+                              Vietcombank
+                            </Text>
+                          </Text>
+                          <Text style={style.textInfoBankTransfer}>
+                            Nội dung:{' '}
+                            <Text
+                              style={[
+                                style.textInfoBankTransfer,
+                                {fontWeight: 'regular'},
+                              ]}>
+                              Số điện thoại
+                            </Text>
+                          </Text>
                         </View>
                       </View>
-                      <Text
-                        style={{
-                          height: 39,
-                          fontSize: 14,
-                          fontWeight: 'regular',
-                          color: '#212121',
-                          lineHeight: 20,
-                        }}>
-                        {item.summaryConditionApply}
-                        {'\n'}
-                        {item.minimizeDiscount}
+                    )}
+                  </Pressable>
+                  <Pressable
+                    onPress={() => handlerChoose('COD')}
+                    style={style.itemMenuChoose}>
+                    <View style={style.titleItemChoose}>
+                      <View style={style.radioButton}>
+                        <Image
+                          source={
+                            selectOption === 'COD'
+                              ? radioButton
+                              : radioButtonNoSelect
+                          }
+                        />
+                      </View>
+                      <Text style={style.textItemMenuChoose}>
+                        Thanh toán khi nhận hàng
                       </Text>
-                    </Pressable>
-                    <View
-                      style={{
-                        width: 371,
-                        borderWidth: 2.07,
-                        borderStyle: 'dashed',
-                        borderColor: 'f1f1f1',
-                      }}></View>
-                    <Text
-                      style={{
-                        height: 16,
-                        fontSize: 12,
-                        fontWeight: 'regular',
-                        color: '#808080',
-                      }}>
-                      HSD: <Text>{item.dateExpire} .</Text>
-                      <Text
-                        style={{color: '#0060af'}}
-                        onPress={() => handlerDetailVoucher(item.id)}>
-                        Điều kiện áp dụng
+                    </View>
+                    {selectOption === 'COD' && (
+                      <View style={style.payOrther}>
+                        <Text style={style.textPayOrther}>
+                          Quý Khách Hàng vui lòng thanh toán tiền mặt khi nhận
+                          hàng
+                        </Text>
+                      </View>
+                    )}
+                  </Pressable>
+                  <Pressable
+                    onPress={() => handlerChoose('payCompany')}
+                    style={style.itemMenuChoose}>
+                    <View style={style.titleItemChoose}>
+                      <View style={style.radioButton}>
+                        <Image
+                          source={
+                            selectOption === 'payCompany'
+                              ? radioButton
+                              : radioButtonNoSelect
+                          }
+                        />
+                      </View>
+                      <Text style={style.textItemMenuChoose}>
+                        Thanh toán tại công ty
                       </Text>
-                    </Text>
-                  </View>
+                    </View>
+                    {selectOption === 'payCompany' && (
+                      <View style={style.payOrther}>
+                        <Text style={style.textPayOrther}>
+                          Quý Khách Hàng có thể mua hàng và thanh toán trực tiếp
+                          tại công ty
+                        </Text>
+                      </View>
+                    )}
+                  </Pressable>
+                  <Pressable
+                    onPress={() => handlerChoose('payOnline')}
+                    style={style.itemMenuChoose}>
+                    <View style={style.titleItemChoose}>
+                      <View style={style.radioButton}>
+                        <Image
+                          source={
+                            selectOption === 'payOnline'
+                              ? radioButton
+                              : radioButtonNoSelect
+                          }
+                        />
+                      </View>
+                      <Text style={style.textItemMenuChoose}>
+                        Thanh toán online
+                      </Text>
+                    </View>
+                    {selectOption === 'payOnline' && (
+                      <View style={style.payOrther}>
+                        <Text style={style.textPayOrther}>
+                          Quý Khách Hàng có thể mua hàng và thanh toán online
+                        </Text>
+                      </View>
+                    )}
+                  </Pressable>
                 </View>
-              ))}
-            </ScrollView>
-            <View style={style.confirmContainer}>
-              <Pressable onPress={handlerConfirm} style={style.btnConfirm}>
-                <Text style={style.textConfirm}>Xác nhận</Text>
-              </Pressable>
-            </View>
-          </View>
+                <View style={style.confirmContainer}>
+                  <Pressable onPress={handlerConfirm} style={style.btnConfirm}>
+                    <Text style={style.textConfirm}>Xác nhận</Text>
+                  </Pressable>
+                </View>
+              </View>
+            </TouchableOpacity>
+          </Modal>
+        )}
+        {showFormChooseMethodShipping === true && (
+          <Modal
+            transparent={true}
+            visible={showFormChooseMethodShipping}
+            animationType="fade">
+            <TouchableOpacity activeOpacity={1} style={style.styleOpacity}>
+              <View style={style.chooseMethodPayShippingVoucher}>
+                <View
+                  style={{
+                    width: 395,
+                    height: 30,
+                    left: 12,
+                    top: 10,
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                  }}>
+                  <Text
+                    style={{
+                      width: 277,
+                      height: 22,
+                      fontSize: 18,
+                      fontWeight: 'bold',
+                      color: '#0060af',
+                      textTransform: 'uppercase',
+                    }}>
+                    Phương thức vận chuyển
+                  </Text>
+                  <Pressable
+                    onPress={handlerFormChooseMethodShipping}
+                    style={{
+                      width: 30,
+                      height: 30,
+                      right: 0,
+                      position: 'absolute',
+                    }}>
+                    <Image source={icon.icon_close} />
+                  </Pressable>
+                </View>
+                <View style={[style.menuChoose, {height: 'auto'}]}>
+                  <Pressable
+                    onPress={() => handlerChoose('fastDelivery')}
+                    style={style.itemMenuChoose}>
+                    <View
+                      style={[
+                        style.titleItemChoose,
+                        {height: 'auto', alignItems: 'flex-start'},
+                      ]}>
+                      <View style={[style.radioButton, {top: 0}]}>
+                        <Image
+                          source={
+                            selectOption === 'fastDelivery'
+                              ? radioButton
+                              : radioButtonNoSelect
+                          }
+                        />
+                      </View>
+                      <View style={{rowGap: 4.4}}>
+                        <Text style={style.textItemMenuChoose}>
+                          Giao hàng nhanh
+                        </Text>
+                        <Text
+                          style={{
+                            fontSize: 14,
+                            fontWeight: 'medium',
+                            color: '#FD6C31',
+                          }}>
+                          37.000đ
+                        </Text>
+                      </View>
+                    </View>
+                  </Pressable>
+                  <Pressable
+                    onPress={() => handlerChoose('economyDelivery')}
+                    style={style.itemMenuChoose}>
+                    <View
+                      style={[
+                        style.titleItemChoose,
+                        {height: 'auto', alignItems: 'flex-start'},
+                      ]}>
+                      <View style={[style.radioButton, {top: 0}]}>
+                        <Image
+                          source={
+                            selectOption === 'economyDelivery'
+                              ? radioButton
+                              : radioButtonNoSelect
+                          }
+                        />
+                      </View>
+                      <View style={{rowGap: 4.4}}>
+                        <Text style={style.textItemMenuChoose}>
+                          Giao hàng tiết kiệm
+                        </Text>
+                        <Text
+                          style={{
+                            fontSize: 14,
+                            fontWeight: 'medium',
+                            color: '#FD6C31',
+                          }}>
+                          35.000đ
+                        </Text>
+                      </View>
+                    </View>
+                  </Pressable>
+                </View>
+                <View style={style.confirmContainer}>
+                  <Pressable onPress={handlerConfirm} style={style.btnConfirm}>
+                    <Text style={style.textConfirm}>Xác nhận</Text>
+                  </Pressable>
+                </View>
+              </View>
+            </TouchableOpacity>
+          </Modal>
+        )}
+        {showFormChooseVoucher && (
+          <Modal
+            animationType="fade"
+            visible={showFormChooseVoucher}
+            transparent={true}>
+            <TouchableOpacity activeOpacity={1} style={style.styleOpacity}>
+              <View style={style.chooseMethodPayShippingVoucher}>
+                <View
+                  style={{
+                    width: 395,
+                    height: 30,
+                    left: 12,
+                    top: 10,
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                  }}>
+                  <Text
+                    style={{
+                      width: 277,
+                      height: 22,
+                      fontSize: 18,
+                      fontWeight: 'bold',
+                      color: '#0060af',
+                      textTransform: 'uppercase',
+                    }}>
+                    Voucher/Mã khuyến mãi
+                  </Text>
+                  <Pressable
+                    onPress={handlerFormChooseVoucher}
+                    style={{
+                      width: 30,
+                      height: 30,
+                      right: 0,
+                      position: 'absolute',
+                    }}>
+                    <Image source={icon.icon_close} />
+                  </Pressable>
+                </View>
+                <ScrollView
+                  showsVerticalScrollIndicator={false}
+                  contentContainerStyle={{
+                    width: 395,
+                    paddingBottom: 100,
+                    left: 12,
+                    backgroundColor: '#fafafa',
+                    gap: 10,
+                  }}>
+                  {fakeDataVoucher.map((item, index) => (
+                    <View
+                      key={index}
+                      style={{
+                        width: 395,
+                        height: 124,
+                        backgroundColor: '#fff',
+                        borrderRadius: 10,
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}>
+                      <View style={{width: 371, height: 100, rowGap: 10}}>
+                        <Pressable
+                          onPress={() => handlerChooseVoucher(item.id)}
+                          style={{width: 371, height: 64, gap: 5}}>
+                          <View
+                            style={{
+                              height: 21,
+                              flexDirection: 'row',
+                              alignItems: 'center',
+                            }}>
+                            <Text
+                              style={{
+                                fontSize: 16,
+                                fontWeight: 'semibold',
+                                color: '#212121',
+                              }}>
+                              Giảm{' '}
+                              <Text>
+                                {item.number}
+                                <Text>{item.unit}</Text>
+                              </Text>
+                            </Text>
+                            <View
+                              style={[
+                                style.radioButton,
+                                {right: 0, position: 'absolute'},
+                              ]}>
+                              <Image
+                                source={
+                                  selectOption === item.id
+                                    ? radioButton
+                                    : radioButtonNoSelect
+                                }
+                              />
+                            </View>
+                          </View>
+                          <Text
+                            style={{
+                              height: 39,
+                              fontSize: 14,
+                              fontWeight: 'regular',
+                              color: '#212121',
+                              lineHeight: 20,
+                            }}>
+                            {item.summaryConditionApply}
+                            {'\n'}
+                            {item.minimizeDiscount}
+                          </Text>
+                        </Pressable>
+                        <View
+                          style={{
+                            width: 371,
+                            borderWidth: 2.07,
+                            borderStyle: 'dashed',
+                            borderColor: 'f1f1f1',
+                          }}></View>
+                        <Text
+                          style={{
+                            height: 16,
+                            fontSize: 12,
+                            fontWeight: 'regular',
+                            color: '#808080',
+                          }}>
+                          HSD: <Text>{item.dateExpire} .</Text>
+                          <Text
+                            style={{color: '#0060af'}}
+                            onPress={() => handlerDetailVoucher(item.id)}>
+                            Điều kiện áp dụng
+                          </Text>
+                        </Text>
+                      </View>
+                    </View>
+                  ))}
+                </ScrollView>
+                <View style={style.confirmContainer}>
+                  <Pressable onPress={handlerConfirm} style={style.btnConfirm}>
+                    <Text style={style.textConfirm}>Xác nhận</Text>
+                  </Pressable>
+                </View>
+              </View>
+            </TouchableOpacity>
+          </Modal>
         )}
         {showPopupOrderSuccess && (
-          <View
+          <Modal  visible={showPopupOrderSuccess} animationType='fade' transparent={true}>
+            <TouchableOpacity activeOpacity={1} style={style.styleOpacity}>
+              <View
             style={{
               width: 395,
               height: 220,
@@ -1315,7 +1335,7 @@ export default function Pay({navigation, route}) {
               justifyContent: 'center',
               backgroundColor: '#fff',
               borderRadius: 10,
-              borderWidth: 1
+              borderWidth: 1,
             }}>
             <View style={{width: 371, height: 188, rowGap: 35}}>
               <View
@@ -1357,7 +1377,8 @@ export default function Pay({navigation, route}) {
                   flexDirection: 'row',
                   columnGap: 10,
                 }}>
-                <Pressable onPress={() =>navigation.navigate('Home')}
+                <Pressable
+                  onPress={() => navigation.navigate('Home')}
                   style={[
                     style.btnPopupOrderSuccess,
                     {backgroundColor: '#E0F3FF'},
@@ -1371,7 +1392,7 @@ export default function Pay({navigation, route}) {
                   </Text>
                 </Pressable>
                 <Pressable
-                onPress={() => navigation.navigate('OrderDetails')}
+                  onPress={() => navigation.navigate('OrderDetails', {flag: 1})}
                   style={[
                     style.btnPopupOrderSuccess,
                     {backgroundColor: '#0060af'},
@@ -1384,6 +1405,8 @@ export default function Pay({navigation, route}) {
               </View>
             </View>
           </View>
+            </TouchableOpacity>
+          </Modal>
         )}
       </View>
       <Modal visible={modalVisible}>
@@ -1464,6 +1487,7 @@ export default function Pay({navigation, route}) {
             }}>
             {detailVoucher.map((item, index) => (
               <Pressable
+              key={index}
                 onPress={() => handlerUseNow()}
                 style={{
                   width: 395,
@@ -1530,7 +1554,7 @@ const style = StyleSheet.create({
   chooseMethodPayShippingVoucher: {
     width: 412,
     height: 425,
-    top: 375,
+    top: 440,
     position: 'absolute',
     backgroundColor: '#fff',
     left: 0,
@@ -1630,5 +1654,11 @@ const style = StyleSheet.create({
   titleBtnPopupOrderSuccess: {
     fontSize: 15,
     fontWeight: 'medium',
+  },
+  styleOpacity: {
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

@@ -3,12 +3,14 @@ import {useState} from 'react';
 import {
   FlatList,
   Image,
+  Modal,
   Pressable,
   ScrollView,
   StatusBar,
   StyleSheet,
   Text,
   TextInput,
+  TouchableOpacity,
   View,
 } from 'react-native';
 import {icon, image} from '../../assets/index';
@@ -109,10 +111,10 @@ export default function ProductDetail_Home({navigation}) {
       <ScrollView
         contentContainerStyle={[
           style.container,
-          {
-            backgroundColor: showChooseProduct ? '#212121' : '#fff',
-            opacity: showChooseProduct ? 0.6 : 1,
-          },
+          // {
+          //   backgroundColor: showChooseProduct ? '#212121' : '#fff',
+          //   opacity: showChooseProduct ? 0.6 : 1,
+          // },
         ]}
         showsVerticalScrollIndicator={false}>
         <StatusBar hidden={false} />
@@ -941,167 +943,218 @@ export default function ProductDetail_Home({navigation}) {
         </View>
       </ScrollView>
       {showChooseProduct && (
-        <View style={style.chooseProduct}>
-          <View
+        <Modal
+          transparent={true}
+          animationType="fade"
+          visible={showChooseProduct}>
+          <TouchableOpacity
+            activeOpacity={1}
             style={{
-              width: 395,
-              left: 12,
-              alignItems: 'center',
-              flexDirection: 'row',
-              top: 10,
-            }}>
-            <Text
-              style={{
-                fontSize: 18,
-                fontWeight: 'bold',
-                color: '#0060af',
-                textTransform: 'uppercase',
-              }}>
-              Chọn loại hàng
-            </Text>
-            <Pressable
-              onPress={handlerShowChooseProduct}
-              style={{width: 30, height: 30, right: 0, position: 'absolute'}}>
-              <Image source={icon.icon_close} />
-            </Pressable>
-          </View>
-          <View
-            style={{
-              width: 178,
-              height: 80,
-              flexDirection: 'row',
-              gap: 10,
-              top: 22,
-              left: 12,
+              flex: 1,
+              backgroundColor: 'rgba(0, 0, 0, 0.6)',
+              justifyContent: 'center',
               alignItems: 'center',
             }}>
-            <View style={{width: 80, height: 80, borderRadius: 8}}>
-              <Image source={image.image_demo_choose_product} />
-            </View>
-            <View style={{height: 44, gap: 7}}>
+            <View style={style.chooseProduct}>
+              <View
+                style={{
+                  width: 395,
+                  left: 12,
+                  top: 10,
+                  alignItems: 'center',
+                  flexDirection: 'row',
+                  top: 10,
+                }}>
+                <Text
+                  style={{
+                    fontSize: 18,
+                    fontWeight: 'bold',
+                    color: '#0060af',
+                    textTransform: 'uppercase',
+                  }}>
+                  Chọn loại hàng
+                </Text>
+                <Pressable
+                  onPress={() => setShowChooseProduct(false)}
+                  style={{
+                    width: 30,
+                    height: 30,
+                    right: 0,
+                    position: 'absolute',
+                  }}>
+                  <Image source={icon.icon_close} />
+                </Pressable>
+              </View>
+              <View
+                style={{
+                  width: 178,
+                  height: 80,
+                  flexDirection: 'row',
+                  gap: 10,
+                  top: 22,
+                  left: 12,
+                  alignItems: 'center',
+                }}>
+                <View style={{width: 80, height: 80, borderRadius: 8}}>
+                  <Image source={image.image_demo_choose_product} />
+                </View>
+                <View style={{height: 44, gap: 7}}>
+                  <Text
+                    style={{
+                      fontSize: 15,
+                      fontWeight: 'semibold',
+                      color: '#FD6C31',
+                    }}>
+                    1.243.000 đ
+                  </Text>
+                  <Text
+                    style={{
+                      fontSize: 13,
+                      fontWeight: 'regular',
+                      color: '#212121',
+                      textDecorationLine: 'line-through',
+                    }}>
+                    1.300.000 đ
+                  </Text>
+                </View>
+              </View>
               <Text
                 style={{
-                  fontSize: 15,
+                  top: 33,
+                  left: 12,
+                  fontSize: 16,
                   fontWeight: 'semibold',
-                  color: '#FD6C31',
-                }}>
-                1.243.000 đ
-              </Text>
-              <Text
-                style={{
-                  fontSize: 13,
-                  fontWeight: 'regular',
                   color: '#212121',
-                  textDecorationLine: 'line-through',
                 }}>
-                1.300.000 đ
+                Phân loại
               </Text>
+              <View
+                style={{
+                  width: 404,
+                  height: 85,
+                  left: 12,
+                  top: 44,
+                  gap: 11.5,
+                  flexDirection: 'row',
+                  flexWrap: 'wrap',
+                }}>
+                <View
+                  style={[
+                    style.classify,
+                    {backgroundColor: '#eee', borderColor: '#aaa'},
+                  ]}>
+                  <Text style={style.contentClassify}>0.3 L</Text>
+                </View>
+                <View style={style.classify}>
+                  <Text style={style.contentClassify}>1 L</Text>
+                </View>
+                <View style={[style.classify, {backgroundColor: '#0060af'}]}>
+                  <Text style={[style.contentClassify, {color: '#fff'}]}>
+                    3 L
+                  </Text>
+                </View>
+                <View style={style.classify}>
+                  <Text style={style.contentClassify}>4 L</Text>
+                </View>
+                <View style={style.classify}>
+                  <Text style={style.contentClassify}>18 L</Text>
+                </View>
+                <View style={style.classify}>
+                  <Text style={style.contentClassify}>20 L</Text>
+                </View>
+                <View
+                  style={[
+                    style.classify,
+                    {backgroundColor: '#eee', borderColor: '#aaa'},
+                  ]}>
+                  <Text style={style.contentClassify}>200 L</Text>
+                </View>
+              </View>
+              <View
+                style={{
+                  width: 156,
+                  height: 21,
+                  left: 12,
+                  top: 63,
+                  flexDirection: 'row',
+                  gap: 11,
+                  alignItems: 'center',
+                }}>
+                <Text
+                  style={{
+                    fontSize: 16,
+                    fontWeight: 'semibold',
+                    color: '#212121',
+                  }}>
+                  Số lượng
+                </Text>
+                <Text
+                  style={{
+                    fontSize: 14,
+                    fontWeight: 'regular',
+                    color: '#808080',
+                  }}>
+                  (Tồn kho: <Text>50)</Text>
+                </Text>
+              </View>
+              <View
+                style={{
+                  width: 121,
+                  height: 26,
+                  left: 12,
+                  top: 75,
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                }}>
+                <Pressable>
+                  <Image source={icon.icon_decrease} />
+                </Pressable>
+                <TextInput
+                  value={countProducts}
+                  keyboardType="numberic"
+                  style={{
+                    fontSize: 16,
+                    fontWeight: 'medium',
+                    color: '#212121',
+                    borderWidth: 1,
+                    height: 21,
+                  }}
+                />
+                <Pressable>
+                  <Image source={icon.icon_increase} />
+                </Pressable>
+              </View>
+              <Pressable
+                onPress={() => navigation.navigate('Pay')}
+                style={{
+                  width: 404,
+                  height: 65,
+                  left: 6,
+                  top: 95,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                <View
+                  style={{
+                    width: 395,
+                    height: 45,
+                    backgroundColor: '#0060af',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    borderRadius: 10,
+                  }}>
+                  <Text
+                    style={{fontSize: 15, fontWeight: 'medium', color: '#fff'}}>
+                    Mua ngay
+                  </Text>
+                </View>
+              </Pressable>
             </View>
-          </View>
-          <Text
-            style={{
-              top: 33,
-              left: 12,
-              fontSize: 16,
-              fontWeight: 'semibold',
-              color: '#212121',
-            }}>
-            Phân loại
-          </Text>
-          <View
-            style={{
-              width: 404,
-              height: 85,
-              left: 12,
-              top: 44,
-              gap: 11.5,
-              flexDirection: 'row',
-              flexWrap: 'wrap',
-            }}>
-            <View
-              style={[
-                style.classify,
-                {backgroundColor: '#eee', borderColor: '#aaa'},
-              ]}>
-              <Text style={style.contentClassify}>0.3 L</Text>
-            </View>
-            <View style={style.classify}>
-              <Text style={style.contentClassify}>1 L</Text>
-            </View>
-            <View style={[style.classify, {backgroundColor: '#0060af'}]}>
-              <Text style={[style.contentClassify, {color: '#fff'}]}>3 L</Text>
-            </View>
-            <View style={style.classify}>
-              <Text style={style.contentClassify}>4 L</Text>
-            </View>
-            <View style={style.classify}>
-              <Text style={style.contentClassify}>18 L</Text>
-            </View>
-            <View style={style.classify}>
-              <Text style={style.contentClassify}>20 L</Text>
-            </View>
-            <View
-              style={[
-                style.classify,
-                {backgroundColor: '#eee', borderColor: '#aaa'},
-              ]}>
-              <Text style={style.contentClassify}>200 L</Text>
-            </View>
-          </View>
-          <View
-            style={{
-              width: 156,
-              height: 21,
-              left: 12,
-              top: 63,
-              flexDirection: 'row',
-              gap: 11,
-              alignItems: 'center',
-            }}>
-            <Text
-              style={{fontSize: 16, fontWeight: 'semibold', color: '#212121'}}>
-              Số lượng
-            </Text>
-            <Text
-              style={{fontSize: 14, fontWeight: 'regular', color: '#808080'}}>
-              (Tồn kho: <Text>50)</Text>
-            </Text>
-          </View>
-          <View
-            style={{
-              width: 121,
-              height: 26,
-              left: 12,
-              top: 75,
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-            }}>
-            <Pressable>
-              <Image source={icon.icon_decrease} />
-            </Pressable>
-            <TextInput
-              value={countProducts}
-              keyboardType='numberic'
-              style={{
-                fontSize: 16,
-                fontWeight: 'medium',
-                color: '#212121',
-                borderWidth: 1,
-                height: 21
-              }}
-            />
-            <Pressable>
-              <Image source={icon.icon_increase} />
-            </Pressable>
-          </View>
-          <Pressable onPress={() =>navigation.navigate('Pay')} style={{width: 404, height: 65, left: 6, top: 95, alignItems: 'center', justifyContent: 'center'}}>
-            <View style={{width: 395, height: 45,  backgroundColor: '#0060af', alignItems: 'center', justifyContent: 'center', borderRadius: 10}}>
-              <Text style={{fontSize: 15, fontWeight: 'medium', color: '#fff'}}>Mua ngay</Text>
-            </View>
-          </Pressable>
-        </View>
+          </TouchableOpacity>
+        </Modal>
       )}
+
       <View style={style.addToCartAndBuy}>
         <View
           style={{

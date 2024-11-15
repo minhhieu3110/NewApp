@@ -2,9 +2,9 @@ import * as React from 'react';
 import {View, Text, StyleSheet, Image, ScrollView, Pressable} from 'react-native';
 import {dataOrders} from './allOrders';
 import { formatCurrency } from '../../utils/fomatCurrency';
-export default function WaitConfirmOrder({navigation}) {
-  const dataWaitConfirmOrder = dataOrders.filter(
-    item => item.status === 'Chờ xác nhận',
+export default function WaitGetOrder({navigation}) {
+  const dataWaitGetOrder = dataOrders.filter(
+    item => item.status === 'Chờ lấy hàng',
   );
 
   const getStatusStyle = status => {
@@ -28,12 +28,12 @@ export default function WaitConfirmOrder({navigation}) {
             gap: 12,
             backgroundColor: '#fff',
           }}>
-          {dataWaitConfirmOrder.map((item, index) => {
+          {dataWaitGetOrder.map((item, index) => {
             const statusStyle = getStatusStyle(item.status);
             return (
               <Pressable
                 key={index}
-                onPress={() => navigation.navigate('OrderDetails', {flag: 1})}
+                onPress={() => navigation.navigate('OrderDetails', {flag: 2})}
                 style={style.itemContainer}>
                 <View style={style.contentItemContainer}>
                   <View

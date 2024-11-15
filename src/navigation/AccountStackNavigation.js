@@ -23,6 +23,7 @@ import Debt from '../components/debt/debt';
 import Setting from '../components/user/setting/setting';
 import ChangePassword from '../components/user/setting/changePassword';
 import ForgotPassword from '../components/user/setting/forgotPassword';
+import CumulativePoints from '../components/user/cumulativePoints';
 export default function AccountStackNavigation() {
   const Stack = createNativeStackNavigator();
   return (
@@ -36,6 +37,7 @@ export default function AccountStackNavigation() {
           <Stack.Screen name="Register" component={Register} />
           <Stack.Screen name="Account" component={Account} />
           <Stack.Screen name="InfoAccount" component={InfoAccount} />
+          <Stack.Screen name="CumulativePoints" component={CumulativePoints} />
           <Stack.Screen name="ProductsSeen" component={ProductsSeen}/>
           <Stack.Screen name="ProductsFavorite" component={ProductsFavorite}/>
           <Stack.Screen name="ProductDetail" component={ProductDetail}/>

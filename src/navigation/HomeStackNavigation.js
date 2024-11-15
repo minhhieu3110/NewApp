@@ -10,6 +10,8 @@ import News from '../components/company/news';
 import ProductDetail_Home from '../components/products/productDetail_Home';
 import Evaluate from '../components/products/evaluate';
 import Pay from '../components/products/pay';
+import BottomTabContainer from './BottomTabContainer';
+import OrderDetails from '../components/order/detailOrder';
 export default function HomeStackNavigation() {
   const Stack = createNativeStackNavigator();
   return (
@@ -27,6 +29,7 @@ export default function HomeStackNavigation() {
       <Stack.Screen name="Catalogue" component={Catalogue} />
       <Stack.Screen name="CatalogueProduct" component={CatalogueProducts} />
       <Stack.Screen name="News" component={News} />
+      <Stack.Screen name='OrderDetails' component={OrderDetails} />
     </Stack.Navigator>
   );
 }

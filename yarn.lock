@@ -145,9 +145,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/helper-define-polyfill-provider@npm:^0.6.2":
-  version: 0.6.2
-  resolution: "@babel/helper-define-polyfill-provider@npm:0.6.2"
+"@babel/helper-define-polyfill-provider@npm:^0.6.2, @babel/helper-define-polyfill-provider@npm:^0.6.3":
+  version: 0.6.3
+  resolution: "@babel/helper-define-polyfill-provider@npm:0.6.3"
   dependencies:
     "@babel/helper-compilation-targets": ^7.22.6
     "@babel/helper-plugin-utils": ^7.22.5
@@ -156,7 +156,7 @@ __metadata:
     resolve: ^1.14.2
   peerDependencies:
     "@babel/core": ^7.4.0 || ^8.0.0-0 <8.0.0
-  checksum: 2bba965ea9a4887ddf9c11d51d740ab473bd7597b787d042c325f6a45912dfe908c2d6bb1d837bf82f7e9fa51e6ad5150563c58131d2bb85515e63d971414a9c
+  checksum: 710e6d8a5391736b9f53f09d0494575c2e03de199ad8d1349bc8e514cb85251ea1f1842c2ff44830849d482052ddb42ae931101002a87a263b12f649c2e57c01
   languageName: node
   linkType: hard
 
@@ -2617,7 +2617,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-navigation/bottom-tabs@npm:^6.6.1":
+"@react-navigation/bottom-tabs@npm:^6.x":
   version: 6.6.1
   resolution: "@react-navigation/bottom-tabs@npm:6.6.1"
   dependencies:
@@ -2662,37 +2662,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-navigation/elements@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "@react-navigation/elements@npm:2.0.0"
+"@react-navigation/material-top-tabs@npm:^6.x":
+  version: 6.6.14
+  resolution: "@react-navigation/material-top-tabs@npm:6.6.14"
   dependencies:
     color: ^4.2.3
+    warn-once: ^0.1.0
   peerDependencies:
-    "@react-native-masked-view/masked-view": ">= 0.2.0"
-    "@react-navigation/native": ^7.0.0
-    react: ">= 18.2.0"
+    "@react-navigation/native": ^6.0.0
+    react: "*"
     react-native: "*"
-    react-native-safe-area-context: ">= 4.0.0"
-  peerDependenciesMeta:
-    "@react-native-masked-view/masked-view":
-      optional: true
-  checksum: 40f99d71a6335734ec222e4a903bd5fe8e0067bf65ca9e2342bde20ba6682ae94ef64ff1b47ee470e37a42da93bfed2cda751a1a22d3252508350a8fdca6180e
-  languageName: node
-  linkType: hard
-
-"@react-navigation/material-top-tabs@npm:^7.0.1":
-  version: 7.0.1
-  resolution: "@react-navigation/material-top-tabs@npm:7.0.1"
-  dependencies:
-    "@react-navigation/elements": ^2.0.0
-    color: ^4.2.3
-    react-native-tab-view: ^4.0.1
-  peerDependencies:
-    "@react-navigation/native": ^7.0.0
-    react: ">= 18.2.0"
-    react-native: "*"
-    react-native-pager-view: ">= 6.0.0"
-  checksum: 68f1f712491fd603260e16fd73360aa023e58b3d3ad2752142381fb6b874382972ab24f74f052b5dc97f77e6038beb566d3b0133803c071cea91ac6d103bac43
+    react-native-pager-view: ">= 4.0.0"
+    react-native-tab-view: ">= 3.0.0"
+  checksum: 565919b1a9a948ab30d6448dd2d59035cb05f1d87d559f3710072a0795b344fdcc543f2eeb8884b5d699a965cac7db5d88641ba87ec7544e23245404ffb860ec
   languageName: node
   linkType: hard
 
@@ -2712,7 +2694,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-navigation/native@npm:^6.0.0":
+"@react-navigation/native@npm:^6.x":
   version: 6.1.18
   resolution: "@react-navigation/native@npm:6.1.18"
   dependencies:
@@ -2938,11 +2920,11 @@ __metadata:
   linkType: hard
 
 "@types/node@npm:*":
-  version: 22.8.6
-  resolution: "@types/node@npm:22.8.6"
+  version: 22.9.0
+  resolution: "@types/node@npm:22.9.0"
   dependencies:
     undici-types: ~6.19.8
-  checksum: 3699b6582c433323ed0d6c2f3e9245f0848946e0b4b3b26b11a069ab2ac2c02d3300d544a17dbf4e28899c41afe89811843e41ef5945c98d28561e8abfeb40b1
+  checksum: c014eb3b8a110f1b87b614a40ef288d13e6b08ae9d5dafbd38951a2eebc24d352dc55330ed9d00c97ee9e64483c3cc14c4aa914c5df7ca7b9eaa1a30b2340dbd
   languageName: node
   linkType: hard
 
@@ -3220,9 +3202,9 @@ __metadata:
     "@react-native/eslint-config": 0.75.4
     "@react-native/metro-config": 0.75.4
     "@react-native/typescript-config": 0.75.4
-    "@react-navigation/bottom-tabs": ^6.6.1
-    "@react-navigation/material-top-tabs": ^7.0.1
-    "@react-navigation/native": ^6.0.0
+    "@react-navigation/bottom-tabs": ^6.x
+    "@react-navigation/material-top-tabs": ^6.x
+    "@react-navigation/native": ^6.x
     "@react-navigation/native-stack": ^6.11.0
     "@types/react": ^18.2.6
     "@types/react-test-renderer": ^18.0.0
@@ -3236,6 +3218,7 @@ __metadata:
     react-native-config: ^1.5.3
     react-native-document-picker: ^9.3.1
     react-native-gesture-handler: ^2.20.0
+    react-native-image-picker: ^7.1.2
     react-native-linear-gradient: ^2.8.3
     react-native-pager-view: ^6.5.0
     react-native-radio-buttons-group: ^3.1.0
@@ -3653,15 +3636,15 @@ __metadata:
   linkType: hard
 
 "babel-plugin-polyfill-corejs2@npm:^0.4.10":
-  version: 0.4.11
-  resolution: "babel-plugin-polyfill-corejs2@npm:0.4.11"
+  version: 0.4.12
+  resolution: "babel-plugin-polyfill-corejs2@npm:0.4.12"
   dependencies:
     "@babel/compat-data": ^7.22.6
-    "@babel/helper-define-polyfill-provider": ^0.6.2
+    "@babel/helper-define-polyfill-provider": ^0.6.3
     semver: ^6.3.1
   peerDependencies:
     "@babel/core": ^7.4.0 || ^8.0.0-0 <8.0.0
-  checksum: f098353ce7c7dde1a1d2710858e01b471e85689110c9e37813e009072347eb8c55d5f84d20d3bf1cab31755f20078ba90f8855fdc4686a9daa826a95ff280bd7
+  checksum: 6e6e6a8b85fec80a310ded2f5c151385e4ac59118909dd6a952e1025e4a478eb79dda45a5a6322cc2e598fd696eb07d4e2fa52418b4101f3dc370bdf8c8939ba
   languageName: node
   linkType: hard
 
@@ -3678,13 +3661,13 @@ __metadata:
   linkType: hard
 
 "babel-plugin-polyfill-regenerator@npm:^0.6.1":
-  version: 0.6.2
-  resolution: "babel-plugin-polyfill-regenerator@npm:0.6.2"
+  version: 0.6.3
+  resolution: "babel-plugin-polyfill-regenerator@npm:0.6.3"
   dependencies:
-    "@babel/helper-define-polyfill-provider": ^0.6.2
+    "@babel/helper-define-polyfill-provider": ^0.6.3
   peerDependencies:
     "@babel/core": ^7.4.0 || ^8.0.0-0 <8.0.0
-  checksum: 150233571072b6b3dfe946242da39cba8587b7f908d1c006f7545fc88b0e3c3018d445739beb61e7a75835f0c2751dbe884a94ff9b245ec42369d9267e0e1b3f
+  checksum: d12696e6b3f280eb78fac551619ca4389262db62c7352cd54bf679d830df8b35596eef2de77cf00db6648eada1c99d49c4f40636dbc9c335a1e5420cfef96750
   languageName: node
   linkType: hard
 
@@ -3914,9 +3897,9 @@ __metadata:
   linkType: hard
 
 "caniuse-lite@npm:^1.0.30001669":
-  version: 1.0.30001677
-  resolution: "caniuse-lite@npm:1.0.30001677"
-  checksum: 34099726620baf4f14fbbe88fec38517208cbe9a47009350b59c7cbbbbd45fcf355afe25d5fa277179660eb0f35f103e68806a07bb33d38bbddb7fde0a4302e4
+  version: 1.0.30001680
+  resolution: "caniuse-lite@npm:1.0.30001680"
+  checksum: 2641d2b18c5ab0a6663cb350c5adc81e5ede1a7677d1c7518a8053ada87bf6f206419e1820a2608f76fa5e4f7bea327cbe47df423783e571569a88c0ea645270
   languageName: node
   linkType: hard
 
@@ -4297,13 +4280,13 @@ __metadata:
   linkType: hard
 
 "cross-spawn@npm:^7.0.0, cross-spawn@npm:^7.0.2, cross-spawn@npm:^7.0.3":
-  version: 7.0.3
-  resolution: "cross-spawn@npm:7.0.3"
+  version: 7.0.5
+  resolution: "cross-spawn@npm:7.0.5"
   dependencies:
     path-key: ^3.1.0
     shebang-command: ^2.0.0
     which: ^2.0.1
-  checksum: 671cc7c7288c3a8406f3c69a3ae2fc85555c04169e9d611def9a675635472614f1c0ed0ef80955d5b6d4e724f6ced67f0ad1bb006c2ea643488fcfef994d7f52
+  checksum: 55c50004cb6bbea3649784caac6e7b8ddd03fa8c1e14dbd5a1f15896708378006eb7526a52a0f48770c768c9b8aed48a5888eb8e785ff59ff7749e74f66cd96b
   languageName: node
   linkType: hard
 
@@ -4530,9 +4513,9 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.5.41":
-  version: 1.5.50
-  resolution: "electron-to-chromium@npm:1.5.50"
-  checksum: 971f49d0c3f8484225a2ee86f86074c2ef1a3c46c2bad9b2151202c03f5de2f6f0fc41029d0bc634e6d01d067673cbf4916a7f9753f5ec1d5b177cbaca9b2e5a
+  version: 1.5.59
+  resolution: "electron-to-chromium@npm:1.5.59"
+  checksum: dc8f77964df2dc98829ea197fc1e20167bbce8922965754e275c4170255caea4edacacae5f3cb00c8e1705e0f748b70d512d6af2dcb8d0de0f14a65000c986de
   languageName: node
   linkType: hard
 
@@ -4632,8 +4615,8 @@ __metadata:
   linkType: hard
 
 "es-abstract@npm:^1.17.5, es-abstract@npm:^1.22.1, es-abstract@npm:^1.22.3, es-abstract@npm:^1.23.0, es-abstract@npm:^1.23.1, es-abstract@npm:^1.23.2, es-abstract@npm:^1.23.3":
-  version: 1.23.3
-  resolution: "es-abstract@npm:1.23.3"
+  version: 1.23.5
+  resolution: "es-abstract@npm:1.23.5"
   dependencies:
     array-buffer-byte-length: ^1.0.1
     arraybuffer.prototype.slice: ^1.0.3
@@ -4650,7 +4633,7 @@ __metadata:
     function.prototype.name: ^1.1.6
     get-intrinsic: ^1.2.4
     get-symbol-description: ^1.0.2
-    globalthis: ^1.0.3
+    globalthis: ^1.0.4
     gopd: ^1.0.1
     has-property-descriptors: ^1.0.2
     has-proto: ^1.0.3
@@ -4666,10 +4649,10 @@ __metadata:
     is-string: ^1.0.7
     is-typed-array: ^1.1.13
     is-weakref: ^1.0.2
-    object-inspect: ^1.13.1
+    object-inspect: ^1.13.3
     object-keys: ^1.1.1
     object.assign: ^4.1.5
-    regexp.prototype.flags: ^1.5.2
+    regexp.prototype.flags: ^1.5.3
     safe-array-concat: ^1.1.2
     safe-regex-test: ^1.0.3
     string.prototype.trim: ^1.2.9
@@ -4681,7 +4664,7 @@ __metadata:
     typed-array-length: ^1.0.6
     unbox-primitive: ^1.0.2
     which-typed-array: ^1.1.15
-  checksum: f840cf161224252512f9527306b57117192696571e07920f777cb893454e32999206198b4f075516112af6459daca282826d1735c450528470356d09eff3a9ae
+  checksum: 17c81f8a42f0322fd11e0025d3c2229ecfd7923560c710906b8e68660e19c42322750dcedf8ba5cf28bae50d5befd8174d3903ac50dbabb336d3efc3aabed2ee
   languageName: node
   linkType: hard
 
@@ -4702,8 +4685,8 @@ __metadata:
   linkType: hard
 
 "es-iterator-helpers@npm:^1.1.0":
-  version: 1.1.0
-  resolution: "es-iterator-helpers@npm:1.1.0"
+  version: 1.2.0
+  resolution: "es-iterator-helpers@npm:1.2.0"
   dependencies:
     call-bind: ^1.0.7
     define-properties: ^1.2.1
@@ -4713,13 +4696,14 @@ __metadata:
     function-bind: ^1.1.2
     get-intrinsic: ^1.2.4
     globalthis: ^1.0.4
+    gopd: ^1.0.1
     has-property-descriptors: ^1.0.2
     has-proto: ^1.0.3
     has-symbols: ^1.0.3
     internal-slot: ^1.0.7
     iterator.prototype: ^1.1.3
     safe-array-concat: ^1.1.2
-  checksum: 4ba3a32ab7ba05b85f0ae30604feeb8ffd801fe762e9df9577bd220a96b9eaa2e90af8e6bdc498e523051f293955e2f7d2bddd34de71e1428a1b8ff3fd961016
+  checksum: c5f5ff10d57f956539581aca7a2d8726c5a8a3e49e6285700d74dcd8b64c7a337b9ab5e81b459b079dac745d2fe02e4f6b80a842e3df45d9cfe3f12325fda8c0
   languageName: node
   linkType: hard
 
@@ -5291,9 +5275,9 @@ __metadata:
   linkType: hard
 
 "flow-parser@npm:0.*":
-  version: 0.251.1
-  resolution: "flow-parser@npm:0.251.1"
-  checksum: 66ccb941a9b2becdeaad72db08f6494d46e3b3f03ae4f4c2786e54e9b67b2e5e6f2d1166a1b7d81f403ad7ce690242c54204fe70674e4fd5620aa64f0f2530fc
+  version: 0.253.0
+  resolution: "flow-parser@npm:0.253.0"
+  checksum: aec28d36de6847d1f110c6106aab4c18533cec2f9c4f18f93a9f879a61b725c8fb91f2a409b3533690aaa4915d98a6b134311cd83ee9b835b5c9dd4e26b3ac10
   languageName: node
   linkType: hard
 
@@ -7806,10 +7790,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"object-inspect@npm:^1.13.1":
-  version: 1.13.2
-  resolution: "object-inspect@npm:1.13.2"
-  checksum: 9f850b3c045db60e0e97746e809ee4090d6ce62195af17dd1e9438ac761394a7d8ec4f7906559aea5424eaf61e35d3e53feded2ccd5f62fcc7d9670d3c8eb353
+"object-inspect@npm:^1.13.1, object-inspect@npm:^1.13.3":
+  version: 1.13.3
+  resolution: "object-inspect@npm:1.13.3"
+  checksum: 8c962102117241e18ea403b84d2521f78291b774b03a29ee80a9863621d88265ffd11d0d7e435c4c2cea0dc2a2fbf8bbc92255737a05536590f2df2e8756f297
   languageName: node
   linkType: hard
 
@@ -8438,6 +8422,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-image-picker@npm:^7.1.2":
+  version: 7.1.2
+  resolution: "react-native-image-picker@npm:7.1.2"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: af52328b7cb06c28549442f0d923cfa92dde8d5a968a642336df4c882f81adbf0e5e606a14de27f96883a76fa1e03230061c4080011c9107942edebc8e09c478
+  languageName: node
+  linkType: hard
+
 "react-native-linear-gradient@npm:^2.8.3":
   version: 2.8.3
   resolution: "react-native-linear-gradient@npm:2.8.3"
@@ -8849,7 +8843,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"regexp.prototype.flags@npm:^1.5.2":
+"regexp.prototype.flags@npm:^1.5.2, regexp.prototype.flags@npm:^1.5.3":
   version: 1.5.3
   resolution: "regexp.prototype.flags@npm:1.5.3"
   dependencies:
