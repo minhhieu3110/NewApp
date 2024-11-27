@@ -1,5 +1,12 @@
 import * as React from 'react';
-import {StyleSheet, Text, View, Image, Pressable} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  Pressable,
+  Dimensions,
+} from 'react-native';
 import {icon} from '../../../assets/index';
 import {useState, useEffect} from 'react';
 export default function Setting({navigation}) {
@@ -33,10 +40,11 @@ export default function Setting({navigation}) {
   };
   const handlerLanguageVN = () => {
     setOffLanguageVietNamese(prevOffLanguageVietNamese => {
-      const newStatus = prevOffLanguageVietNamese === `${icon.icon_set_default_on}`
-        ? `${icon.icon_set_default_off}`
-        : `${icon.icon_set_default_on}`;
-        
+      const newStatus =
+        prevOffLanguageVietNamese === `${icon.icon_set_default_on}`
+          ? `${icon.icon_set_default_off}`
+          : `${icon.icon_set_default_on}`;
+
       if (newStatus === `${icon.icon_set_default_on}`) {
         setOnLanguageEnglish(`${icon.icon_set_default_off}`);
       }
@@ -46,13 +54,14 @@ export default function Setting({navigation}) {
       return newStatus;
     });
   };
-  
+
   const handlerLanguageEN = () => {
     setOnLanguageEnglish(prevOnLanguageEnglish => {
-      const newStatus = prevOnLanguageEnglish === `${icon.icon_set_default_off}`
-        ? `${icon.icon_set_default_on}`
-        : `${icon.icon_set_default_off}`;
-        
+      const newStatus =
+        prevOnLanguageEnglish === `${icon.icon_set_default_off}`
+          ? `${icon.icon_set_default_on}`
+          : `${icon.icon_set_default_off}`;
+
       if (newStatus === `${icon.icon_set_default_on}`) {
         setOffLanguageVietNamese(`${icon.icon_set_default_off}`);
       }
@@ -62,15 +71,15 @@ export default function Setting({navigation}) {
       return newStatus;
     });
   };
-  
+
   return (
     <View style={style.container}>
       <View style={style.titleContainer}>
         <Pressable
-          style={style.titleAddressSaved}
+          style={style.title}
           onPress={() => navigation.navigate('Account')}>
           <Image source={icon.icon_arrow_left} />
-          <Text style={style.textTitleAddressSaved}>Cài đặt</Text>
+          <Text style={style.textTitle}>Cài đặt</Text>
         </Pressable>
       </View>
       <View style={style.settingContainer}>
@@ -97,7 +106,7 @@ export default function Setting({navigation}) {
         {hiddenLanguageMenu && (
           <View
             style={{
-              width: 395,
+              width: width - 24,
               height: 82,
               backgroundColor: '#ffffff',
               borderRadius: 10,
@@ -130,7 +139,9 @@ export default function Setting({navigation}) {
             </Pressable>
           </View>
         )}
-        <Pressable onPress={() => navigation.navigate('ChangePassword')} style={style.itemSettingContainer}>
+        <Pressable
+          onPress={() => navigation.navigate('ChangePassword')}
+          style={style.itemSettingContainer}>
           <View style={style.textIcon}>
             <Image source={icon.icon_change_password} />
             <Text style={style.textSetting}>Đổi mật khẩu</Text>
@@ -143,48 +154,45 @@ export default function Setting({navigation}) {
     </View>
   );
 }
+const {width, height} = Dimensions.get('window');
 const style = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#ffffff',
   },
   titleContainer: {
-    width: 428,
+    width: width,
     height: 54,
-    position: 'absolute',
-    top: 0,
-    left: 0,
     backgroundColor: '#0060AF',
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
   },
-  titleAddressSaved: {
+  title: {
     width: 204,
     height: 28,
-    position: 'absolute',
     top: 13,
     left: 3,
+    flexDirection: 'row',
+    columnGap: 5,
+    alignItems: 'center',
   },
-  textTitleAddressSaved: {
+  textTitle: {
     width: 165,
     height: 24,
-    position: 'absolute',
-    top: 2,
-    left: 36,
     fontSize: 18,
     fontWeight: 'medium',
     fontFamily: 'Be Vietnam Pro',
     color: '#ffffff',
   },
   settingContainer: {
-    width: 404,
+    width: width - 24,
     height: 194,
     left: 12,
-    top: 67,
+    top: 13,
     gap: 15,
   },
   itemSettingContainer: {
-    width: 395,
+    width: width - 24,
     height: 24,
     flexDirection: 'row',
     alignItems: 'center',

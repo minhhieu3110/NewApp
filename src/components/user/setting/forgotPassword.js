@@ -6,6 +6,7 @@ import {
   Image,
   Pressable,
   TextInput,
+  Dimensions,
 } from 'react-native';
 import {icon} from '../../../assets/index';
 export default function ForgotPassword({navigation}) {
@@ -26,15 +27,14 @@ export default function ForgotPassword({navigation}) {
               Nhập Email đã đăng ký để lấy lại mật khẩu
             </Text>
           </View>
-          <TextInput style={style.textInput} placeholder="Email" />
+          <TextInput style={style.textInput} placeholder="Email" placeholderTextColor={'#808080'}/>
         </View>
       </View>
       <View
         style={{
-          width: 400,
+          width: width,
           height: 65,
-          left: 6.5,
-          top: 800,
+          top: height - 65,
           position: 'absolute',
           alignItems: 'center',
           justifyContent: 'center',
@@ -42,7 +42,7 @@ export default function ForgotPassword({navigation}) {
         <Pressable
           //   onPress={handlerSaveAddress}
           style={{
-            width: 395,
+            width: width - 24,
             height: 45,
             backgroundColor: '#0060af',
             alignItems: 'center',
@@ -57,6 +57,7 @@ export default function ForgotPassword({navigation}) {
     </View>
   );
 }
+const {width, height} = Dimensions.get('window');
 const style = StyleSheet.create({
   container: {
     flex: 1,
@@ -112,8 +113,8 @@ const style = StyleSheet.create({
     borderColor: '#F1F1F1',
     borderWidth: 1,
     backgroundColor: '#ffffff',
-    // position: 'absolute'
-    color: '#808080',
+    paddingLeft: 15,
+    color: '#212121',
     fontSize: 15,
     fontWeight: 'regular',
     justifyContent: 'center',

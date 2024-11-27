@@ -9,6 +9,7 @@ import {
   ScrollView,
   Modal,
   TouchableOpacity,
+  Dimensions,
 } from 'react-native';
 import {icon, image} from '../../assets/index';
 import {useEffect, useState} from 'react';
@@ -164,9 +165,9 @@ export default function EvaluateOrder({navigation, route}) {
           borderColor: '#f1f1f1',
         }}>
         <TextInput
-          style={{left: 10}}
+          style={{left: 10, fontSize:14, fontWeight: 'regular', color: '#212121'}}
           multiline={true}
-          placeholder="Chia sẻ cảm nhận của bạn"
+          placeholder="Chia sẻ cảm nhận của bạn"placeholderTextColor={'#808080'}
           onChangeText={text => setShareFelling(text)}
         />
       </View>
@@ -196,7 +197,7 @@ export default function EvaluateOrder({navigation, route}) {
               display: files.length < 5 ? 'flex' : 'none',
             }}>
             <Image source={icon.icon_upload_image} />
-            <Text>{files.length}/5</Text>
+            <Text style={{fontSize: 12, fontWeight: 'regular', color: '#aaa'}}>{files.length}/5</Text>
           </Pressable>
         </View>
       </View>
@@ -232,19 +233,21 @@ export default function EvaluateOrder({navigation, route}) {
     </View>
   );
 }
+const {width, height} = Dimensions.get('window');
 const style = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#F3F7FC',
   },
   titleContainer: {
-    width: 412,
+    width: width,
     height: 54,
     top: 0,
     left: 0,
     backgroundColor: '#0060AF',
     position: 'absolute',
-    zIndex: 100,
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10
   },
   title: {
     width: 204,

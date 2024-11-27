@@ -6,89 +6,58 @@ import {
   Pressable,
   Image,
   ScrollView,
+  Dimensions,
 } from 'react-native';
 import {icon, image} from '../../assets/index';
 
-export default function ProductsSeen({navigation}) {
+export default function ProductsSave({navigation}) {
   return (
     <View style={style.container}>
       <View style={style.titleContainer}>
         <Pressable
-          style={style.titleProductsSeen}
+          style={style.title}
           onPress={() => navigation.navigate('Account')}>
           <Image source={icon.icon_arrow_left} />
-          <Text style={style.textTitleProductsSeen}>Sản phẩm đã xem</Text>
+          <Text style={style.textTitle}>Sản phẩm mua sau</Text>
         </Pressable>
       </View>
       <View style={style.seenContainer}>
-        <ScrollView contentContainerStyle={{alignItems: 'center'}}>
-          <View style={style.itemSeenContainer}>
-            <View style={style.imgItemSeen}>
+        <ScrollView
+          contentContainerStyle={{
+            width: width - 24,
+            paddingBottom: 150,rowGap: 12
+          }}>
+          {Array.from({length: 20}).map((_,index)=>(
+            <View style={style.itemContainer} key={index}>
+            <View style={style.imgItem}>
               <View style={style.percentDiscounts}>
                 <Text style={style.textPercentDiscount}>-15%</Text>
               </View>
               <Image style={style.discountTicket} source={icon.icon_discount} />
               <Image source={image.image_product_demo_1} />
             </View>
-            <View style={style.contentItemSeen}>
-              <Text style={style.titleItemSeen}>
+            <View style={style.contentItem}>
+              <Text style={style.titleItem}>
                 Kixx HYBRID - Dầu động cơ cao cấp
               </Text>
-              <View style={style.priceItemSeen}>
+              <View style={style.priceItem}>
                 <Text style={style.salePrice}>143.000đ</Text>
                 <Text style={style.originalPrice}>223.000đ</Text>
               </View>
-              <View style={style.footerContentItemSeen}>
+              <View style={style.footerContentItem}>
                 <Text style={style.numberRate}>4.1</Text>
                 <Image style={style.rateStar} source={icon.icon_rate_star} />
-                <Text style={style.numberPersonSeen}>(249)</Text>
+                <Text style={style.numberPerson}>(249)</Text>
               </View>
             </View>
           </View>
-          
-          <View style={style.itemSeenContainer}>
-            <View style={style.imgItemSeen}>
-              <Image source={image.image_product_demo_2} />
-            </View>
-            <View style={style.contentItemSeen}>
-              <Text style={style.titleItemSeen}>
-                Kixx HYBRID - Dầu động cơ cao cấp
-              </Text>
-              <View style={style.priceItemSeen}>
-                <Text style={style.salePrice}>143.000đ</Text>
-                <Text style={style.originalPrice}></Text>
-              </View>
-              <View style={style.footerContentItemSeen}>
-                <Text style={style.numberRate}>4.1</Text>
-                <Image style={style.rateStar} source={icon.icon_rate_star} />
-                <Text style={style.numberPersonSeen}>(249)</Text>
-              </View>
-            </View>
-          </View>
-          <View style={style.itemSeenContainer}>
-            <View style={style.imgItemSeen}>
-              <Image source={image.image_product_demo_2} />
-            </View>
-            <View style={style.contentItemSeen}>
-              <Text style={style.titleItemSeen}>
-                Kixx HYBRID - Dầu động cơ cao cấp
-              </Text>
-              <View style={style.priceItemSeen}>
-                <Text style={style.salePrice}>143.000đ</Text>
-                <Text style={style.originalPrice}></Text>
-              </View>
-              <View style={style.footerContentItemSeen}>
-                <Text style={style.numberRate}>4.1</Text>
-                <Image style={style.rateStar} source={icon.icon_rate_star} />
-                <Text style={style.numberPersonSeen}>(249)</Text>
-              </View>
-            </View>
-          </View>
+          ))}
         </ScrollView>
       </View>
     </View>
   );
 }
+const {width, height} = Dimensions.get('window');
 const style = StyleSheet.create({
   container: {
     flex: 1,
@@ -96,28 +65,24 @@ const style = StyleSheet.create({
     backgroundColor: '#F3F7FC',
   },
   titleContainer: {
-    width: 428,
+    width: width,
     height: 54,
-    position: 'absolute',
-    top: 0,
-    left: 0,
     backgroundColor: '#0060AF',
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
   },
-  titleProductsSeen: {
+  title: {
     width: 204,
     height: 28,
-    position: 'absolute',
     top: 13,
     left: 3,
+    flexDirection: 'row',
+    columnGap: 5,
+    alignItems: 'center',
   },
-  textTitleProductsSeen: {
+  textTitle: {
     width: 165,
     height: 24,
-    position: 'absolute',
-    top: 2,
-    left: 36,
     fontSize: 18,
     fontWeight: 'medium',
     fontFamily: 'Be Vietnam Pro',
@@ -125,39 +90,28 @@ const style = StyleSheet.create({
   },
   seenContainer: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: 404,
-    top: 66,
-    paddingBottom: 150
+    top: 12,
   },
-  itemSeenContainer: {
-    width: 404,
+  itemContainer: {
+    width: width-24,
     height: 159.26,
     position: 'relative',
-    top: 0,
-    left: 12,
     backgroundColor: '#FFFFFF',
     borderRadius: 8,
-    marginBottom: 12,
     flexDirection: 'row',
+    alignItems: 'center', columnGap: 12
   },
-  imgItemSeen: {
+  imgItem: {
     width: 141,
     height: 143.26,
-    position: 'absolute',
-    left: 8,
-    top: 8,
-    marginLeft: 12,
+    left: 8
+    // marginLeft: 12,
   },
-  contentItemSeen: {
+  contentItem: {
     width: 220.45,
     height: 123.26,
-    position: 'absolute',
-    left: 171.55,
-    top: 18,
   },
-  titleItemSeen: {
+  titleItem: {
     width: 219,
     height: 43,
     left: 1.45,
@@ -166,8 +120,9 @@ const style = StyleSheet.create({
     fontWeight: 'semibold',
     lineHeight: 22,
     fontFamily: 'Be Vietnam Pro',
+    color: '#212121'
   },
-  priceItemSeen: {
+  priceItem: {
     width: 70,
     height: 40,
     top: 8,
@@ -186,7 +141,7 @@ const style = StyleSheet.create({
     fontWeight: 'regular',
     fontFamily: 'Be Vietnam Pro',
   },
-  footerContentItemSeen: {
+  footerContentItem: {
     width: 68,
     height: 16,
     left: 0,
@@ -209,12 +164,13 @@ const style = StyleSheet.create({
     left: 6.43,
     top: 2.78,
   },
-  numberPersonSeen: {
+  numberPerson: {
     width: 30,
     height: 16,
     left: 9.23,
     fontSize: 12,
     fontWeight: 'regular',
+    color: '#aaa'
   },
   discountTicket: {
     position: 'absolute',

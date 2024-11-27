@@ -6,6 +6,7 @@ import {
   Pressable,
   Image,
   ScrollView,
+  Dimensions,
 } from 'react-native';
 import {icon, image} from '../../assets/index';
 import {useEffect, useState} from 'react';
@@ -39,13 +40,14 @@ export default function Order({navigation, route}) {
     </View>
   );
 }
+const {width, height} = Dimensions.get('window');
 const style = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#ffffff',
   },
   header: {
-    width: 412,
+    width: width,
     height: 54,
     backgroundColor: '#0060AF',
     gap: 21,

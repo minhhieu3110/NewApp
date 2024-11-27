@@ -6,6 +6,7 @@ import {
   Text,
   ScrollView,
   Pressable,
+  Dimensions,
 } from 'react-native';
 import {icon, image} from '../../assets/index';
 export default function Account({navigation}) {
@@ -13,51 +14,90 @@ export default function Account({navigation}) {
   //   {id: 1, route: 'SaveProducts'}
   // ]}
   // console.log(data);
-  
+
   return (
     <View style={style.container}>
-      <Pressable
-        style={style.editContainer}
-        onPress={() => navigation.navigate('InfoAccount')}>
-        <Image style={style.iconEditContainer} source={icon.icon_edit} />
-      </Pressable>
-      <View style={style.avatar}>
-        <Image source={image.img_avatar} />
+      <View style={{width: width, height: 235, backgroundColor: '#0060af'}}>
+        <View style={{width: width - 24, left: 12, top: 7}}>
+          <View
+            style={{
+              width: 255,
+              height: 98,
+              left: 157,
+              flexDirection: 'row',
+              columnGap: 130,
+            }}>
+            <View style={style.avatar}>
+              <Image source={image.img_avatar} />
+            </View>
+            <Pressable
+              style={[style.editContainer]}
+              onPress={() => navigation.navigate('InfoAccount')}>
+              <Image
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  resizeMode: 'cover',
+                  borderRadius: 18,
+                }}
+                source={icon.icon_edit}
+              />
+            </Pressable>
+          </View>
+        </View>
+        <View
+          style={{
+            top: 11,
+            left: 118,
+            width: 200,
+            height: 42,
+            rowGap: 4,
+            alignItems: 'center',
+          }}>
+          <Text style={style.usernameText}>Trung Nguyen</Text>
+          <Text style={style.emailText}>{`Trungnguyen123@gmail.com`}</Text>
+        </View>
+        <Pressable
+          onPress={() => navigation.navigate('CumulativePoints')}
+          style={style.accumulatedpoints}>
+          <Text style={style.accumulatedpointsText}>Điểm tích lũy : 1200</Text>
+        </Pressable>
       </View>
-      <Text style={style.usernameText}>Trung Nguyen</Text>
-      <Text style={style.emailText}>trungnguyen123@gmail.com</Text>
-      <Pressable onPress={() => navigation.navigate('CumulativePoints')} style={style.accumulatedpoints}>
-        <Text style={style.accumulatedpointsText}>Điểm tích lũy : 1200</Text>
-      </Pressable>
-      <View style={{flex: 1, top: 217}}>
-        <ScrollView contentContainerStyle={style.containerMenuAccount}>
+      <View style={{flex: 1, top: -18}}>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={style.containerMenuAccount}>
           <View style={style.ordersTitle}>
             <Text style={style.orders}>Đơn hàng</Text>
             <View style={style.seeAll}>
               <Text style={style.seeAllText}>Xem tất cả</Text>
+              <Image source={icon.icon_arrow} />
             </View>
           </View>
-          <View style={{flex: 1, top: 47}}>
-            <ScrollView contentContainerStyle={style.ordersItem} horizontal>
-              <View style={[style.item, {left: 18}]}>
+          <View style={{flex: 1, top: 26}}>
+            <ScrollView
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={style.ordersItem}
+              horizontal>
+              <View style={[style.item]}>
                 <View style={style.iconItem}>
                   <Image source={icon.icon_wait_confirm_order} />
                 </View>
                 <Text style={style.iconItemText}>Chờ xác nhận</Text>
               </View>
-              <View style={[style.item, {left: 122}]}>
+              <View style={[style.item]}>
                 <View style={style.iconItem}>
                   <Image source={icon.icon_wait_get_order} />
                 </View>
                 <Text style={style.iconItemText}>Chờ lấy hàng</Text>
               </View>
-              <View style={[style.item, {left: 226}]}>
+              <View style={[style.item]}>
                 <View style={style.iconItem}>
                   <Image source={icon.icon_processing_order} />
                 </View>
                 <Text style={style.iconItemText}>Đang giao</Text>
               </View>
-              <View style={[style.item, {left: 330}]}>
+              <View style={[style.item]}>
                 <View style={style.iconItem}>
                   <Image source={icon.icon_finished_order} />
                 </View>
@@ -69,8 +109,8 @@ export default function Account({navigation}) {
           <View style={style.accountMenu}>
             <Pressable
               onPress={() => navigation.navigate('InfoAccount')}
-              style={[style.menuAccountTitle, {top: 0}]}>
-              <View>
+              style={[style.menuAccountTitle]}>
+              <View style={style.iconTextMenuAccount}>
                 <Image
                   style={style.iconMenuAccount}
                   source={icon.icon_user_around}
@@ -81,17 +121,17 @@ export default function Account({navigation}) {
               </View>
               <View>
                 <Image
-                  style={[style.iconSubMenuAccount, {top: 7}]}
+                  style={[style.iconSubMenuAccount]}
                   source={icon.icon_arrow_sub_menu}
                 />
               </View>
             </Pressable>
-            <View style={[style.seperator2, {top: 39}]} />
+            <View style={[style.seperator2]} />
             {/* // */}
             <Pressable
               onPress={() => navigation.navigate('ProductsSeen')}
-              style={[style.menuAccountTitle, {top: 54}]}>
-              <View>
+              style={[style.menuAccountTitle]}>
+              <View style={style.iconTextMenuAccount}>
                 <Image style={style.iconMenuAccount} source={icon.icon_seen} />
                 <Text style={[style.textMenuAccount, {top: 1}]}>
                   Sản phẩm đã xem
@@ -99,17 +139,21 @@ export default function Account({navigation}) {
               </View>
               <View>
                 <Image
-                  style={[style.iconSubMenuAccount, {top: 7}]}
+                  style={[style.iconSubMenuAccount]}
                   source={icon.icon_arrow_sub_menu}
                 />
               </View>
             </Pressable>
-            <View style={[style.seperator2, {top: 93}]} />
+            <View style={[style.seperator2]} />
             {/* // */}
             <Pressable
-              onPress={() => navigation.navigate('ProductsFavorite', {routeName: 'ProductsFavorite'})}
-              style={[style.menuAccountTitle, {top: 108}]}>
-              <View>
+              onPress={() =>
+                navigation.navigate('ProductsFavorite', {
+                  routeName: 'ProductsFavorite',
+                })
+              }
+              style={[style.menuAccountTitle]}>
+              <View style={style.iconTextMenuAccount}>
                 <Image style={style.iconMenuAccount} source={icon.icon_heart} />
                 <Text style={[style.textMenuAccount, {top: 1}]}>
                   Sản phẩm yêu thích
@@ -117,15 +161,19 @@ export default function Account({navigation}) {
               </View>
               <View>
                 <Image
-                  style={[style.iconSubMenuAccount, {top: 7}]}
+                  style={[style.iconSubMenuAccount]}
                   source={icon.icon_arrow_sub_menu}
                 />
               </View>
             </Pressable>
-            <View style={[style.seperator2, {top: 147}]} />
+            <View style={[style.seperator2]} />
             {/* // */}
-            <Pressable onPress={() => navigation.navigate('ProductsSave', {routeName: 'ProductsSave'})} style={[style.menuAccountTitle, {top: 162}]}>
-              <View>
+            <Pressable
+              onPress={() =>
+                navigation.navigate('ProductsSave', {routeName: 'ProductsSave'})
+              }
+              style={[style.menuAccountTitle]}>
+              <View style={style.iconTextMenuAccount}>
                 <Image
                   style={style.iconMenuAccount}
                   source={icon.icon_save_product}
@@ -136,15 +184,17 @@ export default function Account({navigation}) {
               </View>
               <View>
                 <Image
-                  style={[style.iconSubMenuAccount, {top: 7}]}
+                  style={[style.iconSubMenuAccount]}
                   source={icon.icon_arrow_sub_menu}
                 />
               </View>
             </Pressable>
-            <View style={[style.seperator2, {top: 201}]} />
+            <View style={[style.seperator2]} />
             {/* // */}
-            <Pressable onPress={() => navigation.navigate('AddressSaved')} style={[style.menuAccountTitle, {top: 216}]}>
-              <View>
+            <Pressable
+              onPress={() => navigation.navigate('AddressSaved')}
+              style={[style.menuAccountTitle]}>
+              <View style={style.iconTextMenuAccount}>
                 <Image
                   style={style.iconMenuAccount}
                   source={icon.icon_save_address}
@@ -155,15 +205,17 @@ export default function Account({navigation}) {
               </View>
               <View>
                 <Image
-                  style={[style.iconSubMenuAccount, {top: 7}]}
+                  style={[style.iconSubMenuAccount]}
                   source={icon.icon_arrow_sub_menu}
                 />
               </View>
             </Pressable>
-            <View style={[style.seperator2, {top: 255}]} />
+            <View style={[style.seperator2]} />
             {/* // */}
-            <Pressable onPress={() => navigation.navigate('Contract')} style={[style.menuAccountTitle, {top: 270}]}>
-              <View>
+            <Pressable
+              onPress={() => navigation.navigate('Contract')}
+              style={[style.menuAccountTitle]}>
+              <View style={style.iconTextMenuAccount}>
                 <Image
                   style={style.iconMenuAccount}
                   source={icon.icon_contract}
@@ -172,29 +224,33 @@ export default function Account({navigation}) {
               </View>
               <View>
                 <Image
-                  style={[style.iconSubMenuAccount, {top: 7}]}
+                  style={[style.iconSubMenuAccount]}
                   source={icon.icon_arrow_sub_menu}
                 />
               </View>
             </Pressable>
-            <View style={[style.seperator2, {top: 309}]} />
+            <View style={[style.seperator2]} />
             {/* // */}
-            <Pressable onPress={() =>navigation.navigate('Debt')} style={[style.menuAccountTitle, {top: 324}]}>
-              <View>
+            <Pressable
+              onPress={() => navigation.navigate('Debt')}
+              style={[style.menuAccountTitle]}>
+              <View style={style.iconTextMenuAccount}>
                 <Image style={style.iconMenuAccount} source={icon.icon_debt} />
                 <Text style={[style.textMenuAccount, {top: 1}]}>Công nợ</Text>
               </View>
               <View>
                 <Image
-                  style={[style.iconSubMenuAccount, {top: 7}]}
+                  style={[style.iconSubMenuAccount]}
                   source={icon.icon_arrow_sub_menu}
                 />
               </View>
             </Pressable>
-            <View style={[style.seperator2, {top: 363}]} />
+            <View style={[style.seperator2]} />
             {/* // */}
-            <Pressable onPress={()=>navigation.navigate('Setting')} style={[style.menuAccountTitle, {top: 378}]}>
-              <View>
+            <Pressable
+              onPress={() => navigation.navigate('Setting')}
+              style={[style.menuAccountTitle]}>
+              <View style={style.iconTextMenuAccount}>
                 <Image
                   style={style.iconMenuAccount}
                   source={icon.icon_gear_setting}
@@ -203,15 +259,17 @@ export default function Account({navigation}) {
               </View>
               <View>
                 <Image
-                  style={[style.iconSubMenuAccount, {top: 7}]}
+                  style={[style.iconSubMenuAccount]}
                   source={icon.icon_arrow_sub_menu}
                 />
               </View>
             </Pressable>
-            <View style={[style.seperator2, {top: 417}]} />
+            <View style={[style.seperator2]} />
             {/* // */}
-            <Pressable onPress={() => navigation.navigate('CenterHelp')} style={[style.menuAccountTitle, {top: 432}]}>
-              <View>
+            <Pressable
+              onPress={() => navigation.navigate('CenterHelp')}
+              style={[style.menuAccountTitle]}>
+              <View style={style.iconTextMenuAccount}>
                 <Image
                   style={style.iconMenuAccount}
                   source={icon.icon_center_help}
@@ -222,14 +280,14 @@ export default function Account({navigation}) {
               </View>
               <View>
                 <Image
-                  style={[style.iconSubMenuAccount, {top: 7}]}
+                  style={[style.iconSubMenuAccount]}
                   source={icon.icon_arrow_sub_menu}
                 />
               </View>
             </Pressable>
-            <View style={[style.seperator2, {top: 471}]} />
-            <View style={[style.menuAccountTitle, {top: 490}]}>
-              <View>
+            <View style={[style.seperator2]} />
+            <View style={[style.menuAccountTitle]}>
+              <View style={style.iconTextMenuAccount}>
                 <Image
                   style={style.iconMenuAccount}
                   source={icon.icon_term_policies}
@@ -240,56 +298,64 @@ export default function Account({navigation}) {
               </View>
               <View>
                 <Image
-                  style={[style.iconSubMenuAccount, {top: 7}]}
+                  style={[style.iconSubMenuAccount]}
                   source={icon.icon_arrow_sub_menu}
                 />
               </View>
             </View>
-            <View style={[style.seperator, {top: 531}]} />
-            <Pressable style={{width: 72, height: 21, top: 550, left: 173}} onPress={() =>navigation.navigate('Home')}>
-              <Text style={{color: '#FD6C31', fontSize: 16, fontWeight: 'medium', fontFamily: 'Be Vietnam Pro'}}>Đăng xuất</Text>
-            </Pressable>
           </View>
+          <View style={[style.seperator, {top: 714, left: 0}]} />
+          <Pressable
+            style={{
+              width: 72,
+              height: 21,
+              top: 732,
+              left: 161,
+              position: 'absolute',
+            }}
+            onPress={() => navigation.navigate('Home')}>
+            <Text
+              style={{
+                color: '#FD6C31',
+                fontSize: 16,
+                fontWeight: 'medium',
+                fontFamily: 'Be Vietnam Pro',
+              }}>
+              Đăng xuất
+            </Text>
+          </Pressable>
         </ScrollView>
       </View>
       {/* </ScrollView> */}
     </View>
   );
 }
+const {width, height} = Dimensions.get('window');
 const style = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    backgroundColor: '#0060AF',
   },
   avatar: {
     width: 90,
     height: 90,
-    position: 'absolute',
-    top: 15,
-    left: 169,
+    top: 8,
   },
   usernameText: {
-    width: 100,
+    width: 150,
     height: 21,
-    position: 'absolute',
-    left: 164,
-    top: 109,
     fontSize: 16,
     fontWeight: 'semibold',
     color: '#FFFFFF',
-    fontFamily: 'Be Vietnam Pro',
+    textAlign: 'center',
   },
   emailText: {
-    width: 200,
+    // width: 168,
     height: 17,
-    position: 'absolute',
-    left: 130,
-    top: 134,
     color: '#ffffff',
     fontSize: 13,
     fontWeight: 'regular',
-    fontFamily: 'Be Vietnam Pro',
+    textAlign: 'center',
   },
   accumulatedpoints: {
     width: 215,
@@ -299,51 +365,51 @@ const style = StyleSheet.create({
     left: 107,
     backgroundColor: '#FEC007',
     borderRadius: 21,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   accumulatedpointsText: {
     width: 144,
     height: 21,
-    position: 'absolute',
-    top: 10,
-    left: 36,
     fontSize: 16,
     fontFamily: 'Be Vietnam Pro',
     fontWeight: 'bold',
     color: '#0060AF',
   },
   containerMenuAccount: {
-    width: 428,
-    height: 1156,
-    // position: 'absolute',
-    // top: 217,
+    width: width,
+    paddingBottom: 800,
     left: 0,
     backgroundColor: '#ffffff',
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
   },
   ordersTitle: {
+    width: width - 24,
+    height: 21,
+    left: 12,
+    alignItems: 'center',
     flexDirection: 'row',
+    top: 14,
   },
   orders: {
     width: 74,
     height: 21,
-    position: 'absolute',
-    top: 14,
-    left: 12,
     fontSize: 16,
     fontWeight: 'bold',
     color: '#212121',
     fontFamily: 'Be Vietnam Pro',
   },
   seeAll: {
-    width: 71,
+    width: 'auto',
     height: 16,
+    right: 0,
     position: 'absolute',
-    left: 345,
-    top: 17,
+    flexDirection: 'row',
+    alignItems: 'center',
+    columnGap: 5,
   },
   seeAllText: {
-    width: 56,
     height: 16,
     fontSize: 12,
     fontWeight: 'regular',
@@ -351,13 +417,15 @@ const style = StyleSheet.create({
     color: '#808080',
   },
   ordersItem: {
-    width: 404,
     height: 106,
+    left: 6,
+    flexDirection: 'row',
+    columnGap: 24,
+    paddingRight: 100,
   },
   item: {
     width: 80,
     height: 106,
-    position: 'absolute',
   },
   iconItem: {
     width: 80,
@@ -375,44 +443,47 @@ const style = StyleSheet.create({
     textAlign: 'center',
   },
   seperator: {
-    width: 428,
+    width: width,
     height: 5,
     position: 'absolute',
-    top: 168,
+    top: 154,
     backgroundColor: '#F1F1F1',
   },
   accountMenu: {
-    width: 404,
+    width: width - 24,
     height: 510,
     left: 12,
-    top: 185,
+    top: 174,
     position: 'absolute',
+    rowGap: 15,
   },
   menuAccountTitle: {
-    width: 403.93,
+    width: width - 24.7,
     height: 24,
-    position: 'absolute',
-    left: 12,
-    // borderWidth: 1,
-    // justifyContent: 'space-between',
-    // flexDirection: 'row',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between'
+  },
+  iconTextMenuAccount: {
+    width: 350,
+    height: 24,
+    flexDirection: 'row',
+    columnGap: 6,
   },
   iconMenuAccount: {
     width: 24,
     height: 24,
-    position: 'absolute',
-    left: 12,
   },
   textMenuAccount: {
-    width: 138,
+    width: 300,
     height: 21,
-    position: 'absolute',
-    left: 42,
+    fontSize: 16,
+    fontWeight: 'regular',
+    color: '#212121',
   },
   iconSubMenuAccount: {
     width: 6.1,
     height: 10.17,
-    left: 355,
   },
   seperator2: {
     width: 404,
@@ -424,8 +495,7 @@ const style = StyleSheet.create({
   editContainer: {
     width: 35,
     height: 35,
-    left: 389,
-    top: 7,
+    top: 0,
   },
   iconEditContainer: {
     width: 18.27,

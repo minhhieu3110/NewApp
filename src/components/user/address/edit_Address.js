@@ -7,6 +7,7 @@ import {
   Pressable,
   Image,
   TextInput,
+  Dimensions,
 } from 'react-native';
 import {icon, image} from '../../../assets/index';
 import {Picker} from '@react-native-picker/picker';
@@ -118,10 +119,10 @@ export default function Edit_Address({navigation, route}) {
     <View style={style.container}>
       <View style={style.titleContainer}>
         <Pressable
-          style={style.titleAddressSaved}
+          style={style.title}
           onPress={() => navigation.navigate('AddressSaved')}>
           <Image source={icon.icon_arrow_left} />
-          <Text style={style.textTitleAddressSaved}>Chỉnh sửa địa chỉ</Text>
+          <Text style={style.textTitle}>Chỉnh sửa địa chỉ</Text>
         </Pressable>
       </View>
       <Text
@@ -129,110 +130,113 @@ export default function Edit_Address({navigation, route}) {
           width: 128,
           height: 21,
           left: 12,
-          top: 65,
+          top: 11,
           fontSize: 16,
           fontWeight: 'semibold',
           color: '#212121',
         }}>
         Thông tin cá nhân
       </Text>
-      <TextInput
-        style={[style.textInputNameNumberPhone, {top: 42}]}
-        placeholder="Họ Tên"
-        value={`${editInfo.name}`}
-        onChangeText={name => setNewInfo({...newInfo, name})}
-      />
-      <TextInput
-        style={[style.textInputNameNumberPhone, {top: 57}]}
-        placeholder="Số địện thoại"
-        keyboardType="numeric"
-        value={`${editInfo.numberPhone}`}
-        onChangeText={numberPhone => setNewInfo({...newInfo, numberPhone})}
-      />
-      <Text
-        style={{
-          width: 48,
-          height: 21,
-          left: 12,
-          top: 67,
-          fontSize: 16,
-          fontWeight: 'semibold',
-          color: '#212121',
-        }}>
-        Địa chỉ
-      </Text>
-      <Picker
-        // selectedValue={address.province}
-        style={[style.textInputAddress, {width: 404, top: 77}]}
-        onValueChange={(provinceName, index) => {
-          setAddress({...address, province: provinceName});
-          fetchDistricts(provinces[index - 1]?.code);
-        }}>
-        <Picker.Item label="Tỉnh/Thành" value="" />
-        {provinces.map(province => (
-          <Picker.Item
-            key={province.code}
-            label={province.name}
-            value={province.name}
-          />
-        ))}
-      </Picker>
-      <View style={{top: 88, height: 60, flexDirection: 'row', gap: 12}}>
-        <Picker
-          //   selectedValue={address.district}
-          style={[style.textInputAddress, {width: 197}]}
-          onValueChange={(districtName, index) => {
-            setAddress({...address, district: districtName});
-            fetchWards(districts[index - 1]?.code);
+      <View style={{width: width - 24, top: 21, left: 12}}>
+        <TextInput
+          style={[style.textInputNameNumberPhone]}
+          placeholder="Họ Tên"
+          value={`${editInfo.name}`}
+          onChangeText={name => setNewInfo({...newInfo, name})}
+        />
+        <TextInput
+          style={[style.textInputNameNumberPhone, {top: 10}]}
+          placeholder="Số địện thoại"
+          keyboardType="numeric"
+          value={`${editInfo.numberPhone}`}
+          onChangeText={numberPhone => setNewInfo({...newInfo, numberPhone})}
+        />
+        <Text
+          style={{
+            width: 48,
+            height: 21,
+            top: 21,
+            fontSize: 16,
+            fontWeight: 'semibold',
+            color: '#212121',
           }}>
-          <Picker.Item label="Quận/Huyện" value="" />
-          {districts.map(district => (
+          Địa chỉ
+        </Text>
+        <Picker
+          // selectedValue={address.province}
+          style={[style.textInputAddress, {width: width-24, top: 31}]}
+          onValueChange={(provinceName, index) => {
+            setAddress({...address, province: provinceName});
+            fetchDistricts(provinces[index - 1]?.code);
+          }}>
+          <Picker.Item label="Tỉnh/Thành" value="" />
+          {provinces.map(province => (
             <Picker.Item
-              key={district.code}
-              label={district.name}
-              value={district.name}
+              key={province.code}
+              label={province.name}
+              value={province.name}
             />
           ))}
         </Picker>
-        <Picker
-          //   selectedValue={address.ward}
-          style={[style.textInputAddress, {width: 197, left: 12}]}
-          onValueChange={wardName => setAddress({...address, ward: wardName})}>
-          <Picker.Item label="Phường/Xã" value="" />
-          {wards.map(ward => (
-            <Picker.Item key={ward.code} label={ward.name} value={ward.name} />
-          ))}
-        </Picker>
+        <View style={{top: 41, width: width-24,height: 60, flexDirection: 'row'}}>
+          <Picker
+            style={[style.textInputAddress, {width: (width -24)/2 -5}]}
+            onValueChange={(districtName, index) => {
+              setAddress({...address, district: districtName});
+              fetchWards(districts[index - 1]?.code);
+            }}>
+            <Picker.Item label="Quận/Huyện" value="" />
+            {districts.map(district => (
+              <Picker.Item
+                key={district.code}
+                label={district.name}
+                value={district.name}
+              />
+            ))}
+          </Picker>
+          <Picker
+            style={[style.textInputAddress, {width: (width -24)/2 -5, left: 12}]}
+            onValueChange={wardName =>
+              setAddress({...address, ward: wardName})
+            }>
+            <Picker.Item label="Phường/Xã" value="" />
+            {wards.map(ward => (
+              <Picker.Item
+                key={ward.code}
+                label={ward.name}
+                value={ward.name}
+              />
+            ))}
+          </Picker>
+        </View>
+        <TextInput
+          style={[style.textInputAddress, {width: width-24, top: 51}]}
+          placeholder="Số nhà, tên đường, tòa nhà..."
+          value={`${editInfo.address}`}
+          onChangeText={numberHouse =>
+            setAddress({...address, numberHouse: numberHouse})
+          }
+        />
+        <Pressable
+          onPress={handlerSetDefault}
+          style={{
+            width: 211,
+            height: 23,
+            top: 61,
+            flexDirection: 'row',
+            gap: 12,
+          }}>
+          <Image source={addDefault} />
+          <Text style={{fontSize: 14, fontWeight: 'regular', color: '#212121'}}>
+            Đặt làm địa chỉ mặc định
+          </Text>
+        </Pressable>
       </View>
-      <TextInput
-        style={[style.textInputAddress, {width: 404, top: 98}]}
-        placeholder="Số nhà, tên đường, tòa nhà..."
-        value={`${editInfo.address}`}
-        onChangeText={numberHouse =>
-          setAddress({...address, numberHouse: numberHouse})
-        }
-      />
-      <Pressable
-        onPress={handlerSetDefault}
-        style={{
-          width: 211,
-          height: 23,
-          left: 12,
-          top: 110,
-          flexDirection: 'row',
-          gap: 12,
-        }}>
-        <Image source={addDefault} />
-        <Text style={{fontSize: 14, fontWeight: 'regular', color: '#212121'}}>
-          Đặt làm địa chỉ mặc định
-        </Text>
-      </Pressable>
       <View
         style={{
-          width: 400,
+          width: width,
           height: 65,
-          left: 6.5,
-          top: 800,
+          top: height - 65,
           position: 'absolute',
           alignItems: 'center',
           justifyContent: 'center',
@@ -269,6 +273,7 @@ export default function Edit_Address({navigation, route}) {
     </View>
   );
 }
+const {width, height} = Dimensions.get('window');
 const style = StyleSheet.create({
   container: {
     flex: 1,
@@ -284,28 +289,33 @@ const style = StyleSheet.create({
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
   },
-  titleAddressSaved: {
+  titleContainer: {
+    width: width,
+    height: 54,
+    backgroundColor: '#0060AF',
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
+  },
+  title: {
     width: 204,
     height: 28,
-    position: 'absolute',
     top: 13,
     left: 3,
+    flexDirection: 'row',
+    columnGap: 5,
+    alignItems: 'center',
   },
-  textTitleAddressSaved: {
+  textTitle: {
     width: 165,
     height: 24,
-    position: 'absolute',
-    top: 2,
-    left: 36,
     fontSize: 18,
     fontWeight: 'medium',
     fontFamily: 'Be Vietnam Pro',
     color: '#ffffff',
   },
   textInputNameNumberPhone: {
-    width: 404,
+    width: width-24,
     height: 47,
-    left: 12,
     fontSize: 15,
     fontWeight: 'regular',
     color: '#808080',
@@ -315,7 +325,6 @@ const style = StyleSheet.create({
   },
   textInputAddress: {
     height: 47,
-    left: 12,
     fontSize: 15,
     fontWeight: 'bold',
     color: '#212121',

@@ -6,6 +6,7 @@ import {
   Image,
   Pressable,
   ScrollView,
+  Dimensions,
 } from 'react-native';
 import {image} from '../../assets';
 import {formatCurrency} from '../../utils/fomatCurrency';
@@ -196,14 +197,14 @@ export default function AllOrders({navigation}) {
                   </View>
                   <View
                     style={{
-                      width: 395,
+                      width: width-24,
                       borderWidth: 1,
                       borderColor: '#F1F1F1',
                     }}
                   />
                   <View
                     style={{
-                      width: 395,
+                      width: width-24,
                       height: 80,
                       flexDirection: 'row',
                       columnGap: 12,
@@ -268,7 +269,7 @@ export default function AllOrders({navigation}) {
                   <View
                     style={{
                       height: 27,
-                      width: 395,
+                      width: width-24,
                       flexDirection: 'row',
                       alignItems: 'center',
                     }}>
@@ -321,13 +322,14 @@ export default function AllOrders({navigation}) {
     </View>
   );
 }
+const {width, height}= Dimensions.get('window');
 const style = StyleSheet.create({
   itemContainer: {
     height: 198,
     gap: 12,
   },
   contentItemContainer: {
-    width: 395,
+    width: width-24,
     height: 182,
     gap: 12,
     left: 12,

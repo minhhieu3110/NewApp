@@ -1,25 +1,25 @@
 import * as React from 'react';
-import {StyleSheet, View, Text, Image, Pressable} from 'react-native';
+import {StyleSheet, View, Text, Image, Pressable, Dimensions} from 'react-native';
 import {icon} from '../../../assets/index';
 export default function CenterHelp({navigation}) {
   return (
     <View style={style.container}>
       <View style={style.titleContainer}>
         <Pressable
-          style={style.titleAddressSaved}
+          style={style.title}
           onPress={() => navigation.navigate('Account')}>
           <Image source={icon.icon_arrow_left} />
-          <Text style={style.textTitleAddressSaved}>Trung tâm hỗ trợ</Text>
+          <Text style={style.textTitle}>Trung tâm hỗ trợ</Text>
         </Pressable>
       </View>
-      <View style={{width: 404, height: 100, left: 12, top: 69, gap: 15}}>
+      <View style={{width: 404, height: 100, left: 12, top: 15, gap: 15}}>
         <View style={style.itemHelp}>
           <View style={style.leftItemHelp}>
             <Image source={icon.icon_help_with_phone} />
             <Text style={style.textItemLeftHelp}>Hỗ trợ qua điện thoại</Text>
           </View>
           <Text
-            style={{fontSize: 16, fontWeight: 'semibold', color: '#0060AF', left: 120}}>
+            style={{fontSize: 16, fontWeight: 'semibold', color: '#0060AF', right: 0, position: 'absolute'}}>
             0123456789
           </Text>
         </View>
@@ -28,47 +28,44 @@ export default function CenterHelp({navigation}) {
             <Image source={icon.icon_help_with_email} />
             <Text style={style.textItemLeftHelp}>Hỗ trợ qua email</Text>
           </View>
-          <Image style={{left: 230.8}} source={icon.icon_arrow_sub_menu}/>
+          <Image style={{right: 0, position: 'absolute'}} source={icon.icon_arrow_sub_menu}/>
         </Pressable>
       </View>
     </View>
   );
 }
+const {width, height} = Dimensions.get('window')
 const style = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#F3F7FC',
   },
   titleContainer: {
-    width: 428,
+    width: width,
     height: 54,
-    position: 'absolute',
-    top: 0,
-    left: 0,
     backgroundColor: '#0060AF',
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
   },
-  titleAddressSaved: {
+  title: {
     width: 204,
     height: 28,
-    position: 'absolute',
     top: 13,
     left: 3,
+    flexDirection: 'row',
+    columnGap: 5,
+    alignItems: 'center',
   },
-  textTitleAddressSaved: {
+  textTitle: {
     width: 165,
     height: 24,
-    position: 'absolute',
-    top: 2,
-    left: 36,
     fontSize: 18,
     fontWeight: 'medium',
     fontFamily: 'Be Vietnam Pro',
-    color: '#ffffff',
+    color: '#fff',
   },
   itemHelp: {
-    width: 404,
+    width: width-24,
     height: 24,
     flexDirection: 'row',    
     alignItems: 'center',

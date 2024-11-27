@@ -9,6 +9,7 @@ import {
   ScrollView,
   FlatList,
   ImageBackground,
+  Dimensions,
 } from 'react-native';
 import {icon, image} from '../../assets/index';
 import {useState} from 'react';
@@ -36,17 +37,17 @@ export default function AboutCompany({navigation}) {
     <View style={style.container}>
       <View style={style.titleContainer}>
         <Pressable
-          style={style.titleAddressSaved}
+          style={style.title}
           onPress={() => navigation.navigate('Home')}>
           <Image source={icon.icon_arrow_left} />
-          <Text style={style.textTitleAddressSaved}>Giới thiệu về công ty</Text>
+          <Text style={style.textTitle}>Giới thiệu về công ty</Text>
         </Pressable>
       </View>
-      <View style={{flex: 1, top: 66}}>
+      <View style={{flex: 1, top: 12}}>
         <ScrollView
           contentContainerStyle={style.aboutContainer}
           showsVerticalScrollIndicator={false}>
-          <View style={{width: 404, height: 477, borderRadius: 10, gap: 12}}>
+          <View style={{width: width-24, height: 477, borderRadius: 10, gap: 12}}>
             <View style={{width: 332, height: 22, top: 12, left: 12}}>
               <Text
                 style={{fontSize: 18, fontWeight: 'bold', color: '#0060af'}}>
@@ -81,13 +82,13 @@ export default function AboutCompany({navigation}) {
           </View>
           <View
             style={{
-              width: 395,
+              width: width-24,
               height: 621,
               flexDirection: 'row',
               left: -12,
               gap: 12,
             }}>
-            <View style={{width: 395, height: 569, left: 6}}>
+            <View style={{width: width-24, height: 569, left: 6}}>
               <Image source={`${imageDemo[currentIndex].image}`} />
             </View>
             <View
@@ -294,41 +295,38 @@ export default function AboutCompany({navigation}) {
     </View>
   );
 }
+const {width, height} = Dimensions.get('window');
 const style = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#F3F7FC',
   },
   titleContainer: {
-    width: 428,
+    width: width,
     height: 54,
-    position: 'absolute',
-    top: 0,
-    left: 0,
     backgroundColor: '#0060AF',
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
   },
-  titleAddressSaved: {
+  title: {
     width: 204,
     height: 28,
-    position: 'absolute',
     top: 13,
     left: 3,
+    flexDirection: 'row',
+    columnGap: 5,
+    alignItems: 'center',
   },
-  textTitleAddressSaved: {
+  textTitle: {
     width: 165,
     height: 24,
-    position: 'absolute',
-    top: 2,
-    left: 36,
     fontSize: 18,
     fontWeight: 'medium',
     fontFamily: 'Be Vietnam Pro',
-    color: '#ffffff',
+    color: '#fff',
   },
   aboutContainer: {
-    width: 404,
+    width: width-24,
     left: 12,
     top: 0,
     backgroundColor: '#ffffff',

@@ -7,9 +7,11 @@ import {
   Pressable,
   TextInput,
   ScrollView,
+  Modal,
 } from 'react-native';
 import {icon} from '../../assets/index';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import {useState} from 'react';
 export default function CumulativePoints({navigation}) {
   return (
     <View style={style.container}>
@@ -74,7 +76,8 @@ export default function CumulativePoints({navigation}) {
             </Text>
           </View>
           <View style={{height: 20}}>
-            <View
+            <Pressable
+              onPress={()=>navigation.navigate('VoucherRedeemed')}
               style={{
                 width: 117.93,
                 right: 20,
@@ -84,19 +87,31 @@ export default function CumulativePoints({navigation}) {
                 columnGap: 11.8,
               }}>
               <Text
-                style={{fontSize: 15, fontWeight: 'regular', color: '#0060af'}}>
+                style={{
+                  fontSize: 15,
+                  fontWeight: 'regular',
+                  color: '#0060af',
+                }}>
                 Voucher đã đổi
               </Text>
               <Icon name="arrow-forward-ios" color="#0060af" />
-            </View>
+            </Pressable>
           </View>
         </View>
-        <ScrollView contentContainerStyle={{width: 395, rowGap: 12, paddingBottom: 500}}>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{
+            width: 395,
+            rowGap: 12,
+            paddingBottom: 500,
+          }}>
           <Text style={{fontSize: 16, fontWeight: 'bold', color: '#212121'}}>
             Đổi điểm
           </Text>
           {Array.from({length: 10}).map((_, index) => (
-              <View key={index}
+            <Pressable
+              onPress={() => navigation.navigate('DetailVoucher')}
+              key={index}
               style={{
                 width: 395,
                 height: 121,
@@ -107,7 +122,7 @@ export default function CumulativePoints({navigation}) {
                 columnGap: 10.1,
                 alignItems: 'center',
               }}>
-              <Pressable
+              <View
                 style={{
                   width: 138.87,
                   height: 120.96,
@@ -145,10 +160,14 @@ export default function CumulativePoints({navigation}) {
                     Đổi ngay
                   </Text>
                 </Pressable>
-              </Pressable>
+              </View>
               <View style={{width: 231, height: 102}}>
                 <Text
-                  style={{fontWeight: 'bold', color: '#0060af', fontSize: 16}}>
+                  style={{
+                    fontWeight: 'bold',
+                    color: '#0060af',
+                    fontSize: 16,
+                  }}>
                   Giảm 200k
                 </Text>
                 <Text
@@ -176,7 +195,10 @@ export default function CumulativePoints({navigation}) {
                     alignItems: 'center',
                     top: 23,
                   }}>
-                  <Image source={icon.icon_rpm} style={{width: 20, height: 20}} />
+                  <Image
+                    source={icon.icon_rpm}
+                    style={{width: 20, height: 20}}
+                  />
                   <Text
                     style={{
                       fontSize: 13,
@@ -187,9 +209,8 @@ export default function CumulativePoints({navigation}) {
                   </Text>
                 </View>
               </View>
-            </View>
+            </Pressable>
           ))}
-          
         </ScrollView>
       </View>
     </View>

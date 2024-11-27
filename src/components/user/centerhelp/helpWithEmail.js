@@ -6,6 +6,7 @@ import {
   Image,
   Pressable,
   TextInput,
+  Dimensions,
 } from 'react-native';
 import {icon} from '../../../assets/index';
 export default function HelpWithEmail({navigation}) {
@@ -13,13 +14,13 @@ export default function HelpWithEmail({navigation}) {
     <View style={style.container}>
       <View style={style.titleContainer}>
         <Pressable
-          style={style.titleAddressSaved}
+          style={style.title}
           onPress={() => navigation.navigate('CenterHelp')}>
           <Image source={icon.icon_arrow_left} />
-          <Text style={style.textTitleAddressSaved}>Hỗ trợ qua Email</Text>
+          <Text style={style.textTitle}>Hỗ trợ qua Email</Text>
         </Pressable>
       </View>
-      <View style={{width: 404, height: 86, left: 12, top: 69}}>
+      <View style={{width: width - 24, height: 86, left: 12, top: 12}}>
         <Text
           style={{
             fontSize: 15,
@@ -33,7 +34,7 @@ export default function HelpWithEmail({navigation}) {
           trong thời gian sớm nhất
         </Text>
       </View>
-      <View style={{width: 404, height: 500, left: 12, top: 101, gap: 11}}>
+      <View style={{width: width - 24, height: 500, left: 0, top: 44, gap: 11}}>
         <View style={style.userInfo}>
           <View>
             <Text style={style.nameAttribute}>
@@ -82,73 +83,71 @@ export default function HelpWithEmail({navigation}) {
                 borderColor: '#F3F7FC',
                 fontWeight: 'regular',
                 color: '#212121',
-              }}></TextInput>
+                borderWidth: 1,
+                paddingLeft: 15,
+              }}
+              placeholderTextColor={'#808080'}></TextInput>
           </View>
         </View>
-        <View
+      </View>
+      <View
+        style={{
+          width: width,
+          height: 65,
+          top: height - 65,
+          position: 'absolute',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}>
+        <Pressable
           style={{
-            width: 400,
-            height: 65,
-            left: -6.5,
-            top: 610,
-            position: 'absolute',
+            width: width - 24,
+            height: 45,
+            backgroundColor: '#0060af',
             alignItems: 'center',
             justifyContent: 'center',
+            borderRadius: 10,
           }}>
-          <Pressable
-            style={{
-              width: 395,
-              height: 45,
-              backgroundColor: '#0060af',
-              alignItems: 'center',
-              justifyContent: 'center',
-              borderRadius: 10,
-            }}>
-            <Text
-              style={{color: '#ffffff', fontSize: 15, fontWeight: 'medium'}}>
-              Gửi
-            </Text>
-          </Pressable>
-        </View>
+          <Text style={{color: '#ffffff', fontSize: 15, fontWeight: 'medium'}}>
+            Gửi
+          </Text>
+        </Pressable>
       </View>
     </View>
   );
 }
+const {width, height} = Dimensions.get('window');
 const style = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F3F7FC',
+    backgroundColor: '#fff',
   },
   titleContainer: {
-    width: 428,
+    width: width,
     height: 54,
-    position: 'absolute',
-    top: 0,
-    left: 0,
     backgroundColor: '#0060AF',
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
   },
-  titleAddressSaved: {
+  title: {
     width: 204,
     height: 28,
-    position: 'absolute',
     top: 13,
     left: 3,
+    flexDirection: 'row',
+    columnGap: 5,
+    alignItems: 'center',
   },
-  textTitleAddressSaved: {
+  textTitle: {
     width: 165,
     height: 24,
-    position: 'absolute',
-    top: 2,
-    left: 36,
     fontSize: 18,
     fontWeight: 'medium',
     fontFamily: 'Be Vietnam Pro',
-    color: '#ffffff',
+    color: '#fff',
   },
   userInfo: {
-    width: 404,
+    width: width - 24,
     height: 78,
     backgroundColor: '#ffffff',
     // flexDirection: 'row',
@@ -188,5 +187,8 @@ const style = StyleSheet.create({
     fontSize: 15,
     fontWeight: 'regular',
     color: '#212121',
+    borderWidth: 1,
+    borderColor: '#f1f1f1',
+    paddingLeft: 15,
   },
 });

@@ -9,10 +9,10 @@ import Register from '../components/user/register';
 import AccountNoSignIn from '../components/user/accountNoSignIn';
 import Account from '../components/user/account';
 import InfoAccount from '../components/user/infoAccount';
-import ProductsSeen from '../components/products/productsSeen';
-import ProductsFavorite from '../components/products/productsFavorite';
-import ProductDetail from '../components/products/productDetail';
-import ProductsSave from '../components/products/productsSave';
+import ProductsSeen from '../components/productsOrder/productsSeen';
+import ProductsFavorite from '../components/productsOrder/productsFavorite';
+import ProductDetail from '../components/productsOrder/productDetail';
+import ProductsSave from '../components/productsOrder/productsSave';
 import AddressSaved from '../components/user/address/addressSaved';
 import Add_Address from '../components/user/address/add_Address';
 import Edit_Address from '../components/user/address/edit_Address';
@@ -24,6 +24,8 @@ import Setting from '../components/user/setting/setting';
 import ChangePassword from '../components/user/setting/changePassword';
 import ForgotPassword from '../components/user/setting/forgotPassword';
 import CumulativePoints from '../components/user/cumulativePoints';
+import VoucherRedeemed from '../components/user/voucherRedeemed';
+import DetailVoucher from '../components/user/detailVoucher';
 export default function AccountStackNavigation() {
   const Stack = createNativeStackNavigator();
   return (
@@ -38,6 +40,8 @@ export default function AccountStackNavigation() {
           <Stack.Screen name="Account" component={Account} />
           <Stack.Screen name="InfoAccount" component={InfoAccount} />
           <Stack.Screen name="CumulativePoints" component={CumulativePoints} />
+          <Stack.Screen name='VoucherRedeemed' component={VoucherRedeemed}/>
+          <Stack.Screen name='DetailVoucher' component={DetailVoucher}/>
           <Stack.Screen name="ProductsSeen" component={ProductsSeen}/>
           <Stack.Screen name="ProductsFavorite" component={ProductsFavorite}/>
           <Stack.Screen name="ProductDetail" component={ProductDetail}/>

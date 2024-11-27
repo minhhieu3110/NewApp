@@ -7,6 +7,7 @@ import {
   Image,
   TextInput,
   Button,
+  Dimensions,
 } from 'react-native';
 import {icon, image} from '../../assets/index';
 export default function InfoAccount({navigation}) {
@@ -16,7 +17,12 @@ export default function InfoAccount({navigation}) {
         <Pressable
           style={style.titleInfoAccount}
           onPress={() => navigation.navigate('Account')}>
-          <Image source={icon.icon_arrow_left} />
+          <View style={style.iconTitleInfoAccount}>
+            <Image
+              source={icon.icon_arrow_left}
+              style={{width: '100%', height: '100%', resizeMode: 'cover'}}
+            />
+          </View>
           <Text style={style.textTitleInfoAccount}>Thông tin tài khoản</Text>
         </Pressable>
       </View>
@@ -24,71 +30,90 @@ export default function InfoAccount({navigation}) {
         <Image style={style.imgAvatar} source={image.img_avatar} />
         <Image style={style.changeAvatar} source={icon.icon_change_avatar} />
       </View>
-      <View style={[style.attributeContainer, {top: 173}]}>
-        <Text style={[style.nameAttribute, {width: 59}]}>
-          Họ tên<Text style={style.sub}>*</Text>
-        </Text>
-        <TextInput style={style.inputContentEdit} value="Nguyễn Ngọc Trung" />
-      </View>
-      <View style={[style.attributeContainer, {top: 262}]}>
-        <Text style={[style.nameAttribute, {width: 104}]}>
-          Số điện thoại<Text style={style.sub}>*</Text>
-        </Text>
-        <TextInput style={style.inputContentEdit} value="123456789" />
-      </View>
-      <View style={[style.attributeContainer, {top: 351}]}>
-        <Text style={style.nameAttribute}>
-          Email<Text style={style.sub}>*</Text>
-        </Text>
-        <TextInput
-          style={style.inputContentEdit}
-          value="trungnguyen123@gmail.com"
-        />
-      </View>
-      <View style={[style.attributeContainer, {top: 440}]}>
-        <Text style={style.nameAttribute}>Ngày sinh</Text>
-        <TextInput style={style.inputContentEdit} value="22/05/1999" />
-        <Image style={style.iconCalendar} source={icon.icon_calendar} />
-      </View>
-      <View style={[style.attributeContainer, {top: 529}]}>
-        <Text style={style.nameAttribute}>Giới tính</Text>
-        <TextInput style={style.inputContentEdit} value="Nam" />
+      <View style={{width: width - 24, left: 12, top: 63, rowGap: 11}}>
+        <View style={[style.attributeContainer]}>
+          <Text style={[style.nameAttribute]}>
+            Họ tên<Text style={style.sub}>*</Text>
+          </Text>
+          <TextInput style={style.inputContentEdit} value="Nguyễn Ngọc Trung" />
+        </View>
+        <View style={[style.attributeContainer]}>
+          <Text style={[style.nameAttribute]}>
+            Số điện thoại<Text style={style.sub}>*</Text>
+          </Text>
+          <TextInput style={style.inputContentEdit} value="123456789" />
+        </View>
+        <View style={[style.attributeContainer]}>
+          <Text style={style.nameAttribute}>
+            Email<Text style={style.sub}>*</Text>
+          </Text>
+          <TextInput
+            style={style.inputContentEdit}
+            value="trungnguyen123@gmail.com"
+          />
+        </View>
+        <View style={[style.attributeContainer]}>
+          <Text style={style.nameAttribute}>Ngày sinh</Text>
+          <View
+            style={{
+              width: width - 24,
+              flexDirection: 'row',
+              alignItems: 'center',
+            }}>
+            <TextInput style={style.inputContentEdit} value="22/05/1999" />
+            <Image style={style.iconCalendar} source={icon.icon_calendar} />
+          </View>
+        </View>
+        <View style={[style.attributeContainer]}>
+          <Text style={style.nameAttribute}>Giới tính</Text>
+          <TextInput style={style.inputContentEdit} value="Nam" />
+        </View>
       </View>
       <View style={style.footerInfoAccount}>
         <Pressable style={style.btnUpdate}>
-          <Text style={{width: 80, height: 20, position: 'absolute', left: 184, top: 12, color: '#ffffff', fontSize: 15, fontWeight: 'medium'}}>Cập nhập</Text>
+          <Text
+            style={{
+              width: 80,
+              height: 20,
+              position: 'absolute',
+              left: 184,
+              top: 12,
+              color: '#ffffff',
+              fontSize: 15,
+              fontWeight: 'medium',
+            }}>
+            Cập nhập
+          </Text>
         </Pressable>
       </View>
     </View>
   );
 }
+const {width, height} = Dimensions.get('window');
 const style = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
     backgroundColor: '#ffffff',
   },
   titleContainer: {
-    width: 428,
+    width: width,
     height: 109,
     backgroundColor: '#0060AF',
-    position: 'absolute',
     left: 0,
     top: 0,
   },
   titleInfoAccount: {
-    width: 204,
+    width: 188,
     height: 28,
-    position: 'absolute',
     top: 13,
     left: 3,
+    flexDirection: 'row',
+    columnGap: 5,
+    alignItems: 'center',
   },
   textTitleInfoAccount: {
     width: 165,
     height: 24,
-    position: 'absolute',
-    top: 2,
-    left: 36,
     fontSize: 18,
     fontWeight: 'medium',
     fontFamily: 'Be Vietnam Pro',
@@ -97,11 +122,6 @@ const style = StyleSheet.create({
   iconTitleInfoAccount: {
     width: 28,
     height: 28,
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    borderWidth: 1,
-    borderColor: '#707070',
   },
   avatarContainer: {
     width: 90,
@@ -127,13 +147,10 @@ const style = StyleSheet.create({
   attributeContainer: {
     width: 404,
     height: 78,
-    position: 'absolute',
-    left: 12,
+    rowGap: 10,
   },
   nameAttribute: {
     height: 21,
-    position: 'absolute',
-    left: 12,
     fontSize: 16,
     fontWeight: 'semibold',
     color: '#212121',
@@ -147,33 +164,32 @@ const style = StyleSheet.create({
     color: '#FF0000',
   },
   inputContentEdit: {
-    width: 404,
+    width: width - 24,
     height: 47,
-    position: 'absolute',
-    left: 12,
-    top: 31,
     borderWidth: 1,
     borderColor: '#F1F1F1',
     backgroundColor: '#ffffff',
     borderRadius: 5,
+    fontSize: 15,
+    fontWeight: 'regular',
+    color: '#212121',paddingLeft: 15
   },
   iconCalendar: {
     width: 17,
     height: 17,
     position: 'absolute',
-    left: 389,
-    top: 42,
+    right: 0,
   },
   footerInfoAccount: {
-    width: 428,
+    width: width,
     height: 65,
     position: 'absolute',
-    top: 800,
+    top: height - 65,
     left: 0,
     backgroundColor: '#FFFFFF',
   },
   btnUpdate: {
-    width: 404,
+    width: width - 24,
     height: 45,
     position: 'absolute',
     top: 10,

@@ -1,11 +1,14 @@
 import * as React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Image } from 'react-native';
-import { icon } from '../assets/index';
+import {NavigationContainer} from '@react-navigation/native';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {Image} from 'react-native';
+import {icon} from '../assets/index';
 import HomeStackNavigation from './HomeStackNavigation';
 import AccountStackNavigation from './AccountStackNavigation';
 import OrderStackNavigation from './OrderStackNavigation';
+// import NotificationStackNavigation from './NotificationStackNavigation';
+import Notification from '../components/notification/notification';
+import ProductStackNavigation from './ProductStackNavigation';
 
 const Tab = createBottomTabNavigator();
 
@@ -17,6 +20,10 @@ const getTabBarIcon = (route, focused) => {
       return focused ? icon.icon_order_focus : icon.icon_order;
     case 'AccountScreen':
       return focused ? icon.icon_user_focus : icon.icon_user;
+    case 'NotificationScreen':
+      return focused ? icon.icon_notification_focus : icon.icon_notification;
+    case 'ProductsScreen':
+      return focused ? icon.icon_product_focus : icon.icon_product;
     default:
       return null;
   }
@@ -27,10 +34,10 @@ export default function BottomTabContainer() {
     <NavigationContainer independent={true}>
       <Tab.Navigator
         initialRouteName="HomeScreen"
-        screenOptions={({ route, navigation }) => {
+        screenOptions={({route, navigation}) => {
           const currentRoute = navigation
             .getState()
-            .routes.find((r) => r.name === route.name);
+            .routes.find(r => r.name === route.name);
 
           const isInitialRoute =
             currentRoute && currentRoute.state
@@ -42,10 +49,10 @@ export default function BottomTabContainer() {
             tabBarStyle: {
               display: isInitialRoute ? 'flex' : 'none',
             },
-            tabBarIcon: ({ focused }) => (
+            tabBarIcon: ({focused}) => (
               <Image
                 source={getTabBarIcon(route, focused)}
-                style={{ width: 24, height: 24 }}
+                style={{width: 24, height: 24}}
               />
             ),
             tabBarLabelStyle: {
@@ -54,22 +61,31 @@ export default function BottomTabContainer() {
             tabBarActiveTintColor: '#0060af',
             tabBarInactiveTintColor: '#808080',
           };
-        }}
-      >
+        }}>
         <Tab.Screen
           name="HomeScreen"
           component={HomeStackNavigation}
-          options={{ tabBarLabel: 'Trang Chủ' }}
+          options={{tabBarLabel: 'Trang Chủ'}}
+        />
+        <Tab.Screen
+          name="ProductsScreen"
+          component={ProductStackNavigation}
+          options={{tabBarLabel: 'Sản phẩm'}}
+        />
+        <Tab.Screen
+          name="NotificationScreen"
+          component={Notification}
+          options={{tabBarLabel: 'Thông báo'}}
         />
         <Tab.Screen
           name="OrderScreen"
           component={OrderStackNavigation}
-          options={{ tabBarLabel: 'Đơn Hàng' }}
+          options={{tabBarLabel: 'Đơn Hàng'}}
         />
         <Tab.Screen
           name="AccountScreen"
           component={AccountStackNavigation}
-          options={{ tabBarLabel: 'Tài Khoản' }}
+          options={{tabBarLabel: 'Tài Khoản'}}
         />
       </Tab.Navigator>
     </NavigationContainer>

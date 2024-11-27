@@ -2,6 +2,7 @@ import store from '../redux/store';
 import axios from 'axios';
 
 axios.defaults.baseURL = 'http://rpm.demo.app24h.net:81/api/v1';
+
 const getDataBody = config => {
   let data = '';
   if (

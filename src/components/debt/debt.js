@@ -6,6 +6,7 @@ import {
   Image,
   Pressable,
   ScrollView,
+  Dimensions,
 } from 'react-native';
 import {icon} from '../../assets/index';
 export default function Debt({navigation}) {
@@ -13,18 +14,18 @@ export default function Debt({navigation}) {
     <View style={style.container}>
       <View style={style.titleContainer}>
         <Pressable
-          style={style.titleAddressSaved}
+          style={style.title}
           onPress={() => navigation.navigate('Account')}>
           <Image source={icon.icon_arrow_left} />
-          <Text style={style.textTitleAddressSaved}>Công nợ</Text>
+          <Text style={[style.textTitle, {color: '#fff'}]}>Công nợ</Text>
         </Pressable>
       </View>
       <View
         style={{
-          width: 404,
+          width: width-24,
           height: 179,
           left: 12,
-          top: 69,
+          top: 10,
           backgroundColor: '#ffffff',
           borderRadius: 8,
         }}>
@@ -47,7 +48,7 @@ export default function Debt({navigation}) {
           </Text>
         </View>
         <View style={[style.seperator, {top: 20}]} />
-        <View style={{width: 384, height: 113, left: 10, top: 39, gap: 11}}>
+        <View style={{width: 384, height: 113, top: 39, gap: 11}}>
           <View style={style.itemUserDebtContainer}>
             <Text style={style.textItemUserDebt}>Số dư đầu kỳ</Text>
             <Text style={style.numberItemUserDebt}>387.250.000đ</Text>
@@ -68,240 +69,239 @@ export default function Debt({navigation}) {
           </View>
         </View>
       </View>
-      <View style={{flex: 1, top: 79}}>
-      <ScrollView contentContainerStyle={style.debtContainer} showsVerticalScrollIndicator={false}>
-        <View style={style.itemDebtContainer}>
-          <View style={style.titileDebtAndDate}>
-            <Text style={style.textTitle}>Xuất bán hàng</Text>
-            <View
-              style={{
-                width: 96,
-                height: 27,
-                right: 10,
-                position: 'absolute',
-                backgroundColor: '#F3F7FC',
-                borderRadius: 17,
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}>
-              <Text style={style.textDate}>02/01/2024</Text>
+      <View style={{flex: 1, top: 20}}>
+        <ScrollView
+          contentContainerStyle={style.debtContainer}
+          showsVerticalScrollIndicator={false}>
+          <View style={style.itemDebtContainer}>
+            <View style={style.titileDebtAndDate}>
+              <Text style={style.textTitle}>Xuất bán hàng</Text>
+              <View
+                style={{
+                  width: 96,
+                  height: 27,
+                  right: 10,
+                  position: 'absolute',
+                  backgroundColor: '#F3F7FC',
+                  borderRadius: 17,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                <Text style={style.textDate}>02/01/2024</Text>
+              </View>
+            </View>
+            <View style={style.contentDebt}>
+              <View
+                style={{
+                  left: 10,
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                }}>
+                <Text style={style.textLeft}>Phát sinh nợ</Text>
+                <Text style={style.textRight}>112.750.000đ</Text>
+              </View>
+              <View style={style.seperator} />
+              <View
+                style={{
+                  left: 10,
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                }}>
+                <Text style={style.textLeft}>Phát sinh có</Text>
+                <Text style={style.textRight}>0đ</Text>
+              </View>
+              <View style={style.seperator} />
+              <View
+                style={{
+                  left: 10,
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                }}>
+                <Text style={style.textLeft}>Số dư cuối kỳ</Text>
+                <Text style={style.textRight}>500.000.000đ</Text>
+              </View>
             </View>
           </View>
-          <View style={style.contentDebt}>
-            <View
-              style={{
-                left: 10,
-                flexDirection: 'row',
-                alignItems: 'center',
-              }}>
-              <Text style={style.textLeft}>Phát sinh nợ</Text>
-              <Text style={style.textRight}>112.750.000đ</Text>
+          <View style={style.seperator2}></View>
+          <View style={style.itemDebtContainer}>
+            <View style={style.titileDebtAndDate}>
+              <Text style={style.textTitle}>Thu tiền bán hàng</Text>
+              <View
+                style={{
+                  width: 96,
+                  height: 27,
+                  right: 10,
+                  position: 'absolute',
+                  backgroundColor: '#F3F7FC',
+                  borderRadius: 17,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                <Text style={style.textDate}>02/01/2024</Text>
+              </View>
             </View>
-            <View style={style.seperator} />
-            <View
-              style={{
-                left: 10,
-                flexDirection: 'row',
-                alignItems: 'center',
-              }}>
-              <Text style={style.textLeft}>Phát sinh có</Text>
-              <Text style={style.textRight}>0đ</Text>
-            </View>
-            <View style={style.seperator} />
-            <View
-              style={{
-                left: 10,
-                flexDirection: 'row',
-                alignItems: 'center',
-              }}>
-              <Text style={style.textLeft}>Số dư cuối kỳ</Text>
-              <Text style={style.textRight}>500.000.000đ</Text>
-            </View>
-          </View>
-        </View>
-        <View style={style.seperator2}></View>
-        <View style={style.itemDebtContainer}>
-          <View style={style.titileDebtAndDate}>
-            <Text style={style.textTitle}>Thu tiền bán hàng</Text>
-            <View
-              style={{
-                width: 96,
-                height: 27,
-                right: 10,
-                position: 'absolute',
-                backgroundColor: '#F3F7FC',
-                borderRadius: 17,
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}>
-              <Text style={style.textDate}>02/01/2024</Text>
-            </View>
-          </View>
-          <View style={style.contentDebt}>
-            <View
-              style={{
-                left: 10,
-                flexDirection: 'row',
-                alignItems: 'center',
-              }}>
-              <Text style={style.textLeft}>Phát sinh nợ</Text>
-              <Text style={style.textRight}>112.750.000đ</Text>
-            </View>
-            <View style={style.seperator} />
-            <View
-              style={{
-                left: 10,
-                flexDirection: 'row',
-                alignItems: 'center',
-              }}>
-              <Text style={style.textLeft}>Phát sinh có</Text>
-              <Text style={style.textRight}>0đ</Text>
-            </View>
-            <View style={style.seperator} />
-            <View
-              style={{
-                left: 10,
-                flexDirection: 'row',
-                alignItems: 'center',
-              }}>
-              <Text style={style.textLeft}>Số dư cuối kỳ</Text>
-              <Text style={style.textRight}>500.000.000đ</Text>
+            <View style={style.contentDebt}>
+              <View
+                style={{
+                  left: 10,
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                }}>
+                <Text style={style.textLeft}>Phát sinh nợ</Text>
+                <Text style={style.textRight}>112.750.000đ</Text>
+              </View>
+              <View style={style.seperator} />
+              <View
+                style={{
+                  left: 10,
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                }}>
+                <Text style={style.textLeft}>Phát sinh có</Text>
+                <Text style={style.textRight}>0đ</Text>
+              </View>
+              <View style={style.seperator} />
+              <View
+                style={{
+                  left: 10,
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                }}>
+                <Text style={style.textLeft}>Số dư cuối kỳ</Text>
+                <Text style={style.textRight}>500.000.000đ</Text>
+              </View>
             </View>
           </View>
-        </View>
-        <View style={style.seperator2} />
-        <View style={style.itemDebtContainer}>
-          <View style={style.titileDebtAndDate}>
-            <Text style={style.textTitle}>Xuất bán hàng</Text>
-            <View
-              style={{
-                width: 96,
-                height: 27,
-                right: 10,
-                position: 'absolute',
-                backgroundColor: '#F3F7FC',
-                borderRadius: 17,
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}>
-              <Text style={style.textDate}>02/01/2024</Text>
+          <View style={style.seperator2} />
+          <View style={style.itemDebtContainer}>
+            <View style={style.titileDebtAndDate}>
+              <Text style={style.textTitle}>Xuất bán hàng</Text>
+              <View
+                style={{
+                  width: 96,
+                  height: 27,
+                  right: 10,
+                  position: 'absolute',
+                  backgroundColor: '#F3F7FC',
+                  borderRadius: 17,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                <Text style={style.textDate}>02/01/2024</Text>
+              </View>
+            </View>
+            <View style={style.contentDebt}>
+              <View
+                style={{
+                  left: 10,
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                }}>
+                <Text style={style.textLeft}>Phát sinh nợ</Text>
+                <Text style={style.textRight}>112.750.000đ</Text>
+              </View>
+              <View style={style.seperator} />
+              <View
+                style={{
+                  left: 10,
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                }}>
+                <Text style={style.textLeft}>Phát sinh có</Text>
+                <Text style={style.textRight}>0đ</Text>
+              </View>
+              <View style={style.seperator} />
+              <View
+                style={{
+                  left: 10,
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                }}>
+                <Text style={style.textLeft}>Số dư cuối kỳ</Text>
+                <Text style={style.textRight}>500.000.000đ</Text>
+              </View>
             </View>
           </View>
-          <View style={style.contentDebt}>
-            <View
-              style={{
-                left: 10,
-                flexDirection: 'row',
-                alignItems: 'center',
-              }}>
-              <Text style={style.textLeft}>Phát sinh nợ</Text>
-              <Text style={style.textRight}>112.750.000đ</Text>
+          <View style={style.seperator2}></View>
+          <View style={style.itemDebtContainer}>
+            <View style={style.titileDebtAndDate}>
+              <Text style={style.textTitle}>Thu tiền bán hàng</Text>
+              <View
+                style={{
+                  width: 96,
+                  height: 27,
+                  right: 10,
+                  position: 'absolute',
+                  backgroundColor: '#F3F7FC',
+                  borderRadius: 17,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                <Text style={style.textDate}>02/01/2024</Text>
+              </View>
             </View>
-            <View style={style.seperator} />
-            <View
-              style={{
-                left: 10,
-                flexDirection: 'row',
-                alignItems: 'center',
-              }}>
-              <Text style={style.textLeft}>Phát sinh có</Text>
-              <Text style={style.textRight}>0đ</Text>
-            </View>
-            <View style={style.seperator} />
-            <View
-              style={{
-                left: 10,
-                flexDirection: 'row',
-                alignItems: 'center',
-              }}>
-              <Text style={style.textLeft}>Số dư cuối kỳ</Text>
-              <Text style={style.textRight}>500.000.000đ</Text>
-            </View>
-          </View>
-        </View>
-        <View style={style.seperator2}></View>
-        <View style={style.itemDebtContainer}>
-          <View style={style.titileDebtAndDate}>
-            <Text style={style.textTitle}>Thu tiền bán hàng</Text>
-            <View
-              style={{
-                width: 96,
-                height: 27,
-                right: 10,
-                position: 'absolute',
-                backgroundColor: '#F3F7FC',
-                borderRadius: 17,
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}>
-              <Text style={style.textDate}>02/01/2024</Text>
-            </View>
-          </View>
-          <View style={style.contentDebt}>
-            <View
-              style={{
-                left: 10,
-                flexDirection: 'row',
-                alignItems: 'center',
-              }}>
-              <Text style={style.textLeft}>Phát sinh nợ</Text>
-              <Text style={style.textRight}>112.750.000đ</Text>
-            </View>
-            <View style={style.seperator} />
-            <View
-              style={{
-                left: 10,
-                flexDirection: 'row',
-                alignItems: 'center',
-              }}>
-              <Text style={style.textLeft}>Phát sinh có</Text>
-              <Text style={style.textRight}>0đ</Text>
-            </View>
-            <View style={style.seperator} />
-            <View
-              style={{
-                left: 10,
-                flexDirection: 'row',
-                alignItems: 'center',
-              }}>
-              <Text style={style.textLeft}>Số dư cuối kỳ</Text>
-              <Text style={style.textRight}>500.000.000đ</Text>
+            <View style={style.contentDebt}>
+              <View
+                style={{
+                  left: 10,
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                }}>
+                <Text style={style.textLeft}>Phát sinh nợ</Text>
+                <Text style={style.textRight}>112.750.000đ</Text>
+              </View>
+              <View style={style.seperator} />
+              <View
+                style={{
+                  left: 10,
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                }}>
+                <Text style={style.textLeft}>Phát sinh có</Text>
+                <Text style={style.textRight}>0đ</Text>
+              </View>
+              <View style={style.seperator} />
+              <View
+                style={{
+                  left: 10,
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                }}>
+                <Text style={style.textLeft}>Số dư cuối kỳ</Text>
+                <Text style={style.textRight}>500.000.000đ</Text>
+              </View>
             </View>
           </View>
-        </View>
-      </ScrollView>
+        </ScrollView>
       </View>
     </View>
   );
 }
+const {width, height} = Dimensions.get('window');
 const style = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#F3F7FC',
   },
   titleContainer: {
-    width: 428,
+    width: width,
     height: 54,
-    position: 'absolute',
-    top: 0,
-    left: 0,
     backgroundColor: '#0060AF',
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
   },
-  titleAddressSaved: {
+  title: {
     width: 204,
     height: 28,
-    position: 'absolute',
     top: 13,
     left: 3,
+    flexDirection: 'row',
+    columnGap: 5,
+    alignItems: 'center',
   },
-  textTitleAddressSaved: {
+  textTitle: {
     width: 165,
     height: 24,
-    position: 'absolute',
-    top: 2,
-    left: 36,
     fontSize: 18,
     fontWeight: 'medium',
     fontFamily: 'Be Vietnam Pro',
@@ -318,6 +318,7 @@ const style = StyleSheet.create({
   itemUserDebtContainer: {
     flexDirection: 'row',
     alignItems: 'center',
+    width: 384, height: 20
   },
   textItemUserDebt: {
     fontSize: 15,
@@ -333,17 +334,15 @@ const style = StyleSheet.create({
     position: 'absolute',
   },
   debtContainer: {
-    width: 404,
+    width: width-24,
     left: 12,
     borderRadius: 8,
     backgroundColor: '#ffffff',
     gap: 11,
-    // top: 79,
-    borderWidth: 1,
     paddingBottom: 1500,
   },
   itemDebtContainer: {
-    width: 404,
+    width: width -24,
     height: 169,
     top: 13,
     gap: 12,
@@ -365,7 +364,7 @@ const style = StyleSheet.create({
     color: '#0060af',
   },
   contentDebt: {
-    width: 404,
+    width: width -24,
     height: 120,
     gap: 10,
     justifyContent: 'center',
@@ -386,7 +385,7 @@ const style = StyleSheet.create({
     fontWeight: 'regular',
   },
   seperator: {
-    width: 404,
+    width: width -24,
     height: 0,
     borderWidth: 1,
     left: 0,

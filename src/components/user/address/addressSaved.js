@@ -8,6 +8,7 @@ import {
   ScrollView,
   FlatList,
   Button,
+  Dimensions,
 } from 'react-native';
 import {icon, image} from '../../../assets/index';
 import {useState, useEffect, useMemo} from 'react';
@@ -70,12 +71,13 @@ export default function AddressSaved({navigation, route}) {
   return (
     <View style={style.container}>
       <View style={style.titleContainer}>
-        <Pressable style={style.titleAddressSaved} onPress={handlerBack}>
+        <Pressable style={style.title} onPress={handlerBack}>
           <Image source={icon.icon_arrow_left} />
-          <Text style={style.textTitleAddressSaved}>Địa chỉ đã lưu</Text>
+          <Text style={style.textTitle}>Địa chỉ đã lưu</Text>
         </Pressable>
       </View>
-      <View style={{flex: 1, top: 66}}>
+      
+      <View style={{flex: 1, top: 12}}>
         <ScrollView
           contentContainerStyle={style.addressSavedContainer}
           showsVerticalScrollIndicator={false}>
@@ -124,56 +126,51 @@ export default function AddressSaved({navigation, route}) {
             }}
           />
         </ScrollView>
-        <View style={style.containerBtnAddAddress}>
-          <Pressable
-            onPress={() => navigation.navigate('Add_Address')}
-            style={{
-              width: 395,
-              height: 45,
-              left: 0,
-              backgroundColor: '#0060af',
-              alignItems: 'center',
-              justifyContent: 'center',
-              borderRadius: 10,
-            }}>
-            <Text
-              style={{fontSize: 15, fontWeight: 'medium', color: '#ffffff'}}>
-              Thêm địa chỉ
-            </Text>
-          </Pressable>
-        </View>
+      </View>
+      <View style={style.containerBtnAddAddress}>
+        <Pressable
+          onPress={() => navigation.navigate('Add_Address')}
+          style={{
+            width: width - 24,
+            height: 45,
+            backgroundColor: '#0060af',
+            alignItems: 'center',
+            justifyContent: 'center',
+            borderRadius: 10,
+          }}>
+          <Text style={{fontSize: 15, fontWeight: 'medium', color: '#ffffff'}}>
+            Thêm địa chỉ
+          </Text>
+        </Pressable>
       </View>
     </View>
   );
 }
+const {width, height} = Dimensions.get('window');
 const style = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#F3F7FC',
   },
   titleContainer: {
-    width: 428,
+    width: width,
     height: 54,
-    position: 'absolute',
-    top: 0,
-    left: 0,
     backgroundColor: '#0060AF',
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
   },
-  titleAddressSaved: {
+  title: {
     width: 204,
     height: 28,
-    position: 'absolute',
     top: 13,
     left: 3,
+    flexDirection: 'row',
+    columnGap: 5,
+    alignItems: 'center',
   },
-  textTitleAddressSaved: {
+  textTitle: {
     width: 165,
     height: 24,
-    position: 'absolute',
-    top: 2,
-    left: 36,
     fontSize: 18,
     fontWeight: 'medium',
     fontFamily: 'Be Vietnam Pro',
@@ -187,7 +184,7 @@ const style = StyleSheet.create({
     paddingBottom: 1500,
   },
   itemAddressSaved: {
-    width: 404,
+    width: width - 24,
     height: 126,
     backgroundColor: '#ffffff',
     gap: 10,
@@ -212,10 +209,10 @@ const style = StyleSheet.create({
     left: 12,
   },
   containerBtnAddAddress: {
-    width: 400,
+    width: width,
     height: 65,
-    left: 6.5,
-    top: 730,
+    left: 0,
+    top: height - 65,
     position: 'absolute',
     alignItems: 'center',
     justifyContent: 'center',

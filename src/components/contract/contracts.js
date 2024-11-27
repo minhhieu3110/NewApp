@@ -8,6 +8,7 @@ import {
   TextInput,
   ScrollView,
   FlatList,
+  Dimensions,
 } from 'react-native';
 import {icon} from '../../assets/index';
 export default function Contract({navigation}) {
@@ -52,13 +53,13 @@ export default function Contract({navigation}) {
     <View style={style.container}>
       <View style={style.titleContainer}>
         <Pressable
-          style={style.titleAddressSaved}
+          style={style.title}
           onPress={() => navigation.navigate('Account')}>
           <Image source={icon.icon_arrow_left} />
-          <Text style={style.textTitleAddressSaved}>Hợp đồng</Text>
+          <Text style={style.textTitle}>Hợp đồng</Text>
         </Pressable>
       </View>
-      <View style={{top: 69, flex: 1}}>
+      <View style={{top: 10, flex: 1}}>
         <ScrollView
           showsVerticalScrollIndicator={false}
           contentContainerStyle={style.contractContainer}>
@@ -126,50 +127,48 @@ export default function Contract({navigation}) {
     </View>
   );
 }
+const {width, height} = Dimensions.get('window');
 const style = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#F3F7FC',
   },
   titleContainer: {
-    width: 428,
+    width: width,
     height: 54,
-    position: 'absolute',
-    top: 0,
-    left: 0,
     backgroundColor: '#0060AF',
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
   },
-  titleAddressSaved: {
+  title: {
     width: 204,
     height: 28,
-    position: 'absolute',
     top: 13,
     left: 3,
+    flexDirection: 'row',
+    columnGap: 5,
+    alignItems: 'center',
   },
-  textTitleAddressSaved: {
+  textTitle: {
     width: 165,
     height: 24,
-    position: 'absolute',
-    top: 2,
-    left: 36,
     fontSize: 18,
     fontWeight: 'medium',
     fontFamily: 'Be Vietnam Pro',
     color: '#ffffff',
   },
   contractContainer: {
-    width: 404,
+    width: width-24,
     paddingBottom: 1500,
     left: 12,
   },
   itemContract: {
-    width: 404,
+    width: width -24,
     height: 141,
     gap: 10,
     backgroundColor: '#FFFFFF',
     marginBottom: 10,
+    borderRadius: 8
   },
   nameContract: {
     fontSize: 16,
@@ -186,7 +185,7 @@ const style = StyleSheet.create({
     left: 12
   },
   seperator: {
-    width: 404,
+    width: width-24,
     height: 1,
     backgroundColor: '#f1f1f1',
   },
@@ -194,14 +193,14 @@ const style = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     height: 20,
-    width: 404,
+    width: width-24,
     left: 12
   },
   dateExpire: {
     flexDirection: 'row',
     alignItems: 'center',
     height: 20,
-    width: 404,
+    width: width-24,
     left: 12
   },
 });
