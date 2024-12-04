@@ -85,7 +85,7 @@ export default function AboutCompany({navigation}) {
               width: width-24,
               height: 621,
               flexDirection: 'row',
-              left: -12,
+              left: 0,
               gap: 12,
             }}>
             <View style={{width: width-24, height: 569, left: 6}}>
@@ -145,10 +145,10 @@ export default function AboutCompany({navigation}) {
           <ImageBackground
             source={image.image_background}
             style={{
-              width: 404,
+              width: width,
               height: 852,
               borderWidth: 1,
-              left: -8,
+              left: -12,
               gap: 14,
             }}>
             <Text

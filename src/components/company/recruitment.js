@@ -18,6 +18,7 @@ import {useState, useEffect, useCallback} from 'react';
 import DocumentPicker from 'react-native-document-picker';
 import axios from 'axios';
 import RenderHTML from 'react-native-render-html';
+import { ConvertTimeStamp } from '../../utils/convertTimeStamp';
 export default function Recruitment({navigation}) {
   const [showFormApply, setShowFormApply] = useState(false);
   const [responeFile, setResponeFile] = useState([]);
@@ -98,7 +99,7 @@ export default function Recruitment({navigation}) {
       date_end: [{human: '', timestamp: ''}],
     },
   ]);
-  const handlerDetailRecruitment = itemId => {
+  const handlerDetailRecruitment =  itemId => {
     setVisibleModalDetailRecruitment(true);
     const detailRecruitment = dataRecruitment.filter(
       item => item.item_id === itemId,
@@ -121,9 +122,7 @@ export default function Recruitment({navigation}) {
         date_end: item.date_end,
       })),
     );
-    console.log();
 
-    console.log(detailRecruitment);
   };
 
   return (
@@ -142,6 +141,7 @@ export default function Recruitment({navigation}) {
           contentContainerStyle={{width: width - 24, paddingBottom: 150}}>
           {dataRecruitment.map((item, index) => (
             <Pressable
+            key={index}
               onPress={() => handlerDetailRecruitment(item.item_id)}
               style={{
                 width: width - 24,
@@ -174,7 +174,7 @@ export default function Recruitment({navigation}) {
                     fontWeight: 'regular',
                     color: '#0060af',
                   }}>
-                  Hạn ứng tuyển: {item.date_end.string}
+                  Hạn ứng tuyển: {ConvertTimeStamp(item.date_end.timestamp)}
                 </Text>
               </View>
             </Pressable>
@@ -199,6 +199,7 @@ export default function Recruitment({navigation}) {
           {detailRecruitment.map(item => (
             <View>
               <Text
+                key={item.id}
                 style={{
                   fontSize: 18,
                   fontWeight: 'semibold',
@@ -366,7 +367,7 @@ export default function Recruitment({navigation}) {
           style={{
             width: width,
             height: 65,
-            top: height - 65,
+            top: height - 80,
             position: 'absolute',
             alignItems: 'center',
             justifyContent: 'center',

@@ -9,6 +9,7 @@ import {
   ScrollView,
   Modal,
   TouchableOpacity,
+  Dimensions,
 } from 'react-native';
 import {icon, image} from '../../assets/index';
 import {useEffect, useState} from 'react';
@@ -286,7 +287,7 @@ export default function OrderDetails({navigation, route}) {
                   </Text>
                 </View>
               </View>
-              <View style={{width: 395, height: 197.39}}>
+              <View style={{width: width -48, height: 197.39}}>
                 <View style={{width: 278, height: 21, flexDirection: 'row'}}>
                   <Text style={style.nameNumberPhone}>Nguyễn Ngọc Trung</Text>
                   <Text
@@ -298,7 +299,7 @@ export default function OrderDetails({navigation, route}) {
                   </Text>
                   <Text style={style.nameNumberPhone}>0123456789</Text>
                 </View>
-                <View style={{width: 395, height: 42}}>
+                <View style={{width: width -48, height: 42}}>
                   <Text
                     style={{
                       fontSize: 15,
@@ -322,7 +323,7 @@ export default function OrderDetails({navigation, route}) {
                 </Text>
                 <View
                   style={{
-                    width: 395,
+                    width: width -48,
                     height: 'auto',
                     top: 33.4,
                     backgroundColor: '#f1f1f1',
@@ -342,7 +343,7 @@ export default function OrderDetails({navigation, route}) {
                 </View>
               </View>
             </View>
-            <View style={{width: 395, height: 'auto', gap: 12}}>
+            <View style={{width: width -48, height: 'auto', gap: 12}}>
               <View
                 style={{
                   width: 105,
@@ -365,12 +366,12 @@ export default function OrderDetails({navigation, route}) {
                   </Text>
                 </View>
               </View>
-              <View style={{width: 395, height: 'auto', gap: 12}}>
+              <View style={{width: width -48, height: 'auto', gap: 12}}>
                 {productsPay.map((product, index) => (
                   <View key={index}>
                     <View
                       style={{
-                        width: 395,
+                        width: width -48,
                         height: 80,
                         flexDirection: 'row',
                         gap: 12,
@@ -433,7 +434,7 @@ export default function OrderDetails({navigation, route}) {
                     </View>
                     <View
                       style={{
-                        width: 395,
+                        width: width -48,
                         height: 1,
                         backgroundColor: '#f1f1f1',
                         marginBottom: 12,
@@ -451,7 +452,7 @@ export default function OrderDetails({navigation, route}) {
                 height: 5,
                 backgroundColor: '#f1f1f1',
               }}></View>
-            <View style={{width: 395, height: 189, rowGap: 12, left: 12}}>
+            <View style={{width: width -48, height: 189, rowGap: 12, left: 12}}>
               <View style={{width: 207, height: 47, rowGap: 7}}>
                 <View
                   style={{
@@ -482,7 +483,7 @@ export default function OrderDetails({navigation, route}) {
               </View>
               <View
                 style={{
-                  width: 395,
+                  width: width -48,
                   height: 1,
                   backgroundColor: '#f1f1f1',
                 }}></View>
@@ -516,7 +517,7 @@ export default function OrderDetails({navigation, route}) {
               </View>
               <View
                 style={{
-                  width: 395,
+                  width: width -48,
                   height: 1,
                   backgroundColor: '#f1f1f1',
                 }}></View>
@@ -555,7 +556,7 @@ export default function OrderDetails({navigation, route}) {
                 height: 5,
                 backgroundColor: '#f1f1f1',
               }}></View>
-            <View style={{width: 395, height: 181, rowGap: 11}}>
+            <View style={{width: width -48, height: 181, rowGap: 11}}>
               <View
                 style={{
                   left: 12,
@@ -608,7 +609,7 @@ export default function OrderDetails({navigation, route}) {
               </View>
               <View
                 style={{
-                  width: 395,
+                  width: width -48,
                   height: 1,
                   backgroundColor: '#f1f1f1',
                   left: 12,
@@ -641,7 +642,7 @@ export default function OrderDetails({navigation, route}) {
           </View>
           <View
             style={{
-              width: 395,
+              width: width -48,
               height: 45,
               flexDirection: 'row',
               columnGap: 10,
@@ -725,7 +726,7 @@ export default function OrderDetails({navigation, route}) {
                   </Text>
                 </View>
               </View>
-              <View style={{width: 395, height: 197.39}}>
+              <View style={{width: width -48, height: 197.39}}>
                 <View style={{width: 278, height: 21, flexDirection: 'row'}}>
                   <Text style={style.nameNumberPhone}>Nguyễn Ngọc Trung</Text>
                   <Text
@@ -737,7 +738,7 @@ export default function OrderDetails({navigation, route}) {
                   </Text>
                   <Text style={style.nameNumberPhone}>0123456789</Text>
                 </View>
-                <View style={{width: 395, height: 42}}>
+                <View style={{width: width -48, height: 42}}>
                   <Text
                     style={{
                       fontSize: 15,
@@ -761,7 +762,7 @@ export default function OrderDetails({navigation, route}) {
                 </Text>
                 <View
                   style={{
-                    width: 395,
+                    width: width -48,
                     height: 'auto',
                     top: 33.4,
                     backgroundColor: '#f1f1f1',
@@ -781,7 +782,7 @@ export default function OrderDetails({navigation, route}) {
                 </View>
               </View>
             </View>
-            <View style={{width: 395, height: 'auto', gap: 12}}>
+            <View style={{width: width -48, height: 'auto', gap: 12}}>
               <View
                 style={{
                   width: 105,
@@ -804,12 +805,12 @@ export default function OrderDetails({navigation, route}) {
                   </Text>
                 </View>
               </View>
-              <View style={{width: 395, height: 'auto', gap: 12}}>
+              <View style={{width: width -48, height: 'auto', gap: 12}}>
                 {productsPay.map((product, index) => (
                   <View key={index}>
                     <View
                       style={{
-                        width: 395,
+                        width: width -48,
                         height: 80,
                         flexDirection: 'row',
                         gap: 12,
@@ -872,7 +873,7 @@ export default function OrderDetails({navigation, route}) {
                     </View>
                     <View
                       style={{
-                        width: 395,
+                        width: width -48,
                         height: 1,
                         backgroundColor: '#f1f1f1',
                         marginBottom: 12,
@@ -890,7 +891,7 @@ export default function OrderDetails({navigation, route}) {
                 height: 5,
                 backgroundColor: '#f1f1f1',
               }}></View>
-            <View style={{width: 395, height: 189, rowGap: 12, left: 12}}>
+            <View style={{width: width -48, height: 189, rowGap: 12, left: 12}}>
               <View style={{width: 207, height: 47, rowGap: 7}}>
                 <View
                   style={{
@@ -921,7 +922,7 @@ export default function OrderDetails({navigation, route}) {
               </View>
               <View
                 style={{
-                  width: 395,
+                  width: width -48,
                   height: 1,
                   backgroundColor: '#f1f1f1',
                 }}></View>
@@ -955,7 +956,7 @@ export default function OrderDetails({navigation, route}) {
               </View>
               <View
                 style={{
-                  width: 395,
+                  width: width -48,
                   height: 1,
                   backgroundColor: '#f1f1f1',
                 }}></View>
@@ -994,7 +995,7 @@ export default function OrderDetails({navigation, route}) {
                 height: 5,
                 backgroundColor: '#f1f1f1',
               }}></View>
-            <View style={{width: 395, height: 181, rowGap: 11}}>
+            <View style={{width: width -48, height: 181, rowGap: 11}}>
               <View
                 style={{
                   left: 12,
@@ -1047,7 +1048,7 @@ export default function OrderDetails({navigation, route}) {
               </View>
               <View
                 style={{
-                  width: 395,
+                  width: width -48,
                   height: 1,
                   backgroundColor: '#f1f1f1',
                   left: 12,
@@ -1080,7 +1081,7 @@ export default function OrderDetails({navigation, route}) {
           </View>
           <View
             style={{
-              width: 395,
+              width: width -48,
               height: 45,
               flexDirection: 'row',
               columnGap: 10,
@@ -1164,7 +1165,7 @@ export default function OrderDetails({navigation, route}) {
                   </Text>
                 </View>
               </View>
-              <View style={{width: 395, height: 197.39}}>
+              <View style={{width: width -48, height: 197.39}}>
                 <View style={{width: 278, height: 21, flexDirection: 'row'}}>
                   <Text style={style.nameNumberPhone}>Nguyễn Ngọc Trung</Text>
                   <Text
@@ -1176,7 +1177,7 @@ export default function OrderDetails({navigation, route}) {
                   </Text>
                   <Text style={style.nameNumberPhone}>0123456789</Text>
                 </View>
-                <View style={{width: 395, height: 42}}>
+                <View style={{width: width -48, height: 42}}>
                   <Text
                     style={{
                       fontSize: 15,
@@ -1200,7 +1201,7 @@ export default function OrderDetails({navigation, route}) {
                 </Text>
                 <View
                   style={{
-                    width: 395,
+                    width: width -48,
                     height: 'auto',
                     top: 33.4,
                     backgroundColor: '#f1f1f1',
@@ -1220,7 +1221,7 @@ export default function OrderDetails({navigation, route}) {
                 </View>
               </View>
             </View>
-            <View style={{width: 395, height: 'auto', gap: 12}}>
+            <View style={{width: width -48, height: 'auto', gap: 12}}>
               <View
                 style={{
                   width: 105,
@@ -1243,12 +1244,12 @@ export default function OrderDetails({navigation, route}) {
                   </Text>
                 </View>
               </View>
-              <View style={{width: 395, height: 'auto', gap: 12}}>
+              <View style={{width: width -48, height: 'auto', gap: 12}}>
                 {productsPay.map((product, index) => (
                   <View key={index}>
                     <View
                       style={{
-                        width: 395,
+                        width: width -48,
                         height: 80,
                         flexDirection: 'row',
                         gap: 12,
@@ -1311,7 +1312,7 @@ export default function OrderDetails({navigation, route}) {
                     </View>
                     <View
                       style={{
-                        width: 395,
+                        width: width -48,
                         height: 1,
                         backgroundColor: '#f1f1f1',
                         marginBottom: 12,
@@ -1329,7 +1330,7 @@ export default function OrderDetails({navigation, route}) {
                 height: 5,
                 backgroundColor: '#f1f1f1',
               }}></View>
-            <View style={{width: 395, height: 189, rowGap: 12, left: 12}}>
+            <View style={{width: width -48, height: 189, rowGap: 12, left: 12}}>
               <View style={{width: 207, height: 47, rowGap: 7}}>
                 <View
                   style={{
@@ -1360,7 +1361,7 @@ export default function OrderDetails({navigation, route}) {
               </View>
               <View
                 style={{
-                  width: 395,
+                  width: width -48,
                   height: 1,
                   backgroundColor: '#f1f1f1',
                 }}></View>
@@ -1394,7 +1395,7 @@ export default function OrderDetails({navigation, route}) {
               </View>
               <View
                 style={{
-                  width: 395,
+                  width: width -48,
                   height: 1,
                   backgroundColor: '#f1f1f1',
                 }}></View>
@@ -1433,7 +1434,7 @@ export default function OrderDetails({navigation, route}) {
                 height: 5,
                 backgroundColor: '#f1f1f1',
               }}></View>
-            <View style={{width: 395, height: 181, rowGap: 11}}>
+            <View style={{width: width -48, height: 181, rowGap: 11}}>
               <View
                 style={{
                   left: 12,
@@ -1486,7 +1487,7 @@ export default function OrderDetails({navigation, route}) {
               </View>
               <View
                 style={{
-                  width: 395,
+                  width: width -48,
                   height: 1,
                   backgroundColor: '#f1f1f1',
                   left: 12,
@@ -1519,7 +1520,7 @@ export default function OrderDetails({navigation, route}) {
           </View>
           <View
             style={{
-              width: 395,
+              width: width -48,
               height: 45,
               flexDirection: 'row',
               columnGap: 10,
@@ -1604,7 +1605,7 @@ export default function OrderDetails({navigation, route}) {
                   </Text>
                 </View>
               </View>
-              <View style={{width: 395, height: 197.39}}>
+              <View style={{width: width -48, height: 197.39}}>
                 <View style={{width: 278, height: 21, flexDirection: 'row'}}>
                   <Text style={style.nameNumberPhone}>Nguyễn Ngọc Trung</Text>
                   <Text
@@ -1616,7 +1617,7 @@ export default function OrderDetails({navigation, route}) {
                   </Text>
                   <Text style={style.nameNumberPhone}>0123456789</Text>
                 </View>
-                <View style={{width: 395, height: 42}}>
+                <View style={{width: width -48, height: 42}}>
                   <Text
                     style={{
                       fontSize: 15,
@@ -1640,7 +1641,7 @@ export default function OrderDetails({navigation, route}) {
                 </Text>
                 <View
                   style={{
-                    width: 395,
+                    width: width -48,
                     height: 'auto',
                     top: 33.4,
                     backgroundColor: '#f1f1f1',
@@ -1660,7 +1661,7 @@ export default function OrderDetails({navigation, route}) {
                 </View>
               </View>
             </View>
-            <View style={{width: 395, height: 'auto', gap: 12}}>
+            <View style={{width: width -48, height: 'auto', gap: 12}}>
               <View
                 style={{
                   width: 105,
@@ -1683,12 +1684,12 @@ export default function OrderDetails({navigation, route}) {
                   </Text>
                 </View>
               </View>
-              <View style={{width: 395, height: 'auto', gap: 12}}>
+              <View style={{width: width -48, height: 'auto', gap: 12}}>
                 {productsPay.map((product, index) => (
                   <View key={index}>
                     <View
                       style={{
-                        width: 395,
+                        width: width -48,
                         height: 80,
                         flexDirection: 'row',
                         gap: 12,
@@ -1751,7 +1752,7 @@ export default function OrderDetails({navigation, route}) {
                     </View>
                     <View
                       style={{
-                        width: 395,
+                        width: width -48,
                         height: 1,
                         backgroundColor: '#f1f1f1',
                         marginBottom: 12,
@@ -1769,7 +1770,7 @@ export default function OrderDetails({navigation, route}) {
                 height: 5,
                 backgroundColor: '#f1f1f1',
               }}></View>
-            <View style={{width: 395, height: 189, rowGap: 12, left: 12}}>
+            <View style={{width: width -48, height: 189, rowGap: 12, left: 12}}>
               <View style={{width: 207, height: 47, rowGap: 7}}>
                 <View
                   style={{
@@ -1800,7 +1801,7 @@ export default function OrderDetails({navigation, route}) {
               </View>
               <View
                 style={{
-                  width: 395,
+                  width: width -48,
                   height: 1,
                   backgroundColor: '#f1f1f1',
                 }}></View>
@@ -1834,7 +1835,7 @@ export default function OrderDetails({navigation, route}) {
               </View>
               <View
                 style={{
-                  width: 395,
+                  width: width -48,
                   height: 1,
                   backgroundColor: '#f1f1f1',
                 }}></View>
@@ -1873,7 +1874,7 @@ export default function OrderDetails({navigation, route}) {
                 height: 5,
                 backgroundColor: '#f1f1f1',
               }}></View>
-            <View style={{width: 395, height: 181, rowGap: 11}}>
+            <View style={{width: width -48, height: 181, rowGap: 11}}>
               <View
                 style={{
                   left: 12,
@@ -1926,7 +1927,7 @@ export default function OrderDetails({navigation, route}) {
               </View>
               <View
                 style={{
-                  width: 395,
+                  width: width -48,
                   height: 1,
                   backgroundColor: '#f1f1f1',
                   left: 12,
@@ -1959,7 +1960,7 @@ export default function OrderDetails({navigation, route}) {
           </View>
           <View
             style={{
-              width: 395,
+              width: width -48,
               height: 45,
               flexDirection: 'row',
               columnGap: 10,
@@ -2043,7 +2044,7 @@ export default function OrderDetails({navigation, route}) {
                   </Text>
                 </View>
               </View>
-              <View style={{width: 395, height: 197.39}}>
+              <View style={{width: width -48, height: 197.39}}>
                 <View style={{width: 278, height: 21, flexDirection: 'row'}}>
                   <Text style={style.nameNumberPhone}>Nguyễn Ngọc Trung</Text>
                   <Text
@@ -2055,7 +2056,7 @@ export default function OrderDetails({navigation, route}) {
                   </Text>
                   <Text style={style.nameNumberPhone}>0123456789</Text>
                 </View>
-                <View style={{width: 395, height: 42}}>
+                <View style={{width: width -48, height: 42}}>
                   <Text
                     style={{
                       fontSize: 15,
@@ -2079,7 +2080,7 @@ export default function OrderDetails({navigation, route}) {
                 </Text>
                 <View
                   style={{
-                    width: 395,
+                    width: width -48,
                     height: 'auto',
                     top: 33.4,
                     backgroundColor: '#f1f1f1',
@@ -2099,7 +2100,7 @@ export default function OrderDetails({navigation, route}) {
                 </View>
               </View>
             </View>
-            <View style={{width: 395, height: 'auto', gap: 12}}>
+            <View style={{width: width -48, height: 'auto', gap: 12}}>
               <View
                 style={{
                   width: 105,
@@ -2122,12 +2123,12 @@ export default function OrderDetails({navigation, route}) {
                   </Text>
                 </View>
               </View>
-              <View style={{width: 395, height: 'auto', gap: 12}}>
+              <View style={{width: width -48, height: 'auto', gap: 12}}>
                 {productsPay.map((product, index) => (
                   <View key={index}>
                     <View
                       style={{
-                        width: 395,
+                        width: width -48,
                         height: 80,
                         flexDirection: 'row',
                         gap: 12,
@@ -2190,7 +2191,7 @@ export default function OrderDetails({navigation, route}) {
                     </View>
                     <View
                       style={{
-                        width: 395,
+                        width: width -48,
                         height: 1,
                         backgroundColor: '#f1f1f1',
                         marginBottom: 12,
@@ -2208,7 +2209,7 @@ export default function OrderDetails({navigation, route}) {
                 height: 5,
                 backgroundColor: '#f1f1f1',
               }}></View>
-            <View style={{width: 395, height: 189, rowGap: 12, left: 12}}>
+            <View style={{width: width -48, height: 189, rowGap: 12, left: 12}}>
               <View style={{width: 207, height: 47, rowGap: 7}}>
                 <View
                   style={{
@@ -2239,7 +2240,7 @@ export default function OrderDetails({navigation, route}) {
               </View>
               <View
                 style={{
-                  width: 395,
+                  width: width -48,
                   height: 1,
                   backgroundColor: '#f1f1f1',
                 }}></View>
@@ -2273,7 +2274,7 @@ export default function OrderDetails({navigation, route}) {
               </View>
               <View
                 style={{
-                  width: 395,
+                  width: width -48,
                   height: 1,
                   backgroundColor: '#f1f1f1',
                 }}></View>
@@ -2312,7 +2313,7 @@ export default function OrderDetails({navigation, route}) {
                 height: 5,
                 backgroundColor: '#f1f1f1',
               }}></View>
-            <View style={{width: 395, height: 181, rowGap: 11}}>
+            <View style={{width: width -48, height: 181, rowGap: 11}}>
               <View
                 style={{
                   left: 12,
@@ -2365,7 +2366,7 @@ export default function OrderDetails({navigation, route}) {
               </View>
               <View
                 style={{
-                  width: 395,
+                  width: width -48,
                   height: 1,
                   backgroundColor: '#f1f1f1',
                   left: 12,
@@ -2398,7 +2399,7 @@ export default function OrderDetails({navigation, route}) {
             </View>
             <View
                 style={{
-                  width: 395,
+                  width: width -48,
                   height: 1,
                   backgroundColor: '#f1f1f1',
                   left: 12,
@@ -2417,7 +2418,7 @@ export default function OrderDetails({navigation, route}) {
           </View>
           <View
             style={{
-              width: 395,
+              width: width -48,
               height: 45,
               flexDirection: 'row',
               columnGap: 10,
@@ -2426,7 +2427,7 @@ export default function OrderDetails({navigation, route}) {
             }}>
             <Pressable
               style={{
-                width: 395,
+                width: width -48,
                 borderRadius: 10,
                 borderWidth: 1,
                 borderColor: '#0060af',
@@ -2452,7 +2453,7 @@ export default function OrderDetails({navigation, route}) {
           }}>
           <View
             style={{
-              width: 395,
+              width: width -48,
               height: 437,
               left: 12,
               alignItems: 'center',
@@ -2631,13 +2632,14 @@ export default function OrderDetails({navigation, route}) {
     </View>
   );
 }
+const {width, height} = Dimensions.get('window')
 const style = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#F3F7FC',
   },
   titleContainer: {
-    width: 412,
+    width: width,
     height: 54,
     top: 0,
     left: 0,
@@ -2662,8 +2664,7 @@ const style = StyleSheet.create({
     color: '#ffffff',
   },
   infoDetailOrders: {
-    // flex: 1,
-    width: 412,
+    width: width,
     backgroundColor: '#fff',
     paddingBottom: 100,
   },
@@ -2700,7 +2701,7 @@ const style = StyleSheet.create({
     color: '#fff',
   },
   detailOrderContainer: {
-    width: 395,
+    width: width -48,
     left: 12,
     top: 11,
   },

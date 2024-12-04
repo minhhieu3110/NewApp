@@ -14,6 +14,9 @@ import {icon, video} from '../../assets/index';
 import {image} from '../../assets/index';
 import {formatCurrency} from '../../utils/fomatCurrency';
 import Carousel from 'react-native-reanimated-carousel';
+import {useState, useEffect} from 'react';
+import axios from 'axios';
+import {ConvertTimeStamp} from '../../utils/convertTimeStamp';
 export default function Home({navigation}) {
   const fakeDataBestSeller = [
     {
@@ -45,6 +48,50 @@ export default function Home({navigation}) {
       image: `${image.image_product_demo_1}`,
     },
   ];
+  const [bestSeller, setBestSeller] = useState([
+    {
+      id: '',
+      item_id: '',
+      option_id: '',
+      group_id: '',
+      short: '',
+      title: '',
+      price: '',
+      price_sale: '',
+      picture: '',
+      num_sold: '',
+      num_view: '',
+      group: [{group_id: '', title: ''}],
+    },
+  ]);
+  useEffect(() => {
+    axios
+      .get(
+        'http://rpm.demo.app24h.net:81/api/v1/product?page=1&limit=6&filter[bestseller]=true',
+      )
+      .then(res => {
+        const bestSeller = res.data.data;
+        console.log(bestSeller);
+
+        setBestSeller(
+          bestSeller.map(item => ({
+            id: item.id,
+            item_id: item.item_id,
+            option_id: item.option_id,
+            group_id: item.group_id,
+            short: item.short,
+            title: item.title,
+            price: item.price,
+            price_sale: item.price_sale,
+            picture: item.picture,
+            num_sold: item.num_sold,
+            num_view: item.num_view,
+            group: item.group,
+          })),
+        );
+        console.log(bestSeller);
+      });
+  }, []);
   const fakeDataProducts = [
     {
       id: 1,
@@ -155,49 +202,12 @@ export default function Home({navigation}) {
       cateNews: 'Kiến thức',
     },
   ];
-  const fakeDataRecruitment = [
-    {
-      id: 1,
-      positionApply: 'Nhân viên phòng pháp chế đối ngoại',
-      count: '3',
-      expireDate: '20/02/2024',
-    },
-    {
-      id: 2,
-      positionApply: 'Nhân viên phòng tổ chức nhân sự',
-      count: '3',
-      expireDate: '20/02/2024',
-    },
-    {
-      id: 3,
-      positionApply: 'Nhân viên phòng pháp chế đối ngoại',
-      count: '3',
-      expireDate: '20/02/2024',
-    },
-    {
-      id: 4,
-      positionApply: 'Nhân viên phòng tổ chức nhân sự',
-      count: '3',
-      expireDate: '20/02/2024',
-    },
-    {
-      id: 5,
-      positionApply: 'Nhân viên phòng pháp chế đối ngoại',
-      count: '3',
-      expireDate: '20/02/2024',
-    },
-    {
-      id: 6,
-      positionApply: 'Nhân viên phòng tổ chức nhân sự',
-      count: '3',
-      expireDate: '20/02/2024',
-    },
-  ];
+
   const imageHeader = [
     {id: 1, image: `${image.image_header_home_1}`},
     {id: 2, image: `${image.image_header_home_2}`},
   ];
-  
+
   const topImageBannerProduct = [
     {id: 1, image: `${image.image_product_banner_home_1}`},
     {id: 2, image: `${image.image_product_banner_home_2}`},
@@ -210,9 +220,55 @@ export default function Home({navigation}) {
     {id: 1, image: `${image.image_product_banner_home_1}`},
     {id: 2, image: `${image.image_product_banner_home_2}`},
   ];
+  const [dataRecruitment, setDataRecruitment] = useState([
+    {
+      id: '',
+      item_id: '',
+      title: '',
+      wage: '',
+      quantity: '',
+      work: '',
+      rank: '',
+      experience: '',
+      sex: '',
+      short: '',
+      content: '',
+      benefits: '',
+      apply_type: '',
+      date_end: [{human: '', timestamp: ''}],
+    },
+  ]);
+  useEffect(() => {
+    axios.get('http://rpm.demo.app24h.net:81/api/v1/recruitment').then(res => {
+      const recruitment = res.data.data;
+      setDataRecruitment(
+        recruitment.map(item => ({
+          id: item.id,
+          item_id: item.item_id,
+          title: item.title,
+          wage: item.wage,
+          quantity: item.quantity,
+          work: item.work,
+          rank: item.rank,
+          experience: item.experience,
+          sex: item.sex,
+          short: item.short,
+          content: item.content,
+          benefits: item.benefits,
+          apply_type: item.apply_type,
+          date_end: item.date_end,
+        })),
+      );
+      // console.log(dataRecruitment);
+    });
+  }, []);
+  const limitRecruitment = dataRecruitment.slice(0, 5);
+  console.log(limitRecruitment);
   return (
     <View style={{flex: 1}}>
-      <ScrollView contentContainerStyle={style.container}>
+      <ScrollView
+        contentContainerStyle={style.container}
+        showsVerticalScrollIndicator={false}>
         <View style={style.headerContainer}>
           <Carousel
             loop
@@ -221,8 +277,11 @@ export default function Home({navigation}) {
             height={width}
             data={imageHeader}
             renderItem={({item, index}) => (
-              <View style={{flex: 1}} key={index}>
-                <Image source={item.image} style={{width: width, height: 294}} />
+              <View style={{flex: 1, left: 0}} key={index}>
+                <Image
+                  source={item.image}
+                  style={{width: width, height: 294}}
+                />
               </View>
             )}
           />
@@ -239,7 +298,7 @@ export default function Home({navigation}) {
               style={{
                 width: 353,
                 height: 35,
-                left: 13, 
+                left: 13,
                 backgroundColor: '#fff',
                 borderRadius: 23,
                 paddingTop: 8,
@@ -256,7 +315,7 @@ export default function Home({navigation}) {
         </View>
         <View
           style={{
-            width: width-24,
+            width: width - 24,
             height: 'auto',
             left: 12,
             top: -19.5,
@@ -267,7 +326,7 @@ export default function Home({navigation}) {
           }}>
           <View
             style={{
-              width: width-24,
+              width: width - 24,
               height: 396,
               borderRadius: 10,
               backgroundColor: '#fff',
@@ -341,7 +400,7 @@ export default function Home({navigation}) {
           <View style={style.bestSellerContainer}>
             <View
               style={{
-                width: 371,
+                width: width - 48,
                 height: 22.57,
                 top: 15,
                 left: 12,
@@ -361,50 +420,58 @@ export default function Home({navigation}) {
                 <Image style={{color: '#fff'}} source={icon.icon_arrow_white} />
               </View>
             </View>
-            <View style={{top: 12, width: 371, left: 12}}>
+            <View style={{top: 12, width: width - 48, left: 12}}>
               <FlatList
                 scrollEnabled={false}
                 keyExtractor={item => item.id}
-                data={fakeDataBestSeller}
+                data={bestSeller}
                 renderItem={({item}) => (
                   <View style={style.itemBestSeller}>
                     <View style={style.imageBestSeller}>
-                      {item.percentDiscount !== '' && (
+                      {item.price_sale !== 0 && (
                         <View style={style.percentDiscounts}>
                           <Text style={style.textPercentDiscount}>
-                            {item.percentDiscount}%
+                            {(item.price_sale * 100) / item.price}%
                           </Text>
                         </View>
                       )}
-                      {item.percentDiscount !== '' && (
+                      {item.price_sale !== 0 && (
                         <Image
                           style={style.discountTicket}
                           source={icon.icon_discount}
                         />
                       )}
-                      <Image source={`${item.image}`} />
+                      <Image
+                        source={{uri: item.picture}}
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          resizeMode: 'cover',
+                          borderRadius: 5,
+                        }}
+                      />
                     </View>
                     <View style={style.infoProductBestSeller}>
                       <View style={style.titleBestSeller}>
                         <Text style={style.textTitleBestSeller}>
-                          {item.nameProduct}
+                          {item.title}
                         </Text>
                       </View>
                       <View style={style.priceBestSeller}>
-                        {item.percentDiscount !== '' && (
+                        {item.price_sale !== '' && (
                           <>
                             <Text
                               style={style.priceDiscount}>{`${formatCurrency(
-                              item.priceOriginal * (item.percentDiscount / 100),
+                              item.price,
                             )}`}</Text>
                             <Text style={style.priceOriginal}>
-                              {`${formatCurrency(item.priceOriginal)}`}
+                              {`${formatCurrency(item.price)}`}
                             </Text>
                           </>
                         )}
-                        {item.percentDiscount === '' && (
+                        {item.price_sale === '' && (
                           <Text style={style.priceDiscount}>
-                            {`${formatCurrency(item.priceOriginal)}`}
+                            {`${formatCurrency(item.price)}`}
                           </Text>
                         )}
                       </View>
@@ -422,18 +489,18 @@ export default function Home({navigation}) {
               />
             </View>
           </View>
-          <View style={{width: width-24, height: 150}}>
+          <View style={{width: width - 24, height: 150}}>
             <Carousel
               loop
               autoPlay={true}
-              width={width-24}
+              width={width - 24}
               height={150}
               data={topImageBannerProduct}
               renderItem={({item, index}) => (
                 <View style={{flex: 1}} key={index}>
                   <Image
                     source={item.image}
-                    style={{width: width-24, height: 150}}
+                    style={{width: width - 24, height: 150}}
                   />
                 </View>
               )}
@@ -450,7 +517,7 @@ export default function Home({navigation}) {
           </Text>
           <View
             style={{
-              width: width-24,
+              width: width - 24,
               height: 'auto',
               flexWrap: 'wrap',
               gap: 12,
@@ -475,7 +542,14 @@ export default function Home({navigation}) {
                       source={icon.icon_discount}
                     />
                   )}
-                  <Image source={`${item.image}`} style={{width: '100%', borderTopLeftRadius: 10, borderTopRightRadius: 10}}/>
+                  <Image
+                    source={`${item.image}`}
+                    style={{
+                      width: '100%',
+                      borderTopLeftRadius: 10,
+                      borderTopRightRadius: 10,
+                    }}
+                  />
                 </View>
                 <View style={style.titleProduct}>
                   <Text style={style.nameProduct}>{item.nameProduct}</Text>
@@ -516,18 +590,18 @@ export default function Home({navigation}) {
               </Pressable>
             ))}
           </View>
-          <View style={{width: width-24, height: 150}}>
+          <View style={{width: width - 24, height: 150}}>
             <Carousel
               loop
               autoPlay={true}
-              width={width-24}
+              width={width - 24}
               height={150}
               data={midImageBannerProduct}
               renderItem={({item, index}) => (
                 <View style={{flex: 1}} key={index}>
                   <Image
                     source={item.image}
-                    style={{width: width-24, height: 150}}
+                    style={{width: width - 24, height: 150}}
                   />
                 </View>
               )}
@@ -535,7 +609,7 @@ export default function Home({navigation}) {
           </View>
           <View
             style={{
-              width: width-24,
+              width: width - 24,
               height: 22,
               flexDirection: 'row',
               alignItems: 'center',
@@ -558,7 +632,10 @@ export default function Home({navigation}) {
                 right: 0,
                 position: 'absolute',
               }}>
-              <Text style={{fontWeight: 'regular', fontSize: 12, color: '#808080'}}>Xem tất cả</Text>
+              <Text
+                style={{fontWeight: 'regular', fontSize: 12, color: '#808080'}}>
+                Xem tất cả
+              </Text>
               <Image source={icon.icon_arrow} />
             </Pressable>
           </View>
@@ -614,7 +691,7 @@ export default function Home({navigation}) {
           </ScrollView>
           <View
             style={{
-              width: width-24,
+              width: width - 24,
               height: 22,
               flexDirection: 'row',
               alignItems: 'center',
@@ -637,7 +714,10 @@ export default function Home({navigation}) {
                 right: 0,
                 position: 'absolute',
               }}>
-              <Text style={{fontSize: 12, fontWeight: 'regular', color: '#808080'}}>Xem tất cả</Text>
+              <Text
+                style={{fontSize: 12, fontWeight: 'regular', color: '#808080'}}>
+                Xem tất cả
+              </Text>
               <Image source={icon.icon_arrow} />
             </Pressable>
           </View>
@@ -680,18 +760,18 @@ export default function Home({navigation}) {
               </View>
             ))}
           </ScrollView>
-          <View style={{width: width-24, height: 150}}>
+          <View style={{width: width - 24, height: 150}}>
             <Carousel
               loop
               autoPlay={true}
-              width={width-24}
+              width={width - 24}
               height={150}
               data={bottomImageBannerProduct}
               renderItem={({item, index}) => (
                 <View style={{flex: 1}} key={index}>
                   <Image
                     source={item.image}
-                    style={{width: width-24, height: 150}}
+                    style={{width: width - 24, height: 150}}
                   />
                 </View>
               )}
@@ -699,7 +779,7 @@ export default function Home({navigation}) {
           </View>
           <View
             style={{
-              width: width-24,
+              width: width - 24,
               height: 22,
               flexDirection: 'row',
               alignItems: 'center',
@@ -722,20 +802,23 @@ export default function Home({navigation}) {
                 right: 0,
                 position: 'absolute',
               }}>
-              <Text style={{fontSize: 12, fontWeight: 'regular', color: '#808080'}}>Xem tất cả</Text>
+              <Text
+                style={{fontSize: 12, fontWeight: 'regular', color: '#808080'}}>
+                Xem tất cả
+              </Text>
               <Image source={icon.icon_arrow} />
             </Pressable>
           </View>
-          <View style={{width: width-24, height: 550}}>
+          <View style={{width: width - 24, height: 550}}>
             <FlatList
-              data={fakeDataRecruitment}
+              data={limitRecruitment}
               scrollEnabled={false}
               keyExtractor={item => item.id}
               renderItem={({item}) => (
                 <Pressable
-                  onPress={() => navigation.navigate('DetailRecruitment')}
+                  onPress={() => navigation.navigate('Recruitment')}
                   style={{
-                    width: width -24,
+                    width: width - 24,
                     height: 102,
                     backgroundColor: '#ffffff',
                     borderRadius: 8,
@@ -749,7 +832,7 @@ export default function Home({navigation}) {
                         fontWeight: 'semibold',
                         color: '#212121',
                       }}>
-                      {item.positionApply}
+                      {item.title}
                     </Text>
                     <Text
                       style={{
@@ -757,7 +840,7 @@ export default function Home({navigation}) {
                         fontWeight: 'regular',
                         color: '#808080',
                       }}>
-                      Số lượng: {item.count}
+                      Số lượng: {item.quantity}
                     </Text>
                     <Text
                       style={{
@@ -765,7 +848,7 @@ export default function Home({navigation}) {
                         fontWeight: 'regular',
                         color: '#0060af',
                       }}>
-                      Hạn ứng tuyển: {item.expireDate}
+                      Hạn ứng tuyển: {ConvertTimeStamp(item.date_end.timestamp)}
                     </Text>
                   </View>
                 </Pressable>
@@ -774,44 +857,44 @@ export default function Home({navigation}) {
           </View>
           <View
             style={{
-              width: width-24,
+              width: width - 24,
               height: 195,
               flexDirection: 'row',
               rowGap: 12,
               columnGap: 30,
               flexWrap: 'wrap',
             }}>
-            <View style={{width: (width /3 )-30, height: 57}}>
+            <View style={{width: width / 3 - 30, height: 57}}>
               <Image source={image.image_logo_brand_demo_1} />
             </View>
-            <View style={{width: (width /3 )-30, height: 57}}>
+            <View style={{width: width / 3 - 30, height: 57}}>
               <Image source={image.image_logo_brand_demo_2} />
             </View>
-            <View style={{width: (width /3 )-30, height: 57}}>
+            <View style={{width: width / 3 - 30, height: 57}}>
               <Image source={image.image_logo_brand_demo_1} />
             </View>
-            <View style={{width: (width /3 )-30, height: 57}}>
+            <View style={{width: width / 3 - 30, height: 57}}>
               <Image source={image.image_logo_brand_demo_2} />
             </View>
-            <View style={{width: (width /3 )-30, height: 57}}>
+            <View style={{width: width / 3 - 30, height: 57}}>
               <Image source={image.image_logo_brand_demo_1} />
             </View>
-            <View style={{width: (width /3 )-30, height: 57}}>
+            <View style={{width: width / 3 - 30, height: 57}}>
               <Image source={image.image_logo_brand_demo_2} />
             </View>
-            <View style={{width: (width /3 )-30, height: 57}}>
+            <View style={{width: width / 3 - 30, height: 57}}>
               <Image source={image.image_logo_brand_demo_1} />
             </View>
-            <View style={{width: (width /3 )-30, height: 57}}>
+            <View style={{width: width / 3 - 30, height: 57}}>
               <Image source={image.image_logo_brand_demo_2} />
             </View>
-            <View style={{width: (width /3 )-30, height: 57}}>
+            <View style={{width: width / 3 - 30, height: 57}}>
               <Image source={image.image_logo_brand_demo_1} />
             </View>
           </View>
           <View
             style={{
-              width: width-24,
+              width: width - 24,
               height: 202,
               backgroundColor: '#fff',
               borderRadius: 10,
@@ -906,14 +989,14 @@ const style = StyleSheet.create({
     height: 294,
   },
   bestSellerContainer: {
-    width: width -24,
-    height: 735,
+    width: width - 24,
+    paddingBottom: 12.4,
     backgroundColor: '#0060af',
     gap: 12,
-    borderRadius: 10
+    borderRadius: 10,
   },
   itemBestSeller: {
-    width: 371,
+    width: width - 48,
     height: 159.26,
     backgroundColor: '#fff',
     borderRadius: 8,

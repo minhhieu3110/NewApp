@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {useState} from 'react';
 import {
+  Dimensions,
   FlatList,
   Image,
   Modal,
@@ -119,11 +120,11 @@ export default function ProductDetail_Home({navigation}) {
         showsVerticalScrollIndicator={false}>
         <StatusBar hidden={false} />
         <View>
-          <View style={{width: 428, height: 428, top: 0}}>
+          <View style={{width: width, height: width, top: 0}}>
             <Carousel
               loop
-              width={428}
-              height={428}
+              width={width}
+              height={width}
               autoPlay={true}
               data={imageProducts}
               scrollAnimationDuration={1000}
@@ -132,7 +133,7 @@ export default function ProductDetail_Home({navigation}) {
                 <View style={{flex: 1}} key={index}>
                   <Image
                     source={item.image}
-                    style={{width: 428, height: 428}}
+                    style={{width: width, height: width}}
                   />
                 </View>
               )}
@@ -357,7 +358,7 @@ export default function ProductDetail_Home({navigation}) {
           />
         </View>
         <View
-          style={{width: 428, height: 5, top: 133, backgroundColor: '#f1f1f1'}}
+          style={{width: width, height: 5, top: 133, backgroundColor: '#f1f1f1'}}
         />
         <View style={{top: 147, flexDirection: 'row'}}>
           <Text
@@ -445,7 +446,7 @@ export default function ProductDetail_Home({navigation}) {
             <Text style={{height: 19, top: 22}}>15:24 , 24/10/2024</Text>
           </View>
         </View>
-        <View style={{width: 428, height: 1732, top: 200}}>
+        <View style={{width: width, height: 1732, top: 200}}>
           <Text
             style={{
               width: 208,
@@ -1211,6 +1212,7 @@ export default function ProductDetail_Home({navigation}) {
     </View>
   );
 }
+const {width, height}= Dimensions.get('window')
 const style = StyleSheet.create({
   container: {
     // flex: 1,
@@ -1371,14 +1373,14 @@ const style = StyleSheet.create({
     borderRadius: 5,
   },
   seperator: {
-    width: 428,
+    width: width,
     height: 5,
     left: 0,
     backgroundColor: '#F1F1F1',
     top: 35,
   },
   addToCartAndBuy: {
-    width: 428,
+    width: width,
     height: 65,
     justifyContent: 'center',
   },
