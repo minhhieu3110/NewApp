@@ -12,7 +12,7 @@ import {
 import {icon, image} from '../../assets/index';
 import {useState, useEffect} from 'react';
 import axios from 'axios';
-import { ConvertTimeStamp } from '../../utils/convertTimeStamp';
+import {ConvertTimeStamp} from '../../utils/convertTimeStamp';
 export default function News({navigation}) {
   const [news, setNews] = useState([
     {
@@ -24,12 +24,12 @@ export default function News({navigation}) {
       content: '',
       created_at: '',
       updated_at: '',
-      group: ''
+      group: '',
     },
   ]);
-  useEffect(()=>{
+  useEffect(() => {
     axios.get('http://rpm.demo.app24h.net:81/api/v1/news').then(res => {
-      const  news = res.data.data;
+      const news = res.data.data;
       setNews(
         news.map(item => ({
           id: item.id,
@@ -40,12 +40,11 @@ export default function News({navigation}) {
           content: item.content,
           created_at: item.created_at,
           created_at: item.updated_at,
-          group: item.group.title
-        }))
-      )
-    })
-  },[])
-  console.log(news);
+          group: item.group.title,
+        })),
+      );
+    });
+  }, []);
   return (
     <View style={{flex: 1}}>
       <ScrollView
@@ -64,7 +63,7 @@ export default function News({navigation}) {
             <View
               key={index}
               style={{
-                width: width -24,
+                width: width - 24,
                 height: 111,
                 flexDirection: 'row',
                 columnGap: 10,
@@ -85,7 +84,9 @@ export default function News({navigation}) {
                       color: '#808080',
                       marginLeft: 5.3,
                       marginRight: 24,
-                    }}>{ConvertTimeStamp(item.created_at)}</Text>
+                    }}>
+                    {ConvertTimeStamp(item.created_at)}
+                  </Text>
                   <Text
                     style={{
                       fontSize: 14,

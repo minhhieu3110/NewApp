@@ -6,7 +6,6 @@ import Video from '../components/company/video';
 import Catalogue from '../components/productsOrder/catalogue';
 import News from '../components/company/news';
 import ProductDetail_Home from '../components/productsOrder/productDetail_Home';
-import Evaluate from '../components/productsOrder/evaluate';
 import Pay from '../components/productsOrder/pay';
 import OrderDetails from '../components/order/detailOrder';
 export default function HomeStackNavigation() {
@@ -17,14 +16,13 @@ export default function HomeStackNavigation() {
       screenOptions={{headerShown: false}}>
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="DetailProducts" component={ProductDetail_Home} />
-      <Stack.Screen name="Evaluate" component={Evaluate} />
       <Stack.Screen name="Pay" component={Pay} />
       <Stack.Screen name="AboutCompany" component={AboutCompany} />
       <Stack.Screen name="Recruitment" component={Recruitment} />
       <Stack.Screen name="Video" component={Video} />
       <Stack.Screen name="Catalogue" component={Catalogue} />
       <Stack.Screen name="News" component={News} />
-      <Stack.Screen name='OrderDetails' component={OrderDetails} />
+      <Stack.Screen name="OrderDetails" component={OrderDetails} />
     </Stack.Navigator>
   );
 }

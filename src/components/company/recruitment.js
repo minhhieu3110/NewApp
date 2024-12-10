@@ -18,7 +18,7 @@ import {useState, useEffect, useCallback} from 'react';
 import DocumentPicker from 'react-native-document-picker';
 import axios from 'axios';
 import RenderHTML from 'react-native-render-html';
-import { ConvertTimeStamp } from '../../utils/convertTimeStamp';
+import {ConvertTimeStamp} from '../../utils/convertTimeStamp';
 export default function Recruitment({navigation}) {
   const [showFormApply, setShowFormApply] = useState(false);
   const [responeFile, setResponeFile] = useState([]);
@@ -99,7 +99,7 @@ export default function Recruitment({navigation}) {
       date_end: [{human: '', timestamp: ''}],
     },
   ]);
-  const handlerDetailRecruitment =  itemId => {
+  const handlerDetailRecruitment = itemId => {
     setVisibleModalDetailRecruitment(true);
     const detailRecruitment = dataRecruitment.filter(
       item => item.item_id === itemId,
@@ -122,7 +122,6 @@ export default function Recruitment({navigation}) {
         date_end: item.date_end,
       })),
     );
-
   };
 
   return (
@@ -141,7 +140,7 @@ export default function Recruitment({navigation}) {
           contentContainerStyle={{width: width - 24, paddingBottom: 150}}>
           {dataRecruitment.map((item, index) => (
             <Pressable
-            key={index}
+              key={index}
               onPress={() => handlerDetailRecruitment(item.item_id)}
               style={{
                 width: width - 24,
@@ -307,7 +306,7 @@ export default function Recruitment({navigation}) {
                   </Text>
                   <View style={style.valueItemJobDescription}>
                     <RenderHTML
-                      style={style.textValue}
+                      // style={style.textValue}
                       contentWidth={width}
                       source={{html: item.content}}
                       tagsStyles={{
@@ -616,6 +615,7 @@ const style = StyleSheet.create({
   valueItemJobDescription: {
     width: width - 24,
     gap: 2,
+    marginBottom: 10,
   },
   textValue: {
     fontSize: 15,

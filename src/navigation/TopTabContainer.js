@@ -29,7 +29,7 @@ export default function TopTabContainer() {
       <Tab.Screen
         name="WaitConfirmOrder"
         component={WaitConfirmOrder}
-        flag = {1}
+        flag={1}
         options={{tabBarLabel: 'Chờ xác nhận'}}
       />
       <Tab.Screen

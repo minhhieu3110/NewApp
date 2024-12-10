@@ -117,7 +117,7 @@ export default function Products({navigation}) {
     setTitleResultFillter(title);
     console.log(titleResultFillter);
     const dataFillter = data.map(item => {
-      return{
+      return {
         id: item.id,
         title: item.title,
         price: item.price,
@@ -125,9 +125,9 @@ export default function Products({navigation}) {
         picture: item.picture,
         num_sold: item.num_sold,
         num_view: item.num_view,
-        friendly_link: item.friendly_link
-      }
-    })
+        friendly_link: item.friendly_link,
+      };
+    });
     setResultFillter(dataFillter);
   };
   const saveFillterCategory = group_id => {

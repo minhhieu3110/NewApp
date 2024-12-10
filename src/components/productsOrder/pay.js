@@ -10,6 +10,7 @@ import {
   ScrollView,
   Modal,
   TouchableOpacity,
+  Dimensions,
 } from 'react-native';
 import {icon, image} from '../../assets/index';
 import {formatCurrency} from '../../utils/fomatCurrency';
@@ -253,7 +254,7 @@ export default function Pay({navigation, route}) {
   const handlerDetailVoucher = id => {
     setSelectDetailVoucher(id);
     console.log(selectDetailVoucher);
-    
+
     setDetailVoucher([
       {
         id: getDetailVoucher()[0].id,
@@ -278,7 +279,6 @@ export default function Pay({navigation, route}) {
       },
     ]);
     console.log(detailVoucher);
-    
   };
   const handlerUseNow = () => {
     setModalVisible(false);
@@ -309,7 +309,7 @@ export default function Pay({navigation, route}) {
   };
   const totalMoney =
     provisionalMoney + feeShipping - (saveMoney + discountVoucher);
- 
+
   return (
     <View style={style.container}>
       <View style={style.titleContainer}>
@@ -320,7 +320,7 @@ export default function Pay({navigation, route}) {
           <Text style={style.textTitle}>Thanh toán</Text>
         </Pressable>
       </View>
-      <View style={{flex: 1, top: 65, backgroundColor: '#fff'}}>
+      <View style={{flex: 1, top: 13, backgroundColor: '#fff'}}>
         <ScrollView
           showsVerticalScrollIndicator={false}
           scrollEnabled={
@@ -332,7 +332,7 @@ export default function Pay({navigation, route}) {
               : true
           }
           contentContainerStyle={{
-            width: 395,
+            width: width - 24,
             paddingBottom: 250,
             left: 12,
             gap: 12,
@@ -366,7 +366,7 @@ export default function Pay({navigation, route}) {
                 <Image source={icon.icon_edit_address} />
               </Pressable>
             </View>
-            <View style={{width: 395, height: 197.39}}>
+            <View style={{width: width - 24, height: 197.39}}>
               <View style={{width: 278, height: 21, flexDirection: 'row'}}>
                 <Text style={style.nameNumberPhone}>Nguyễn Ngọc Trung</Text>
                 <Text
@@ -378,7 +378,7 @@ export default function Pay({navigation, route}) {
                 </Text>
                 <Text style={style.nameNumberPhone}>0123456789</Text>
               </View>
-              <View style={{width: 395, height: 42}}>
+              <View style={{width: width - 24, height: 42}}>
                 <Text
                   style={{
                     fontSize: 15,
@@ -403,7 +403,7 @@ export default function Pay({navigation, route}) {
               <TextInput
                 multiline={true}
                 style={{
-                  width: 395,
+                  width: width - 24,
                   height: 80,
                   top: 33.4,
                   borderWidth: 1,
@@ -415,7 +415,7 @@ export default function Pay({navigation, route}) {
               />
             </View>
           </View>
-          <View style={{width: 395, height: 'auto', gap: 12}}>
+          <View style={{width: width - 24, height: 'auto', gap: 12}}>
             <View
               style={{
                 width: 105,
@@ -438,12 +438,12 @@ export default function Pay({navigation, route}) {
                 </Text>
               </View>
             </View>
-            <View style={{width: 395, height: 'auto', gap: 12}}>
+            <View style={{width: width - 24, height: 'auto', gap: 12}}>
               {productsPay.map((product, index) => (
                 <View key={index}>
                   <View
                     style={{
-                      width: 395,
+                      width: width - 24,
                       height: 80,
                       flexDirection: 'row',
                       gap: 12,
@@ -502,7 +502,7 @@ export default function Pay({navigation, route}) {
                   </View>
                   <View
                     style={{
-                      width: 395,
+                      width: width - 24,
                       height: 1,
                       backgroundColor: '#f1f1f1',
                       marginBottom: 12,
@@ -511,7 +511,7 @@ export default function Pay({navigation, route}) {
                 </View>
               ))}
             </View>
-            <View style={{width: 395, height: 21, flexDirection: 'row'}}>
+            <View style={{width: width - 24, height: 21, flexDirection: 'row'}}>
               <Text
                 style={{
                   fontSize: 16,
@@ -534,13 +534,13 @@ export default function Pay({navigation, route}) {
           </View>
           <View
             style={{
-              width: 404,
+              width: width - 24,
               height: 5,
               left: -6,
               top: 12,
               backgroundColor: '#f1f1f1',
             }}></View>
-          <View style={{width: 395, height: 189, gap: 12, top: 10}}>
+          <View style={{width: width - 24, height: 189, gap: 12, top: 10}}>
             <Pressable
               onPress={handlerFormChooseMethodPayment}
               style={{width: 244, height: 47, gap: 8}}>
@@ -591,7 +591,7 @@ export default function Pay({navigation, route}) {
             </Pressable>
             <View
               style={{
-                width: 395,
+                width: width - 24,
                 height: 1,
                 backgroundColor: '#f1f1f1',
               }}></View>
@@ -644,7 +644,7 @@ export default function Pay({navigation, route}) {
             </Pressable>
             <View
               style={{
-                width: 395,
+                width: width - 24,
                 height: 1,
                 backgroundColor: '#f1f1f1',
               }}></View>
@@ -699,13 +699,13 @@ export default function Pay({navigation, route}) {
           </View>
           <View
             style={{
-              width: 404,
+              width: width - 24,
               height: 5,
               left: -6,
               top: 12,
               backgroundColor: '#f1f1f1',
             }}></View>
-          <View style={{width: 395, height: 190, top: 11, rowGap: 20}}>
+          <View style={{width: width - 24, height: 190, top: 11, rowGap: 20}}>
             <View
               style={{
                 width: 155.96,
@@ -727,7 +727,7 @@ export default function Pay({navigation, route}) {
                 Tóm tắt đơn hàng
               </Text>
             </View>
-            <View style={{width: 395, height: 149, rowGap: 12}}>
+            <View style={{width: width - 24, height: 149, rowGap: 12}}>
               <View style={style.titleOrderSummary}>
                 <Text style={style.leftTitleOrderSummary}>Tổng tiền hàng</Text>
                 <Text style={style.rightTitleOrderSummary}>
@@ -760,12 +760,12 @@ export default function Pay({navigation, route}) {
           </View>
           <View
             style={{
-              width: 395,
+              width: width - 24,
               height: 1,
               backgroundColor: '#f1f1f1',
               top: 12,
             }}></View>
-          <View style={{width: 395, height: 21, top: 11}}>
+          <View style={{width: width - 24, height: 21, top: 11}}>
             <Text
               style={{
                 fontSize: 16,
@@ -788,10 +788,10 @@ export default function Pay({navigation, route}) {
         </ScrollView>
         <View
           style={{
-            width: 412,
+            width: width,
             height: 65,
             left: 0,
-            top: 734,
+            top: 765,
             position: 'absolute',
             zIndex: 100,
             alignItems: 'center',
@@ -842,7 +842,8 @@ export default function Pay({navigation, route}) {
             style={{
               width: 202,
               height: 45,
-              left: 100,
+              right: 12,
+              position: 'absolute',
               borderRadius: 10,
               backgroundColor:
                 (titlePay !== 'Chọn phương thức thanh toán' &&
@@ -881,7 +882,7 @@ export default function Pay({navigation, route}) {
               <View style={style.chooseMethodPayShippingVoucher}>
                 <View
                   style={{
-                    width: 395,
+                    width: width - 24,
                     height: 30,
                     left: 12,
                     top: 10,
@@ -1075,7 +1076,7 @@ export default function Pay({navigation, route}) {
               <View style={style.chooseMethodPayShippingVoucher}>
                 <View
                   style={{
-                    width: 395,
+                    width: width - 24,
                     height: 30,
                     left: 12,
                     top: 10,
@@ -1188,7 +1189,7 @@ export default function Pay({navigation, route}) {
               <View style={style.chooseMethodPayShippingVoucher}>
                 <View
                   style={{
-                    width: 395,
+                    width: width - 24,
                     height: 30,
                     left: 12,
                     top: 10,
@@ -1220,7 +1221,7 @@ export default function Pay({navigation, route}) {
                 <ScrollView
                   showsVerticalScrollIndicator={false}
                   contentContainerStyle={{
-                    width: 395,
+                    width: width - 24,
                     paddingBottom: 100,
                     left: 12,
                     backgroundColor: '#fafafa',
@@ -1230,7 +1231,7 @@ export default function Pay({navigation, route}) {
                     <View
                       key={index}
                       style={{
-                        width: 395,
+                        width: width - 24,
                         height: 124,
                         backgroundColor: '#fff',
                         borrderRadius: 10,
@@ -1321,90 +1322,98 @@ export default function Pay({navigation, route}) {
           </Modal>
         )}
         {showPopupOrderSuccess && (
-          <Modal  visible={showPopupOrderSuccess} animationType='fade' transparent={true}>
+          <Modal
+            visible={showPopupOrderSuccess}
+            animationType="fade"
+            transparent={true}>
             <TouchableOpacity activeOpacity={1} style={style.styleOpacity}>
               <View
-            style={{
-              width: 395,
-              height: 220,
-              position: 'absolute',
-              zIndex: 200,
-              top: 300,
-              left: 9,
-              alignItems: 'center',
-              justifyContent: 'center',
-              backgroundColor: '#fff',
-              borderRadius: 10,
-              borderWidth: 1,
-            }}>
-            <View style={{width: 371, height: 188, rowGap: 35}}>
-              <View
                 style={{
-                  width: 371,
-                  height: 109,
-                  flexDirection: 'row',
-                  columnGap: 15,
+                  width: width - 24,
+                  height: 220,
+                  position: 'absolute',
+                  zIndex: 200,
+                  top: 300,
+                  left: 9,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  backgroundColor: '#fff',
+                  borderRadius: 10,
+                  borderWidth: 1,
                 }}>
-                <View style={{height: 75, width: 75}}>
-                  <Image source={icon.icon_success} />
-                </View>
-                <View style={{width: 281, height: 109, rowGap: 20}}>
-                  <Text
+                <View style={{width: 371, height: 188, rowGap: 35}}>
+                  <View
                     style={{
-                      fontSize: 18,
-                      fontWeight: 'bold',
-                      color: '#0060af',
-                      textTransform: 'uppercase',
+                      width: 371,
+                      height: 109,
+                      flexDirection: 'row',
+                      columnGap: 15,
                     }}>
-                    Đặt hàng thành công
-                  </Text>
-                  <Text
+                    <View style={{height: 75, width: 75}}>
+                      <Image source={icon.icon_success} />
+                    </View>
+                    <View style={{width: 281, height: 109, rowGap: 20}}>
+                      <Text
+                        style={{
+                          fontSize: 18,
+                          fontWeight: 'bold',
+                          color: '#0060af',
+                          textTransform: 'uppercase',
+                        }}>
+                        Đặt hàng thành công
+                      </Text>
+                      <Text
+                        style={{
+                          fontSize: 14,
+                          fontWeight: 'regular',
+                          color: '#212121',
+                          lineHeight: 24,
+                        }}>
+                        Nhân viên của chúng tôi sẽ liên hệ lại trong thời gian
+                        sớm nhất. Xin chân thành cảm ơn Quý khách hàng!
+                      </Text>
+                    </View>
+                  </View>
+                  <View
                     style={{
-                      fontSize: 14,
-                      fontWeight: 'regular',
-                      color: '#212121',
-                      lineHeight: 24,
+                      width: 371,
+                      height: 45,
+                      flexDirection: 'row',
+                      columnGap: 10,
                     }}>
-                    Nhân viên của chúng tôi sẽ liên hệ lại trong thời gian sớm
-                    nhất. Xin chân thành cảm ơn Quý khách hàng!
-                  </Text>
+                    <Pressable
+                      onPress={() => navigation.navigate('Home')}
+                      style={[
+                        style.btnPopupOrderSuccess,
+                        {backgroundColor: '#E0F3FF'},
+                      ]}>
+                      <Text
+                        style={[
+                          style.titleBtnPopupOrderSuccess,
+                          {color: '#0060af'},
+                        ]}>
+                        Tiếp tục mua hàng
+                      </Text>
+                    </Pressable>
+                    <Pressable
+                      onPress={() =>
+                        navigation.navigate('OrderDetails', {flag: 1})
+                      }
+                      style={[
+                        style.btnPopupOrderSuccess,
+                        {backgroundColor: '#0060af'},
+                      ]}>
+                      <Text
+                        style={[
+                          style.titleBtnPopupOrderSuccess,
+                          {color: '#fff'},
+                        ]}>
+                        Xem chi tiết
+                      </Text>
+                    </Pressable>
+                  </View>
                 </View>
               </View>
-              <View
-                style={{
-                  width: 371,
-                  height: 45,
-                  flexDirection: 'row',
-                  columnGap: 10,
-                }}>
-                <Pressable
-                  onPress={() => navigation.navigate('Home')}
-                  style={[
-                    style.btnPopupOrderSuccess,
-                    {backgroundColor: '#E0F3FF'},
-                  ]}>
-                  <Text
-                    style={[
-                      style.titleBtnPopupOrderSuccess,
-                      {color: '#0060af'},
-                    ]}>
-                    Tiếp tục mua hàng
-                  </Text>
-                </Pressable>
-                <Pressable
-                  onPress={() => navigation.navigate('OrderDetails', {flag: 1})}
-                  style={[
-                    style.btnPopupOrderSuccess,
-                    {backgroundColor: '#0060af'},
-                  ]}>
-                  <Text
-                    style={[style.titleBtnPopupOrderSuccess, {color: '#fff'}]}>
-                    Xem chi tiết
-                  </Text>
-                </Pressable>
-              </View>
-            </View>
-          </View>
             </TouchableOpacity>
           </Modal>
         )}
@@ -1420,7 +1429,13 @@ export default function Pay({navigation, route}) {
           {detailVoucher.map((item, index) => (
             <View
               key={index}
-              style={{width: 395, height: 380, top: 66, left: 12, rowGap: 12}}>
+              style={{
+                width: width - 24,
+                height: 380,
+                top: 66,
+                left: 12,
+                rowGap: 12,
+              }}>
               <Text
                 style={{
                   fontSize: 18,
@@ -1454,7 +1469,7 @@ export default function Pay({navigation, route}) {
                   borderWidth: 1,
                   borderColor: '#f1f1f1',
                 }}></View>
-              <View style={{width: 395, gap: 4}}>
+              <View style={{width: width - 24, gap: 4}}>
                 <Text
                   style={{
                     fontSize: 16,
@@ -1487,10 +1502,10 @@ export default function Pay({navigation, route}) {
             }}>
             {detailVoucher.map((item, index) => (
               <Pressable
-              key={index}
+                key={index}
                 onPress={() => handlerUseNow()}
                 style={{
-                  width: 395,
+                  width: width - 24,
                   height: 45,
                   backgroundColor: '#0060af',
                   alignItems: 'center',
@@ -1513,17 +1528,15 @@ export default function Pay({navigation, route}) {
     </View>
   );
 }
+const {width, height} = Dimensions.get('window');
 const style = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
   },
   titleContainer: {
-    width: 428,
+    width: width,
     height: 54,
-    position: 'absolute',
-    top: 0,
-    left: 0,
     backgroundColor: '#0060AF',
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
@@ -1531,16 +1544,15 @@ const style = StyleSheet.create({
   title: {
     width: 204,
     height: 28,
-    position: 'absolute',
     top: 13,
     left: 3,
+    flexDirection: 'row',
+    columnGap: 5,
+    alignItems: 'center',
   },
   textTitle: {
     width: 165,
     height: 24,
-    position: 'absolute',
-    top: 2,
-    left: 36,
     fontSize: 18,
     fontWeight: 'medium',
     fontFamily: 'Be Vietnam Pro',
@@ -1552,14 +1564,15 @@ const style = StyleSheet.create({
     color: '#212121',
   },
   chooseMethodPayShippingVoucher: {
-    width: 412,
+    width: width,
     height: 425,
-    top: 440,
+    top: height - 425,
     position: 'absolute',
     backgroundColor: '#fff',
-    left: 0,
     rowGap: 24,
     zIndex: 1000,
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
   },
   menuChoose: {
     width: 339,
@@ -1579,7 +1592,6 @@ const style = StyleSheet.create({
     width: 20,
     height: 20,
     aspectRatio: 1,
-    borderWidth: 1,
     borderRadius: 50,
   },
   textItemMenuChoose: {
@@ -1605,18 +1617,18 @@ const style = StyleSheet.create({
     lineHeight: 22,
   },
   confirmContainer: {
-    width: 412,
+    width: width,
     height: 65,
     left: 0,
-    top: 360,
+    top: 425 - 85,
     justifyContent: 'center',
     position: 'absolute',
     zIndex: 500,
   },
   btnConfirm: {
-    width: 395,
+    width: width - 24,
     height: 45,
-    left: 9,
+    left: 12,
     backgroundColor: '#0060AF',
     borderRadius: 10,
     alignItems: 'center',

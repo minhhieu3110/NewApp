@@ -10,7 +10,7 @@ export default function OrderStackNavigation() {
       screenOptions={{headerShown: false}}>
       <Stack.Screen name="Order" component={Order} />
       <Stack.Screen name="OrderDetails" component={OrderDetails} />
-      <Stack.Screen name='EvaluateOrder' component={EvaluateOrder}/>
+      <Stack.Screen name="EvaluateOrder" component={EvaluateOrder} />
     </Stack.Navigator>
   );
 }

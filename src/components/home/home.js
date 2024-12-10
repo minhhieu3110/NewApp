@@ -17,37 +17,9 @@ import Carousel from 'react-native-reanimated-carousel';
 import {useState, useEffect} from 'react';
 import axios from 'axios';
 import {ConvertTimeStamp} from '../../utils/convertTimeStamp';
+import Video from 'react-native-video';
+import {formatNumber} from '../../utils/formatNumber';
 export default function Home({navigation}) {
-  const fakeDataBestSeller = [
-    {
-      id: 1,
-      nameProduct: 'Kixx HYBRID - Dầu động cơ cao cấp',
-      priceOriginal: '223000',
-      percentDiscount: '15',
-      image: `${image.image_product_demo_1}`,
-    },
-    {
-      id: 2,
-      nameProduct: 'Kixx HYBRID - Dầu động cơ cao cấp',
-      priceOriginal: '223000',
-      percentDiscount: '',
-      image: `${image.image_product_demo_2}`,
-    },
-    {
-      id: 3,
-      nameProduct: 'Kixx HYBRID - Dầu động cơ cao cấp',
-      priceOriginal: '223000',
-      percentDiscount: '15',
-      image: `${image.image_product_demo_4}`,
-    },
-    {
-      id: 4,
-      nameProduct: 'Kixx HYBRID - Dầu động cơ cao cấp',
-      priceOriginal: '223000',
-      percentDiscount: '',
-      image: `${image.image_product_demo_1}`,
-    },
-  ];
   const [bestSeller, setBestSeller] = useState([
     {
       id: '',
@@ -61,6 +33,7 @@ export default function Home({navigation}) {
       picture: '',
       num_sold: '',
       num_view: '',
+      rate_avg: '',
       group: [{group_id: '', title: ''}],
     },
   ]);
@@ -86,6 +59,7 @@ export default function Home({navigation}) {
             picture: item.picture,
             num_sold: item.num_sold,
             num_view: item.num_view,
+            rate_avg: item.rate_avg,
             group: item.group,
           })),
         );
@@ -164,45 +138,38 @@ export default function Home({navigation}) {
       percentDiscount: '15',
     },
   ];
-  const fakeDataNews = [
+  const [news, setNews] = useState([
     {
-      id: 1,
-      titleNews: `"Nhớt thật - Nhớt giả" - Thực trạng thị trường nhớt ở Việt Nam`,
-      image: `${image.image_news_1}`,
-      cateNews: 'Tin thị trường',
+      id: '',
+      item_id: '',
+      title: '',
+      picture: '',
+      short: '',
+      content: '',
+      created_at: '',
+      updated_at: '',
+      group: '',
     },
-    {
-      id: 2,
-      titleNews: `Cách chọn dầu nhớt cho xe côn tay và phân khối lớn`,
-      image: `${image.image_news_2}`,
-      cateNews: 'Kiến thức',
-    },
-    {
-      id: 3,
-      titleNews: `Cách chọn dầu nhớt cho xe côn tay và phân khối lớn`,
-      image: `${image.image_news_3}`,
-      cateNews: 'Kiến thức',
-    },
-    {
-      id: 4,
-      titleNews: `"Nhớt thật - Nhớt giả" - Thực trạng thị trường nhớt ở Việt Nam`,
-      image: `${image.image_news_1}`,
-      cateNews: 'Tin thị trường',
-    },
-    {
-      id: 5,
-      titleNews: `Cách chọn dầu nhớt cho xe côn tay và phân khối lớn`,
-      image: `${image.image_news_2}`,
-      cateNews: 'Kiến thức',
-    },
-    {
-      id: 6,
-      titleNews: `Cách chọn dầu nhớt cho xe côn tay và phân khối lớn`,
-      image: `${image.image_news_3}`,
-      cateNews: 'Kiến thức',
-    },
-  ];
-
+  ]);
+  useEffect(() => {
+    axios.get('http://rpm.demo.app24h.net:81/api/v1/news').then(res => {
+      const news = res.data.data;
+      setNews(
+        news.map(item => ({
+          id: item.id,
+          item_id: item.item_id,
+          title: item.title,
+          picture: item.picture,
+          short: item.short,
+          content: item.content,
+          created_at: item.created_at,
+          created_at: item.updated_at,
+          group: item.group.title,
+        })),
+      );
+    });
+  }, []);
+  const limitNews = news.slice(0, 6);
   const imageHeader = [
     {id: 1, image: `${image.image_header_home_1}`},
     {id: 2, image: `${image.image_header_home_2}`},
@@ -262,8 +229,130 @@ export default function Home({navigation}) {
       // console.log(dataRecruitment);
     });
   }, []);
+
   const limitRecruitment = dataRecruitment.slice(0, 5);
   console.log(limitRecruitment);
+  const [videos, setVideos] = useState([
+    {
+      id: '',
+      title: '',
+      video_type: '',
+      video_file: '',
+      video: '',
+      meta_title: '',
+      meta_key: '',
+      meta_desc: '',
+    },
+  ]);
+  useEffect(() => {
+    axios.get('http://rpm.demo.app24h.net:81/api/v1/video').then(res => {
+      const dataVideos = res.data.data;
+
+      setVideos(
+        dataVideos.map(item => ({
+          id: item.id,
+          title: item.title,
+          video_type: item.video_type,
+          video_file: item.video_file,
+          video: item.video,
+          meta_title: item.meta_title,
+          meta_key: item.meta_key,
+          meta_desc: item.meta_desc,
+        })),
+      );
+    });
+  }, []);
+  const videoHome = videos.filter(item => item.id === 31);
+  const [partner, setPartner] = useState([
+    {
+      title: '',
+      link: '',
+      content: '',
+    },
+  ]);
+  useEffect(() => {
+    axios.get('http://rpm.demo.app24h.net:81/api/v1/banner/brand').then(res => {
+      const dataPartners = res.data.data;
+      setPartner(
+        dataPartners.map(item => ({
+          title: item.title,
+          link: item.link,
+          content: item.content,
+        })),
+      );
+    });
+  }, []);
+  const [products, setProducts] = useState([
+    {
+      id: '',
+      group_id: '',
+      title: '',
+      friendly_link: '',
+      children: [
+        {
+          id: '',
+          group_id: '',
+          title: '',
+          friendly_link: '',
+          product: [
+            {
+              id: '',
+              item_id: '',
+              group_id: '',
+              title: '',
+              picture: '',
+              price: '',
+              price_sale: '',
+              percent_discount: '',
+              friendly_link: '',
+              num_sold: '',
+              num_view: '',
+            },
+          ],
+        },
+      ],
+    },
+  ]);
+
+  useEffect(() => {
+    axios
+      .get('http://rpm.demo.app24h.net:81/api/v1/product_group/category')
+      .then(res => {
+        const productsData = res.data.data;
+
+        const getProducts = productsData.map(group => {
+          return {
+            id: group.id,
+            group_id: group.group_id,
+            title: group.title,
+            friendly_link: group.friendly_link,
+            children: group.children.slice(0, 3).map(child => ({
+              id: child.id,
+              group_id: child.group_id,
+              title: child.title,
+              friendly_link: child.friendly_link,
+              product: child.product.slice(0, 2).map(product => ({
+                id: product.id,
+                item_id: product.item_id,
+                group_id: product.group_id,
+                title: product.title,
+                picture: product.picture,
+                price: product.price,
+                price_sale: product.price_sale,
+                percent_discount: product.percent_discount,
+                friendly_link: product.friendly_link,
+                num_sold: product.num_sold,
+                num_view: product.num_view,
+              })),
+            })),
+          };
+        });
+
+        setProducts(getProducts);
+      });
+  }, []);
+  // console.log('products');
+  // console.log(products);
   return (
     <View style={{flex: 1}}>
       <ScrollView
@@ -377,11 +466,15 @@ export default function Home({navigation}) {
                 width: 375,
                 height: 216,
                 left: 10,
-                borderWidth: 1,
-                borderColor: '#707070',
-                backgroundColor: '#ffffff',
+                borderRadius: 5,
               }}>
-              <Image source={video.video_1} style={{width: 375, height: 216}} />
+              {videoHome.map(item => (
+                <Video
+                  source={{uri: `${item.video_file}`}}
+                  style={{width: '100%', height: '100%', borderRadius: 5}}
+                  repeat={true}
+                />
+              ))}
             </View>
             <Text
               style={{
@@ -476,12 +569,17 @@ export default function Home({navigation}) {
                         )}
                       </View>
                       <View style={style.footerBestSeller}>
-                        <Text style={style.numberRate}> 4.1</Text>
+                        <Text style={style.numberRate}>
+                          {' '}
+                          {formatNumber(item.rate_avg)}
+                        </Text>
                         <Image
                           style={style.iconRateStar}
                           source={icon.icon_rate_star}
                         />
-                        <Text style={style.numberPersonInteract}>(246)</Text>
+                        <Text style={style.numberPersonInteract}>
+                          ({item.num_view})
+                        </Text>
                       </View>
                     </View>
                   </View>
@@ -523,73 +621,89 @@ export default function Home({navigation}) {
               gap: 12,
               flexDirection: 'row',
             }}>
-            {fakeDataProducts.map((item, index) => (
-              <Pressable
-                onPress={() => navigation.navigate('DetailProducts')}
-                style={style.itemProducts}
-                key={index}>
-                <View style={style.imageProduct}>
-                  {item.percentDiscount !== '' && (
-                    <View style={style.percentDiscounts}>
-                      <Text style={style.textPercentDiscount}>
-                        {item.percentDiscount} %
-                      </Text>
+            {products.map(item =>
+              item.children.map(child =>
+                child.product.map(pro => (
+                  <Pressable
+                    onPress={() =>
+                      navigation.navigate('DetailProducts', {
+                        item_id: pro.item_id,
+                        group_id: pro.group_id,
+                      })
+                    }
+                    style={style.itemProducts}>
+                    <View style={style.imageProduct}>
+                      {pro.percent_discount !== 0 && (
+                        <View style={style.percentDiscounts}>
+                          <Text style={style.textPercentDiscount}>
+                            {pro.percent_discount} %
+                          </Text>
+                        </View>
+                      )}
+                      {pro.percent_discount !== 0 && (
+                        <Image
+                          style={[style.discountTicket, {top: 164.5}]}
+                          source={icon.icon_discount}
+                        />
+                      )}
+                      <Image
+                        source={{uri: `${pro.picture}`}}
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          borderTopLeftRadius: 10,
+                          borderTopRightRadius: 10,
+                        }}
+                      />
                     </View>
-                  )}
-                  {item.percentDiscount !== '' && (
-                    <Image
-                      style={[style.discountTicket, {top: 164.5}]}
-                      source={icon.icon_discount}
-                    />
-                  )}
-                  <Image
-                    source={`${item.image}`}
-                    style={{
-                      width: '100%',
-                      borderTopLeftRadius: 10,
-                      borderTopRightRadius: 10,
-                    }}
-                  />
-                </View>
-                <View style={style.titleProduct}>
-                  <Text style={style.nameProduct}>{item.nameProduct}</Text>
-                  <View
-                    style={{
-                      width: 180,
-                      borderWidth: 1,
-                      borderColor: '#F3F7FC',
-                    }}></View>
-                  <View style={style.priceProduct}>
-                    {item.percentDiscount !== '' && (
-                      <>
-                        <Text style={style.priceDiscount}>
-                          {`${formatCurrency(
-                            item.priceOriginal * (item.percentDiscount / 100),
-                          )}`}
+                    <View style={style.titleProduct}>
+                      <Text style={style.nameProduct}>{pro.title}</Text>
+                      <View
+                        style={{
+                          width: 180,
+                          borderWidth: 1,
+                          borderColor: '#F3F7FC',
+                        }}></View>
+                      <View style={style.priceProduct}>
+                        {pro.percent_discount !== 0 && (
+                          <>
+                            <Text style={style.priceDiscount}>
+                              {`${formatCurrency(
+                                pro.price -
+                                  pro.price * (pro.percent_discount / 100),
+                              )}`}
+                            </Text>
+                            <Text
+                              style={style.priceOriginal}>{`${formatCurrency(
+                              pro.price,
+                            )}`}</Text>
+                          </>
+                        )}
+                        {pro.percent_discount === 0 && (
+                          <Text style={style.priceDiscount}>
+                            {`${formatCurrency(pro.price)}`}
+                          </Text>
+                        )}
+                      </View>
+                      <View style={style.interactProduct}>
+                        <Text style={style.numberRate}>
+                          {formatNumber(4.1)}
                         </Text>
-                        <Text style={style.priceOriginal}>{`${formatCurrency(
-                          item.priceOriginal,
-                        )}`}</Text>
-                      </>
-                    )}
-                    {item.percentDiscount === '' && (
-                      <Text style={style.priceDiscount}>
-                        {`${formatCurrency(item.priceOriginal)}`}
-                      </Text>
-                    )}
-                  </View>
-                  <View style={style.interactProduct}>
-                    <Text style={style.numberRate}> 4.1</Text>
-                    <Image
-                      style={style.iconRateStar}
-                      source={icon.icon_rate_star}
-                    />
-                    <Text style={style.numberPersonInteract}>(246)</Text>
-                  </View>
-                </View>
-              </Pressable>
-            ))}
+                        <Image
+                          style={style.iconRateStar}
+                          source={icon.icon_rate_star}
+                        />
+                        <Text style={style.numberPersonInteract}>
+                          ({pro.num_view})
+                        </Text>
+                      </View>
+                    </View>
+                  </Pressable>
+                )),
+              ),
+            )}
           </View>
+
           <View style={{width: width - 24, height: 150}}>
             <Carousel
               loop
@@ -731,10 +845,18 @@ export default function Home({navigation}) {
               gap: 12,
               backgroundColor: '#fff',
             }}>
-            {fakeDataNews.map((item, index) => (
+            {limitNews.map((item, index) => (
               <View style={style.news} key={index}>
                 <View style={style.imageNews}>
-                  <Image source={item.image} />
+                  <Image
+                    source={{uri: `${item.picture}`}}
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      resizeMode: 'cover',
+                      borderRadius: 10,
+                    }}
+                  />
                 </View>
                 <View style={style.cateNews}>
                   <Text
@@ -743,7 +865,7 @@ export default function Home({navigation}) {
                       fontWeight: 'medium',
                       color: '#0060af',
                     }}>
-                    {item.cateNews}
+                    {item.group}
                   </Text>
                 </View>
                 <View style={style.titleNews}>
@@ -754,7 +876,7 @@ export default function Home({navigation}) {
                       color: '#212121',
                       lineHeight: 20,
                     }}>
-                    {item.titleNews}
+                    {item.title}
                   </Text>
                 </View>
               </View>
@@ -858,39 +980,24 @@ export default function Home({navigation}) {
           <View
             style={{
               width: width - 24,
-              height: 195,
+              // height: 195,
               flexDirection: 'row',
               rowGap: 12,
               columnGap: 30,
               flexWrap: 'wrap',
             }}>
-            <View style={{width: width / 3 - 30, height: 57}}>
-              <Image source={image.image_logo_brand_demo_1} />
-            </View>
-            <View style={{width: width / 3 - 30, height: 57}}>
-              <Image source={image.image_logo_brand_demo_2} />
-            </View>
-            <View style={{width: width / 3 - 30, height: 57}}>
-              <Image source={image.image_logo_brand_demo_1} />
-            </View>
-            <View style={{width: width / 3 - 30, height: 57}}>
-              <Image source={image.image_logo_brand_demo_2} />
-            </View>
-            <View style={{width: width / 3 - 30, height: 57}}>
-              <Image source={image.image_logo_brand_demo_1} />
-            </View>
-            <View style={{width: width / 3 - 30, height: 57}}>
-              <Image source={image.image_logo_brand_demo_2} />
-            </View>
-            <View style={{width: width / 3 - 30, height: 57}}>
-              <Image source={image.image_logo_brand_demo_1} />
-            </View>
-            <View style={{width: width / 3 - 30, height: 57}}>
-              <Image source={image.image_logo_brand_demo_2} />
-            </View>
-            <View style={{width: width / 3 - 30, height: 57}}>
-              <Image source={image.image_logo_brand_demo_1} />
-            </View>
+            {partner.map(item => (
+              <View style={{width: width / 3 - 30, height: 57}}>
+                <Image
+                  source={{uri: `${item.content}`}}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    resizeMode: 'contain',
+                  }}
+                />
+              </View>
+            ))}
           </View>
           <View
             style={{
@@ -1061,7 +1168,7 @@ const style = StyleSheet.create({
     height: 9.92,
   },
   numberPersonInteract: {
-    fontSize: 16,
+    fontSize: 12,
     fontWeight: 'regular',
     color: '#aaaaaa',
   },
@@ -1113,6 +1220,7 @@ const style = StyleSheet.create({
     width: 100,
     height: 41,
     gap: 4,
+    justifyContent: 'center',
   },
   interactProduct: {
     flexDirection: 'row',
