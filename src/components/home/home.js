@@ -473,6 +473,7 @@ export default function Home({navigation}) {
                   source={{uri: `${item.video_file}`}}
                   style={{width: '100%', height: '100%', borderRadius: 5}}
                   repeat={true}
+                  muted={true}
                 />
               ))}
             </View>
@@ -521,14 +522,16 @@ export default function Home({navigation}) {
                 renderItem={({item}) => (
                   <View style={style.itemBestSeller}>
                     <View style={style.imageBestSeller}>
-                      {item.price_sale !== 0 && (
+                      {item.price_sale !== item.price && (
                         <View style={style.percentDiscounts}>
                           <Text style={style.textPercentDiscount}>
-                            {(item.price_sale * 100) / item.price}%
+                            {((item.price - item.price_sale) * 100) /
+                              item.price}
+                            %
                           </Text>
                         </View>
                       )}
-                      {item.price_sale !== 0 && (
+                      {item.price_sale !== item.price && (
                         <Image
                           style={style.discountTicket}
                           source={icon.icon_discount}
@@ -551,16 +554,20 @@ export default function Home({navigation}) {
                         </Text>
                       </View>
                       <View style={style.priceBestSeller}>
-                        {item.price_sale !== '' && (
+                        {item.price_sale !== item.price ? (
                           <>
                             <Text
                               style={style.priceDiscount}>{`${formatCurrency(
-                              item.price,
+                              item.price_sale,
                             )}`}</Text>
                             <Text style={style.priceOriginal}>
                               {`${formatCurrency(item.price)}`}
                             </Text>
                           </>
+                        ) : (
+                          <Text style={style.priceDiscount}>{`${formatCurrency(
+                            item.price,
+                          )}`}</Text>
                         )}
                         {item.price_sale === '' && (
                           <Text style={style.priceDiscount}>
@@ -1130,6 +1137,7 @@ const style = StyleSheet.create({
     height: 40,
     top: 8,
     gap: 4,
+    justifyContent: 'center',
   },
   footerBestSeller: {
     width: 68,

@@ -48,6 +48,9 @@ export default function BottomTabContainer() {
             headerShown: false,
             tabBarStyle: {
               display: isInitialRoute ? 'flex' : 'none',
+              height: 65,
+              paddingBottom: 8,
+              paddingTop: 9,
             },
             tabBarIcon: ({focused}) => (
               <Image
@@ -56,7 +59,8 @@ export default function BottomTabContainer() {
               />
             ),
             tabBarLabelStyle: {
-              fontSize: 15,
+              fontSize: 12,
+              fontWeight: 'regular',
             },
             tabBarActiveTintColor: '#0060af',
             tabBarInactiveTintColor: '#808080',

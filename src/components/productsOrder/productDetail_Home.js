@@ -88,8 +88,7 @@ export default function ProductDetail_Home({navigation, route}) {
         });
     }
   }, [route.params.item_id, route.params.group_id]);
-  // console.log('Product Info');
-  // console.log(productInfo);
+
   const [chooseType, setChooseType] = useState(null);
   const handlerChooseType = id => {
     const chooseProductType = productInfo.option.find(
@@ -97,12 +96,27 @@ export default function ProductDetail_Home({navigation, route}) {
     );
     setChooseType(chooseProductType);
   };
-  console.log(chooseType);
+  const handlerProductRelated = (item_id, group_id) => {
+    axios
+      .get(`http://rpm.demo.app24h.net:81/api/v1/product/${item_id}`)
+      .then(res => {
+        const product = res.data.data;
+        setProductInfo(product);
+      });
+    axios
+      .get(
+        `http://rpm.demo.app24h.net:81/api/v1/product?filter[group_id]=${group_id}`,
+      )
+      .then(res => {
+        const relatedProduct = res.data.data;
+        setProductsRelated(relatedProduct);
+      });
+  };
   return (
     <View style={{flex: 1}}>
       {productInfo && (
         <ScrollView
-          contentContainerStyle={[style.container, {paddingBottom: 500}]}
+          contentContainerStyle={[style.container, {paddingBottom: 100}]}
           showsVerticalScrollIndicator={false}>
           <StatusBar hidden={false} />
           <View>
@@ -563,7 +577,11 @@ export default function ProductDetail_Home({navigation, route}) {
               }}>
               {productsRelated !== null
                 ? productsRelated.map(related => (
-                    <View style={style.itemSimilar}>
+                    <Pressable
+                      onPress={() =>
+                        handlerProductRelated(related.item_id, related.group_id)
+                      }
+                      style={style.itemSimilar}>
                       <View style={style.topItemSimilar}>
                         <Image
                           style={{
@@ -699,7 +717,7 @@ export default function ProductDetail_Home({navigation, route}) {
                           </Text>
                         </View>
                       </View>
-                    </View>
+                    </Pressable>
                   ))
                 : ''}
             </View>
@@ -859,37 +877,6 @@ export default function ProductDetail_Home({navigation, route}) {
                       </Text>
                     </Pressable>
                   ))}
-                {/* <View
-                  style={[
-                    style.classify,
-                    {backgroundColor: '#eee', borderColor: '#aaa'},
-                  ]}>
-                  <Text style={style.contentClassify}>0.3 L</Text>
-                </View>
-                <View style={style.classify}>
-                  <Text style={style.contentClassify}>1 L</Text>
-                </View>
-                <View style={[style.classify, {backgroundColor: '#0060af'}]}>
-                  <Text style={[style.contentClassify, {color: '#fff'}]}>
-                    3 L
-                  </Text>
-                </View>
-                <View style={style.classify}>
-                  <Text style={style.contentClassify}>4 L</Text>
-                </View>
-                <View style={style.classify}>
-                  <Text style={style.contentClassify}>18 L</Text>
-                </View>
-                <View style={style.classify}>
-                  <Text style={style.contentClassify}>20 L</Text>
-                </View>
-                <View
-                  style={[
-                    style.classify,
-                    {backgroundColor: '#eee', borderColor: '#aaa'},
-                  ]}>
-                  <Text style={style.contentClassify}>200 L</Text>
-                </View> */}
               </View>
               <View
                 style={{
@@ -991,7 +978,6 @@ export default function ProductDetail_Home({navigation, route}) {
               height: 45,
               backgroundColor: '#0060af',
               borderRadius: 10,
-              // left: 12,
               alignItems: 'center',
               justifyContent: 'center',
             }}>
@@ -1312,7 +1298,6 @@ export default function ProductDetail_Home({navigation, route}) {
 const {width, height} = Dimensions.get('window');
 const style = StyleSheet.create({
   container: {
-    // flex: 1,
     backgroundColor: '#F3F7FC',
     paddingBottom: 'auto',
   },
@@ -1562,7 +1547,6 @@ const style = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 5,
-    // padding: 15,
   },
   contentItemEvaluate: {
     flexDirection: 'row',

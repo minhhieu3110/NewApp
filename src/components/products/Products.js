@@ -421,7 +421,7 @@ export default function Products({navigation}) {
             </Pressable>
           </ScrollView>
         </View>
-        <View style={{width: 395, rowGap: 12}}>
+        <View style={{width: width - 24, rowGap: 12}}>
           {hiddenListProductHorizontal === true && (
             <ScrollView
               showsVerticalScrollIndicator={false}
@@ -646,7 +646,7 @@ export default function Products({navigation}) {
               </View>
               <ScrollView
                 contentContainerStyle={{
-                  width: 395,
+                  width: width - 24,
                   left: 12,
                   paddingBottom: 300,
                   rowGap: 15,
@@ -809,18 +809,17 @@ export default function Products({navigation}) {
               </ScrollView>
               <View
                 style={{
-                  width: 412,
+                  width: width,
                   height: 65,
-                  top: 655,
+                  top: 680,
                   position: 'absolute',
-                  zIndex: 200,
                   alignItems: 'center',
                   justifyContent: 'center',
                 }}>
                 <Pressable
                   onPress={saveFillterCategory}
                   style={{
-                    width: 395,
+                    width: width - 24,
                     height: 45,
                     borderRadius: 10,
                     backgroundColor: '#0060af',
@@ -873,7 +872,7 @@ export default function Products({navigation}) {
                   <Image source={icon.icon_close} />
                 </Pressable>
               </View>
-              <View style={{width: 395, top: 14, rowGap: 11, left: 12}}>
+              <View style={{width: width - 24, top: 14, rowGap: 11, left: 12}}>
                 <View style={{rowGap: 10}}>
                   <Text
                     style={{
@@ -984,7 +983,7 @@ export default function Products({navigation}) {
                   // onPress={() => setShowCategory(true)}
                   onPress={savePriceRange}
                   style={{
-                    width: 395,
+                    width: width - 24,
                     height: 45,
                     borderRadius: 10,
                     backgroundColor: '#0060af',
@@ -1077,7 +1076,7 @@ export default function Products({navigation}) {
                 <Pressable
                   onPress={saveEvaluate}
                   style={{
-                    width: 395,
+                    width: width - 24,
                     height: 45,
                     borderRadius: 10,
                     backgroundColor: '#0060af',
