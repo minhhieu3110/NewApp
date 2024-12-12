@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import Products from '../components/products/Products';
-import CategoryProducts from '../components/products/categoryProducts';
+import Products from '../screens/products/Products';
+import CategoryProducts from '../screens/products/categoryProducts';
 export default function ProductStackNavigation() {
   const Tab = createNativeStackNavigator();
   return (

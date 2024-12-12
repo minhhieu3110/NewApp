@@ -7,7 +7,7 @@ import HomeStackNavigation from './HomeStackNavigation';
 import AccountStackNavigation from './AccountStackNavigation';
 import OrderStackNavigation from './OrderStackNavigation';
 // import NotificationStackNavigation from './NotificationStackNavigation';
-import Notification from '../components/notification/notification';
+import Notification from '../screens/notification/notification';
 import ProductStackNavigation from './ProductStackNavigation';
 
 const Tab = createBottomTabNavigator();

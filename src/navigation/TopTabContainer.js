@@ -1,10 +1,10 @@
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-import AllOrders from '../components/order/allOrders';
-import WaitConfirmOrder from '../components/order/waitConfirmOrder';
-import WaitGetOrder from '../components/order/waitGetOrder';
-import ProceesingOrder from '../components/order/processingOrder';
-import FinishedOrder from '../components/order/finishedOrder';
-import CancelOrder from '../components/order/cancelOrder';
+import AllOrders from '../screens/order/allOrders';
+import WaitConfirmOrder from '../screens/order/waitConfirmOrder';
+import WaitGetOrder from '../screens/order/waitGetOrder';
+import ProceesingOrder from '../screens/order/processingOrder';
+import FinishedOrder from '../screens/order/finishedOrder';
+import CancelOrder from '../screens/order/cancelOrder';
 export default function TopTabContainer() {
   const Tab = createMaterialTopTabNavigator();
   return (

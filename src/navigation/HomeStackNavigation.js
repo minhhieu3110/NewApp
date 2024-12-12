@@ -1,13 +1,13 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import Home from '../components/home/home';
-import AboutCompany from '../components/company/aboutCompany';
-import Recruitment from '../components/company/recruitment';
-import Video from '../components/company/video';
-import Catalogue from '../components/productsOrder/catalogue';
-import News from '../components/company/news';
-import ProductDetail_Home from '../components/productsOrder/productDetail_Home';
-import Pay from '../components/productsOrder/pay';
-import OrderDetails from '../components/order/detailOrder';
+import Home from '../screens/home/home';
+import AboutCompany from '../screens/company/aboutCompany';
+import Recruitment from '../screens/company/recruitment';
+import Video from '../screens/company/video';
+import Catalogue from '../screens/productsOrder/catalogue';
+import News from '../screens/company/news';
+import ProductDetail_Home from '../screens/productsOrder/productDetail_Home';
+import Pay from '../screens/productsOrder/pay';
+import OrderDetails from '../screens/order/detailOrder';
 export default function HomeStackNavigation() {
   const Stack = createNativeStackNavigator();
   return (

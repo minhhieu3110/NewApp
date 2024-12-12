@@ -381,11 +381,11 @@ export default function Home({navigation}) {
               position: 'absolute',
               top: 15,
               flexDirection: 'row',
-              gap: 15,
+              columnGap: 15,
             }}>
             <TextInput
               style={{
-                width: 353,
+                width: width - 75,
                 height: 35,
                 left: 13,
                 backgroundColor: '#fff',
@@ -397,7 +397,7 @@ export default function Home({navigation}) {
               placeholder="Tìm kiếm sản phẩm"
               placeholderTextColor={'#808080'}
             />
-            <View>
+            <View style={{left: 15}}>
               <Image source={icon.icon_cart} />
             </View>
           </View>
@@ -416,19 +416,17 @@ export default function Home({navigation}) {
           <View
             style={{
               width: width - 24,
-              height: 396,
               borderRadius: 10,
               backgroundColor: '#fff',
               gap: 23,
             }}>
             <View
               style={{
-                width: 375,
+                width: width - 44,
                 height: 58,
                 left: 10,
                 top: 13,
                 flexDirection: 'row',
-                gap: 88,
               }}>
               <View>
                 <Text
@@ -449,6 +447,8 @@ export default function Home({navigation}) {
                   flexDirection: 'row',
                   alignItems: 'center',
                   gap: 5,
+                  right: 10,
+                  position: 'absolute',
                 }}>
                 <Text
                   style={{
@@ -463,7 +463,7 @@ export default function Home({navigation}) {
             </View>
             <View
               style={{
-                width: 375,
+                width: width - 44,
                 height: 216,
                 left: 10,
                 borderRadius: 5,
@@ -484,7 +484,8 @@ export default function Home({navigation}) {
                 color: '#212121',
                 left: 10,
                 lineHeight: 25,
-                width: 375,
+                width: width - 44,
+                top: -11,
               }}>
               Dầu nhớt Số 1 Hàn Quốc _ Kixx luôn là thương hiệu dẫn đầu thị
               trường. Xếp thứ nhất trong các hạng mục khảo sát về mức độ hài

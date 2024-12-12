@@ -1,7 +1,7 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import OrderDetails from '../components/order/detailOrder';
-import Order from '../components/order/order';
-import EvaluateOrder from '../components/order/evaluateOrder';
+import OrderDetails from '../screens/order/detailOrder';
+import Order from '../screens/order/order';
+import EvaluateOrder from '../screens/order/evaluateOrder';
 export default function OrderStackNavigation() {
   const Stack = createNativeStackNavigator();
   return (

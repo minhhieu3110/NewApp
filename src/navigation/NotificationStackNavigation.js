@@ -1,5 +1,5 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import Notification from '../components/notification/notification';
+import Notification from '../screens/notification/notification';
 export default function NotificationStackNavigation() {
   const Tab = createNativeStackNavigator();
   return (

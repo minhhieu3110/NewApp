@@ -1,6 +1,6 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import TopTabContainer from './TopTabContainer';
-import WaitConfirmOrder from '../components/order/waitConfirmOrder';
+import WaitConfirmOrder from '../screens/order/waitConfirmOrder';
 export default function TopTabStackNavigation({navigation}) {
   const Stack = createNativeStackNavigator();
   return (
