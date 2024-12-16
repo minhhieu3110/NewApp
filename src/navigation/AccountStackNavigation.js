@@ -4,11 +4,11 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Toast from 'react-native-toast-message';
 import {Provider} from 'react-redux';
 import store from '../redux/store/index';
-import Login from '../screens/user/login';
-import Register from '../screens/user/register';
+import Login from '../screens/user/Auth/LoginScreen';
+import Register from '../screens/user/Auth/RegisterScreen';
 import AccountNoSignIn from '../screens/user/accountNoSignIn';
-import Account from '../screens/user/account';
-import InfoAccount from '../screens/user/infoAccount';
+import Account from '../screens/user/Auth/AccountProfile';
+import InfoUser from '../screens/user/Auth/InfoUser';
 import ProductsSeen from '../screens/productsOrder/productsSeen';
 import ProductsFavorite from '../screens/productsOrder/productsFavorite';
 import ProductDetail from '../screens/productsOrder/productDetail';
@@ -21,8 +21,8 @@ import HelpWithEmail from '../screens/user/centerhelp/helpWithEmail';
 import Contract from '../screens/contract/contracts';
 import Debt from '../screens/debt/debt';
 import Setting from '../screens/user/setting/setting';
-import ChangePassword from '../screens/user/setting/changePassword';
-import ForgotPassword from '../screens/user/setting/forgotPassword';
+import ChangePassword from '../screens/user/Auth/ChangePassword';
+import ForgotPassword from '../screens/user/Auth/ForgotPassword';
 import CumulativePoints from '../screens/user/cumulativePoints';
 import VoucherRedeemed from '../screens/user/voucherRedeemed';
 import DetailVoucher from '../screens/user/detailVoucher';
@@ -38,7 +38,7 @@ export default function AccountStackNavigation() {
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Register" component={Register} />
         <Stack.Screen name="Account" component={Account} />
-        <Stack.Screen name="InfoAccount" component={InfoAccount} />
+        <Stack.Screen name="InfoAccount" component={InfoUser} />
         <Stack.Screen name="CumulativePoints" component={CumulativePoints} />
         <Stack.Screen name="VoucherRedeemed" component={VoucherRedeemed} />
         <Stack.Screen name="DetailVoucher" component={DetailVoucher} />

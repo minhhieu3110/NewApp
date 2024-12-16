@@ -8,8 +8,8 @@ import {
   Pressable,
   Dimensions,
 } from 'react-native';
-import {icon, image} from '../../assets/index';
-export default function Account({navigation}) {
+import {icon, image} from '../../../../assets/index';
+const Account = ({navigation}) => {
   // const data = {routeName: [
   //   {id: 1, route: 'SaveProducts'}
   // ]}
@@ -329,7 +329,8 @@ export default function Account({navigation}) {
       {/* </ScrollView> */}
     </View>
   );
-}
+};
+export default Account;
 const {width, height} = Dimensions.get('window');
 const style = StyleSheet.create({
   container: {
@@ -462,7 +463,7 @@ const style = StyleSheet.create({
     height: 24,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
   iconTextMenuAccount: {
     width: 350,

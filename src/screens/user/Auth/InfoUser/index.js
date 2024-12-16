@@ -9,8 +9,8 @@ import {
   Button,
   Dimensions,
 } from 'react-native';
-import {icon, image} from '../../assets/index';
-export default function InfoAccount({navigation}) {
+import {icon, image} from '../../../../assets/index';
+const InfoUser = ({navigation}) => {
   return (
     <View style={style.container}>
       <View style={style.titleContainer}>
@@ -88,7 +88,8 @@ export default function InfoAccount({navigation}) {
       </View>
     </View>
   );
-}
+};
+export default InfoUser;
 const {width, height} = Dimensions.get('window');
 const style = StyleSheet.create({
   container: {
@@ -172,7 +173,8 @@ const style = StyleSheet.create({
     borderRadius: 5,
     fontSize: 15,
     fontWeight: 'regular',
-    color: '#212121',paddingLeft: 15
+    color: '#212121',
+    paddingLeft: 15,
   },
   iconCalendar: {
     width: 17,

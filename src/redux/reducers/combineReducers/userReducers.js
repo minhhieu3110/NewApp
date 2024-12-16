@@ -50,6 +50,13 @@ export const deleteAddressbook = (...props) => {
 export const loginSocial = (...props) => {
   return reducerDefault(...props, actions.LOGIN_SOCIAL);
 };
-// export const user = (state = initialState, action) =>{
-
-// }
+export const user = (state = initialState, action) => {
+  switch (action.type) {
+    case actions.SAVE_USER_INFO:
+      return {...state, userToken: action.userToken};
+    case actions.UNMOUNT_USER:
+      return initialState;
+    default:
+      return state;
+  }
+};

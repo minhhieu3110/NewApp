@@ -38,71 +38,81 @@ axios.interceptors.request.use(
 );
 //RESPONSE
 axios.interceptors.response.use(
-    respone =>{
-        if(__DEV__ && respone.config.url){
-            console.log(
-                `%C [RESPONSE] ${respone.config.url}`,
-                respone,
-            );
-            console.log('status:', respone.status);
-            console.log('data:', respone.data)
-        }
-        return respone
-    },
-    error => {
-        if(__DEV__){
-            console.log(
-                `%C [RESPONSE ERROR] ${error.config.url}`,
-                {dataHeader: error.config.data},
-                {paramsHeader: error.config.params},
-                JSON.stringify(error.respone.data, null, 2)
-            );
-        }
-        return Promise.reject(error)
+  respone => {
+    if (__DEV__ && respone.config.url) {
+      console.log(`%C [RESPONSE] ${respone.config.url}`, respone);
+      console.log('status:', respone.status);
+      console.log('data:', respone.data);
     }
-)
-export default class HttpService{
-    static generateHeader(headers){
-        const token = store.getState()?.appToken?.data;
-        let option = {
-            'Content-Type': headers || 'application/x-www-form-urlencoded',
-            Accept: 'application/json'
-        }
-        if(token !== null){
-            option ={
-                ...option,
-                'Authorization': `Bearer ${token}`
-            }
-        }
-        return option
+    return respone;
+  },
+  error => {
+    if (__DEV__) {
+      console.log(
+        `%C [RESPONSE ERROR] ${error.config.url}`,
+        {dataHeader: error.config.data},
+        {paramsHeader: error.config.params},
+        JSON.stringify(error.respone.data, null, 2),
+      );
     }
-    static async get(url, params ={}) {
-        try{
-            return await axios
-            .get(url, {
-                headers: {
-                    get: this.generateHeader()
-                },
-                params: {...params}
-            })
-            .then(response => response.data)
-        } catch (error){
-            throw error.respone
-        }
+    return Promise.reject(error);
+  },
+);
+export default class HttpService {
+  static generateHeader(headers) {
+    const token = store.getState()?.appToken?.data;
+    let option = {
+      'Content-Type': headers || 'application/x-www-form-urlencoded',
+      Accept: 'application/json',
+    };
+    if (token !== null) {
+      option = {
+        ...option,
+        Authorization: `Bearer ${token}`,
+      };
     }
-    static async post(url, body, params ={}) {
-        try{
-            return await axios
-            .post(url, body, {
-                headers: {
-                    post: this.generateHeader()
-                },
-                params: {...params}
-            })
-            .then(response => response.data)
-        }catch(error){
-            throw error.respone
-        }
+    return option;
+  }
+  static async get(url, params = {}) {
+    try {
+      return await axios
+        .get(url, {
+          headers: {
+            get: this.generateHeader(),
+          },
+          params: {...params},
+        })
+        .then(response => response.data);
+    } catch (error) {
+      throw error.respone;
     }
-    
+  }
+  static async post(url, body, params = {}) {
+    try {
+      return await axios
+        .post(url, body, {
+          headers: {
+            post: this.generateHeader(),
+          },
+          params: {...params},
+        })
+        .then(response => response.data);
+    } catch (error) {
+      throw error.respone;
+    }
+  }
+  static async postFormData(url, formData, params = {}) {
+    try {
+      return await axios
+        .post(url, formData, {
+          headers: {
+            post: this.generateHeader('form-data'),
+          },
+          params: {...params},
+        })
+        .then(response => response.data);
+    } catch (error) {
+      throw error.respone;
+    }
+  }
 }

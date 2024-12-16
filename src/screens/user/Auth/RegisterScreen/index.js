@@ -8,57 +8,85 @@ import {
   Pressable,
   Alert,
 } from 'react-native';
-import Toast from 'react-native-toast-message'
-import {icon, image} from '../../assets/index'
-export default function Register({navigation}) {
+import Toast from 'react-native-toast-message';
+import {icon, image} from '../../../../assets/index';
+import actions from '../../../../redux/actions';
+import {useDispatch, useSelector} from 'react-redux';
+import {useForm} from 'react-hook-form';
+import formConfig, {FORM_INPUT} from './fornConfig';
+import {authRoot} from '../../../../navigation/navigationRef';
+import router from '../../../../navigation/router';
+const Register = ({navigation}) => {
+  const dispatch = useDispatch();
+  const {control, handleSubmit} = useForm(formConfig);
   const [dataRegister, setDataRegister] = useState({
     username: '',
     phone: '',
     password: '',
   });
-    const handlerRegister = async () => {
-      try {
-        // const res = await fetch(
-        //   'http://rpm.demo.app24h.net:81/api/v1/user/signup',
-        //   {
-        //     method: 'POST',
-        //     headers: {
-        //       'Content-Type': 'application/json',
-        //     },
-        //     body: JSON.stringify(dataRegister),
-        //   },
-        // );
-        // const result = await res.json;
-        // console.log(dataRegister);
-        // if (res.ok) {
-        //   Toast.show({
-        //     type: 'success',
-        //     text1: 'Đăng ký thành công'
-        //   })
-        //   navigation.navigate('Login');
-        // } else {
-        //   Toast.show({
-        //     type: 'error',
-        //     text1: 'Đăng ký thất bại'
-        //   })
-        // }
-        navigation.navigate('Login')
-      } catch (err) {
-        Alert.alert('Không Thành Công');
-        console.log(err);
-      }
-    };
+  // const handlerRegister = async () => {
+  //   try {
+  //     const res = await fetch(
+  //       'http://rpm.demo.app24h.net:81/api/v1/user/signup',
+  //       {
+  //         method: 'POST',
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //         },
+  //         body: JSON.stringify(dataRegister),
+  //       },
+  //     );
+  //     const result = await res.json;
+  //     console.log(dataRegister);
+  //     if (res.ok) {
+  //       Toast.show({
+  //         type: 'success',
+  //         text1: 'Đăng ký thành công'
+  //       })
+  //       navigation.navigate('Login');
+  //     } else {
+  //       Toast.show({
+  //         type: 'error',
+  //         text1: 'Đăng ký thất bại'
+  //       })
+  //     }
+  //     navigation.navigate('Login');
+  //   } catch (err) {
+  //     Alert.alert('Không Thành Công');
+  //     console.log(err);
+  //   }
+  // };
+  const _onSubmit = values => {
+    dispatch({
+      type: actions.USER_REGISTER,
+      body: {
+        username: values.username,
+        numberPhone: values.numberPhone,
+        password: values.password,
+      },
+      onSuccess: () => {
+        authRoot.navigate(router.LOGIN_SCREEN);
+      },
+      onFail(e) {
+        Toast.show({
+          type: 'error',
+          text1: e?.data?.message,
+        });
+      },
+    });
+  };
+
   return (
     <View style={styles.container}>
-      <Image
-        source={image.img_bg}
-      />
-      <View style={styles.formContainer} >
+      <Image source={image.img_bg} />
+      <View style={styles.formContainer}>
         <Text style={styles.titleFrom}>Đăng Ký</Text>
         <TextInput
           style={styles.input}
           placeholder="Username hoặc Email"
-          onChangeText={username => setDataRegister({...dataRegister, username})}
+          onChangeText={username =>
+            setDataRegister({...dataRegister, username})
+          }
         />
         <TextInput
           style={[styles.input, {top: 124}]}
@@ -69,7 +97,9 @@ export default function Register({navigation}) {
           style={[styles.input, {top: 181}]}
           placeholder="Nhập mật khẩu"
           secureTextEntry={true}
-          onChangeText={password => setDataRegister({...dataRegister, password})}
+          onChangeText={password =>
+            setDataRegister({...dataRegister, password})
+          }
         />
         <View style={styles.textAgree}>
           <Text style={{textAlign: 'center'}}>
@@ -89,15 +119,15 @@ export default function Register({navigation}) {
           <Text style={styles.textForgotPassword}>Quên mật khẩu</Text>
         </Pressable>
         <View style={styles.line} />
-          <Text style={styles.orTextLogin}>Hoặc đăng nhập bằng tài khoản</Text>
-          <View style={styles.socialContainer}>
-            <Pressable style={styles.socialButton}>
-              <Image source={icon.icon_facebook}/>
-            </Pressable>
-            <Pressable style={styles.socialButton}>
-              <Image source={icon.icon_google}/>
-            </Pressable>
-          </View>
+        <Text style={styles.orTextLogin}>Hoặc đăng nhập bằng tài khoản</Text>
+        <View style={styles.socialContainer}>
+          <Pressable style={styles.socialButton}>
+            <Image source={icon.icon_facebook} />
+          </Pressable>
+          <Pressable style={styles.socialButton}>
+            <Image source={icon.icon_google} />
+          </Pressable>
+        </View>
         <View style={styles.signUp}>
           <Text style={styles.textSignUp}>
             Bạn đã có tài khoản RPM VIETNAM ?
@@ -111,8 +141,8 @@ export default function Register({navigation}) {
       </View>
     </View>
   );
-}
-
+};
+export default Register;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
