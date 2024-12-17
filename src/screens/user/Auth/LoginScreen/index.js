@@ -9,46 +9,46 @@ import {
   Alert,
 } from 'react-native';
 import Toast from 'react-native-toast-message';
-import {icon, image} from '../../../../assets/index';
+import {icon, image} from '@assets';
 import {useSelector} from 'react-redux';
 
 const Login = ({navigation}) => {
   const [dataLogin, setDataLogin] = useState({username: '', password: ''});
   const data = useSelector(state => state.signInUser);
-  // const handlerLogin = async () => {
-  //   try {
-  //     const res = await fetch(
-  //       'http://rpm.demo.app24h.net:81/api/v1/user/login',
-  //       {
-  //         method: 'POST',
-  //         headers: {
-  //           'Content-Type': 'application/json',
-  //         },
-  //         body: JSON.stringify(dataLogin),
-  //       },
-  //     );
-  //     const result = await res.json;
-  //     // console.log(dataLogin);
-  //     if (res.ok) {
-  //       Toast.show({
-  //         type: 'success',
-  //         text1: 'Đăng nhập thành công'
-  //       })
-  //     } else {
-  //       Toast.show({
-  //         type: 'error',
-  //         text1: 'Đăng nhập thất bại'
-  //       })
-  //     }
-  //     navigation.navigate('Account');
-  //   } catch (err) {
-  //     Toast.show({
-  //       type: 'error',
-  //       text1: 'Đăng nhập thất bại',
-  //     });
-  //     console.log(err);
-  //   }
-  // };
+  const handlerLogin = async () => {
+    try {
+      const res = await fetch(
+        'http://rpm.demo.app24h.net:81/api/v1/user/login',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(dataLogin),
+        },
+      );
+      const result = await res.json;
+      // console.log(dataLogin);
+      if (res.ok) {
+        Toast.show({
+          type: 'success',
+          text1: 'Đăng nhập thành công',
+        });
+      } else {
+        Toast.show({
+          type: 'error',
+          text1: 'Đăng nhập thất bại',
+        });
+      }
+      navigation.navigate('Account');
+    } catch (err) {
+      Toast.show({
+        type: 'error',
+        text1: 'Đăng nhập thất bại',
+      });
+      console.log(err);
+    }
+  };
 
   return (
     <View style={styles.container}>

@@ -14,8 +14,8 @@ import actions from '../../../../redux/actions';
 import {useDispatch, useSelector} from 'react-redux';
 import {useForm} from 'react-hook-form';
 import formConfig, {FORM_INPUT} from './fornConfig';
-import {authRoot} from '../../../../navigation/navigationRef';
-import router from '../../../../navigation/router';
+import {authRoot} from 'navigation/navigationRef';
+import router from '@router';
 const Register = ({navigation}) => {
   const dispatch = useDispatch();
   const {control, handleSubmit} = useForm(formConfig);
@@ -24,58 +24,76 @@ const Register = ({navigation}) => {
     phone: '',
     password: '',
   });
-  // const handlerRegister = async () => {
-  //   try {
-  //     const res = await fetch(
-  //       'http://rpm.demo.app24h.net:81/api/v1/user/signup',
-  //       {
-  //         method: 'POST',
-  //         headers: {
-  //           'Content-Type': 'application/json',
-  //         },
-  //         body: JSON.stringify(dataRegister),
-  //       },
-  //     );
-  //     const result = await res.json;
-  //     console.log(dataRegister);
-  //     if (res.ok) {
-  //       Toast.show({
-  //         type: 'success',
-  //         text1: 'Đăng ký thành công'
-  //       })
-  //       navigation.navigate('Login');
-  //     } else {
-  //       Toast.show({
-  //         type: 'error',
-  //         text1: 'Đăng ký thất bại'
-  //       })
-  //     }
-  //     navigation.navigate('Login');
-  //   } catch (err) {
-  //     Alert.alert('Không Thành Công');
-  //     console.log(err);
-  //   }
-  // };
-  const _onSubmit = values => {
-    dispatch({
-      type: actions.USER_REGISTER,
-      body: {
-        username: values.username,
-        numberPhone: values.numberPhone,
-        password: values.password,
-      },
-      onSuccess: () => {
-        authRoot.navigate(router.LOGIN_SCREEN);
-      },
-      onFail(e) {
+  const handlerRegister = async () => {
+    try {
+      const res = await fetch(
+        'http://rpm.demo.app24h.net:81/api/v1/user/signup',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(dataRegister),
+        },
+      );
+      const result = await res.json;
+      console.log(dataRegister);
+      if (res.ok) {
+        Toast.show({
+          type: 'success',
+          text1: 'Đăng ký thành công',
+        });
+        navigation.navigate('Login');
+      } else {
         Toast.show({
           type: 'error',
-          text1: e?.data?.message,
+          text1: 'Đăng ký thất bại',
         });
-      },
-    });
+      }
+      navigation.navigate('Login');
+    } catch (err) {
+      Alert.alert('Không Thành Công');
+      console.log(err);
+    }
   };
-
+  // const _onSubmit = values => {
+  //   dispatch({
+  //     type: actions.USER_REGISTER,
+  //     body: {
+  //       username: values.username,
+  //       numberPhone: values.numberPhone,
+  //       password: values.password,
+  //     },
+  //     onSuccess: () => {
+  //       authRoot.navigate(router.LOGIN_SCREEN);
+  //     },
+  //     onFail(e) {
+  //       Toast.show({
+  //         type: 'error',
+  //         text1: e?.data?.message,
+  //       });
+  //     },
+  //   });
+  // };
+  // const _onSubmit = values => {
+  //   dispatch({
+  //     type: actions.USER_REGISTER,
+  //     body: {
+  //       username: values.username,
+  //       numberPhone: values.numberPhone,
+  //       password: values.password,
+  //     },
+  //     onSuccess: () => {
+  //       authRoot.navigate(router.LOGIN_SCREEN);
+  //     },
+  //     onFail(e) {
+  //       Toast.show({
+  //         type: 'error',
+  //         text1: e?.data?.message,
+  //       });
+  //     },
+  //   });
+  // };
   return (
     <View style={styles.container}>
       <Image source={image.img_bg} />
