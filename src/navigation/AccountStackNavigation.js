@@ -32,7 +32,7 @@ export default function AccountStackNavigation() {
     // <NavigationContainer>
     <Provider store={store}>
       <Stack.Navigator
-        initialRouteName="Account"
+        initialRouteName="Login"
         screenOptions={{headerShown: false}}>
         <Stack.Screen name="AccountNoSignIn" component={AccountNoSignIn} />
         <Stack.Screen name="Login" component={Login} />
