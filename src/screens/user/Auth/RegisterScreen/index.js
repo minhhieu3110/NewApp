@@ -18,7 +18,6 @@ import {authRoot} from 'navigation/navigationRef';
 import router from '@router';
 import HttpService from 'utils/api';
 import axios from 'axios';
-const instance = axios.create({timeout: 30000});
 
 const Register = ({navigation, route}) => {
   const dispatch = useDispatch();
