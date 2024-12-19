@@ -9,14 +9,18 @@ import {
   Alert,
 } from 'react-native';
 import Toast from 'react-native-toast-message';
-import {icon, image} from '../../../../assets/index';
-import actions from '../../../../redux/actions';
+import {icon, image} from '@assets';
+import actions from 'redux/actions';
 import {useDispatch, useSelector} from 'react-redux';
 import {useForm} from 'react-hook-form';
 import formConfig, {FORM_INPUT} from './fornConfig';
 import {authRoot} from 'navigation/navigationRef';
 import router from '@router';
-const Register = ({navigation}) => {
+import HttpService from 'utils/api';
+import axios from 'axios';
+const instance = axios.create({timeout: 30000});
+
+const Register = ({navigation, route}) => {
   const dispatch = useDispatch();
   const {control, handleSubmit} = useForm(formConfig);
   const [dataRegister, setDataRegister] = useState({
@@ -56,25 +60,28 @@ const Register = ({navigation}) => {
       console.log(err);
     }
   };
-  // const _onSubmit = values => {
-  //   dispatch({
-  //     type: actions.USER_REGISTER,
-  //     body: {
-  //       username: values.username,
-  //       numberPhone: values.numberPhone,
-  //       password: values.password,
-  //     },
-  //     onSuccess: () => {
-  //       authRoot.navigate(router.LOGIN_SCREEN);
-  //     },
-  //     onFail(e) {
-  //       Toast.show({
-  //         type: 'error',
-  //         text1: e?.data?.message,
-  //       });
-  //     },
-  //   });
-  // };
+  const _onSubmit = () => {
+    // const body = new FormData();
+    // body.append('abc', 'xyz');
+    // instance
+    //   .post('http://rpm.demo.app24h.net:81/api/v1/user/signup', body)
+    //   .then(res => {
+    //     console.log('ress', res);
+    //   })
+    //   .catch(err => {
+    //     console.error('err', err);
+    //   });
+    dispatch({
+      type: actions.GET_NEWS,
+      // body: {
+      //   username: 'ANDAN2',
+      //   numberPhone: '034112121',
+      //   password: '123456',
+      //   device_name: 'NAME',
+      //   device_token: 'ABC',
+      // },
+    });
+  };
   // const _onSubmit = values => {
   //   dispatch({
   //     type: actions.USER_REGISTER,
@@ -130,7 +137,7 @@ const Register = ({navigation}) => {
             của chúng tôi
           </Text>
         </View>
-        <Pressable onPress={handlerRegister} style={styles.button}>
+        <Pressable onPress={_onSubmit} style={styles.button}>
           <Text style={styles.textButton}>Đăng Ký</Text>
         </Pressable>
         <Pressable style={styles.forgotPassword}>

@@ -13,7 +13,10 @@ import {icon, image} from '../../assets/index';
 import {useState, useEffect} from 'react';
 import axios from 'axios';
 import {ConvertTimeStamp} from '../../utils/convertTimeStamp';
-export default function News({navigation}) {
+import {useDispatch} from 'react-redux';
+import actions from 'redux/actions';
+export default function News({data, navigation}) {
+  const dispatch = useDispatch();
   const [news, setNews] = useState([
     {
       id: '',
@@ -28,23 +31,27 @@ export default function News({navigation}) {
     },
   ]);
   useEffect(() => {
-    axios.get('http://rpm.demo.app24h.net:81/api/v1/news').then(res => {
-      const news = res.data.data;
-      setNews(
-        news.map(item => ({
-          id: item.id,
-          item_id: item.item_id,
-          title: item.title,
-          picture: item.picture,
-          short: item.short,
-          content: item.content,
-          created_at: item.created_at,
-          created_at: item.updated_at,
-          group: item.group.title,
-        })),
-      );
+    // axios.get('http://rpm.demo.app24h.net:81/api/v1/news').then(res => {
+    //   const news = res.data.data;
+    //   setNews(
+    //     news.map(item => ({
+    //       id: item.id,
+    //       item_id: item.item_id,
+    //       title: item.title,
+    //       picture: item.picture,
+    //       short: item.short,
+    //       content: item.content,
+    //       created_at: item.created_at,
+    //       created_at: item.updated_at,
+    //       group: item.group.title,
+    //     })),
+    //   );
+    // });
+    dispatch({
+      type: actions.GET_NEWS,
     });
   }, []);
+
   return (
     <View style={{flex: 1}}>
       <ScrollView
@@ -59,9 +66,9 @@ export default function News({navigation}) {
           </Pressable>
         </View>
         <View style={{width: 395, top: 11, left: 12, rowGap: 11}}>
-          {news.map((item, index) => (
+          {news.map(item => (
             <View
-              key={index}
+              key={item.id}
               style={{
                 width: width - 24,
                 height: 111,
