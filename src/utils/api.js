@@ -23,6 +23,12 @@ const getDataBody = config => {
 axios.interceptors.request.use(
   config => {
     const data = getDataBody(config);
+    const token = store.getState()?.appToken?.data;
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    } else {
+      console.warn('No Token found, unauthenticated request might fail');
+    }
     if (__DEV__ && config.url) {
       console.log(`%C [REQUEST] ${config?.url}`, config);
       console.log('url:', config.url);
@@ -73,6 +79,7 @@ export default class HttpService {
     }
     return option;
   }
+
   static async get(url, params = {}) {
     try {
       return await axios

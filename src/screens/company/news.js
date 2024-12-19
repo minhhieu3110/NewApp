@@ -48,9 +48,9 @@ export default function News({data, navigation}) {
     //   );
     // });
     dispatch({
-      type: actions.GET_NEWS,
+      type: actions.GET_NEW,
     });
-  }, []);
+  });
 
   return (
     <View style={{flex: 1}}>

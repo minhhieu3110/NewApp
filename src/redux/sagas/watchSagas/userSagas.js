@@ -24,7 +24,7 @@ function* loginUser(action) {
 
 function* registerUser(action) {
   try {
-    const res = yield api.postFormData(URL_API.user.register, body);
+    const res = yield api.postFormData(URL_API.user.signup, body);
     yield put({
       type: _onSuccess(actions.type),
       data: res,
@@ -35,21 +35,8 @@ function* registerUser(action) {
     yield put({type: _onFail(action.type)});
   }
 }
-function* getNews(action) {
-  try {
-    const res = yield api.get(URL_API.news);
-    yield put({
-      type: _onSuccess(actions.type),
-      data: res.data,
-    });
-  } catch (error) {
-    action.onFail?.(error);
-    yield put({type: _onFail(action.type)});
-  }
-}
 
 export function* watchUserSagas() {
-  yield takeLatest(actions.USER_LOGIN, loginUser);
-  yield takeLatest(actions.USER_REGISTER, registerUser);
-  yield takeLatest(actions.GET_NEWS, getNews);
+  yield takeLatest(actions.SIGNIN, loginUser);
+  yield takeLatest(actions.SIGNUP, registerUser);
 }
