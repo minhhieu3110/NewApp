@@ -22,6 +22,11 @@ export const bottomRoot = {
     rootNavigate(router.BOTTOM_CONTAINER, screenName, screenParams);
   },
 };
+export const topRoot = {
+  navigate: (screenName, screenParams) => {
+    rootNavigate(router.TOP_CONTAINER, screenName, screenParams);
+  },
+};
 export const commonRoot = {
   navigate: (screenName, screenParams) => {
     rootNavigate(router.COMMON_CONTAINER, screenName, screenParams);

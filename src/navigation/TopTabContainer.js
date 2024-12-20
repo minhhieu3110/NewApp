@@ -1,10 +1,12 @@
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-import AllOrders from '../screens/order/allOrders';
-import WaitConfirmOrder from '../screens/order/waitConfirmOrder';
-import WaitGetOrder from '../screens/order/waitGetOrder';
-import ProceesingOrder from '../screens/order/processingOrder';
-import FinishedOrder from '../screens/order/finishedOrder';
-import CancelOrder from '../screens/order/cancelOrder';
+// import AllOrders from '../screens/order/allOrders';
+// import WaitConfirmOrder from '../screens/order/waitConfirmOrder';
+// import WaitGetOrder from '../screens/order/waitGetOrder';
+// import ProceesingOrder from '../screens/order/processingOrder';
+// import FinishedOrder from '../screens/order/finishedOrder';
+// import CancelOrder from '../screens/order/cancelOrder';
+import router from '@router';
+import {top} from 'screens/Bottom/OrderScreen/top';
 export default function TopTabContainer() {
   const Tab = createMaterialTopTabNavigator();
   return (
@@ -18,38 +20,37 @@ export default function TopTabContainer() {
         },
         tabBarIndicatorStyle: {backgroundColor: '#FEC007', bottom: 5},
         tabBarActiveTintColor: '#fff',
-        // tabBarItemStyle: {width: 100},
         tabBarBounces: true,
       }}>
       <Tab.Screen
-        name="AllOrders"
-        component={AllOrders}
+        name={router.ALL_ORDER}
+        component={top[router.ALL_ORDER]}
         options={{tabBarLabel: 'Tất cả'}}
       />
       <Tab.Screen
-        name="WaitConfirmOrder"
-        component={WaitConfirmOrder}
+        name={router.WAIT_CONFIRM_ORDER}
+        component={top[router.WAIT_CONFIRM_ORDER]}
         flag={1}
         options={{tabBarLabel: 'Chờ xác nhận'}}
       />
       <Tab.Screen
-        name="WaitGetOrder"
-        component={WaitGetOrder}
+        name={router.WAIT_GET_ORDER}
+        component={top[router.WAIT_GET_ORDER]}
         options={{tabBarLabel: 'Chờ lấy hàng'}}
       />
       <Tab.Screen
-        name="ProcessingOrder"
-        component={ProceesingOrder}
+        name={router.PROCESSING_ORDER}
+        component={top[router.PROCESSING_ORDER]}
         options={{tabBarLabel: 'Đang giao'}}
       />
       <Tab.Screen
-        name="FinishedOrder"
-        component={FinishedOrder}
+        name={router.COMPLETE_ORDER}
+        component={top[router.COMPLETE_ORDER]}
         options={{tabBarLabel: 'Đã giao'}}
       />
       <Tab.Screen
-        name="CancelOrder"
-        component={CancelOrder}
+        name={router.CANCEL_ORDER}
+        component={top[router.CANCEL_ORDER]}
         options={{tabBarLabel: 'Đã hủy'}}
       />
     </Tab.Navigator>

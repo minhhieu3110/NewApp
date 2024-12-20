@@ -1,125 +1,188 @@
-import store from '../redux/store';
+import store from '@redux/store';
 import axios from 'axios';
+import {handleExpiredToken, throttle} from './helper';
 
+// axios.defaults.baseURL = 'http://192.168.1.55/baoan/carta/website/api/v1';
 axios.defaults.baseURL = 'http://rpm.demo.app24h.net:81/api/v1';
 
 const getDataBody = config => {
   let data = '';
   if (
     config.data &&
-    config.header['Content-Type'] === 'application/x-www-form-urlencoded'
+    config.headers['Content-Type'] === 'application/x-www-form-urlencoded'
   ) {
     for (const key in config.data) {
-      data = data + `${key} = ${config.data[key]}&`;
+      data = data + `${key}=${config.data[key]}&`;
     }
     data = data.slice(0, data.length - 1);
   } else {
     data = config.data;
   }
+
   return data;
 };
 
-//REQUEST
+// const _handleExpiredToken = throttle(handleExpiredToken, 300);
+
+//TODO: REQUEST
 axios.interceptors.request.use(
   config => {
     const data = getDataBody(config);
-    const token = store.getState()?.appToken?.data;
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    } else {
-      console.warn('No Token found, unauthenticated request might fail');
-    }
     if (__DEV__ && config.url) {
-      console.log(`%C [REQUEST] ${config?.url}`, config);
+      console.log(
+        `%c [REQUEST] ${config?.url}`,
+        'color: #458B00; font-weight: bold',
+        config,
+      );
       console.log('url:', config.url);
       console.log('method:', config.method);
       console.log('data:', config.data);
       console.log('params:', config.params);
     }
+
     return {...config, data};
   },
   error => {
     return Promise.reject(error);
   },
 );
-//RESPONSE
+
+//TODO: RESPONSE
 axios.interceptors.response.use(
-  respone => {
-    if (__DEV__ && respone.config.url) {
-      console.log(`%C [RESPONSE] ${respone.config.url}`, respone);
-      console.log('status:', respone.status);
-      console.log('data:', respone.data);
+  response => {
+    if (__DEV__ && response.config.url) {
+      console.log(
+        `%c [RESPONSE] ${response.config.url}`,
+        'color: #CD950C; font-weight: bold',
+        response,
+      );
+      console.log('status:', response.status);
+      console.log('data:', response.data);
     }
-    return respone;
+
+    return response;
   },
   error => {
     if (__DEV__) {
       console.log(
-        `%C [RESPONSE ERROR] ${error.config.url}`,
+        `%c [RESPONSE ERROR] ${error.config.url}`,
+        'color: #EE3B3B; font-weight: bold',
         {dataHeader: error.config.data},
         {paramsHeader: error.config.params},
-        JSON.stringify(error.respone.data, null, 2),
+        JSON.stringify(error.response.data, null, 2),
       );
     }
+    _handleExpiredToken(error);
     return Promise.reject(error);
   },
 );
+
 export default class HttpService {
   static generateHeader(headers) {
     const token = store.getState()?.appToken?.data;
-    let option = {
+
+    let options = {
       'Content-Type': headers || 'application/x-www-form-urlencoded',
       Accept: 'application/json',
     };
-    if (token !== null) {
-      option = {
-        ...option,
-        Authorization: `Bearer ${token}`,
-      };
+    if (token) {
+      options.Authorization = `Bearer ${token}`;
+      // options = {
+      //   ...options,
+      //   Authorization: `Bearer ${token}`,
+      // };
     }
-    return option;
+
+    return options;
   }
 
+  //TODO: GET
   static async get(url, params = {}) {
+    const language = store.getState()?.other?.lang;
     try {
       return await axios
         .get(url, {
           headers: {
             get: this.generateHeader(),
           },
-          params: {...params},
+          params: {...params, lang: language},
         })
         .then(response => response.data);
     } catch (error) {
-      throw error.respone;
+      throw error.response;
     }
   }
+
+  //TODO: POST
   static async post(url, body, params = {}) {
+    const language = store.getState()?.other?.lang;
     try {
       return await axios
         .post(url, body, {
           headers: {
             post: this.generateHeader(),
           },
-          params: {...params},
+          params: {...params, lang: language},
         })
         .then(response => response.data);
     } catch (error) {
-      throw error.respone;
+      throw error.response;
     }
   }
+
+  //TODO: FORM_DATA
   static async postFormData(url, formData, params = {}) {
+    const language = store.getState()?.other?.lang;
     try {
       return await axios
         .post(url, formData, {
           headers: {
             post: this.generateHeader('form-data'),
           },
-          params: {...params},
+          params: {...params, lang: language},
         })
         .then(response => response.data);
     } catch (error) {
-      throw error.respone;
+      throw error.response;
+    }
+  }
+
+  //TODO: PUT
+  static async put(url, data) {
+    try {
+      return await axios
+        .put(url, data, {
+          headers: this.generateHeader(),
+        })
+        .then(response => response.data);
+    } catch (error) {
+      throw error.response;
+    }
+  }
+
+  //TODO: PATCH
+  static async patch(url, data) {
+    try {
+      return await axios
+        .patch(url, data, {
+          headers: this.generateHeader(),
+        })
+        .then(response => response.data);
+    } catch (error) {
+      throw error.response;
+    }
+  }
+
+  //TODO: DELETE
+  static async delete(url) {
+    try {
+      return await axios
+        .delete(url, {
+          headers: this.generateHeader(),
+        })
+        .then(response => response.data);
+    } catch (error) {
+      throw error.response;
     }
   }
 }

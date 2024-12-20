@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {Pressable, StyleSheet, Text, View, Image} from 'react-native';
-import { icon } from '../../assets/index';
+import {icon} from '../../assets/index';
 export default function AccountNoSignIn({navigation}) {
   return (
     <View style={style.container}>
@@ -19,7 +19,9 @@ export default function AccountNoSignIn({navigation}) {
       </Pressable>
       <View style={style.menu}>
         <View style={[style.settingInfo, {top: 5}]}>
-          <Pressable onPress={()=> navigation.navigate('Setting')} style={[style.titleSettingInfo]}>
+          <Pressable
+            onPress={() => navigation.navigate('Setting')}
+            style={[style.titleSettingInfo]}>
             <View>
               <Image
                 style={[style.iconTitleSettingInfo, {top: 5}]}
@@ -34,7 +36,9 @@ export default function AccountNoSignIn({navigation}) {
             </View>
           </Pressable>
           <View style={style.separator} />
-          <Pressable onPress={() => navigation.navigate('CenterHelp')} style={[style.titleSettingInfo, {top: 59}]}>
+          <Pressable
+            onPress={() => navigation.navigate('CenterHelp')}
+            style={[style.titleSettingInfo, {top: 59}]}>
             <View>
               <Image
                 style={[style.iconTitleSettingInfo, {top: 5}]}
@@ -80,7 +84,9 @@ export default function AccountNoSignIn({navigation}) {
           Thông Tin RPM
         </Text>
         <View style={[style.settingInfo, {top: 207}]}>
-          <Pressable onPress={() => navigation.navigate('AboutCompany')} style={[style.titleSettingInfo]}>
+          <Pressable
+            onPress={() => navigation.navigate('AboutCompany')}
+            style={[style.titleSettingInfo]}>
             <View>
               <Image
                 style={[style.iconTitleSettingInfo, {top: 5}]}
@@ -95,7 +101,9 @@ export default function AccountNoSignIn({navigation}) {
             </View>
           </Pressable>
           <View style={style.separator} />
-          <Pressable onPress={() => navigation.navigate('Recruitment')} style={[style.titleSettingInfo, {top: 59}]}>
+          <Pressable
+            onPress={() => navigation.navigate('Recruitment')}
+            style={[style.titleSettingInfo, {top: 59}]}>
             <View>
               <Image
                 style={[style.iconTitleSettingInfo, {top: 5}]}
@@ -110,7 +118,9 @@ export default function AccountNoSignIn({navigation}) {
             </View>
           </Pressable>
           <View style={[style.separator, {top: 98}]} />
-          <Pressable onPress={() => navigation.navigate('Video')}  style={[style.titleSettingInfo, {top: 113}]}>
+          <Pressable
+            onPress={() => navigation.navigate('Video')}
+            style={[style.titleSettingInfo, {top: 113}]}>
             <View>
               <Image
                 style={[style.iconTitleSettingInfo, {top: 5}]}
@@ -126,9 +136,6 @@ export default function AccountNoSignIn({navigation}) {
           </Pressable>
         </View>
         <View style={[style.separator2, {top: 354}]} />
-        {/* <View style={style.tabNavigationBottom}>
-          <BottomTabNavigator/>
-        </View> */}
       </View>
     </View>
   );

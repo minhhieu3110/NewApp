@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, StyleSheet, StatusBar} from 'react-native';
 import BottomTabContainer from './navigation/BottomTabContainer';
+import RootStack from 'navigation/RootStack';
 import {
   configureReanimatedLogger,
   ReanimatedLogLevel,
@@ -19,7 +20,7 @@ export default function App() {
       <View style={styles.container}>
         <StatusBar backgroundColor={'#0060AF'} />
         <ToastProvider>
-          <BottomTabContainer />
+          <RootStack />
         </ToastProvider>
       </View>
     </Provider>

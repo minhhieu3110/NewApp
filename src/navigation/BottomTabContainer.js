@@ -3,27 +3,23 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Image} from 'react-native';
 import {icon} from '../assets/index';
-import HomeStackNavigation from './HomeStackNavigation';
-import AccountStackNavigation from './AccountStackNavigation';
-import OrderStackNavigation from './OrderStackNavigation';
-// import NotificationStackNavigation from './NotificationStackNavigation';
-import Notification from '../screens/notification/notification';
-import ProductStackNavigation from './ProductStackNavigation';
+import router from '@router';
+import {bottom} from 'screens/Bottom';
 
 const Tab = createBottomTabNavigator();
 
 const getTabBarIcon = (route, focused) => {
   switch (route.name) {
-    case 'HomeScreen':
+    case router.HOME_SCREEN:
       return focused ? icon.icon_home_focus : icon.icon_home;
-    case 'OrderScreen':
-      return focused ? icon.icon_order_focus : icon.icon_order;
-    case 'AccountScreen':
-      return focused ? icon.icon_user_focus : icon.icon_user;
-    case 'NotificationScreen':
-      return focused ? icon.icon_notification_focus : icon.icon_notification;
-    case 'ProductsScreen':
+    case router.PRODUCT_SCREEN:
       return focused ? icon.icon_product_focus : icon.icon_product;
+    case router.NOTIFICATION_SCREEN:
+      return focused ? icon.icon_notification_focus : icon.icon_notification;
+    case router.ORDER_SCREEN:
+      return focused ? icon.icon_order_focus : icon.icon_order;
+    case router.PROFILE_SCREEN:
+      return focused ? icon.icon_user_focus : icon.icon_user;
     default:
       return null;
   }
@@ -33,7 +29,7 @@ export default function BottomTabContainer() {
   return (
     <NavigationContainer independent={true}>
       <Tab.Navigator
-        initialRouteName="HomeScreen"
+        initialRouteName={router.HOME_SCREEN}
         screenOptions={({route, navigation}) => {
           const currentRoute = navigation
             .getState()
@@ -67,28 +63,28 @@ export default function BottomTabContainer() {
           };
         }}>
         <Tab.Screen
-          name="HomeScreen"
-          component={HomeStackNavigation}
+          name={router.HOME_SCREEN}
+          component={bottom[router.HOME_SCREEN]}
           options={{tabBarLabel: 'Trang Chủ'}}
         />
         <Tab.Screen
-          name="ProductsScreen"
-          component={ProductStackNavigation}
+          name={router.PRODUCT_SCREEN}
+          component={bottom[router.PRODUCT_SCREEN]}
           options={{tabBarLabel: 'Sản phẩm'}}
         />
         <Tab.Screen
-          name="NotificationScreen"
-          component={Notification}
+          name={router.NOTIFICATION_SCREEN}
+          component={bottom[router.NOTIFICATION_SCREEN]}
           options={{tabBarLabel: 'Thông báo'}}
         />
         <Tab.Screen
-          name="OrderScreen"
-          component={OrderStackNavigation}
+          name={router.ORDER_SCREEN}
+          component={bottom[router.ORDER_SCREEN]}
           options={{tabBarLabel: 'Đơn Hàng'}}
         />
         <Tab.Screen
-          name="AccountScreen"
-          component={AccountStackNavigation}
+          name={router.PROFILE_SCREEN}
+          component={bottom[router.PROFILE_SCREEN]}
           options={{tabBarLabel: 'Tài Khoản'}}
         />
       </Tab.Navigator>
