@@ -11,10 +11,10 @@ import {
   TextInput,
   Dimensions,
 } from 'react-native';
-import {icon, image} from '../../../assets/index';
+import {icon, image} from '@assets';
 import {useEffect} from 'react';
 import {Picker} from '@react-native-picker/picker';
-export default function Add_Address({navigation}) {
+const Add_Address = () => {
   const [provinces, setProvinces] = useState([]);
   const [districts, setDistricts] = useState([]);
   const [wards, setWards] = useState([]);
@@ -244,7 +244,7 @@ export default function Add_Address({navigation}) {
       </View>
     </View>
   );
-}
+};
 const {width, height} = Dimensions.get('window');
 const style = StyleSheet.create({
   container: {
@@ -298,3 +298,4 @@ const style = StyleSheet.create({
     backgroundColor: '#FFFFFF',
   },
 });
+export default Add_Address;

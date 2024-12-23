@@ -1,6 +1,6 @@
 import {put, takeLatest} from 'redux-saga/effects';
-import api from '../../../utils/api';
-import actions, {_onFail, _onSuccess} from '../../actions';
+import api from 'utils/api';
+import actions, {_onFail, _onSuccess} from 'redux/actions';
 import {URL_API} from '../common';
 function* loginUser(action) {
   try {

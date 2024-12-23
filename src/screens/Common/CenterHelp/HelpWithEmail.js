@@ -8,7 +8,7 @@ import {
   TextInput,
   Dimensions,
 } from 'react-native';
-import {icon} from '../../../assets/index';
+import {icon} from '@assets';
 export default function HelpWithEmail({navigation}) {
   return (
     <View style={style.container}>

@@ -13,7 +13,7 @@ import {
   TouchableOpacity,
   Modal,
 } from 'react-native';
-import {icon, image} from '../../assets/index';
+import {icon, image} from '@assets';
 import LinearGradient from 'react-native-linear-gradient';
 import {useState, useEffect} from 'react';
 import axios from 'axios';

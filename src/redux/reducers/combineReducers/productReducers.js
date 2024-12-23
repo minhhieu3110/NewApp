@@ -5,7 +5,7 @@ const initialState = {
   isLoading: false,
 };
 export const getProductsList = (...props) => {
-  return reducerLoadMore(...props, actions.GET_PRODUCT_LIST);
+  return reducerDefault(...props, actions.GET_PRODUCT_LIST);
 };
 export const getDetailProduct = (...props) => {
   return reducerDefault(...props, actions.GET_DETAIL_PRODUCT);

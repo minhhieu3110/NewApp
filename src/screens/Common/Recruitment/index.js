@@ -13,13 +13,17 @@ import {
   TouchableOpacity,
   useWindowDimensions,
 } from 'react-native';
-import {icon} from '../../assets/index';
+import {icon} from '@assets';
 import {useState, useEffect, useCallback} from 'react';
 import DocumentPicker from 'react-native-document-picker';
 import axios from 'axios';
 import RenderHTML from 'react-native-render-html';
-import {ConvertTimeStamp} from '../../utils/convertTimeStamp';
-export default function Recruitment({navigation}) {
+import {ConvertTimeStamp} from 'utils';
+import {bottomRoot} from 'navigation/navigationRef';
+import router from '@router';
+import {useDispatch, useSelector} from 'react-redux';
+import actions from 'redux/actions';
+export default function Recruitment() {
   const [showFormApply, setShowFormApply] = useState(false);
   const [responeFile, setResponeFile] = useState([]);
   const handlerChooseFile = useCallback(async () => {
@@ -37,48 +41,15 @@ export default function Recruitment({navigation}) {
   const handlerAplly = () => {
     setShowFormApply(!showFormApply);
   };
-  const [dataRecruitment, setDataRecruitment] = useState([
-    {
-      id: '',
-      item_id: '',
-      title: '',
-      wage: '',
-      quantity: '',
-      work: '',
-      rank: '',
-      experience: '',
-      sex: '',
-      short: '',
-      content: '',
-      benefits: '',
-      apply_type: '',
-      date_end: [{human: '', timestamp: ''}],
-    },
-  ]);
+  const dispatch = useDispatch();
   useEffect(() => {
-    axios.get('http://rpm.demo.app24h.net:81/api/v1/recruitment').then(res => {
-      const recruitment = res.data.data;
-      setDataRecruitment(
-        recruitment.map(item => ({
-          id: item.id,
-          item_id: item.item_id,
-          title: item.title,
-          wage: item.wage,
-          quantity: item.quantity,
-          work: item.work,
-          rank: item.rank,
-          experience: item.experience,
-          sex: item.sex,
-          short: item.short,
-          content: item.content,
-          benefits: item.benefits,
-          apply_type: item.apply_type,
-          date_end: item.date_end,
-        })),
-      );
-      console.log(dataRecruitment);
+    dispatch({
+      type: actions.GET_RECRUITMENT,
     });
   }, []);
+  const dataRecruitment = useSelector(
+    state => state.getRecruitment?.data || [],
+  );
   const [visbleModalDetailRecruitment, setVisibleModalDetailRecruitment] =
     useState(false);
   const [detailRecruitment, setDetailRecruitment] = useState([
@@ -129,7 +100,7 @@ export default function Recruitment({navigation}) {
       <View style={style.titleContainer}>
         <Pressable
           style={style.title}
-          onPress={() => navigation.navigate('Home')}>
+          onPress={() => bottomRoot.navigate(router.HOME_SCREEN)}>
           <Image source={icon.icon_arrow_left} />
           <Text style={style.textTitle}>Tuyển dụng</Text>
         </Pressable>

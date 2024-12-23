@@ -18,7 +18,7 @@ import {icon, image} from '../../assets/index';
 import Carousel from 'react-native-reanimated-carousel';
 import axios from 'axios';
 import {formatNumber} from '../../utils/formatNumber';
-import {formatCurrency} from '../../utils/fomatCurrency';
+import {formatCurrency} from '../../utils/formatCurrency';
 import RenderHTML from 'react-native-render-html';
 import {formatToHTML} from '../../utils/formatToHTML';
 import Icon from 'react-native-vector-icons/MaterialIcons';

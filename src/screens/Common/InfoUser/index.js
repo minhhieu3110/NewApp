@@ -9,7 +9,7 @@ import {
   Button,
   Dimensions,
 } from 'react-native';
-import {icon, image} from '../../../../assets/index';
+import {icon, image} from '@assets';
 const InfoUser = ({navigation}) => {
   return (
     <View style={style.container}>

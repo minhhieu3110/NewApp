@@ -9,7 +9,7 @@ import {
   Dimensions,
 } from 'react-native';
 import {image} from '@assets';
-import {formatCurrency} from 'utils/fomatCurrency';
+import {formatCurrency} from 'utils/formatCurrency';
 import router from '@router';
 import {commonRoot} from 'navigation/navigationRef';
 export const dataOrders = [

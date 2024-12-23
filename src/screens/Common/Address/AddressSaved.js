@@ -10,10 +10,10 @@ import {
   Button,
   Dimensions,
 } from 'react-native';
-import {icon, image} from '../../../assets/index';
+import {icon, image} from '@assets';
 import {useState, useEffect, useMemo} from 'react';
-import {RadioGroup} from 'react-native-radio-buttons-group';
-export default function AddressSaved({navigation, route}) {
+import {addAddressModal, editAddressModal} from '.';
+const AddressSaved = ({navigation, route}) => {
   const [address, setAddress] = useState([
     {
       id: 1,
@@ -145,7 +145,7 @@ export default function AddressSaved({navigation, route}) {
       </View>
     </View>
   );
-}
+};
 const {width, height} = Dimensions.get('window');
 const style = StyleSheet.create({
   container: {
@@ -218,3 +218,4 @@ const style = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+export default AddressSaved;

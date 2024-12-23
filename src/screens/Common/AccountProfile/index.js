@@ -8,7 +8,7 @@ import {
   Pressable,
   Dimensions,
 } from 'react-native';
-import {icon, image} from '../../../../assets/index';
+import {icon, image} from '@assets';
 const Account = ({navigation}) => {
   // const data = {routeName: [
   //   {id: 1, route: 'SaveProducts'}

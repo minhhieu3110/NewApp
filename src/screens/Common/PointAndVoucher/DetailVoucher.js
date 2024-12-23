@@ -8,7 +8,7 @@ import {
   TextInput,
   ScrollView,
 } from 'react-native';
-import {icon} from '../../assets/index';
+import {icon} from '@assets';
 export default function DetailVoucher({navigation}) {
   return (
     <View style={style.container}>

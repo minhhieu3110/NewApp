@@ -8,7 +8,7 @@ import {
   TextInput,
   Dimensions,
 } from 'react-native';
-import {icon} from '../../../../assets/index';
+import {icon} from '@assets';
 const ForgotPassword = ({navigation}) => {
   return (
     <View style={style.container}>

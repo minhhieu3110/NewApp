@@ -9,6 +9,11 @@ export default function CommonContainer() {
         name={router.ORDER_DETAIL}
         component={common[router.ORDER_DETAIL]}
       />
+      <CommonStack.Screen name={router.NEW} component={common[router.NEW]} />
+      <CommonStack.Screen
+        name={router.RECRUITMENT}
+        component={common[router.RECRUITMENT]}
+      />
     </CommonStack.Navigator>
   );
 }

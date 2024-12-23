@@ -7,7 +7,7 @@ import {
   Pressable,
   Dimensions,
 } from 'react-native';
-import {icon} from '../../../assets/index';
+import {icon} from '@assets';
 export default function CenterHelp({navigation}) {
   return (
     <View style={style.container}>

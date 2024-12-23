@@ -8,7 +8,9 @@ import {
   Pressable,
 } from 'react-native';
 import {dataOrders} from '../AllOrder';
-import {formatCurrency} from 'utils/fomatCurrency';
+import {formatCurrency} from 'utils/formatCurrency';
+import {bottomRoot, commonRoot} from 'navigation/navigationRef';
+import router from '@router';
 export default function CancelOrder({navigation}) {
   const dataCancelOrder = dataOrders.filter(item => item.status === 'Đã hủy');
 
@@ -38,7 +40,9 @@ export default function CancelOrder({navigation}) {
             return (
               <Pressable
                 key={index}
-                onPress={() => navigation.navigate('OrderDetails', {flag: 5})}
+                onPress={() =>
+                  commonRoot.navigate(router.ORDER_DETAIL, {flag: 5})
+                }
                 style={style.itemContainer}>
                 <View style={style.contentItemContainer}>
                   <View

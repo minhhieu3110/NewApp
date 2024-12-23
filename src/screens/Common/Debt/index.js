@@ -8,7 +8,7 @@ import {
   ScrollView,
   Dimensions,
 } from 'react-native';
-import {icon} from '../../assets/index';
+import {icon} from '@assets';
 export default function Debt({navigation}) {
   return (
     <View style={style.container}>

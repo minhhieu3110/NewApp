@@ -18,7 +18,7 @@ import axios from 'axios';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import numbro from 'numbro';
 import {useToast} from 'react-native-toast-notifications';
-import {formatCurrency} from 'utils/fomatCurrency';
+import {formatCurrency} from 'utils/formatCurrency';
 export default function ProductScreen({navigation}) {
   const toast = useToast();
   const [iconHiddenListVertical, setIconHiddenListVertical] = useState(

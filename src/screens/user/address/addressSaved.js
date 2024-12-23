@@ -10,7 +10,7 @@ import {
   Button,
   Dimensions,
 } from 'react-native';
-import {icon, image} from '../../../assets/index';
+import {icon} from '@assets';
 import {useState, useEffect, useMemo} from 'react';
 import {RadioGroup} from 'react-native-radio-buttons-group';
 export default function AddressSaved({navigation, route}) {
@@ -76,7 +76,7 @@ export default function AddressSaved({navigation, route}) {
           <Text style={style.textTitle}>Địa chỉ đã lưu</Text>
         </Pressable>
       </View>
-      
+
       <View style={{flex: 1, top: 12}}>
         <ScrollView
           contentContainerStyle={style.addressSavedContainer}

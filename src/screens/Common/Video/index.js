@@ -9,7 +9,7 @@ import {
   ScrollView,
   Dimensions,
 } from 'react-native';
-import {icon, video} from '../../assets/index';
+import {icon} from '@assets';
 import {useState, useEffect} from 'react';
 import axios from 'axios';
 import Video from 'react-native-video';

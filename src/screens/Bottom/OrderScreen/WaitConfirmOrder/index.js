@@ -8,7 +8,9 @@ import {
   Pressable,
 } from 'react-native';
 import {dataOrders} from '../AllOrder';
-import {formatCurrency} from 'utils/fomatCurrency';
+import {formatCurrency} from 'utils/formatCurrency';
+import {commonRoot} from 'navigation/navigationRef';
+import router from '@router';
 export default function WaitConfirmOrder({navigation}) {
   const dataWaitConfirmOrder = dataOrders.filter(
     item => item.status === 'Chờ xác nhận',
@@ -40,7 +42,9 @@ export default function WaitConfirmOrder({navigation}) {
             return (
               <Pressable
                 key={index}
-                onPress={() => navigation.navigate('OrderDetails', {flag: 1})}
+                onPress={() =>
+                  commonRoot.navigate(router.ORDER_DETAIL, {flag: 1})
+                }
                 style={style.itemContainer}>
                 <View style={style.contentItemContainer}>
                   <View

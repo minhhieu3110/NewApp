@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 import {icon, image} from '@assets';
 import {useEffect, useState} from 'react';
-import {formatCurrency} from 'utils/fomatCurrency';
+import {formatCurrency} from 'utils/formatCurrency';
 import {bottomRoot, topRoot} from 'navigation/navigationRef';
 import router from '@router';
 export default function OrderDetails({navigation, route}) {
@@ -213,11 +213,7 @@ export default function OrderDetails({navigation, route}) {
     setReason(optionReason);
   };
   const goBack = () => {
-    flag === 1 && topRoot.navigate(router.WAIT_CONFIRM_ORDER);
-    flag === 2 && topRoot.navigate(router.WAIT_GET_ORDER);
-    flag === 3 && topRoot.navigate(router.PROCESSING_ORDER);
-    flag === 4 && topRoot.navigate(router.COMPLETE_ORDER);
-    flag === 5 && topRoot.navigate(router.CANCEL_ORDER);
+    bottomRoot.navigate(router.ORDER_SCREEN, {sent: flag});
   };
   return (
     <View style={style.container}>

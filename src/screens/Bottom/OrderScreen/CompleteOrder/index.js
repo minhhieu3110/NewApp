@@ -8,7 +8,9 @@ import {
   Pressable,
 } from 'react-native';
 import {dataOrders} from '../AllOrder';
-import {formatCurrency} from 'utils/fomatCurrency';
+import {formatCurrency} from 'utils/formatCurrency';
+import {bottomRoot, commonRoot} from 'navigation/navigationRef';
+import router from '@router';
 export default function CompleteOrder({navigation}) {
   const dataFinishedOrder = dataOrders.filter(
     item => item.status === 'Đã giao',
@@ -40,7 +42,9 @@ export default function CompleteOrder({navigation}) {
             return (
               <Pressable
                 key={index}
-                onPress={() => navigation.navigate('OrderDetails', {flag: 4})}
+                onPress={() =>
+                  commonRoot.navigate(router.ORDER_DETAIL, {flag: 4})
+                }
                 style={style.itemContainer}>
                 <View style={style.contentItemContainer}>
                   <View

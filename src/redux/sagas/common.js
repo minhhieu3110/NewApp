@@ -69,9 +69,10 @@ export const URL_API = {
     config: 'config',
   },
   product_group: {
-    catagory: 'category',
+    category: 'product_group/category',
   },
   product: {
+    product: 'product',
     favorite: 'favorite',
     widhlist: 'wishlist',
     viewed: 'viewed',

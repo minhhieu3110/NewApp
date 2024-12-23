@@ -10,165 +10,39 @@ import {
   FlatList,
   Dimensions,
 } from 'react-native';
-import {icon, image} from '@assets';
-import {formatCurrency} from 'utils/fomatCurrency';
+import {image, icon} from '@assets';
 import Carousel from 'react-native-reanimated-carousel';
 import {useState, useEffect} from 'react';
 import axios from 'axios';
-import {ConvertTimeStamp} from 'utils/convertTimeStamp';
 import Video from 'react-native-video';
-import {formatNumber} from 'utils/formatNumber';
-export default function HomeScreen({navigation}) {
-  const [bestSeller, setBestSeller] = useState([
-    {
-      id: '',
-      item_id: '',
-      option_id: '',
-      group_id: '',
-      short: '',
-      title: '',
-      price: '',
-      price_sale: '',
-      picture: '',
-      num_sold: '',
-      num_view: '',
-      rate_avg: '',
-      group: [{group_id: '', title: ''}],
-    },
-  ]);
+import {formatNumber, formatCurrency, ConvertTimeStamp} from 'utils';
+import {commonRoot} from 'navigation/navigationRef';
+import router from '@router';
+import {useDispatch, useSelector} from 'react-redux';
+import actions from 'redux/actions';
+export default function Home({navigation}) {
+  const dispatch = useDispatch();
   useEffect(() => {
-    axios
-      .get(
-        'http://rpm.demo.app24h.net:81/api/v1/product?page=1&limit=6&filter[bestseller]=true',
-      )
-      .then(res => {
-        const bestSeller = res.data.data;
-        console.log(bestSeller);
-
-        setBestSeller(
-          bestSeller.map(item => ({
-            id: item.id,
-            item_id: item.item_id,
-            option_id: item.option_id,
-            group_id: item.group_id,
-            short: item.short,
-            title: item.title,
-            price: item.price,
-            price_sale: item.price_sale,
-            picture: item.picture,
-            num_sold: item.num_sold,
-            num_view: item.num_view,
-            rate_avg: item.rate_avg,
-            group: item.group,
-          })),
-        );
-        console.log(bestSeller);
-      });
-  }, []);
-  const fakeDataProducts = [
-    {
-      id: 1,
-      nameProduct: 'Kixx HYBRID - Dầu động cơ cao cấp',
-      image: `${image.image_home_product_3}`,
-      priceOriginal: '1300000',
-      percentDiscount: '15',
-    },
-    {
-      id: 2,
-      nameProduct: 'Kixx CVTF/ATF Dual',
-      image: `${image.image_home_product_1}`,
-      priceOriginal: '143000',
-      percentDiscount: '',
-    },
-    {
-      id: 3,
-      nameProduct: 'Kixx HYBRID - Dầu động cơ cao cấp',
-      image: `${image.image_home_product_2}`,
-      priceOriginal: '143000',
-      percentDiscount: '',
-    },
-    {
-      id: 4,
-      nameProduct: 'Kixx HYBRID - Dầu động cơ cao cấp',
-      image: `${image.image_home_product_3}`,
-      priceOriginal: '1300000',
-      percentDiscount: '15',
-    },
-    {
-      id: 5,
-      nameProduct: 'Kixx CVTF/ATF Dual',
-      image: `${image.image_home_product_1}`,
-      priceOriginal: '143000',
-      percentDiscount: '',
-    },
-    {
-      id: 6,
-      nameProduct: 'Kixx HYBRID - Dầu động cơ cao cấp',
-      image: `${image.image_home_product_2}`,
-      priceOriginal: '143000',
-      percentDiscount: '',
-    },
-    {
-      id: 7,
-      nameProduct: 'Kixx HYBRID - Dầu động cơ cao cấp',
-      image: `${image.image_home_product_3}`,
-      priceOriginal: '1300000',
-      percentDiscount: '15',
-    },
-    {
-      id: 8,
-      nameProduct: 'Kixx CVTF/ATF Dual',
-      image: `${image.image_home_product_1}`,
-      priceOriginal: '143000',
-      percentDiscount: '',
-    },
-    {
-      id: 9,
-      nameProduct: 'Kixx HYBRID - Dầu động cơ cao cấp',
-      image: `${image.image_home_product_3}`,
-      priceOriginal: '143000',
-      percentDiscount: '',
-    },
-    {
-      id: 10,
-      nameProduct: 'Kixx HYBRID - Dầu động cơ cao cấp',
-      image: `${image.image_home_product_2}`,
-      priceOriginal: '1300000',
-      percentDiscount: '15',
-    },
-  ];
-  const [news, setNews] = useState([
-    {
-      id: '',
-      item_id: '',
-      title: '',
-      picture: '',
-      short: '',
-      content: '',
-      created_at: '',
-      updated_at: '',
-      group: '',
-    },
-  ]);
-  useEffect(() => {
-    axios.get('http://rpm.demo.app24h.net:81/api/v1/news').then(res => {
-      const news = res.data.data;
-      setNews(
-        news.map(item => ({
-          id: item.id,
-          item_id: item.item_id,
-          title: item.title,
-          picture: item.picture,
-          short: item.short,
-          content: item.content,
-          created_at: item.created_at,
-          created_at: item.updated_at,
-          group: item.group.title,
-        })),
-      );
+    dispatch({
+      type: actions.GET_PRODUCT_BEST_SELLER,
+    });
+    dispatch({
+      type: actions.GET_NEW,
+    });
+    dispatch({
+      type: actions.GET_PRODUCT_LIST,
+    });
+    dispatch({
+      type: actions.GET_RECRUITMENT,
     });
   }, []);
+  const news = useSelector(state => state.getNew?.data || []);
   const limitNews = news.slice(0, 6);
+  const products = useSelector(state => state.getProductsList?.data || []);
+  const bestSeller = useSelector(
+    state => state.getProductsBestSeller?.data || [],
+  );
+
   const imageHeader = [
     {id: 1, image: `${image.image_header_home_1}`},
     {id: 2, image: `${image.image_header_home_2}`},
@@ -186,51 +60,8 @@ export default function HomeScreen({navigation}) {
     {id: 1, image: `${image.image_product_banner_home_1}`},
     {id: 2, image: `${image.image_product_banner_home_2}`},
   ];
-  const [dataRecruitment, setDataRecruitment] = useState([
-    {
-      id: '',
-      item_id: '',
-      title: '',
-      wage: '',
-      quantity: '',
-      work: '',
-      rank: '',
-      experience: '',
-      sex: '',
-      short: '',
-      content: '',
-      benefits: '',
-      apply_type: '',
-      date_end: [{human: '', timestamp: ''}],
-    },
-  ]);
-  useEffect(() => {
-    axios.get('http://rpm.demo.app24h.net:81/api/v1/recruitment').then(res => {
-      const recruitment = res.data.data;
-      setDataRecruitment(
-        recruitment.map(item => ({
-          id: item.id,
-          item_id: item.item_id,
-          title: item.title,
-          wage: item.wage,
-          quantity: item.quantity,
-          work: item.work,
-          rank: item.rank,
-          experience: item.experience,
-          sex: item.sex,
-          short: item.short,
-          content: item.content,
-          benefits: item.benefits,
-          apply_type: item.apply_type,
-          date_end: item.date_end,
-        })),
-      );
-      // console.log(dataRecruitment);
-    });
-  }, []);
-
-  const limitRecruitment = dataRecruitment.slice(0, 5);
-  console.log(limitRecruitment);
+  const recruitment = useSelector(state => state.getRecruitment?.data || []);
+  const limitRecruitment = recruitment.slice(0, 5);
   const [videos, setVideos] = useState([
     {
       id: '',
@@ -281,77 +112,6 @@ export default function HomeScreen({navigation}) {
       );
     });
   }, []);
-  const [products, setProducts] = useState([
-    {
-      id: '',
-      group_id: '',
-      title: '',
-      friendly_link: '',
-      children: [
-        {
-          id: '',
-          group_id: '',
-          title: '',
-          friendly_link: '',
-          product: [
-            {
-              id: '',
-              item_id: '',
-              group_id: '',
-              title: '',
-              picture: '',
-              price: '',
-              price_sale: '',
-              percent_discount: '',
-              friendly_link: '',
-              num_sold: '',
-              num_view: '',
-            },
-          ],
-        },
-      ],
-    },
-  ]);
-
-  useEffect(() => {
-    axios
-      .get('http://rpm.demo.app24h.net:81/api/v1/product_group/category')
-      .then(res => {
-        const productsData = res.data.data;
-
-        const getProducts = productsData.map(group => {
-          return {
-            id: group.id,
-            group_id: group.group_id,
-            title: group.title,
-            friendly_link: group.friendly_link,
-            children: group.children.slice(0, 3).map(child => ({
-              id: child.id,
-              group_id: child.group_id,
-              title: child.title,
-              friendly_link: child.friendly_link,
-              product: child.product.slice(0, 2).map(product => ({
-                id: product.id,
-                item_id: product.item_id,
-                group_id: product.group_id,
-                title: product.title,
-                picture: product.picture,
-                price: product.price,
-                price_sale: product.price_sale,
-                percent_discount: product.percent_discount,
-                friendly_link: product.friendly_link,
-                num_sold: product.num_sold,
-                num_view: product.num_view,
-              })),
-            })),
-          };
-        });
-
-        setProducts(getProducts);
-      });
-  }, []);
-  // console.log('products');
-  // console.log(products);
   return (
     <View style={{flex: 1}}>
       <ScrollView
@@ -629,8 +389,8 @@ export default function HomeScreen({navigation}) {
               flexDirection: 'row',
             }}>
             {products.map(item =>
-              item.children.map(child =>
-                child.product.map(pro => (
+              item.children.slice(0, 3).map(child =>
+                child.product.slice(0, 2).map(pro => (
                   <Pressable
                     onPress={() =>
                       navigation.navigate('DetailProducts', {
@@ -827,7 +587,7 @@ export default function HomeScreen({navigation}) {
               Tin tức
             </Text>
             <Pressable
-              onPress={() => navigation.navigate('News')}
+              onPress={() => commonRoot.navigate(router.NEW)}
               style={{
                 flexDirection: 'row',
                 alignItems: 'center',
@@ -872,7 +632,7 @@ export default function HomeScreen({navigation}) {
                       fontWeight: 'medium',
                       color: '#0060af',
                     }}>
-                    {item.group}
+                    {item.group.title}
                   </Text>
                 </View>
                 <View style={style.titleNews}>
@@ -923,7 +683,7 @@ export default function HomeScreen({navigation}) {
               Tuyển dụng
             </Text>
             <Pressable
-              onPress={() => navigation.navigate('Recruitment')}
+              onPress={() => commonRoot.navigate(router.RECRUITMENT)}
               style={{
                 flexDirection: 'row',
                 alignItems: 'center',
@@ -945,7 +705,7 @@ export default function HomeScreen({navigation}) {
               keyExtractor={item => item.id}
               renderItem={({item}) => (
                 <Pressable
-                  onPress={() => navigation.navigate('Recruitment')}
+                  onPress={() => commonRoot.navigate(router.RECRUITMENT)}
                   style={{
                     width: width - 24,
                     height: 102,
@@ -1047,7 +807,7 @@ export default function HomeScreen({navigation}) {
                 </Text>
               </Pressable>
               <Pressable
-                onPress={() => navigation.navigate('Recruitment')}
+                onPress={() => commonRoot.navigate(router.RECRUITMENT)}
                 style={{flexDirection: 'row', gap: 13, alignItems: 'center'}}>
                 <Image source={icon.icon_arrow_full_right} />
                 <Text

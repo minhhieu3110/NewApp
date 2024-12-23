@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import {icon, video} from '../../assets/index';
 import {image} from '../../assets/index';
-import {formatCurrency} from '../../utils/fomatCurrency';
+import {formatCurrency} from '../../utils/formatCurrency';
 import Carousel from 'react-native-reanimated-carousel';
 import {useState, useEffect} from 'react';
 import axios from 'axios';

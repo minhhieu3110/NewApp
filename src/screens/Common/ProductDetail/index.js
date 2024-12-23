@@ -14,16 +14,18 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {icon, image} from '../../assets/index';
+import {icon, image} from '@assets';
 import Carousel from 'react-native-reanimated-carousel';
 import axios from 'axios';
-import {formatNumber} from '../../utils/formatNumber';
-import {formatCurrency} from '../../utils/fomatCurrency';
 import RenderHTML from 'react-native-render-html';
-import {formatToHTML} from '../../utils/formatToHTML';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {ConvertTimeStamp} from '../../utils/convertTimeStamp';
-export default function ProductDetail_Home({navigation, route}) {
+import {
+  ConvertTimeStamp,
+  formatCurrency,
+  formatNumber,
+  formatToHTML,
+} from 'utils';
+export default function ProductDetail({navigation, route}) {
   const [showChooseProduct, setShowChooseProduct] = useState(false);
   const [numberImg, setNumberImg] = useState(1);
   const [showModalEvalate, setShowModalEvaluate] = useState(false);

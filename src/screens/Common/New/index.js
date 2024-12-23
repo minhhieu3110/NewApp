@@ -9,20 +9,23 @@ import {
   ScrollView,
   Dimensions,
 } from 'react-native';
-import {icon, image} from '../../assets/index';
-import {useState, useEffect} from 'react';
-import axios from 'axios';
-import {ConvertTimeStamp} from '../../utils/convertTimeStamp';
+import {icon} from '@assets';
+import {useEffect} from 'react';
+import {ConvertTimeStamp} from 'utils';
 import {useDispatch, useSelector} from 'react-redux';
 import actions from 'redux/actions';
-export default function News({data, navigation}) {
+import {bottomRoot} from 'navigation/navigationRef';
+import router from '@router';
+export default function News() {
   const dispatch = useDispatch();
-  const dataNews = useSelector(state => state.getNew?.data);
+
   useEffect(() => {
     dispatch({
       type: actions.GET_NEW,
     });
   }, []);
+  const dataNews = useSelector(state => state.getNew?.data || []);
+
   return (
     <View style={{flex: 1}}>
       <ScrollView
@@ -31,63 +34,70 @@ export default function News({data, navigation}) {
         <View style={style.titleContainer}>
           <Pressable
             style={style.title}
-            onPress={() => navigation.navigate('Home')}>
+            onPress={() => bottomRoot.navigate(router.HOME_SCREEN)}>
             <Image source={icon.icon_arrow_left} />
             <Text style={style.textTitle}>Tin tức</Text>
           </Pressable>
         </View>
         <View style={{width: 395, top: 11, left: 12, rowGap: 11}}>
-          {dataNews.map(item => (
-            <View
-              key={`${item.item_id}`}
-              style={{
-                width: width - 24,
-                height: 111,
-                flexDirection: 'row',
-                columnGap: 10,
-                backgroundColor: '#fff',
-              }}>
-              <View>
-                <Image
-                  source={{uri: `${item.picture}`}}
-                  style={{width: 147, height: 110, borderRadius: 5}}
-                />
-              </View>
-              <View>
-                <View style={{height: 19, flexDirection: 'row'}}>
-                  <Image source={icon.icon_calendar_gay} />
-                  <Text
-                    style={{
-                      fontWeight: 'regular',
-                      color: '#808080',
-                      marginLeft: 5.3,
-                      marginRight: 24,
-                    }}>
-                    {ConvertTimeStamp(`${item.created_at}`)}
-                  </Text>
-                  <Text
-                    style={{
-                      fontSize: 14,
-                      fontWeight: 'regular',
-                      color: '#0060af',
-                    }}>
-                    {`${item.group.title}`}
-                  </Text>
+          {dataNews.length === 0 ? (
+            <Text
+              style={{textAlign: 'center', marginTop: 20, color: '#808080'}}>
+              No news available.
+            </Text>
+          ) : (
+            dataNews.map(item => (
+              <View
+                key={`${item.item_id}`}
+                style={{
+                  width: width - 24,
+                  height: 111,
+                  flexDirection: 'row',
+                  columnGap: 10,
+                  backgroundColor: '#fff',
+                }}>
+                <View>
+                  <Image
+                    source={{uri: `${item.picture}`}}
+                    style={{width: 147, height: 110, borderRadius: 5}}
+                  />
                 </View>
-                <View style={{width: 227, height: 45, marginTop: 15}}>
-                  <Text
-                    style={{
-                      fontSize: 16,
-                      fontWeight: 'semibold',
-                      color: '#212121',
-                      lineHeight: 24,
-                    }}>
-                    {`${item.title}`}
-                  </Text>
+                <View>
+                  <View style={{height: 19, flexDirection: 'row'}}>
+                    <Image source={icon.icon_calendar_gay} />
+                    <Text
+                      style={{
+                        fontWeight: 'regular',
+                        color: '#808080',
+                        marginLeft: 5.3,
+                        marginRight: 24,
+                      }}>
+                      {ConvertTimeStamp(`${item.created_at}`)}
+                    </Text>
+                    <Text
+                      style={{
+                        fontSize: 14,
+                        fontWeight: 'regular',
+                        color: '#0060af',
+                      }}>
+                      {`${item.group.title}`}
+                    </Text>
+                  </View>
+                  <View style={{width: 227, height: 45, marginTop: 15}}>
+                    <Text
+                      style={{
+                        fontSize: 16,
+                        fontWeight: 'semibold',
+                        color: '#212121',
+                        lineHeight: 24,
+                      }}>
+                      {`${item.title}`}
+                    </Text>
+                  </View>
                 </View>
               </View>
-            </View>
-          ))}
+            ))
+          )}
         </View>
       </ScrollView>
     </View>

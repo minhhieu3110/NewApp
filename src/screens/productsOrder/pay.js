@@ -13,7 +13,7 @@ import {
   Dimensions,
 } from 'react-native';
 import {icon, image} from '../../assets/index';
-import {formatCurrency} from '../../utils/fomatCurrency';
+import {formatCurrency} from '../../utils/formatCurrency';
 export default function Pay({navigation, route}) {
   const productsPay = [
     {

@@ -11,7 +11,7 @@ import {
   ImageBackground,
   Dimensions,
 } from 'react-native';
-import {icon, image} from '../../assets/index';
+import {icon, image} from '@assets';
 import {useState} from 'react';
 // import Carousel from 'react-native-snap-carousel';
 export default function AboutCompany({navigation}) {

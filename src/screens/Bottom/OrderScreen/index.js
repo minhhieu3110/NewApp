@@ -10,8 +10,14 @@ import {
 } from 'react-native';
 import TopTabContainer from 'navigation/TopTabContainer';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-export default function OrderScreen({navigation, route}) {
+import {useEffect} from 'react';
+export default function OrderScreen({route}) {
   const TopStack = createNativeStackNavigator();
+  useEffect(() => {
+    if (route.params?.sent) {
+      console.log('0');
+    }
+  }, []);
   return (
     <View style={style.container}>
       <View style={style.header}>

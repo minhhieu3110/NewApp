@@ -10,7 +10,7 @@ import {
   FlatList,
   Dimensions,
 } from 'react-native';
-import {icon} from '../../assets/index';
+import {icon} from '@assets';
 export default function Contract({navigation}) {
   const fakeContract = [
     {
