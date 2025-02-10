@@ -14,45 +14,32 @@ import {
 } from 'react-native';
 import {icon, image} from '@assets';
 import {formatCurrency} from 'utils/formatCurrency';
-export default function Pay({navigation, route}) {
-  const productsPay = [
-    {
-      id: 1,
-      nameProduct: 'Kixx HYBRID - Dầu động cơ cao cấp',
-      type: '2L',
-      price: 1243000,
-      quantity: 2,
-      image: `${image.image_demo_choose_product}`,
-    },
-    {
-      id: 2,
-      nameProduct: 'Kixx HYBRID - Dầu động cơ cao cấp',
-      type: '2L',
-      price: 1243000,
-      quantity: 4,
-      image: `${image.image_demo_choose_product}`,
-    },
-    {
-      id: 3,
-      nameProduct: 'Kixx HYBRID - Dầu động cơ cao cấp',
-      type: '2L',
-      price: 1243000,
-      quantity: 2,
-      image: `${image.image_demo_choose_product}`,
-    },
-    {
-      id: 4,
-      nameProduct: 'Kixx HYBRID - Dầu động cơ cao cấp',
-      type: '2L',
-      price: 1243000,
-      quantity: 2,
-      image: `${image.image_demo_choose_product}`,
-    },
-  ];
-  const provisionalMoney = productsPay.reduce(
-    (acc, item) => acc + item.price * item.quantity,
-    0,
-  );
+import {root} from 'navigation/navigationRef';
+import router from '@router';
+import {useDispatch, useSelector} from 'react-redux';
+import actions from 'redux/actions';
+export default function Pay({route, item_id}) {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    item_id = route.params?.item_id;
+    dispatch({
+      type: actions.GET_DETAIL_PRODUCT,
+      params: {item_id: item_id},
+    });
+    dispatch({
+      type: actions.GET_PAYMENT,
+    });
+    dispatch({
+      type: actions.GET_SHIPPING,
+    });
+  }, []);
+  const productsPay = useSelector(state => state.getDetailProduct?.data || []);
+  const payment = useSelector(state => state.getPayment?.data | []);
+  console.log('payment', payment);
+  const shipping = useSelector(state => state.getShipping?.data || []);
+  console.log('shipping', shipping);
+
+  const provisionalMoney = productsPay.price;
   const [showFormChooseMethodPayment, setShowFormChooseMethodPayment] =
     useState(false);
   const [showFormChooseMethodShipping, setShowFormChooseMethodShipping] =
@@ -313,9 +300,7 @@ export default function Pay({navigation, route}) {
   return (
     <View style={style.container}>
       <View style={style.titleContainer}>
-        <Pressable
-          style={style.title}
-          onPress={() => navigation.navigate('DetailProducts')}>
+        <Pressable style={style.title} onPress={() => root.goBack()}>
           <Image source={icon.icon_arrow_left} />
           <Text style={style.textTitle}>Thanh toán</Text>
         </Pressable>
@@ -439,77 +424,78 @@ export default function Pay({navigation, route}) {
               </View>
             </View>
             <View style={{width: width - 24, height: 'auto', gap: 12}}>
-              {productsPay.map((product, index) => (
-                <View key={index}>
-                  <View
-                    style={{
-                      width: width - 24,
-                      height: 80,
-                      flexDirection: 'row',
-                      gap: 12,
-                      alignItems: 'center',
-                      marginBottom: 12,
-                    }}>
-                    <View style={{width: 80, height: 80}}>
-                      <Image source={product.image} />
-                    </View>
-                    <View style={{width: 303, height: 78, gap: 10}}>
+              <View>
+                <View
+                  style={{
+                    width: width - 24,
+                    height: 80,
+                    flexDirection: 'row',
+                    gap: 12,
+                    alignItems: 'center',
+                    marginBottom: 12,
+                  }}>
+                  <View style={{width: 80, height: 80}}>
+                    <Image
+                      source={productsPay.picture}
+                      style={{width: '100%', height: '100%'}}
+                    />
+                  </View>
+                  <View style={{width: 303, height: 78, gap: 10}}>
+                    <Text
+                      style={{
+                        width: 297,
+                        height: 21,
+                        fontSize: 16,
+                        fontWeight: 'regular',
+                        lineHeight: 22,
+                        color: '#212121',
+                      }}>
+                      {productsPay.title}
+                    </Text>
+                    <View
+                      style={{height: 19, width: 303, flexDirection: 'row'}}>
                       <Text
                         style={{
-                          width: 297,
-                          height: 21,
+                          fontSize: 14,
+                          fontWeight: 'regular',
+                          color: '#808080',
+                        }}>
+                        Phân loại: <Text>{1}</Text>
+                      </Text>
+                      <Text
+                        style={{
+                          fontSize: 14,
+                          fontWeight: 'regular',
+                          color: '#808080',
+                          right: 0,
+                          position: 'absolute',
+                        }}>
+                        x<Text>{1}</Text>
+                      </Text>
+                    </View>
+                    <View style={{width: 303, height: 21}}>
+                      <Text
+                        style={{
                           fontSize: 16,
                           fontWeight: 'regular',
-                          lineHeight: 22,
                           color: '#212121',
+                          right: 0,
+                          position: 'absolute',
                         }}>
-                        {product.nameProduct}
+                        {formatCurrency(productsPay.price)}
                       </Text>
-                      <View
-                        style={{height: 19, width: 303, flexDirection: 'row'}}>
-                        <Text
-                          style={{
-                            fontSize: 14,
-                            fontWeight: 'regular',
-                            color: '#808080',
-                          }}>
-                          Phân loại: <Text>{product.type}</Text>
-                        </Text>
-                        <Text
-                          style={{
-                            fontSize: 14,
-                            fontWeight: 'regular',
-                            color: '#808080',
-                            right: 0,
-                            position: 'absolute',
-                          }}>
-                          x<Text>{product.quantity}</Text>
-                        </Text>
-                      </View>
-                      <View style={{width: 303, height: 21}}>
-                        <Text
-                          style={{
-                            fontSize: 16,
-                            fontWeight: 'regular',
-                            color: '#212121',
-                            right: 0,
-                            position: 'absolute',
-                          }}>
-                          {formatCurrency(product.price)}
-                        </Text>
-                      </View>
                     </View>
                   </View>
-                  <View
-                    style={{
-                      width: width - 24,
-                      height: 1,
-                      backgroundColor: '#f1f1f1',
-                      marginBottom: 12,
-                    }}
-                  />
                 </View>
-              ))}
+                <View
+                  style={{
+                    width: width - 24,
+                    height: 1,
+                    backgroundColor: '#f1f1f1',
+                    marginBottom: 12,
+                  }}
+                />
+              </View>
             </View>
             <View style={{width: width - 24, height: 21, flexDirection: 'row'}}>
               <Text
@@ -791,9 +777,8 @@ export default function Pay({navigation, route}) {
             width: width,
             height: 65,
             left: 0,
-            top: 765,
+            top: height - 158,
             position: 'absolute',
-            zIndex: 100,
             alignItems: 'center',
             flexDirection: 'row',
             gap: 8,
@@ -808,7 +793,8 @@ export default function Pay({navigation, route}) {
 
             elevation: 8,
           }}>
-          <View style={{width: 100, height: 45, left: 100}}>
+          <View
+            style={{width: 100, height: 45, left: 100, position: 'absolute'}}>
             <Text
               style={{
                 fontSize: 15,

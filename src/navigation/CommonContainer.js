@@ -14,6 +14,20 @@ export default function CommonContainer() {
         name={router.RECRUITMENT}
         component={common[router.RECRUITMENT]}
       />
+      <CommonStack.Screen
+        name={router.ABOUT_COMPANY}
+        component={common[router.ABOUT_COMPANY]}
+      />
+      <CommonStack.Screen
+        name={router.PRODUCT_DETAIL}
+        component={common[router.PRODUCT_DETAIL]}
+      />
+      <CommonStack.Screen name={router.PAY} component={common[router.PAY]} />
+      <CommonStack.Screen name={router.CART} component={common[router.CART]} />
+      <CommonStack.Screen
+        name={router.INFO_USER}
+        component={common[router.INFO_USER]}
+      />
     </CommonStack.Navigator>
   );
 }

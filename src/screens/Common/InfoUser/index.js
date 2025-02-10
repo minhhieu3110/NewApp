@@ -10,13 +10,15 @@ import {
   Dimensions,
 } from 'react-native';
 import {icon, image} from '@assets';
-const InfoUser = ({navigation}) => {
+import {bottomRoot} from 'navigation/navigationRef';
+import router from '@router';
+const InfoUser = () => {
   return (
     <View style={style.container}>
       <View style={style.titleContainer}>
         <Pressable
           style={style.titleInfoAccount}
-          onPress={() => navigation.navigate('Account')}>
+          onPress={() => bottomRoot.navigate(router.PROFILE_SCREEN)}>
           <View style={style.iconTitleInfoAccount}>
             <Image
               source={icon.icon_arrow_left}

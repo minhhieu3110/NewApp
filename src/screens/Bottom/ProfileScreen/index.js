@@ -9,12 +9,9 @@ import {
   Dimensions,
 } from 'react-native';
 import {icon, image} from '@assets';
+import {authRoot, commonRoot} from 'navigation/navigationRef';
+import router from '@router';
 const ProfileScreen = ({navigation}) => {
-  // const data = {routeName: [
-  //   {id: 1, route: 'SaveProducts'}
-  // ]}
-  // console.log(data);
-
   return (
     <View style={style.container}>
       <View style={{width: width, height: 235, backgroundColor: '#0060af'}}>
@@ -32,7 +29,7 @@ const ProfileScreen = ({navigation}) => {
             </View>
             <Pressable
               style={[style.editContainer]}
-              onPress={() => navigation.navigate('InfoAccount')}>
+              onPress={() => commonRoot.navigate(router.INFO_USER)}>
               <Image
                 style={{
                   width: '100%',
@@ -108,7 +105,7 @@ const ProfileScreen = ({navigation}) => {
           <View style={style.seperator}></View>
           <View style={style.accountMenu}>
             <Pressable
-              onPress={() => navigation.navigate('InfoAccount')}
+              onPress={() => commonRoot.navigate(router.INFO_USER)}
               style={[style.menuAccountTitle]}>
               <View style={style.iconTextMenuAccount}>
                 <Image
@@ -313,7 +310,7 @@ const ProfileScreen = ({navigation}) => {
               left: 161,
               position: 'absolute',
             }}
-            onPress={() => navigation.navigate('Home')}>
+            onPress={() => authRoot.navigate(router.LOGIN_SCREEN)}>
             <Text
               style={{
                 color: '#FD6C31',

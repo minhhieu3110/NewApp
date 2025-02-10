@@ -18,9 +18,19 @@ import axios from 'axios';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import numbro from 'numbro';
 import {useToast} from 'react-native-toast-notifications';
-import {formatCurrency} from 'utils/formatCurrency';
-export default function ProductScreen({navigation}) {
+import {formatCurrency} from 'utils';
+import actions from 'redux/actions';
+import {useDispatch, useSelector} from 'react-redux';
+export default function ProductScreen() {
   const toast = useToast();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch({
+      type: actions.GET_PRODUCT_LIST,
+      // total: children.reduce((total, child) => total + child.product.length, 0),
+    });
+  }, []);
+  const dataProducts = useSelector(state => state.getProductsList?.data || []);
   const [iconHiddenListVertical, setIconHiddenListVertical] = useState(
     `${icon.icon_th_large_no_select}`,
   );
@@ -86,7 +96,6 @@ export default function ProductScreen({navigation}) {
     setSelectedProduct(index);
     setGroupId(group_id);
   };
-  console.log(groupId);
 
   const handlerShowChildren = index => {
     showChildren === index ? setShowChildren(null) : setShowChildren(index);
@@ -200,81 +209,6 @@ export default function ProductScreen({navigation}) {
   const saveEvaluate = () => {
     setVisibleModalEvaluate(!visibleModalEvaluate);
   };
-  const [dataProducts, setDataProducts] = useState([
-    {
-      id: '',
-      group_id: '',
-      title: '',
-      friendly_link: '',
-      children: [
-        {
-          id: '',
-          group_id: '',
-          title: '',
-          friendly_link: '',
-          product: [
-            {
-              id: '',
-              group_id: '',
-              title: '',
-              picture: '',
-              price: '',
-              price_sale: '',
-              percent_discount: '',
-              friendly_link: '',
-              num_sold: '',
-              num_view: '',
-            },
-          ],
-        },
-      ],
-    },
-  ]);
-  useEffect(() => {
-    axios
-      .get('http://rpm.demo.app24h.net:81/api/v1/product_group/category')
-      .then(res => {
-        const products = res.data.data;
-        console.log(products);
-        const fetchDataProducts = products.map(item => {
-          const totalProducts = item.children.reduce(
-            (total, child) => total + child.product.length,
-            0,
-          );
-          const representativePicture =
-            item.children[2]?.product[0]?.picture || '';
-          return {
-            id: item.id,
-            group_id: item.group_id,
-            title: item.title,
-            friendly_link: item.friendly_link,
-            totalProducts,
-            representativePicture,
-            children: item.children.map(child => ({
-              id: child.id,
-              group_id: child.group_id,
-              title: child.title,
-              friendly_link: child.friendly_link,
-              product: child.product.map(product => ({
-                id: product.id,
-                group_id: product.group_id,
-                title: product.title,
-                picture: product.picture,
-                price: product.price,
-                price_sale: product.price_sale,
-                percent_discount: product.percent_discount,
-                friendly_link: product.friendly_link,
-                num_sold: product.num_sold,
-                num_view: product.num_view,
-              })),
-            })),
-          };
-        });
-
-        setDataProducts(fetchDataProducts);
-      });
-  }, []);
-
   return (
     <View style={style.container}>
       {showCategory === true ? (

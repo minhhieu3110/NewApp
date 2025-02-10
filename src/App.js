@@ -1,6 +1,5 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {View, StyleSheet, StatusBar} from 'react-native';
-import BottomTabContainer from './navigation/BottomTabContainer';
 import RootStack from 'navigation/RootStack';
 import {
   configureReanimatedLogger,
@@ -15,6 +14,7 @@ export default function App() {
     level: ReanimatedLogLevel.warn,
     strict: false,
   });
+
   return (
     <Provider store={store}>
       <View style={styles.container}>

@@ -1,6 +1,10 @@
 import {put, select} from '@redux-saga/core/effects';
 import api from 'utils/api';
 import {_onSuccess, _onFail} from 'redux/actions';
+export const ACCOUNT = {
+  username: 'username',
+  password: 'password',
+};
 // export function* generalGet(config, action) {
 //   try {
 //     const defaultParams = config.defaultParams || {};
@@ -49,6 +53,9 @@ import {_onSuccess, _onFail} from 'redux/actions';
 // }
 
 export const URL_API = {
+  getDeviceToken: {
+    getDeviceToken: 'device_token',
+  },
   user: {
     getAddressBook: 'getAddressBook',
     addAddressBook: 'addAddressBook',
@@ -56,8 +63,8 @@ export const URL_API = {
     deleteAddressBook: 'deleteAdddressBook',
     info: 'info',
     update: 'update',
-    signup: 'signup',
-    login: 'login',
+    signup: 'user/signup',
+    login: 'user/login',
     via: {
       google: 'google',
     },
@@ -92,8 +99,8 @@ export const URL_API = {
   },
   cart: 'cart',
   method: {
-    payment: 'payment',
-    shipping: 'shipping',
+    payment: 'method/payment',
+    shipping: 'method/shipping',
   },
   catalogue_group: 'catalogue_group',
   video: 'video',
@@ -102,9 +109,11 @@ export const URL_API = {
     exchange: 'exchange',
   },
   banner_group: 'banner_group',
-  banner: 'banner',
   contract: 'contract',
   liability: 'liability',
   page: 'page',
   notificatrion: 'notificatrion',
+  banner: {
+    brand: 'banner/brand',
+  },
 };

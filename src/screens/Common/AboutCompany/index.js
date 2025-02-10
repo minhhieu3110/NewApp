@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import {icon, image} from '@assets';
 import {useState} from 'react';
+import {root} from 'navigation/navigationRef';
 // import Carousel from 'react-native-snap-carousel';
 export default function AboutCompany({navigation}) {
   const imageDemo = [
@@ -36,9 +37,7 @@ export default function AboutCompany({navigation}) {
   return (
     <View style={style.container}>
       <View style={style.titleContainer}>
-        <Pressable
-          style={style.title}
-          onPress={() => navigation.navigate('Home')}>
+        <Pressable style={style.title} onPress={() => root.goBack()}>
           <Image source={icon.icon_arrow_left} />
           <Text style={style.textTitle}>Giới thiệu về công ty</Text>
         </Pressable>

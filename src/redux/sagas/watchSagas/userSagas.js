@@ -2,6 +2,7 @@ import {put, takeLatest} from 'redux-saga/effects';
 import api from 'utils/api';
 import actions, {_onFail, _onSuccess} from 'redux/actions';
 import {URL_API} from '../common';
+import {handleFormData} from 'utils/helper';
 function* loginUser(action) {
   try {
     const res = yield api.postFormData(URL_API.user.login, body);
@@ -23,8 +24,9 @@ function* loginUser(action) {
 }
 
 function* registerUser(action) {
+  const body = yield handleFormData(action.body);
   try {
-    const res = yield api.postFormData(URL_API.user.signup, body);
+    const res = yield api.postData(URL_API.user.signup, body);
     yield put({
       type: _onSuccess(actions.type),
       data: res,

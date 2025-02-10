@@ -10,11 +10,6 @@ import {
 } from 'react-native';
 import {icon, image} from '@assets';
 const Account = ({navigation}) => {
-  // const data = {routeName: [
-  //   {id: 1, route: 'SaveProducts'}
-  // ]}
-  // console.log(data);
-
   return (
     <View style={style.container}>
       <View style={{width: width, height: 235, backgroundColor: '#0060af'}}>

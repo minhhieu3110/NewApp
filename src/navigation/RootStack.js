@@ -12,10 +12,10 @@ export default function MainStack() {
   return (
     <NavigationContainer ref={navigationRef}>
       <RootStack.Navigator screenOptions={{headerShown: false}}>
-        {/* <RootStack.Screen
+        <RootStack.Screen
           name={router.AUTH_CONTAINER}
           component={AuthContainer}
-        /> */}
+        />
         <RootStack.Screen
           name={router.BOTTOM_CONTAINER}
           component={BottomTabContainer}

@@ -129,7 +129,6 @@ export default class HttpService {
       throw error.response;
     }
   }
-
   //TODO: FORM_DATA
   static async postFormData(url, formData, params = {}) {
     const language = store.getState()?.other?.lang;

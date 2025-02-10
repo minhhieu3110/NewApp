@@ -20,6 +20,7 @@ import ProductsSeen from './ProductSeen';
 import Recruitment from './Recruitment';
 import Setting from './Setting';
 import Videos from './Video';
+import Cart from './Cart';
 export const common = {
   [router.ABOUT_COMPANY]: AboutCompany,
   [router.ACCOUNT]: Account,
@@ -42,4 +43,5 @@ export const common = {
   [router.RECRUITMENT]: Recruitment,
   [router.SETTING]: Setting,
   [router.VIDEO]: Videos,
+  [router.CART]: Cart,
 };

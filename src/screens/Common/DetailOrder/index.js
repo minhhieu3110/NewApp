@@ -14,8 +14,10 @@ import {
 import {icon, image} from '@assets';
 import {useEffect, useState} from 'react';
 import {formatCurrency} from 'utils/formatCurrency';
-import {bottomRoot, topRoot} from 'navigation/navigationRef';
+import {bottomRoot, root, topRoot} from 'navigation/navigationRef';
 import router from '@router';
+import {useDispatch, useSelector} from 'react-redux';
+import actions from 'redux/actions';
 export default function OrderDetails({navigation, route}) {
   const [confirmOrderVisible, setConfirmOrderVisible] = useState(false);
   const [getOrderVisible, setGetOrderVisible] = useState(false);
@@ -26,7 +28,15 @@ export default function OrderDetails({navigation, route}) {
   const [modalVisibleCancelOrder, setModalVisibleCancelOrder] = useState(false);
   const [lengthReason, setLengthReason] = useState(0);
   const [reason, setReason] = useState(null);
-
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch({type: actions.GET_PAYMENT});
+    dispatch({type: actions.GET_SHIPPING});
+  });
+  const payment = useSelector(state => state.getPayment?.data || []);
+  const shipping = useSelector(state => state.getShipping?.data || []);
+  console.log('payment', payment);
+  console.log('shipping', shipping);
   const infoPay = [
     {
       id: 1,
@@ -212,9 +222,6 @@ export default function OrderDetails({navigation, route}) {
   const chooseReasonHandler = optionReason => {
     setReason(optionReason);
   };
-  const goBack = () => {
-    bottomRoot.navigate(router.ORDER_SCREEN, {sent: flag});
-  };
   return (
     <View style={style.container}>
       <View style={style.titleContainer}>
@@ -225,7 +232,7 @@ export default function OrderDetails({navigation, route}) {
             height: 24,
             alignItems: 'center',
           }}>
-          <Pressable style={style.title} onPress={goBack}>
+          <Pressable style={style.title} onPress={() => root.goBack()}>
             <Image source={icon.icon_arrow_left} />
             <Text style={style.textTitle}>Chi tiết đơn hàng</Text>
           </Pressable>

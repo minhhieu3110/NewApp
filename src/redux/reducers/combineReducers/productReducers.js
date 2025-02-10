@@ -8,7 +8,7 @@ export const getProductsList = (...props) => {
   return reducerDefault(...props, actions.GET_PRODUCT_LIST);
 };
 export const getDetailProduct = (...props) => {
-  return reducerDefault(...props, actions.GET_DETAIL_PRODUCT);
+  return reducerLoadMore(...props, actions.GET_DETAIL_PRODUCT);
 };
 export const getGroupCategoryProduct = (...props) => {
   return reducerDefault(...props, actions.GET_CATEGORY_GROUP);

@@ -20,6 +20,7 @@ import {commonRoot} from 'navigation/navigationRef';
 import router from '@router';
 import {useDispatch, useSelector} from 'react-redux';
 import actions from 'redux/actions';
+import Icon from 'react-native-vector-icons/Ionicons';
 export default function Home({navigation}) {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -35,6 +36,17 @@ export default function Home({navigation}) {
     dispatch({
       type: actions.GET_RECRUITMENT,
     });
+    dispatch({
+      type: actions.GET_BRAND_PARTNER,
+    });
+    dispatch({
+      type: actions.GET_CERTIFICATE,
+      params: {type: 5},
+    });
+    dispatch({
+      type: actions.GET_VIDEO,
+    });
+    dispatch({type: actions.GET_TOKEN});
   }, []);
   const news = useSelector(state => state.getNew?.data || []);
   const limitNews = news.slice(0, 6);
@@ -42,7 +54,12 @@ export default function Home({navigation}) {
   const bestSeller = useSelector(
     state => state.getProductsBestSeller?.data || [],
   );
-
+  const partner = useSelector(state => state.getBannerBrand?.data || []);
+  const certificate = useSelector(state => state.getCertificate?.data || []);
+  const videos = useSelector(state => state.getVideo?.data || []);
+  const recruitment = useSelector(state => state.getRecruitment?.data || []);
+  const limitRecruitment = recruitment.slice(0, 5);
+  const videoHome = videos.filter(item => item.id === 31);
   const imageHeader = [
     {id: 1, image: `${image.image_header_home_1}`},
     {id: 2, image: `${image.image_header_home_2}`},
@@ -60,58 +77,6 @@ export default function Home({navigation}) {
     {id: 1, image: `${image.image_product_banner_home_1}`},
     {id: 2, image: `${image.image_product_banner_home_2}`},
   ];
-  const recruitment = useSelector(state => state.getRecruitment?.data || []);
-  const limitRecruitment = recruitment.slice(0, 5);
-  const [videos, setVideos] = useState([
-    {
-      id: '',
-      title: '',
-      video_type: '',
-      video_file: '',
-      video: '',
-      meta_title: '',
-      meta_key: '',
-      meta_desc: '',
-    },
-  ]);
-  useEffect(() => {
-    axios.get('http://rpm.demo.app24h.net:81/api/v1/video').then(res => {
-      const dataVideos = res.data.data;
-
-      setVideos(
-        dataVideos.map(item => ({
-          id: item.id,
-          title: item.title,
-          video_type: item.video_type,
-          video_file: item.video_file,
-          video: item.video,
-          meta_title: item.meta_title,
-          meta_key: item.meta_key,
-          meta_desc: item.meta_desc,
-        })),
-      );
-    });
-  }, []);
-  const videoHome = videos.filter(item => item.id === 31);
-  const [partner, setPartner] = useState([
-    {
-      title: '',
-      link: '',
-      content: '',
-    },
-  ]);
-  useEffect(() => {
-    axios.get('http://rpm.demo.app24h.net:81/api/v1/banner/brand').then(res => {
-      const dataPartners = res.data.data;
-      setPartner(
-        dataPartners.map(item => ({
-          title: item.title,
-          link: item.link,
-          content: item.content,
-        })),
-      );
-    });
-  }, []);
   return (
     <View style={{flex: 1}}>
       <ScrollView
@@ -156,8 +121,25 @@ export default function Home({navigation}) {
               placeholder="Tìm kiếm sản phẩm"
               placeholderTextColor={'#808080'}
             />
-            <View style={{left: 15}}>
-              <Image source={icon.icon_cart} />
+            <View
+              style={{
+                width: 44,
+                height: 35,
+                right: 3,
+                position: 'absolute',
+              }}>
+              <Pressable
+                onPress={() => commonRoot.navigate(router.CART)}
+                style={{
+                  width: 35,
+                  aspectRatio: 1 / 1,
+                  borderRadius: 18,
+                  backgroundColor: '#000',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                <Icon name="cart" color="#fff" size={25} />
+              </Pressable>
             </View>
           </View>
         </View>
@@ -393,9 +375,9 @@ export default function Home({navigation}) {
                 child.product.slice(0, 2).map(pro => (
                   <Pressable
                     onPress={() =>
-                      navigation.navigate('DetailProducts', {
+                      commonRoot.navigate(router.PRODUCT_DETAIL, {
                         item_id: pro.item_id,
-                        group_id: pro.group_id,
+                        group_id: item.group_id,
                       })
                     }
                     style={style.itemProducts}>
@@ -529,46 +511,27 @@ export default function Home({navigation}) {
               flexDirection: 'row',
               gap: 12,
             }}>
-            <View style={style.certificate}>
-              <View style={style.imageCertificate}>
-                <Image source={image.image_certificate} />
-              </View>
-              <View style={style.nameCertificate}>
-                <Text style={style.textNameCertificate}>
-                  (KS) MACHINERY OIL
-                </Text>
-              </View>
-            </View>
-            <View style={style.certificate}>
-              <View style={style.imageCertificate}>
-                <Image source={image.image_certificate} />
-              </View>
-              <View style={style.nameCertificate}>
-                <Text style={style.textNameCertificate}>
-                  (KS) MACHINERY OIL
-                </Text>
-              </View>
-            </View>
-            <View style={style.certificate}>
-              <View style={style.imageCertificate}>
-                <Image source={image.image_certificate} />
-              </View>
-              <View style={style.nameCertificate}>
-                <Text style={style.textNameCertificate}>
-                  (KS) MACHINERY OIL
-                </Text>
-              </View>
-            </View>
-            <View style={style.certificate}>
-              <View style={style.imageCertificate}>
-                <Image source={image.image_certificate} />
-              </View>
-              <View style={style.nameCertificate}>
-                <Text style={style.textNameCertificate}>
-                  (KS) MACHINERY OIL
-                </Text>
-              </View>
-            </View>
+            {certificate.length === 0
+              ? ''
+              : certificate[0].item.slice(0, 4).map(item => (
+                  <View style={style.certificate} key={item.item_id}>
+                    <View style={style.imageCertificate}>
+                      <Image
+                        source={{uri: item.picture}}
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          resizeMode: 'cover',
+                        }}
+                      />
+                    </View>
+                    <View style={style.nameCertificate}>
+                      <Text style={style.textNameCertificate}>
+                        {item.title}
+                      </Text>
+                    </View>
+                  </View>
+                ))}
           </ScrollView>
           <View
             style={{
@@ -747,7 +710,6 @@ export default function Home({navigation}) {
           <View
             style={{
               width: width - 24,
-              // height: 195,
               flexDirection: 'row',
               rowGap: 12,
               columnGap: 30,
@@ -794,7 +756,7 @@ export default function Home({navigation}) {
                 top: 37,
               }}>
               <Pressable
-                onPress={() => navigation.navigate('AboutCompany')}
+                onPress={() => commonRoot.navigate(router.ABOUT_COMPANY)}
                 style={{flexDirection: 'row', gap: 13, alignItems: 'center'}}>
                 <Image source={icon.icon_arrow_full_right} />
                 <Text

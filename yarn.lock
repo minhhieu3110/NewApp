@@ -3310,6 +3310,7 @@ __metadata:
     react-hook-form: ^7.54.1
     react-native: 0.75.1
     react-native-config: ^1.5.3
+    react-native-device-info: ^14.0.2
     react-native-document-picker: ^9.3.1
     react-native-gesture-handler: ^2.20.0
     react-native-image-picker: ^7.1.2
@@ -8744,6 +8745,15 @@ __metadata:
     react-native-windows:
       optional: true
   checksum: 0eb74e0a10ae6e96422671482da83dea16571f4f5ad848d1f18015dccbecb9cbc066788df72a88c630abf4aed0edb7616ec27704817cff18bd6ed7d61979d671
+  languageName: node
+  linkType: hard
+
+"react-native-device-info@npm:^14.0.2":
+  version: 14.0.2
+  resolution: "react-native-device-info@npm:14.0.2"
+  peerDependencies:
+    react-native: "*"
+  checksum: c1825a31514f0de08947de7876a361e53b3449fc84e34aace9b881a77f7ecf85e58b3c04eaa8b46c5d4d1fb911d95a73b229d2b98c5bce61bc5be5b89e071ec9
   languageName: node
   linkType: hard
 

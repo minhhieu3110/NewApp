@@ -25,7 +25,13 @@ import {
   formatNumber,
   formatToHTML,
 } from 'utils';
-export default function ProductDetail({navigation, route}) {
+import {bottomRoot, commonRoot} from 'navigation/navigationRef';
+import router from '@router';
+import {useDispatch, useSelector} from 'react-redux';
+import actions from 'redux/actions';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+export default function ProductDetail({route, item_id, group_id}) {
+  const dispatch = useDispatch();
   const [showChooseProduct, setShowChooseProduct] = useState(false);
   const [numberImg, setNumberImg] = useState(1);
   const [showModalEvalate, setShowModalEvaluate] = useState(false);
@@ -67,30 +73,26 @@ export default function ProductDetail({navigation, route}) {
     }
     setShowChooseProduct(!showChooseProduct);
   };
-  const [productInfo, setProductInfo] = useState(null);
-  const [productsRelated, setProductsRelated] = useState(null);
   useEffect(() => {
-    if (route.params?.item_id && route.params?.group_id) {
-      const item_id = route.params.item_id;
-      const group_id = route.params.group_id;
-      console.log('Item_iid: ' + item_id);
-      axios
-        .get(`http://rpm.demo.app24h.net:81/api/v1/product/${item_id}`)
-        .then(res => {
-          const product = res.data.data;
-          setProductInfo(product);
-        });
-      axios
-        .get(
-          `http://rpm.demo.app24h.net:81/api/v1/product?filter[group_id]=${group_id}`,
-        )
-        .then(res => {
-          const productsRelated = res.data.data;
-          setProductsRelated(productsRelated);
-        });
-    }
-  }, [route.params.item_id, route.params.group_id]);
-
+    item_id = route.params?.item_id;
+    group_id = route.params?.group_id;
+    dispatch({
+      type: actions.GET_DETAIL_PRODUCT,
+      params: {
+        item_id: item_id,
+      },
+    });
+    dispatch({
+      type: actions.GET_PRODUCT_RELATED,
+      params: {
+        group_id: group_id,
+      },
+    });
+  }, []);
+  const productInfo = useSelector(state => state.getDetailProduct?.data || []);
+  const productsRelated = useSelector(
+    state => state.getProductRelated?.data || [],
+  );
   const [chooseType, setChooseType] = useState(null);
   const handlerChooseType = id => {
     const chooseProductType = productInfo.option.find(
@@ -99,486 +101,532 @@ export default function ProductDetail({navigation, route}) {
     setChooseType(chooseProductType);
   };
   const handlerProductRelated = (item_id, group_id) => {
-    axios
-      .get(`http://rpm.demo.app24h.net:81/api/v1/product/${item_id}`)
-      .then(res => {
-        const product = res.data.data;
-        setProductInfo(product);
-      });
-    axios
-      .get(
-        `http://rpm.demo.app24h.net:81/api/v1/product?filter[group_id]=${group_id}`,
-      )
-      .then(res => {
-        const relatedProduct = res.data.data;
-        setProductsRelated(relatedProduct);
-      });
+    dispatch({
+      type: actions.GET_DETAIL_PRODUCT,
+      params: {
+        item_id: item_id,
+      },
+    });
+    dispatch({
+      type: actions.GET_PRODUCT_RELATED,
+      params: {
+        group_id: group_id,
+      },
+    });
   };
   return (
     <View style={{flex: 1}}>
-      {productInfo && (
-        <ScrollView
-          contentContainerStyle={[style.container, {paddingBottom: 100}]}
-          showsVerticalScrollIndicator={false}>
-          <StatusBar hidden={false} />
-          <View>
-            <View style={{width: width, height: width, top: 0}}>
-              <View
-                style={{
-                  width: width,
-                  height: width,
-                  top: 0,
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}>
-                {productInfo?.arr_picture &&
-                Array.isArray(productInfo.arr_picture) ? (
-                  <Carousel
-                    loop
-                    width={width}
-                    height={width}
-                    autoPlay
-                    data={productInfo.arr_picture}
-                    scrollAnimationDuration={1000}
-                    onSnapToItem={index => setNumberImg(index + 1)}
-                    renderItem={({item, index}) => (
-                      <View style={{flex: 1}} key={index}>
-                        <Image
-                          source={{uri: item}}
-                          style={{width: width, height: width}}
-                        />
-                      </View>
-                    )}
-                  />
-                ) : (
-                  <Text
-                    style={{
-                      fontSize: 18,
-                      fontWeight: 'bold',
-                      color: '#212121',
-                    }}>
-                    No images available
-                  </Text>
-                )}
-              </View>
-            </View>
-            <Pressable
-              style={style.goBack}
-              onPress={() => navigation.navigate('Home')}>
-              <Image source={icon.icon_arrow_left} />
-            </Pressable>
-            <View style={style.topRightDetailProduct}>
-              <View style={style.cart}>
-                <Image source={icon.icon_cart} />
-              </View>
-              <Text style={style.numberProducts}>99+</Text>
-              <Pressable
-                onPress={handlerMenuThreePoint}
-                style={style.menuThreePoint}>
-                <Image source={icon.icon_menu_three_point} />
-              </Pressable>
-              {displayMenuThreePoint && (
-                <View style={style.menuContainerThreePoint}>
-                  <View style={[style.titleMenuThreePoint, {top: 11}]}>
-                    <Image
-                      style={style.iconTitleMenuThreePoint}
-                      source={icon.icon_share}
+      {productInfo.length === 0 ? (
+        <Text style={{textAlign: 'center', marginTop: 20, color: '#808080'}}>
+          No information product available.
+        </Text>
+      ) : (
+        productInfo && (
+          <ScrollView
+            contentContainerStyle={[style.container, {paddingBottom: 1500}]}
+            showsVerticalScrollIndicator={false}>
+            <StatusBar hidden={false} />
+            <View>
+              <View style={{width: width, height: width, top: 0}}>
+                <View
+                  style={{
+                    width: width,
+                    height: width,
+                    top: 0,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}>
+                  {productInfo?.arr_picture &&
+                  Array.isArray(productInfo.arr_picture) ? (
+                    <Carousel
+                      loop
+                      width={width}
+                      height={width}
+                      autoPlay
+                      data={productInfo.arr_picture}
+                      scrollAnimationDuration={1000}
+                      onSnapToItem={index => setNumberImg(index + 1)}
+                      renderItem={({item, index}) => (
+                        <View style={{flex: 1}} key={index}>
+                          <Image
+                            source={{uri: item}}
+                            style={{width: width, height: width}}
+                          />
+                        </View>
+                      )}
                     />
-                    <Text style={style.textTitleMenuThreePoint}>Chia sẻ</Text>
-                  </View>
-                  <View style={[style.seperator, {top: 29}]} />
-                  <Pressable style={[style.titleMenuThreePoint, {top: 49}]}>
-                    <Image
-                      style={style.iconTitleMenuThreePoint}
-                      source={iconSaveProduct}
-                    />
-                    <Text style={style.textTitleMenuThreePoint}>
-                      {saveProduct}
+                  ) : (
+                    <Text
+                      style={{
+                        fontSize: 18,
+                        fontWeight: 'bold',
+                        color: '#212121',
+                      }}>
+                      No images available
                     </Text>
-                  </Pressable>
-                  <View style={[style.seperator, {top: 67}]} />
-                  <Pressable style={[style.titleMenuThreePoint, {top: 87}]}>
-                    <Image
-                      style={style.iconTitleMenuThreePoint}
-                      source={iconFavoriteProduct}
-                    />
-                    <Text style={style.textTitleMenuThreePoint}>
-                      {favoriteProduct}
-                    </Text>
-                  </Pressable>
+                  )}
                 </View>
-              )}
-            </View>
-            {productInfo.percent_discount !== 0 && (
-              <View style={style.discountTicket}>
-                <Image source={icon.icon_discount} />
               </View>
-            )}
-            {productInfo?.arr_picture &&
-            Array.isArray(productInfo.arr_picture) ? (
-              <View style={style.numberImage}>
-                <Text style={{color: '#ffffff', textAlign: 'center'}}>
-                  {numberImg + '/' + productInfo.arr_picture.length}
-                </Text>
-              </View>
-            ) : (
-              ''
-            )}
-          </View>
-          <View style={{flex: 1, top: 13}}>
-            <Text style={style.titleProduct}>{productInfo.group.title}</Text>
-            <View style={[style.subTitleProduct]}>
-              <Text style={style.nameProduct}>{productInfo.title}</Text>
-              <Text style={style.numberCodeProduct}>
-                SKU: {productInfo.item_code}
-              </Text>
-              <View style={style.interactPeopleWithProduct}>
-                <View style={style.starRating}>
-                  <Image source={icon.icon_range_rate_star} />
-                  <Text
-                    style={{
-                      width: 20,
-                      height: 19,
-                      left: 10,
-                      fontSize: 14,
-                      fontWeight: 'semibold',
-                      color: '#212121',
-                    }}>
-                    {formatNumber(productInfo.rate_avg)}
-                  </Text>
-                  <Text
+              <Pressable
+                style={style.goBack}
+                onPress={() => bottomRoot.navigate(router.HOME_SCREEN)}>
+                <Image source={icon.icon_arrow_left} />
+              </Pressable>
+              <View style={style.topRightDetailProduct}>
+                <View
+                  style={{
+                    width: 44,
+                    height: 35,
+                    left: 106,
+                    position: 'absolute',
+                  }}>
+                  <Pressable
+                    onPress={() => commonRoot.navigate(router.CART)}
                     style={{
                       width: 35,
-                      height: 19,
-                      left: 16,
-                      fontSize: 14,
-                      fontWeight: 'regular',
-                      color: '#212121',
+                      aspectRatio: 1 / 1,
+                      borderRadius: 18,
+                      backgroundColor: '#000',
+                      alignItems: 'center',
+                      justifyContent: 'center',
                     }}>
-                    ({productInfo.rate_count})
-                  </Text>
+                    <Ionicons name="cart" color="#fff" size={25} />
+                  </Pressable>
+                  <Text style={style.numberProducts}>99+</Text>
                 </View>
-                <Text
-                  style={{
-                    width: 3,
-                    height: 19,
-                    left: 16,
-                    fontSize: 14,
-                    fontWeight: 'regular',
-                    color: '#808080',
-                  }}>
-                  |
-                </Text>
-                <Text
-                  style={{
-                    width: 25,
-                    height: 19,
-                    fontSize: 14,
-                    fontWeight: 'regular',
-                    color: '#212121',
-                    left: 20,
-                  }}>
-                  {productInfo.num_view}
-                </Text>
-                <Image style={{left: 25}} source={icon.icon_eye_seen} />
-              </View>
-              <View
-                style={{
-                  position: 'absolute',
-                  bottom: 0,
-                  width: width - 24,
-                  height: 1,
-                  backgroundColor: '#f1f1f1',
-                }}></View>
-            </View>
-            <View style={{rowGap: 5}}>
-              <View style={[style.priceDiscount]}>
-                <Text
-                  style={{
-                    height: 21,
-                    fontSize: 16,
-                    fontWeight: 'semibold',
-                    color: '#FD6C31',
-                  }}>
-                  {formatCurrency(productInfo.price_sale)}
-                </Text>
-                {productInfo.percent_discount !== 0 && (
-                  <View style={style.discount}>
-                    <Text
-                      style={{top: 4, color: '#ffffff', textAlign: 'center'}}>
-                      - {productInfo.percent_discount}%
-                    </Text>
+
+                <Pressable
+                  onPress={handlerMenuThreePoint}
+                  style={style.menuThreePoint}>
+                  <Image source={icon.icon_menu_three_point} />
+                </Pressable>
+                {displayMenuThreePoint && (
+                  <View style={style.menuContainerThreePoint}>
+                    <View style={[style.titleMenuThreePoint, {top: 11}]}>
+                      <Image
+                        style={style.iconTitleMenuThreePoint}
+                        source={icon.icon_share}
+                      />
+                      <Text style={style.textTitleMenuThreePoint}>Chia sẻ</Text>
+                    </View>
+                    <View style={[style.seperator, {top: 29}]} />
+                    <Pressable style={[style.titleMenuThreePoint, {top: 49}]}>
+                      <Image
+                        style={style.iconTitleMenuThreePoint}
+                        source={iconSaveProduct}
+                      />
+                      <Text style={style.textTitleMenuThreePoint}>
+                        {saveProduct}
+                      </Text>
+                    </Pressable>
+                    <View style={[style.seperator, {top: 67}]} />
+                    <Pressable style={[style.titleMenuThreePoint, {top: 87}]}>
+                      <Image
+                        style={style.iconTitleMenuThreePoint}
+                        source={iconFavoriteProduct}
+                      />
+                      <Text style={style.textTitleMenuThreePoint}>
+                        {favoriteProduct}
+                      </Text>
+                    </Pressable>
                   </View>
                 )}
               </View>
               {productInfo.percent_discount !== 0 && (
-                <Text
-                  style={{
-                    width: 75,
-                    height: 19,
-                    left: 12,
-                    top: 16,
-                    textDecorationLine: 'line-through',
-                  }}>
-                  {formatCurrency(productInfo.price)}
-                </Text>
+                <View style={style.discountTicket}>
+                  <Image source={icon.icon_discount} />
+                </View>
+              )}
+              {productInfo?.arr_picture &&
+              Array.isArray(productInfo.arr_picture) ? (
+                <View style={style.numberImage}>
+                  <Text style={{color: '#ffffff', textAlign: 'center'}}>
+                    {numberImg + '/' + productInfo.arr_picture.length}
+                  </Text>
+                </View>
+              ) : (
+                ''
               )}
             </View>
-            <View style={style.seperator} />
-            <View style={{width: width - 24}}>
-              <Text
-                style={{
-                  width: 150,
-                  height: 24,
-                  left: 12,
-                  top: 51,
-                  fontSize: 18,
-                  fontWeight: 'semibold',
-                  color: '#212121',
-                }}>
-                Mô tả sản phẩm
-              </Text>
-              <View style={{width: width - 24, top: 70, left: 12, rowGap: 9}}>
-                <View style={{width: width - 24}}>
-                  <Text
-                    style={{
-                      fontSize: 15,
-                      fontWeight: 'semibold',
-                      color: '#212121',
-                    }}>
-                    Ứng dụng
-                  </Text>
-                  <View style={{width: width - 24, marginBottom: 35}}>
-                    <RenderHTML
-                      contentWidth={width}
-                      tagsStyles={{
-                        p: {
-                          fontSize: 15,
-                          fontWeight: 'regular',
-                          color: '#212121',
-                          lineHeight: 22,
-                          marginBottom: -35,
-                        },
-                      }}
-                      source={{html: `${formatToHTML(productInfo.content)}`}}
-                    />
+            <View style={{flex: 1, top: 13}}>
+              <Text style={style.titleProduct}>{productInfo.group.title}</Text>
+              <View style={[style.subTitleProduct]}>
+                <Text style={style.nameProduct}>{productInfo.title}</Text>
+                <Text style={style.numberCodeProduct}>
+                  SKU: {productInfo.item_code}
+                </Text>
+                <View style={style.interactPeopleWithProduct}>
+                  <View style={style.starRating}>
+                    <Image source={icon.icon_range_rate_star} />
+                    <Text
+                      style={{
+                        width: 20,
+                        height: 19,
+                        left: 10,
+                        fontSize: 14,
+                        fontWeight: 'semibold',
+                        color: '#212121',
+                      }}>
+                      {formatNumber(productInfo.rate_avg)}
+                    </Text>
+                    <Text
+                      style={{
+                        width: 35,
+                        height: 19,
+                        left: 16,
+                        fontSize: 14,
+                        fontWeight: 'regular',
+                        color: '#212121',
+                      }}>
+                      ({productInfo.rate_count})
+                    </Text>
                   </View>
-                </View>
-                <View style={{width: width - 24}}>
                   <Text
                     style={{
-                      fontSize: 15,
-                      fontWeight: 'semibold',
-                      color: '#212121',
+                      width: 3,
+                      height: 19,
+                      left: 16,
+                      fontSize: 14,
+                      fontWeight: 'regular',
+                      color: '#808080',
                     }}>
-                    Tiêu chuẩn hiệu suất
+                    |
                   </Text>
-                  <View style={{width: width - 24, marginBottom: 35}}>
-                    <RenderHTML
-                      contentWidth={width}
-                      tagsStyles={{
-                        p: {
-                          fontSize: 15,
-                          fontWeight: 'regular',
-                          color: '#212121',
-                          lineHeight: 22,
-                          marginBottom: -35,
-                        },
-                      }}
-                      source={{
-                        html: `${formatToHTML(
-                          productInfo.performance_standards,
-                        )}`,
-                      }}
-                    />
+                  <Text
+                    style={{
+                      width: 25,
+                      height: 19,
+                      fontSize: 14,
+                      fontWeight: 'regular',
+                      color: '#212121',
+                      left: 20,
+                    }}>
+                    {productInfo.num_view}
+                  </Text>
+                  <Image style={{left: 25}} source={icon.icon_eye_seen} />
+                </View>
+                <View
+                  style={{
+                    position: 'absolute',
+                    bottom: 0,
+                    width: width - 24,
+                    height: 1,
+                    backgroundColor: '#f1f1f1',
+                  }}></View>
+              </View>
+              <View style={{rowGap: 5}}>
+                <View style={[style.priceDiscount]}>
+                  <Text
+                    style={{
+                      height: 21,
+                      fontSize: 16,
+                      fontWeight: 'semibold',
+                      color: '#FD6C31',
+                    }}>
+                    {formatCurrency(productInfo.price_sale)}
+                  </Text>
+                  {productInfo.percent_discount !== 0 && (
+                    <View style={style.discount}>
+                      <Text
+                        style={{
+                          top: 4,
+                          color: '#ffffff',
+                          textAlign: 'center',
+                        }}>
+                        - {productInfo.percent_discount}%
+                      </Text>
+                    </View>
+                  )}
+                </View>
+                {productInfo.percent_discount !== 0 && (
+                  <Text
+                    style={{
+                      width: 75,
+                      height: 19,
+                      left: 12,
+                      top: 16,
+                      textDecorationLine: 'line-through',
+                    }}>
+                    {formatCurrency(productInfo.price)}
+                  </Text>
+                )}
+              </View>
+              <View style={style.seperator} />
+              <View style={{width: width - 24}}>
+                <Text
+                  style={{
+                    width: 150,
+                    height: 24,
+                    left: 12,
+                    top: 51,
+                    fontSize: 18,
+                    fontWeight: 'semibold',
+                    color: '#212121',
+                  }}>
+                  Mô tả sản phẩm
+                </Text>
+                <View style={{width: width - 24, top: 70, left: 12, rowGap: 9}}>
+                  <View style={{width: width - 24}}>
+                    <Text
+                      style={{
+                        fontSize: 15,
+                        fontWeight: 'semibold',
+                        color: '#212121',
+                      }}>
+                      Ứng dụng
+                    </Text>
+                    <View style={{width: width - 24, marginBottom: 35}}>
+                      <RenderHTML
+                        contentWidth={width}
+                        tagsStyles={{
+                          p: {
+                            fontSize: 15,
+                            fontWeight: 'regular',
+                            color: '#212121',
+                            lineHeight: 22,
+                            marginBottom: -35,
+                          },
+                        }}
+                        source={{
+                          html: `${formatToHTML(productInfo.content)}`,
+                        }}
+                      />
+                    </View>
+                  </View>
+                  <View style={{width: width - 24}}>
+                    <Text
+                      style={{
+                        fontSize: 15,
+                        fontWeight: 'semibold',
+                        color: '#212121',
+                      }}>
+                      Tiêu chuẩn hiệu suất
+                    </Text>
+                    <View style={{width: width - 24, marginBottom: 35}}>
+                      <RenderHTML
+                        contentWidth={width}
+                        tagsStyles={{
+                          p: {
+                            fontSize: 15,
+                            fontWeight: 'regular',
+                            color: '#212121',
+                            lineHeight: 22,
+                            marginBottom: -35,
+                          },
+                        }}
+                        source={{
+                          html: `${formatToHTML(
+                            productInfo.performance_standards,
+                          )}`,
+                        }}
+                      />
+                    </View>
                   </View>
                 </View>
               </View>
             </View>
-          </View>
-          <View
-            style={{
-              width: 76.17,
-              height: 16,
-              left: 172,
-              top: 105,
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'center',
-              columnGap: 12,
-            }}>
-            <Text
-              style={{color: '#0060af', fontSize: 12, fontWeight: 'regular'}}>
-              Xem thêm
-            </Text>
-            <Icon
-              name={'keyboard-arrow-down'}
-              size={19}
-              color={'#0060af'}
-              style={{transform: [{rotate: '0deg'}]}}
-            />
-          </View>
-          <View
-            style={{
-              width: width,
-              height: 5,
-              top: 133,
-              backgroundColor: '#f1f1f1',
-            }}
-          />
-          <View style={{top: 147, flexDirection: 'row'}}>
-            <Text
-              style={{
-                height: 24,
-                top: 0,
-                left: 12,
-                fontSize: 18,
-                fontWeight: 'semibold',
-                color: '#212121',
-              }}>
-              Đánh giá sản phẩm
-            </Text>
-            <Pressable onPress={() => setShowModalEvaluate(true)}>
-              <Image style={{top: 4, left: 172}} source={icon.icon_see_all} />
-            </Pressable>
-          </View>
-          <View
-            style={{
-              width: 250,
-              height: 16,
-              top: 158,
-              left: 12,
-              flexDirection: 'row',
-              alignItems: 'center',
-              gap: 12,
-            }}>
-            <Image source={icon.icon_range_rate_star} />
-            <Text
-              style={{
-                height: 16,
-                fontSize: 12,
-                fontWeight: 'regular',
-                color: '#212121',
-              }}>
-              {formatNumber(productInfo.rate_avg)}
-            </Text>
-            <Text style={{height: 16, fontSize: 12, fontWeight: 'regular'}}>
-              ({productInfo.rate_count} đánh giá)
-            </Text>
-          </View>
-          <View
-            style={{
-              width: width - 24,
-              height: 1,
-              left: 12,
-              top: 170,
-              backgroundColor: '#f1f1f1',
-            }}
-          />
-          <View
-            style={{
-              width: width - 24,
-              rowGap: 12,
-              top: 182,
-              left: 12,
-            }}>
-            {productInfo.rate.length !== 0
-              ? productInfo.rate.slice(0, 4).map(rate => (
-                  <View style={[style.commentAboutProduct]}>
-                    <View style={{width: 25, height: 25}}>
-                      <Image
-                        source={
-                          rate.user_info?.picture
-                            ? {uri: rate.user_info.picture}
-                            : `${icon.icon_avatar}`
-                        }
-                        style={{
-                          width: '100%',
-                          height: '100%',
-                          borderRadius: 50,
-                        }}
-                      />
-                    </View>
-                    <View style={style.contentComment}>
-                      <Text
-                        style={{
-                          height: 20,
-                          fontSize: 15,
-                          fontWeight: 'medium',
-                          fontFamily: 'Be Vietnam Pro',
-                          color: '#212121',
-                        }}>
-                        {rate.user_info.name}
-                      </Text>
-                      <Image
-                        style={{top: 8}}
-                        source={icon.icon_range_rate_star}
-                      />
-                      <Text
-                        style={{
-                          top: 8,
-                          width: 350,
-                          lineHeight: 18,
-                          fontSize: 14,
-                          fontWeight: 'regular',
-                          color: '#212121',
-                        }}>
-                        {rate.content}
-                      </Text>
-                      {rate?.picture && Array.isArray(rate.picture) ? (
-                        <View
-                          style={{
-                            width: 284,
-                            top: 15,
-                            flexDirection: 'row',
-                            gap: 8,
-                            marginBottom: 10,
-                          }}>
-                          {rate.picture.map(pic => (
-                            <Image
-                              source={{uri: pic}}
-                              style={{width: 65, height: 65, borderRadius: 3}}
-                            />
-                          ))}
-                        </View>
-                      ) : (
-                        ''
-                      )}
-                      <Text style={{height: 19, top: 8}}>
-                        {ConvertTimeStamp(rate.created_at)}
-                      </Text>
-                    </View>
-                  </View>
-                ))
-              : ''}
-          </View>
-
-          <View style={{width: width, height: 1732, top: 200}}>
-            <Text
-              style={{
-                width: 208,
-                height: 23,
-                color: '#0060AF',
-                fontSize: 18,
-                fontWeight: 'bold',
-                fontFamily: 'Montserrat',
-                top: 12,
-                left: 12,
-              }}>
-              SẢN PHẨM TƯƠNG TỰ
-            </Text>
             <View
               style={{
-                width: 404,
-                height: 1430.73,
-                left: 12,
-                top: 47,
-                flexWrap: 'wrap',
-                gap: 12,
+                width: 76.17,
+                height: 16,
+                left: 172,
+                top: 105,
                 flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'center',
+                columnGap: 12,
               }}>
-              {productsRelated !== null
-                ? productsRelated.map(related => (
+              <Text
+                style={{
+                  color: '#0060af',
+                  fontSize: 12,
+                  fontWeight: 'regular',
+                }}>
+                Xem thêm
+              </Text>
+              <Icon
+                name={'keyboard-arrow-down'}
+                size={19}
+                color={'#0060af'}
+                style={{transform: [{rotate: '0deg'}]}}
+              />
+            </View>
+            <View
+              style={{
+                width: width,
+                height: 5,
+                top: 133,
+                backgroundColor: '#f1f1f1',
+              }}
+            />
+            <View style={{top: 147, flexDirection: 'row'}}>
+              <Text
+                style={{
+                  height: 24,
+                  top: 0,
+                  left: 12,
+                  fontSize: 18,
+                  fontWeight: 'semibold',
+                  color: '#212121',
+                }}>
+                Đánh giá sản phẩm
+              </Text>
+              <Pressable onPress={() => setShowModalEvaluate(true)}>
+                <Image style={{top: 4, left: 172}} source={icon.icon_see_all} />
+              </Pressable>
+            </View>
+            <View
+              style={{
+                width: 250,
+                height: 16,
+                top: 158,
+                left: 12,
+                flexDirection: 'row',
+                alignItems: 'center',
+                gap: 12,
+              }}>
+              <Image source={icon.icon_range_rate_star} />
+              <Text
+                style={{
+                  height: 16,
+                  fontSize: 12,
+                  fontWeight: 'regular',
+                  color: '#212121',
+                }}>
+                {formatNumber(productInfo.rate_avg)}
+              </Text>
+              <Text style={{height: 16, fontSize: 12, fontWeight: 'regular'}}>
+                ({productInfo.rate_count} đánh giá)
+              </Text>
+            </View>
+            <View
+              style={{
+                width: width - 24,
+                height: 1,
+                left: 12,
+                top: 170,
+                backgroundColor: '#f1f1f1',
+              }}
+            />
+            <View
+              style={{
+                width: width - 24,
+                rowGap: 12,
+                top: 182,
+                left: 12,
+              }}>
+              {productInfo.rate.length !== 0
+                ? productInfo.rate.slice(0, 4).map(rate => (
+                    <View style={[style.commentAboutProduct]}>
+                      <View style={{width: 25, height: 25}}>
+                        <Image
+                          source={
+                            rate.user_info?.picture
+                              ? {uri: rate.user_info.picture}
+                              : `${icon.icon_avatar}`
+                          }
+                          style={{
+                            width: '100%',
+                            height: '100%',
+                            borderRadius: 50,
+                          }}
+                        />
+                      </View>
+                      <View style={style.contentComment}>
+                        <Text
+                          style={{
+                            height: 20,
+                            fontSize: 15,
+                            fontWeight: 'medium',
+                            fontFamily: 'Be Vietnam Pro',
+                            color: '#212121',
+                          }}>
+                          {rate.user_info.name}
+                        </Text>
+                        <Image
+                          style={{top: 8}}
+                          source={icon.icon_range_rate_star}
+                        />
+                        <Text
+                          style={{
+                            top: 8,
+                            width: 350,
+                            lineHeight: 18,
+                            fontSize: 14,
+                            fontWeight: 'regular',
+                            color: '#212121',
+                          }}>
+                          {rate.content}
+                        </Text>
+                        {rate?.picture && Array.isArray(rate.picture) ? (
+                          <View
+                            style={{
+                              width: 284,
+                              top: 15,
+                              flexDirection: 'row',
+                              gap: 8,
+                              marginBottom: 10,
+                            }}>
+                            {rate.picture.map(pic => (
+                              <Image
+                                source={{uri: pic}}
+                                style={{
+                                  width: 65,
+                                  height: 65,
+                                  borderRadius: 3,
+                                }}
+                              />
+                            ))}
+                          </View>
+                        ) : (
+                          ''
+                        )}
+                        <Text style={{height: 19, top: 8}}>
+                          {ConvertTimeStamp(rate.created_at)}
+                        </Text>
+                      </View>
+                    </View>
+                  ))
+                : ''}
+            </View>
+
+            <View style={{width: width, height: 1732, top: 200}}>
+              <Text
+                style={{
+                  width: 208,
+                  height: 23,
+                  color: '#0060AF',
+                  fontSize: 18,
+                  fontWeight: 'bold',
+                  fontFamily: 'Montserrat',
+                  top: 12,
+                  left: 12,
+                }}>
+                SẢN PHẨM TƯƠNG TỰ
+              </Text>
+              <View
+                style={{
+                  width: width - 24,
+                  height: 1430.73,
+                  left: 12,
+                  top: 47,
+                  flexWrap: 'wrap',
+                  gap: 12,
+                  flexDirection: 'row',
+                  borderTopLeftRadius: 10,
+                  borderTopRightRadius: 10,
+                }}>
+                {productsRelated === null ? (
+                  <Text
+                    style={{
+                      textAlign: 'center',
+                      marginTop: 20,
+                      color: '#808080',
+                    }}>
+                    No information product available.
+                  </Text>
+                ) : productsRelated !== null ? (
+                  productsRelated.map(related => (
                     <Pressable
                       onPress={() =>
                         handlerProductRelated(related.item_id, related.group_id)
@@ -721,10 +769,13 @@ export default function ProductDetail({navigation, route}) {
                       </View>
                     </Pressable>
                   ))
-                : ''}
+                ) : (
+                  ''
+                )}
+              </View>
             </View>
-          </View>
-        </ScrollView>
+          </ScrollView>
+        )
       )}
       {showChooseProduct && (
         <Modal
@@ -742,7 +793,7 @@ export default function ProductDetail({navigation, route}) {
             <View style={style.chooseProduct}>
               <View
                 style={{
-                  width: 395,
+                  width: width - 24,
                   left: 12,
                   top: 10,
                   alignItems: 'center',
@@ -934,7 +985,11 @@ export default function ProductDetail({navigation, route}) {
                 </Pressable>
               </View>
               <Pressable
-                onPress={() => navigation.navigate('Pay')}
+                onPress={() =>
+                  commonRoot.navigate(router.PAY, {
+                    item_id: productInfo.item_id,
+                  })
+                }
                 style={{
                   width: width,
                   height: 65,
@@ -963,23 +1018,22 @@ export default function ProductDetail({navigation, route}) {
           </TouchableOpacity>
         </Modal>
       )}
-
       <View style={style.addToCartAndBuy}>
         <View
           style={{
-            width: 404,
+            width: width,
             height: 45,
-            left: 12,
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'space-between',
           }}>
           <Pressable
             style={{
-              width: 190,
+              width: (width - 24) / 2 - 5,
               height: 45,
               backgroundColor: '#0060af',
               borderRadius: 10,
+              left: 12,
               alignItems: 'center',
               justifyContent: 'center',
             }}>
@@ -996,12 +1050,13 @@ export default function ProductDetail({navigation, route}) {
           <Pressable
             onPress={handlerShowChooseProduct}
             style={{
-              width: 190,
+              width: (width - 24) / 2 - 5,
               height: 45,
               backgroundColor: '#fd6c31',
               borderRadius: 10,
               alignItems: 'center',
               justifyContent: 'center',
+              position: 'absolute',
               right: 12,
             }}>
             <Text
@@ -1477,7 +1532,7 @@ const style = StyleSheet.create({
     left: 33,
   },
   itemSimilar: {
-    width: 194,
+    width: (width - 24) / 2 - 6,
     height: 348.68,
     borderColor: '#707070',
     backgroundColor: '#ffffff',
@@ -1485,7 +1540,7 @@ const style = StyleSheet.create({
     alignItems: 'center',
   },
   topItemSimilar: {
-    width: 194,
+    width: (width - 24) / 2 - 6,
     height: 197.68,
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,

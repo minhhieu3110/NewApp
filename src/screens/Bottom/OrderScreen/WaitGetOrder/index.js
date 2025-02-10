@@ -42,9 +42,8 @@ export default function WaitGetOrder({navigation}) {
             return (
               <Pressable
                 key={index}
-                onPress={
-                  () => commonRoot.navigate(router.ORDER_DETAIL, {flag: 2})
-                  // console.log('2')
+                onPress={() =>
+                  commonRoot.navigate(router.ORDER_DETAIL, {flag: 2})
                 }
                 style={style.itemContainer}>
                 <View style={style.contentItemContainer}>

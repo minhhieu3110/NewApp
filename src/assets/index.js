@@ -75,7 +75,7 @@ export const icon = {
   icon_arrow_full_right: require('./icon/ic_arrow_full_right.png'),
   icon_pdf: require('./icon/ic_pdf.png'),
   icon_download: require('./icon/ic_download.png'),
-  icon_calendar_gay: require ('./icon/ic_calendar_gray.png'),
+  icon_calendar_gay: require('./icon/ic_calendar_gray.png'),
   icon_close: require('./icon/ic_close.png'),
   icon_increase: require('./icon/ic_increase.png'),
   icon_decrease: require('./icon/ic_decrease.png'),
@@ -106,7 +106,7 @@ export const icon = {
   icon_fillter: require('./icon/ic_fillter.png'),
   icon_five_star_rate: require('./icon/ic_five_star_rate.png'),
   icon_four_star_rate: require('./icon/ic_four_star_rate.png'),
-  icon_three_star_rate: require('./icon/ic_three_star_rate.png'), 
+  icon_three_star_rate: require('./icon/ic_three_star_rate.png'),
   icon_two_star_rate: require('./icon/ic_two_star_rate.png'),
   icon_one_star_rate: require('./icon/ic_one_star_rate.png'),
   icon_no_checkbox: require('./icon/ic_no_checkbox.png'),
@@ -122,6 +122,7 @@ export const image = {
   img_avatar: require('./icon/img_avatar.png'),
 
   //Image Product Demo
+  image_product: require('./image/product.png'),
   image_product_demo: require('./image/img_demo.png'),
   image_product_demo_1: require('./image/img_kixx_first.png'),
   image_product_demo_2: require('./image/img_kixx_second.png'),
@@ -159,7 +160,6 @@ export const image = {
   image_logo_brand_demo_1: require('./image/img_logo_brand_demo_1.png'),
   image_logo_brand_demo_2: require('./image/img_logo_brand_demo_2.png'),
 
-
   //Image Catalogue
 
   image_catalogue_1: require('./image/img_catalogue_1.png'),
@@ -181,7 +181,6 @@ export const image = {
   image_product_detail_5: require('./image/img_detail_products_5.png'),
   image_product_detail_6: require('./image/img_detail_products_6.png'),
 
-
   image_demo_choose_product: require('./image/img_demo_choose_product.png'),
   image_notification: require('./image/img_notification.png'),
 };
@@ -189,6 +188,6 @@ export const video = {
   video_1: require('./image/video_1.png'),
   video_2: require('./image/video_2.png'),
 };
-export const lotties ={
+export const lotties = {
   loading: require('./lotties/loading.json'),
-}
+};
