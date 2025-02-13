@@ -8,25 +8,26 @@ import {
   TextInput,
   ScrollView,
   Modal,
+  Dimensions,
 } from 'react-native';
 import {icon} from '@assets';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import Icon from 'react-native-vector-icons/Entypo';
 import {useState} from 'react';
+import {commonRoot, root} from 'navigation/navigationRef';
+import router from '@router';
 export default function CumulativePoints({navigation}) {
   return (
     <View style={style.container}>
       <View style={style.titleContainer}>
-        <Pressable
-          style={style.title}
-          onPress={() => navigation.navigate('Account')}>
+        <Pressable style={style.title} onPress={() => root.goBack()}>
           <Image source={icon.icon_arrow_left} />
           <Text style={style.textTitle}>Điểm tích lũy</Text>
         </Pressable>
       </View>
-      <View style={{width: 395, left: 12, top: 64, rowGap: 11}}>
+      <View style={{width: width - 24, left: 12, top: 10, rowGap: 11}}>
         <View
           style={{
-            width: 395,
+            width: width - 24,
             height: 94,
             borderRadius: 8,
             backgroundColor: '#fff',
@@ -43,11 +44,10 @@ export default function CumulativePoints({navigation}) {
             }}>
             <View
               style={{
-                width: 183.39,
                 height: 34.39,
                 flexDirection: 'row',
                 alignItems: 'center',
-                columnGap: 10,
+                gap: 10,
               }}>
               <Image
                 source={icon.icon_rpm}
@@ -77,7 +77,7 @@ export default function CumulativePoints({navigation}) {
           </View>
           <View style={{height: 20}}>
             <Pressable
-              onPress={() => navigation.navigate('VoucherRedeemed')}
+              onPress={() => commonRoot.navigate(router.VOUCHER_EXCHANGE)}
               style={{
                 width: 117.93,
                 right: 20,
@@ -94,7 +94,7 @@ export default function CumulativePoints({navigation}) {
                 }}>
                 Voucher đã đổi
               </Text>
-              <Icon name="arrow-forward-ios" color="#0060af" />
+              <Icon name="chevron-small-right" color="#0060af" />
             </Pressable>
           </View>
         </View>
@@ -110,7 +110,7 @@ export default function CumulativePoints({navigation}) {
           </Text>
           {Array.from({length: 10}).map((_, index) => (
             <Pressable
-              onPress={() => navigation.navigate('DetailVoucher')}
+              onPress={() => commonRoot.navigate(router.DETAIL_VOUCHER)}
               key={index}
               style={{
                 width: 395,
@@ -216,17 +216,15 @@ export default function CumulativePoints({navigation}) {
     </View>
   );
 }
+const {width, height} = Dimensions.get('screen');
 const style = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#F3F7FC',
   },
   titleContainer: {
-    width: 428,
+    width: width,
     height: 54,
-    position: 'absolute',
-    top: 0,
-    left: 0,
     backgroundColor: '#0060AF',
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,

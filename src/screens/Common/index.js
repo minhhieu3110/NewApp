@@ -1,6 +1,5 @@
 import router from '@router';
 import AboutCompany from './AboutCompany';
-import Account from './AccountProfile';
 import Address from './Address';
 import Catalogue from './Catalogue';
 import Help from './CenterHelp';
@@ -21,12 +20,15 @@ import Recruitment from './Recruitment';
 import Setting from './Setting';
 import Videos from './Video';
 import Cart from './Cart';
+import VoucherRedeemed from './PointAndVoucher/VoucherExchanged';
+import DetailVoucher from './PointAndVoucher/DetailVoucher';
+import HelpWithEmail from './CenterHelp/HelpWithEmail';
 export const common = {
   [router.ABOUT_COMPANY]: AboutCompany,
-  [router.ACCOUNT]: Account,
   [router.ADDRESS]: Address,
   [router.CATALOGUE]: Catalogue,
   [router.HELP]: Help,
+  [router.HELPWITHEMAIL]: HelpWithEmail,
   [router.CHANGE_PASSWORD]: ChangePassword,
   [router.CONTRACT]: Contract,
   [router.DEBT]: Debt,
@@ -36,6 +38,8 @@ export const common = {
   [router.NEW]: News,
   [router.PAY]: Pay,
   [router.CUMULATIVE_POINT]: CumulativePoints,
+  [router.VOUCHER_EXCHANGE]: VoucherRedeemed,
+  [router.DETAIL_VOUCHER]: DetailVoucher,
   [router.PRODUCT_DETAIL]: ProductDetail,
   [router.PRODUCT_FAVORITE]: ProductsFavorite,
   [router.PRODUCT_SAVE]: ProductsSave,

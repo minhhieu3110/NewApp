@@ -9,13 +9,12 @@ import {
   Dimensions,
 } from 'react-native';
 import {icon} from '@assets';
-export default function HelpWithEmail({navigation}) {
+import {root} from 'navigation/navigationRef';
+export default function HelpWithEmail() {
   return (
     <View style={style.container}>
       <View style={style.titleContainer}>
-        <Pressable
-          style={style.title}
-          onPress={() => navigation.navigate('CenterHelp')}>
+        <Pressable style={style.title} onPress={() => root.goBack()}>
           <Image source={icon.icon_arrow_left} />
           <Text style={style.textTitle}>Hỗ trợ qua Email</Text>
         </Pressable>

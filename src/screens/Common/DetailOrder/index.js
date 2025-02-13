@@ -2746,7 +2746,6 @@ const style = StyleSheet.create({
     height: 20,
     aspectRatio: 1 / 1,
     borderRadius: 50,
-    borderWidth: 1,
   },
   textReasonCancel: {
     height: 21,

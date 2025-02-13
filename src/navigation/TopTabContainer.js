@@ -1,10 +1,4 @@
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-// import AllOrders from '../screens/order/allOrders';
-// import WaitConfirmOrder from '../screens/order/waitConfirmOrder';
-// import WaitGetOrder from '../screens/order/waitGetOrder';
-// import ProceesingOrder from '../screens/order/processingOrder';
-// import FinishedOrder from '../screens/order/finishedOrder';
-// import CancelOrder from '../screens/order/cancelOrder';
 import router from '@router';
 import {top} from 'screens/Bottom/OrderScreen/top';
 export default function TopTabContainer() {
@@ -13,6 +7,7 @@ export default function TopTabContainer() {
     <Tab.Navigator
       screenOptions={{
         tabBarLabelStyle: {fontSize: 16, fontWeight: 'semibold'},
+        tabBarItemStyle: {width: 100},
         tabBarIndicatorContainerStyle: {
           backgroundColor: '#0060af',
           borderBottomLeftRadius: 10,

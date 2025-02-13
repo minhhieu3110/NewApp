@@ -9,13 +9,12 @@ import {
   Dimensions,
 } from 'react-native';
 import {icon} from '@assets';
+import {root} from 'navigation/navigationRef';
 export default function Debt({navigation}) {
   return (
     <View style={style.container}>
       <View style={style.titleContainer}>
-        <Pressable
-          style={style.title}
-          onPress={() => navigation.navigate('Account')}>
+        <Pressable style={style.title} onPress={() => root.goBack()}>
           <Image source={icon.icon_arrow_left} />
           <Text style={[style.textTitle, {color: '#fff'}]}>Công nợ</Text>
         </Pressable>

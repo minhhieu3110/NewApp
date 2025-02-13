@@ -18,12 +18,6 @@ const Edit_Address = ({navigation, route}) => {
   const [selectProvice, setSelectProvince] = useState(null);
   const [selectDistrict, setSelectDistrict] = useState(null);
   const [addDefault, setAddDefault] = useState(`${icon.icon_set_default_off}`);
-  //   const [newInfo, setNewInfo] = useState({
-  //     id: new Date().getTime(),
-  //     name: '',
-  //     numberPhone: '',
-  //     default: false,
-  //   });
   const [address, setAddress] = useState({
     numberHouse: '',
     ward: '',

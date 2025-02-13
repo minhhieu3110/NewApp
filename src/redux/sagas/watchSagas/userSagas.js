@@ -26,7 +26,7 @@ function* loginUser(action) {
 function* registerUser(action) {
   const body = yield handleFormData(action.body);
   try {
-    const res = yield api.postData(URL_API.user.signup, body);
+    const res = yield api.postFormData(URL_API.user.signup, body);
     yield put({
       type: _onSuccess(actions.type),
       data: res,

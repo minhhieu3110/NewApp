@@ -17,30 +17,17 @@ import {icon, image} from '@assets';
 import LinearGradient from 'react-native-linear-gradient';
 import {useState, useEffect} from 'react';
 import axios from 'axios';
-export default function Catalogue({navigation}) {
-  const [catalogue, setCatalogue] = useState([
-    {
-      group_id: '',
-      title: '',
-      short: '',
-      picture: '',
-    },
-  ]);
+import {useDispatch, useSelector} from 'react-redux';
+import actions from 'redux/actions';
+import {root} from 'navigation/navigationRef';
+export default function Catalogue() {
+  const dispatch = useDispatch();
   useEffect(() => {
-    axios
-      .get('http://rpm.demo.app24h.net:81/api/v1/catalogue_group')
-      .then(res => {
-        const cata = res.data.data;
-        setCatalogue(
-          cata.map(item => ({
-            group_id: item.id,
-            title: item.title,
-            short: item.short,
-            picture: item.picture,
-          })),
-        );
-      }, []);
-  });
+    dispatch({
+      type: actions.GET_CATALOGUE_GROUP,
+    });
+  }, []);
+  const catalogue = useSelector(state => state.getGroupCatalogue?.data || []);
   const [detailCatalogue, setDetailCatalogue] = useState([
     {item_id: '', group_id: '', title: '', picture: '', file: ''},
   ]);
@@ -69,6 +56,9 @@ export default function Catalogue({navigation}) {
     // getDetailCatalogue(group_id);
   };
   console.log(detailCatalogue);
+  console.log('catalogue');
+
+  console.log(catalogue);
 
   return (
     <View style={{flex: 1}}>
@@ -76,19 +66,68 @@ export default function Catalogue({navigation}) {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={style.container}>
         <View style={style.titleContainer}>
-          <Pressable
-            style={style.title}
-            onPress={() => navigation.navigate('Home')}>
+          <Pressable style={style.title} onPress={() => root.goBack()}>
             <Image source={icon.icon_arrow_left} />
             <Text style={style.textTitle}>Catalogue </Text>
           </Pressable>
         </View>
-        <View style={{width: width - 24, top: 11, left: 12, rowGap: 12}}>
-          {catalogue.map((item, index) => (
-            <View key={index} style={style.itemCatalogueContainer}>
+        <View
+          style={{
+            width: width - 24,
+            top: 11,
+            left: 12,
+            rowGap: 12,
+          }}>
+          {catalogue.map(item => (
+            <View
+              style={{
+                width: width - 24,
+                height: 204,
+                borderRadius: 10,
+                alignItems: 'center',
+              }}>
               <ImageBackground
-                style={{borderRadius: 10, width: '100%', height: '100%'}}
-                source={{uri: item.picture}}></ImageBackground>
+                source={{uri: item.picture}}
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  alignItems: 'center',
+                  borderRadius: 10,
+                }}>
+                <TouchableOpacity
+                  activeOpacity={1}
+                  style={{
+                    flex: 1,
+                    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}
+                  onPress={() => handlerCatalogue(item.group_id)}>
+                  <Text
+                    style={{
+                      fontSize: 18,
+                      fontWeight: 'semibold',
+                      position: 'absolute',
+                      top: 145,
+                      textTransform: 'uppercase',
+                      color: '#fff',
+                    }}>
+                    {item.title}
+                  </Text>
+                  <Text
+                    style={{
+                      width: width - 95,
+                      position: 'absolute',
+                      top: 165,
+                      color: '#fff',
+                      fontSize: 15,
+                      fontWeight: 'regular',
+                      textAlign: 'center',
+                    }}>
+                    {item.short}
+                  </Text>
+                </TouchableOpacity>
+              </ImageBackground>
             </View>
           ))}
         </View>
@@ -107,14 +146,14 @@ export default function Catalogue({navigation}) {
                 <Text style={style.textTitle}>Catalogue sản phẩm</Text>
               </Pressable>
             </View>
-            <View style={{width: 395, top: 11, left: 12, rowGap: 20.1}}>
+            <View style={{width: width - 24, top: 11, left: 12, rowGap: 20.1}}>
               {detailCatalogue.map((item, index) => (
                 <View
-                  style={{width: 395, height: 255.68, rowGap: 8.1}}
+                  style={{width: width - 24, height: 255.68, rowGap: 8.1}}
                   key={index}>
                   <Image
                     source={{uri: item.picture}}
-                    style={{width: 395, height: 215.86}}
+                    style={{width: '100%', height: '100%'}}
                   />
                   <View
                     style={{
@@ -181,34 +220,5 @@ const style = StyleSheet.create({
     fontWeight: 'medium',
     fontFamily: 'Be Vietnam Pro',
     color: '#fff',
-  },
-  itemCatalogueContainer: {
-    flex: 1,
-    width: width - 24,
-    height: 231,
-    borderWidth: 1,
-    borderRadius: 10,
-    alignItems: 'center',
-    // backgroundColor: 'rgba(0,0,0,0.85)',
-  },
-  titleItemCatalogue: {
-    height: 24,
-    fontSize: 18,
-    fontWeight: 'semibold',
-    color: '#FFFFFF',
-    top: 142,
-    position: 'absolute',
-    textTransform: 'uppercase',
-  },
-  subTitleItemCatalogue: {
-    width: 343,
-    height: 40,
-    fontSize: 15,
-    fontWeight: 'regular',
-    lineHeight: 22,
-    top: 176,
-    color: '#FFFFFF',
-    position: 'absolute',
-    textAlign: 'center',
   },
 });

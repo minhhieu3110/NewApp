@@ -7,25 +7,25 @@ import {
   Pressable,
   TextInput,
   ScrollView,
+  Dimensions,
 } from 'react-native';
 import {icon} from '@assets';
+import {root} from 'navigation/navigationRef';
 export default function DetailVoucher({navigation}) {
   return (
     <View style={style.container}>
       <View style={style.titleContainer}>
-        <Pressable
-          style={style.title}
-          onPress={() => navigation.navigate('VoucherRedeemed')}>
+        <Pressable style={style.title} onPress={() => root.goBack()}>
           <Image source={icon.icon_arrow_left} />
           <Text style={style.textTitle}>Chi tiết Voucher</Text>
         </Pressable>
       </View>
       <View
         style={{
-          width: 395,
+          width: width - 24,
           height: 1000,
           left: 12,
-          top: 66,
+          top: 10,
           borderRadius: 8,
           backgroundColor: '#fff',
         }}>
@@ -89,17 +89,15 @@ export default function DetailVoucher({navigation}) {
     </View>
   );
 }
+const {width, height} = Dimensions.get('screen');
 const style = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#F3F7FC',
   },
   titleContainer: {
-    width: 428,
+    width: width,
     height: 54,
-    position: 'absolute',
-    top: 0,
-    left: 0,
     backgroundColor: '#0060AF',
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,

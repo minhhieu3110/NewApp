@@ -41,9 +41,21 @@ function* getVideo(action) {
     yield put({type: _onFail(action.type)});
   }
 }
-
+function* getCatalogueGroup(action) {
+  try {
+    const res = yield api.get(URL_API.catalogue_group);
+    yield put({
+      type: _onSuccess(action.type),
+      data: res.data,
+    });
+  } catch (error) {
+    action.onFail?.(error);
+    yield put({type: _onFail(action.type)});
+  }
+}
 export function* watchOtherSagas() {
   yield takeLatest(actions.GET_BRAND_PARTNER, getBannerBrand);
   yield takeLatest(actions.GET_CERTIFICATE, getCertificate);
   yield takeLatest(actions.GET_VIDEO, getVideo);
+  yield takeLatest(actions.GET_CATALOGUE_GROUP, getCatalogueGroup);
 }

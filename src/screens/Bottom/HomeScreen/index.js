@@ -406,7 +406,12 @@ export default function Home({navigation}) {
                       />
                     </View>
                     <View style={style.titleProduct}>
-                      <Text style={style.nameProduct}>{pro.title}</Text>
+                      <Text
+                        numberOfLines={2}
+                        ellipsizeMode="tail"
+                        style={style.nameProduct}>
+                        {pro.title}
+                      </Text>
                       <View
                         style={{
                           width: 180,
@@ -782,7 +787,7 @@ export default function Home({navigation}) {
                 </Text>
               </Pressable>
               <Pressable
-                onPress={() => navigation.navigate('Video')}
+                onPress={() => commonRoot.navigate(router.VIDEO)}
                 style={{flexDirection: 'row', gap: 13, alignItems: 'center'}}>
                 <Image source={icon.icon_arrow_full_right} />
                 <Text
@@ -795,7 +800,7 @@ export default function Home({navigation}) {
                 </Text>
               </Pressable>
               <Pressable
-                onPress={() => navigation.navigate('Catalogue')}
+                onPress={() => commonRoot.navigate(router.CATALOGUE)}
                 style={{flexDirection: 'row', gap: 13, alignItems: 'center'}}>
                 <Image source={icon.icon_arrow_full_right} />
                 <Text

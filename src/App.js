@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {View, StyleSheet, StatusBar} from 'react-native';
+import {StyleSheet, StatusBar, SafeAreaView} from 'react-native';
 import RootStack from 'navigation/RootStack';
 import {
   configureReanimatedLogger,
@@ -17,12 +17,12 @@ export default function App() {
 
   return (
     <Provider store={store}>
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
         <StatusBar backgroundColor={'#0060AF'} />
         <ToastProvider>
           <RootStack />
         </ToastProvider>
-      </View>
+      </SafeAreaView>
     </Provider>
   );
 }

@@ -27,84 +27,22 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import {FormInput} from 'components';
 const Register = () => {
   const dispatch = useDispatch();
-  const {
-    control,
-    handleSubmit,
-    formState: {errors},
-  } = useForm(formConfig);
+  const {control, handleSubmit} = useForm(formConfig);
   const [eye, setEye] = useState(false);
-  // const [dataRegister, setDataRegister] = useState({
-  //   username: '',
-  //   phone: '',
-  //   password: '',
-  //   device_name: DeviceInfo.getDeviceName(),
-  //   device_token: DeviceInfo.getDeviceId(),
-  // });
-
-  // const handlerRegister = () => {
-  //   dispatch({
-  //     type: actions.SIGNUP,
-  //     body: {
-  //       username: dataRegister.username,
-  //       phone: dataRegister.phone,
-  //       password: dataRegister.password,
-  //       device_name: dataRegister.device_name,
-  //       device_token: dataRegister.device_token,
-  //     },
-  //     onSuccess: () => {
-  //       authRoot.navigate(router.LOGIN_SCREEN);
-  //     },
-  //     onFail: () => {
-  //       Toast.show({
-  //         type: 'error',
-  //         text1: 'Đăng ký thất bại',
-  //       });
-  //     },
-  //   });
-  // };
-
-  // const handlerRegister = async () => {
-  //   try {
-  //     const res = await fetch(
-  //       'http://rpm.demo.app24h.net:81/api/v1/user/signup',
-  //       {
-  //         method: 'POST',
-  //         headers: {
-  //           'Content-Type': 'application/json',
-  //         },
-  //         body: JSON.stringify(dataRegister),
-  //       },
-  //     );
-  //     const result = await res.json;
-  //     console.log(dataRegister);
-  //     if (res.ok) {
-  //       Toast.show({
-  //         type: 'success',
-  //         text1: 'Đăng ký thành công',
-  //       });
-  //       authRoot.navigate(router.LOGIN_SCREEN);
-  //     }
-  //   } catch (err) {
-  //     Alert.alert('Không Thành Công');
-  //     console.log(err);
-  //   }
-  // };
-  const handlerRegister = async values => {
-    const devicename = await DeviceInfo.getDeviceName();
-    const devicetoken = await DeviceInfo.getDeviceId();
+  const _onSubmit = values => {
     dispatch({
       type: actions.SIGNUP,
       body: {
         username: values.userName,
-        phone: values.phone,
         password: values.pass,
-        device_name: devicename,
-        device_token: devicetoken,
+        phone: values.phone,
+        device_name: DeviceInfo.getDeviceName(),
+        device_token: DeviceInfo.getUniqueId(),
       },
       onSuccess: () => {
         authRoot.navigate(router.LOGIN_SCREEN);
       },
-      onFail: () => {
+      onFail(e) {
         Toast.show({
           type: 'error',
           text1: 'Đăng ký thất bại',
@@ -180,29 +118,6 @@ const Register = () => {
               top: 67,
               rowGap: 10,
             }}>
-            {/* <Controller
-              control={control}
-              name={FORM_INPUT.userName}
-              render={({field: {onBlur, onChange, value}}) => (
-                <TextInput
-                  // control={control}
-                  // name={FORM_INPUT.userName}
-                  value={value}
-                  placeholder="Email"
-                  keyboardType="default"
-                  onChangeText={onChange}
-                  onBlur={onBlur}
-                  style={styles.input}
-                />
-              )}
-            /> */}
-            {/* <TextInput
-              onChangeText={username =>
-                setDataRegister({...dataRegister, username})
-              }
-              placeholder="Email"
-              style={styles.input}
-            /> */}
             <Controller
               control={control}
               name={FORM_INPUT.userName}
@@ -215,12 +130,6 @@ const Register = () => {
                 />
               )}
             />
-            {/* <TextInput
-              onChangeText={phone => setDataRegister({...dataRegister, phone})}
-              placeholder="Số điện thoại"
-              keyboardType="phone-pad"
-              style={styles.input}
-            /> */}
             <Controller
               control={control}
               name={FORM_INPUT.phone}
@@ -234,14 +143,6 @@ const Register = () => {
               )}
             />
             <View style={{flexDirection: 'row', width: width - 64}}>
-              {/* <TextInput
-                placeholder="Mật khẩu"
-                secureTextEntry={!eye}
-                onChangeText={password =>
-                  setDataRegister({...dataRegister, password})
-                }
-                style={styles.input}
-              /> */}
               <Controller
                 control={control}
                 name={FORM_INPUT.pass}
@@ -293,7 +194,7 @@ const Register = () => {
             </Text>
           </View>
           <Pressable
-            onPress={handleSubmit(handlerRegister)}
+            onPress={handleSubmit(_onSubmit)}
             style={{
               width: width - 65,
               height: 47,

@@ -9,14 +9,14 @@ import {
   Dimensions,
 } from 'react-native';
 import {icon, image} from '@assets';
+import {bottomRoot, root} from 'navigation/navigationRef';
+import router from '@router';
 
 export default function ProductsSeen({navigation}) {
   return (
     <View style={style.container}>
       <View style={style.titleContainer}>
-        <Pressable
-          style={style.title}
-          onPress={() => navigation.navigate('Account')}>
+        <Pressable style={style.title} onPress={() => root.goBack()}>
           <Image source={icon.icon_arrow_left} />
           <Text style={style.textTitle}>Sản phẩm đã xem</Text>
         </Pressable>

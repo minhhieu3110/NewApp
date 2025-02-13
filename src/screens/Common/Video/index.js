@@ -13,44 +13,23 @@ import {icon} from '@assets';
 import {useState, useEffect} from 'react';
 import axios from 'axios';
 import Video from 'react-native-video';
-export default function Videos({navigation}) {
-  const [videos, setVideos] = useState([
-    {
-      id: '',
-      title: '',
-      video_type: '',
-      video_file: '',
-      video: '',
-      meta_title: '',
-      meta_key: '',
-      meta_desc: '',
-    },
-  ]);
+import {root} from 'navigation/navigationRef';
+import {useDispatch, useSelector} from 'react-redux';
+import actions from 'redux/actions';
+export default function Videos() {
+  const dispatch = useDispatch();
   useEffect(() => {
-    axios.get('http://rpm.demo.app24h.net:81/api/v1/video').then(res => {
-      const dataVideos = res.data.data;
-
-      setVideos(
-        dataVideos.map(item => ({
-          id: item.id,
-          title: item.title,
-          video_type: item.video_type,
-          video_file: item.video_file,
-          video: item.video,
-          meta_title: item.meta_title,
-          meta_key: item.meta_key,
-          meta_desc: item.meta_desc,
-        })),
-      );
+    dispatch({
+      type: actions.GET_VIDEO,
     });
   }, []);
+  const videos = useSelector(state => state.getVideo?.data || []);
   console.log(videos);
+
   return (
     <View style={style.container}>
       <View style={style.titleContainer}>
-        <Pressable
-          style={style.title}
-          onPress={() => navigation.navigate('Home')}>
+        <Pressable style={style.title} onPress={() => root.goBack()}>
           <Image source={icon.icon_arrow_left} />
           <Text style={style.textTitle}>Video</Text>
         </Pressable>
@@ -62,12 +41,8 @@ export default function Videos({navigation}) {
           {videos.map(item => (
             <View style={style.itemVideo} key={item.id}>
               <View style={style.video}>
-                {/* <Image source={video.video_1} />
-              <Image style={style.btnPlayVideo} source={icon.icon_play_video} /> */}
                 <Video
                   source={{uri: `${item.video_file}`}}
-                  // paused={false}
-                  // controls={true}
                   repeat={true}
                   style={{
                     width: '100%',
@@ -133,7 +108,7 @@ const style = StyleSheet.create({
   },
 
   descriptionVideo: {
-    width: width - 24,
+    width: width,
     left: 12,
     fontSize: 16,
     fontWeight: 'semibold',

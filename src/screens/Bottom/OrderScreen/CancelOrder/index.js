@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import {dataOrders} from '../AllOrder';
 import {formatCurrency} from 'utils/formatCurrency';
-import {bottomRoot, commonRoot} from 'navigation/navigationRef';
+import {commonRoot} from 'navigation/navigationRef';
 import router from '@router';
 export default function CancelOrder({navigation}) {
   const dataCancelOrder = dataOrders.filter(item => item.status === 'Đã hủy');

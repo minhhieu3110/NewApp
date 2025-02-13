@@ -9,8 +9,9 @@ import {
   Dimensions,
 } from 'react-native';
 import {icon, image} from '@assets';
-import {authRoot, commonRoot} from 'navigation/navigationRef';
+import {authRoot, bottomRoot, commonRoot} from 'navigation/navigationRef';
 import router from '@router';
+import Icon from 'react-native-vector-icons/AntDesign';
 const ProfileScreen = ({navigation}) => {
   return (
     <View style={style.container}>
@@ -18,17 +19,16 @@ const ProfileScreen = ({navigation}) => {
         <View style={{width: width - 24, left: 12, top: 7}}>
           <View
             style={{
-              width: 255,
+              width: width - 24,
               height: 98,
-              left: 157,
               flexDirection: 'row',
-              columnGap: 130,
+              justifyContent: 'center',
             }}>
-            <View style={style.avatar}>
+            <View style={{width: 90, height: 90}}>
               <Image source={image.img_avatar} />
             </View>
             <Pressable
-              style={[style.editContainer]}
+              style={{width: 35, height: 35, position: 'absolute', right: 0}}
               onPress={() => commonRoot.navigate(router.INFO_USER)}>
               <Image
                 style={{
@@ -55,7 +55,7 @@ const ProfileScreen = ({navigation}) => {
           <Text style={style.emailText}>{`Trungnguyen123@gmail.com`}</Text>
         </View>
         <Pressable
-          onPress={() => navigation.navigate('CumulativePoints')}
+          onPress={() => commonRoot.navigate(router.CUMULATIVE_POINT)}
           style={style.accumulatedpoints}>
           <Text style={style.accumulatedpointsText}>Điểm tích lũy : 1200</Text>
         </Pressable>
@@ -66,10 +66,12 @@ const ProfileScreen = ({navigation}) => {
           contentContainerStyle={style.containerMenuAccount}>
           <View style={style.ordersTitle}>
             <Text style={style.orders}>Đơn hàng</Text>
-            <View style={style.seeAll}>
+            <Pressable
+              onPress={() => bottomRoot.navigate(router.LOGIN_SCREEN)}
+              style={style.seeAll}>
               <Text style={style.seeAllText}>Xem tất cả</Text>
-              <Image source={icon.icon_arrow} />
-            </View>
+              <Icon name="arrowright" size={12} />
+            </Pressable>
           </View>
           <View style={{flex: 1, top: 26}}>
             <ScrollView
@@ -124,9 +126,9 @@ const ProfileScreen = ({navigation}) => {
               </View>
             </Pressable>
             <View style={[style.seperator2]} />
-            {/* // */}
+
             <Pressable
-              onPress={() => navigation.navigate('ProductsSeen')}
+              onPress={() => commonRoot.navigate(router.PRODUCT_SEEN)}
               style={[style.menuAccountTitle]}>
               <View style={style.iconTextMenuAccount}>
                 <Image style={style.iconMenuAccount} source={icon.icon_seen} />
@@ -142,13 +144,9 @@ const ProfileScreen = ({navigation}) => {
               </View>
             </Pressable>
             <View style={[style.seperator2]} />
-            {/* // */}
+
             <Pressable
-              onPress={() =>
-                navigation.navigate('ProductsFavorite', {
-                  routeName: 'ProductsFavorite',
-                })
-              }
+              onPress={() => commonRoot.navigate(router.PRODUCT_FAVORITE)}
               style={[style.menuAccountTitle]}>
               <View style={style.iconTextMenuAccount}>
                 <Image style={style.iconMenuAccount} source={icon.icon_heart} />
@@ -164,11 +162,9 @@ const ProfileScreen = ({navigation}) => {
               </View>
             </Pressable>
             <View style={[style.seperator2]} />
-            {/* // */}
+
             <Pressable
-              onPress={() =>
-                navigation.navigate('ProductsSave', {routeName: 'ProductsSave'})
-              }
+              onPress={() => commonRoot.navigate(router.PRODUCT_SAVE)}
               style={[style.menuAccountTitle]}>
               <View style={style.iconTextMenuAccount}>
                 <Image
@@ -187,9 +183,9 @@ const ProfileScreen = ({navigation}) => {
               </View>
             </Pressable>
             <View style={[style.seperator2]} />
-            {/* // */}
+
             <Pressable
-              onPress={() => navigation.navigate('AddressSaved')}
+              onPress={() => commonRoot.navigate(router.ADDRESS)}
               style={[style.menuAccountTitle]}>
               <View style={style.iconTextMenuAccount}>
                 <Image
@@ -208,9 +204,9 @@ const ProfileScreen = ({navigation}) => {
               </View>
             </Pressable>
             <View style={[style.seperator2]} />
-            {/* // */}
+
             <Pressable
-              onPress={() => navigation.navigate('Contract')}
+              onPress={() => commonRoot.navigate(router.CONTRACT)}
               style={[style.menuAccountTitle]}>
               <View style={style.iconTextMenuAccount}>
                 <Image
@@ -227,9 +223,9 @@ const ProfileScreen = ({navigation}) => {
               </View>
             </Pressable>
             <View style={[style.seperator2]} />
-            {/* // */}
+
             <Pressable
-              onPress={() => navigation.navigate('Debt')}
+              onPress={() => commonRoot.navigate(router.DEBT)}
               style={[style.menuAccountTitle]}>
               <View style={style.iconTextMenuAccount}>
                 <Image style={style.iconMenuAccount} source={icon.icon_debt} />
@@ -243,9 +239,9 @@ const ProfileScreen = ({navigation}) => {
               </View>
             </Pressable>
             <View style={[style.seperator2]} />
-            {/* // */}
+
             <Pressable
-              onPress={() => navigation.navigate('Setting')}
+              onPress={() => commonRoot.navigate(router.SETTING)}
               style={[style.menuAccountTitle]}>
               <View style={style.iconTextMenuAccount}>
                 <Image
@@ -262,9 +258,9 @@ const ProfileScreen = ({navigation}) => {
               </View>
             </Pressable>
             <View style={[style.seperator2]} />
-            {/* // */}
+
             <Pressable
-              onPress={() => navigation.navigate('CenterHelp')}
+              onPress={() => commonRoot.navigate(router.HELP)}
               style={[style.menuAccountTitle]}>
               <View style={style.iconTextMenuAccount}>
                 <Image
@@ -323,7 +319,6 @@ const ProfileScreen = ({navigation}) => {
           </Pressable>
         </ScrollView>
       </View>
-      {/* </ScrollView> */}
     </View>
   );
 };
@@ -334,11 +329,6 @@ const style = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
   },
-  avatar: {
-    width: 90,
-    height: 90,
-    top: 8,
-  },
   usernameText: {
     width: 150,
     height: 21,
@@ -348,7 +338,6 @@ const style = StyleSheet.create({
     textAlign: 'center',
   },
   emailText: {
-    // width: 168,
     height: 17,
     color: '#ffffff',
     fontSize: 13,
@@ -367,7 +356,6 @@ const style = StyleSheet.create({
     justifyContent: 'center',
   },
   accumulatedpointsText: {
-    width: 144,
     height: 21,
     fontSize: 16,
     fontFamily: 'Be Vietnam Pro',
@@ -489,11 +477,6 @@ const style = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#F3F7FC',
     left: 12,
-  },
-  editContainer: {
-    width: 35,
-    height: 35,
-    top: 0,
   },
   iconEditContainer: {
     width: 18.27,

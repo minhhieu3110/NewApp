@@ -28,6 +28,56 @@ export default function CommonContainer() {
         name={router.INFO_USER}
         component={common[router.INFO_USER]}
       />
+      <CommonStack.Screen
+        name={router.PRODUCT_SEEN}
+        component={common[router.PRODUCT_SEEN]}
+      />
+      <CommonStack.Screen
+        name={router.PRODUCT_FAVORITE}
+        component={common[router.PRODUCT_FAVORITE]}
+      />
+      <CommonStack.Screen
+        name={router.PRODUCT_SAVE}
+        component={common[router.PRODUCT_SAVE]}
+      />
+      <CommonStack.Screen
+        name={router.ADDRESS}
+        component={common[router.ADDRESS]}
+      />
+      <CommonStack.Screen
+        name={router.CUMULATIVE_POINT}
+        component={common[router.CUMULATIVE_POINT]}
+      />
+      <CommonStack.Screen
+        name={router.VOUCHER_EXCHANGE}
+        component={common[router.VOUCHER_EXCHANGE]}
+      />
+      <CommonStack.Screen
+        name={router.DETAIL_VOUCHER}
+        component={common[router.DETAIL_VOUCHER]}
+      />
+      <CommonStack.Screen name={router.HELP} component={common[router.HELP]} />
+      <CommonStack.Screen
+        name={router.CONTRACT}
+        component={common[router.CONTRACT]}
+      />
+      <CommonStack.Screen name={router.DEBT} component={common[router.DEBT]} />
+      <CommonStack.Screen
+        name={router.SETTING}
+        component={common[router.SETTING]}
+      />
+      <CommonStack.Screen
+        name={router.HELPWITHEMAIL}
+        component={common[router.HELPWITHEMAIL]}
+      />
+      <CommonStack.Screen
+        name={router.VIDEO}
+        component={common[router.VIDEO]}
+      />
+      <CommonStack.Screen
+        name={router.CATALOGUE}
+        component={common[router.CATALOGUE]}
+      />
     </CommonStack.Navigator>
   );
 }

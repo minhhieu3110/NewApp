@@ -12,6 +12,7 @@ import {
   Modal,
   TouchableOpacity,
   useWindowDimensions,
+  SafeAreaView,
 } from 'react-native';
 import {icon} from '@assets';
 import {useState, useEffect, useCallback} from 'react';

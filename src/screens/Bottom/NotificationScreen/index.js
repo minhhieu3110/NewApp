@@ -8,10 +8,11 @@ import {
   TextInput,
   ScrollView,
   Modal,
+  Dimensions,
+  SafeAreaView,
 } from 'react-native';
 import {icon, image} from '@assets';
 import {useState, useEffect} from 'react';
-import axios from 'axios';
 export default function NotificationScreen({navigation}) {
   const [dataNotification, setDataNotification] = useState([
     {
@@ -107,22 +108,6 @@ export default function NotificationScreen({navigation}) {
   const [detailNotification, setDetailNotification] = useState([
     {id: '', title: '', short: '', content: '', typeof: '', time: ''},
   ]);
-  //   useEffect(() => {
-  //     axios.get('http://rpm.demo.app24h.net:81/api/v1/notification').then(res => {
-  //       const notification = res.data.data;
-  //       console.log(notification);
-  //       setDataNotification(
-  //         notification.map(item => ({
-  //           id: item.id,
-  //           title: item.title,
-  //           short: item.short,
-  //           content: item.content,
-  //           typeof: item.type_of,
-  //           picture: item.picture,
-  //         })),
-  //       );
-  //     });
-  //   }, []);
   const handlerDetailNotification = id => {
     const detailNotification = dataNotification.find(item => item.id === id);
     setDetailNotification([
@@ -146,9 +131,13 @@ export default function NotificationScreen({navigation}) {
           <Text style={style.textTitle}>Thông báo</Text>
         </View>
       </View>
-      <View style={{top: 66, flex: 1}}>
+      <View style={{top: 12, flex: 1}}>
         <ScrollView
-          contentContainerStyle={{width: 412, paddingBottom: 1500, rowGap: 12}}
+          contentContainerStyle={{
+            width: width,
+            paddingBottom: 1500,
+            rowGap: 12,
+          }}
           showsVerticalScrollIndicator={false}>
           {dataNotification.map(item => (
             <>
@@ -156,7 +145,7 @@ export default function NotificationScreen({navigation}) {
                 onPress={() => handlerDetailNotification(item.id)}
                 key={item.id}
                 style={{
-                  width: 395,
+                  width: width - 24,
                   height: 90,
                   left: 12,
                   flexDirection: 'row',
@@ -207,6 +196,8 @@ export default function NotificationScreen({navigation}) {
                       }}></View>
                   </View>
                   <Text
+                    numberOfLines={2}
+                    ellipsizeMode="tail"
                     style={{
                       height: 39,
                       fontSize: 14,
@@ -220,7 +211,7 @@ export default function NotificationScreen({navigation}) {
               </Pressable>
               <View
                 style={{
-                  width: 395,
+                  width: width - 24,
                   height: 1,
                   backgroundColor: '#f1f1f1',
                 }}></View>
@@ -229,7 +220,7 @@ export default function NotificationScreen({navigation}) {
         </ScrollView>
       </View>
       <Modal visible={modalVisibleNotificationDetail}>
-        <View style={style.container}>
+        <SafeAreaView style={style.container}>
           <View style={style.titleContainer}>
             <Pressable
               style={style.title}
@@ -239,7 +230,7 @@ export default function NotificationScreen({navigation}) {
             </Pressable>
           </View>
           {detailNotification.map(item => (
-            <View style={{flex: 1, top: 66, left: 12}} key={item.id}>
+            <View style={{flex: 1, top: 12, left: 12}} key={item.id}>
               <Text
                 style={{
                   height: 21,
@@ -276,22 +267,20 @@ export default function NotificationScreen({navigation}) {
               </Text>
             </View>
           ))}
-        </View>
+        </SafeAreaView>
       </Modal>
     </View>
   );
 }
+const {width, height} = Dimensions.get('screen');
 const style = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#F3F7FC',
   },
   titleContainer: {
-    width: 412,
+    width: width,
     height: 54,
-    position: 'absolute',
-    top: 0,
-    left: 0,
     backgroundColor: '#0060AF',
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,

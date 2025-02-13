@@ -9,6 +9,9 @@ import {
 } from 'react-native';
 import {icon} from '@assets';
 import {useState, useEffect} from 'react';
+import {root} from 'navigation/navigationRef';
+import Switch from 'components/base/Switch';
+import {useSharedValue} from 'react-native-reanimated';
 export default function Setting({navigation}) {
   const [offNotification, setOffNotification] = useState(
     `${icon.icon_set_default_on}`,
@@ -71,13 +74,14 @@ export default function Setting({navigation}) {
       return newStatus;
     });
   };
-
+  const isOn = useSharedValue(false);
+  const offNotificatin = () => {
+    isOn.value = !isOn.value;
+  };
   return (
     <View style={style.container}>
       <View style={style.titleContainer}>
-        <Pressable
-          style={style.title}
-          onPress={() => navigation.navigate('Account')}>
+        <Pressable style={style.title} onPress={() => root.goBack()}>
           <Image source={icon.icon_arrow_left} />
           <Text style={style.textTitle}>Cài đặt</Text>
         </Pressable>
@@ -91,6 +95,12 @@ export default function Setting({navigation}) {
           <Pressable onPress={handlerOffNotification} style={style.interactive}>
             <Image source={offNotification} />
           </Pressable>
+          {/* <Switch
+            style={style.interactive}
+            trackColors={{on: '#00C707', off: '#fff'}}
+            value={isOn}
+            onPress={offNotificatin}
+          /> */}
         </View>
         <Pressable
           onPress={handlerHiddenLanguage}

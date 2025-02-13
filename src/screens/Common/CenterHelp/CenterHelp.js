@@ -8,13 +8,13 @@ import {
   Dimensions,
 } from 'react-native';
 import {icon} from '@assets';
+import {commonRoot, root} from 'navigation/navigationRef';
+import router from '@router';
 export default function CenterHelp({navigation}) {
   return (
     <View style={style.container}>
       <View style={style.titleContainer}>
-        <Pressable
-          style={style.title}
-          onPress={() => navigation.navigate('Account')}>
+        <Pressable style={style.title} onPress={() => root.goBack()}>
           <Image source={icon.icon_arrow_left} />
           <Text style={style.textTitle}>Trung tâm hỗ trợ</Text>
         </Pressable>
@@ -37,7 +37,7 @@ export default function CenterHelp({navigation}) {
           </Text>
         </View>
         <Pressable
-          onPress={() => navigation.navigate('HelpWithEmail')}
+          onPress={() => commonRoot.navigate(router.HELPWITHEMAIL)}
           style={style.itemHelp}>
           <View style={style.leftItemHelp}>
             <Image source={icon.icon_help_with_email} />

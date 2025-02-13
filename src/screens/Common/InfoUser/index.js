@@ -10,7 +10,7 @@ import {
   Dimensions,
 } from 'react-native';
 import {icon, image} from '@assets';
-import {bottomRoot} from 'navigation/navigationRef';
+import {bottomRoot, root} from 'navigation/navigationRef';
 import router from '@router';
 const InfoUser = () => {
   return (
@@ -18,7 +18,7 @@ const InfoUser = () => {
       <View style={style.titleContainer}>
         <Pressable
           style={style.titleInfoAccount}
-          onPress={() => bottomRoot.navigate(router.PROFILE_SCREEN)}>
+          onPress={() => root.goBack()}>
           <View style={style.iconTitleInfoAccount}>
             <Image
               source={icon.icon_arrow_left}

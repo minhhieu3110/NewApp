@@ -14,7 +14,7 @@ import {
 } from 'react-native';
 import {icon, image} from '@assets';
 import {formatCurrency} from 'utils/formatCurrency';
-import {root} from 'navigation/navigationRef';
+import {bottomRoot, commonRoot, root} from 'navigation/navigationRef';
 import router from '@router';
 import {useDispatch, useSelector} from 'react-redux';
 import actions from 'redux/actions';
@@ -735,7 +735,7 @@ export default function Pay({route, item_id}) {
               <View style={style.titleOrderSummary}>
                 <Text style={style.leftTitleOrderSummary}>Phí vận chuyển</Text>
                 <Text style={style.rightTitleOrderSummary}>
-                  -{formatCurrency(feeShipping)}
+                  {formatCurrency(feeShipping)}
                 </Text>
               </View>
               <View style={style.titleOrderSummary}>
@@ -1368,7 +1368,7 @@ export default function Pay({route, item_id}) {
                       columnGap: 10,
                     }}>
                     <Pressable
-                      onPress={() => navigation.navigate('Home')}
+                      onPress={() => bottomRoot.navigate(router.HOME_SCREEN)}
                       style={[
                         style.btnPopupOrderSuccess,
                         {backgroundColor: '#E0F3FF'},
@@ -1383,7 +1383,7 @@ export default function Pay({route, item_id}) {
                     </Pressable>
                     <Pressable
                       onPress={() =>
-                        navigation.navigate('OrderDetails', {flag: 1})
+                        commonRoot.navigate(router.ORDER_DETAIL, {flag: 1})
                       }
                       style={[
                         style.btnPopupOrderSuccess,

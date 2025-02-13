@@ -3305,6 +3305,7 @@ __metadata:
     jest: ^29.6.3
     lottie-react-native: ^7.1.0
     numbro: ^2.5.0
+    pod-install: ^0.3.4
     prettier: 2.8.8
     react: 18.3.1
     react-hook-form: ^7.54.1
@@ -8481,6 +8482,15 @@ __metadata:
   dependencies:
     find-up: ^3.0.0
   checksum: 5bac346b7c7c903613c057ae3ab722f320716199d753f4a7d053d38f2b5955460f3e6ab73b4762c62fd3e947f58e04f1343e92089e7bb6091c90877406fcd8c8
+  languageName: node
+  linkType: hard
+
+"pod-install@npm:^0.3.4":
+  version: 0.3.4
+  resolution: "pod-install@npm:0.3.4"
+  bin:
+    pod-install: build/index.js
+  checksum: 9e38643fc0a505ef54dead0f5864cdb1f7d186bd4208339adf5bba2a57fa24617dcf82344bb62603473ac08b3f0ef2a216d5660aa4d0af0b08e8f617d5384f77
   languageName: node
   linkType: hard
 
