@@ -20,6 +20,8 @@ import axios from 'axios';
 import {useDispatch, useSelector} from 'react-redux';
 import actions from 'redux/actions';
 import {root} from 'navigation/navigationRef';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 export default function Catalogue() {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -28,49 +30,32 @@ export default function Catalogue() {
     });
   }, []);
   const catalogue = useSelector(state => state.getGroupCatalogue?.data || []);
-  const [detailCatalogue, setDetailCatalogue] = useState([
-    {item_id: '', group_id: '', title: '', picture: '', file: ''},
-  ]);
-  const [visibleModalCatalogue, setVisibleModalCatalogue] = useState(false);
-  const getDetailCatalogue = group_id => {
-    axios
-      .get(
-        'http://rpm.demo.app24h.net:81/api/v1/catalogue/?group_id=' + group_id,
-      )
-      .then(res => {
-        const detailCata = res.data.data;
-        setDetailCatalogue(
-          detailCata.map(item => ({
-            item_id: item.id,
-            group_id: item.group_id,
-            title: item.title,
-            picture: item.picture,
-            file: item.file,
-          })),
-        );
-      }, []);
-  };
   const handlerCatalogue = group_id => {
-    // setVisibleModalCatalogue(!visibleModalCatalogue);
-    console.log(group_id);
-    // getDetailCatalogue(group_id);
+    dispatch({
+      type: actions.GET_LIST_CATALOGUE,
+      params: group_id,
+    });
+    setVisibleModalCatalogue(!visibleModalCatalogue);
   };
-  console.log(detailCatalogue);
-  console.log('catalogue');
+  const [detailCatalogue, setDetailCatalogue] = useState([]);
+  const dataCatalogue = useSelector(
+    state => state.getCatalogueList?.data || [],
+  );
+  console.log('datacatalogue');
+  console.log(dataCatalogue);
 
-  console.log(catalogue);
-
+  const [visibleModalCatalogue, setVisibleModalCatalogue] = useState(false);
   return (
     <View style={{flex: 1}}>
+      <View style={style.titleContainer}>
+        <Pressable style={style.title} onPress={() => root.goBack()}>
+          <Image source={icon.icon_arrow_left} />
+          <Text style={style.textTitle}>Catalogue </Text>
+        </Pressable>
+      </View>
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={style.container}>
-        <View style={style.titleContainer}>
-          <Pressable style={style.title} onPress={() => root.goBack()}>
-            <Image source={icon.icon_arrow_left} />
-            <Text style={style.textTitle}>Catalogue </Text>
-          </Pressable>
-        </View>
         <View
           style={{
             width: width - 24,
@@ -79,115 +64,121 @@ export default function Catalogue() {
             rowGap: 12,
           }}>
           {catalogue.map(item => (
-            <View
+            <Pressable
+              onPress={() => handlerCatalogue(item.group_id)}
               style={{
                 width: width - 24,
                 height: 204,
                 borderRadius: 10,
                 alignItems: 'center',
               }}>
-              <ImageBackground
+              <Image
                 source={{uri: item.picture}}
                 style={{
                   width: '100%',
                   height: '100%',
-                  alignItems: 'center',
+                  resizeMode: 'cover',
                   borderRadius: 10,
-                }}>
-                <TouchableOpacity
-                  activeOpacity={1}
+                }}
+              />
+              <LinearGradient
+                style={{
+                  width: width - 24,
+                  height: 204,
+                  position: 'absolute',
+                  bottom: 0,
+                  alignItems: 'center',
+                }}
+                colors={[
+                  'rgba(255, 255, 255, 0.5)',
+                  'rgba(0, 0, 0, 0.55)',
+                  'rgba(0, 0, 0, 0.85)',
+                ]}>
+                <Text
                   style={{
-                    flex: 1,
-                    backgroundColor: 'rgba(0, 0, 0, 0.6)',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}
-                  onPress={() => handlerCatalogue(item.group_id)}>
-                  <Text
-                    style={{
-                      fontSize: 18,
-                      fontWeight: 'semibold',
-                      position: 'absolute',
-                      top: 145,
-                      textTransform: 'uppercase',
-                      color: '#fff',
-                    }}>
-                    {item.title}
-                  </Text>
-                  <Text
-                    style={{
-                      width: width - 95,
-                      position: 'absolute',
-                      top: 165,
-                      color: '#fff',
-                      fontSize: 15,
-                      fontWeight: 'regular',
-                      textAlign: 'center',
-                    }}>
-                    {item.short}
-                  </Text>
-                </TouchableOpacity>
-              </ImageBackground>
-            </View>
+                    fontSize: 18,
+                    fontWeight: 'semibold',
+                    color: '#fff',
+                    textTransform: 'uppercase',
+                    position: 'absolute',
+                    bottom: 65,
+                  }}>
+                  {item.title}
+                </Text>
+                <Text
+                  style={{
+                    fontSize: 15,
+                    fontWeight: 'regular',
+                    color: '#fff',
+                    textAlign: 'center',
+                    position: 'absolute',
+                    bottom: 19,
+                    width: width - 94,
+                  }}>
+                  {item.short}
+                </Text>
+              </LinearGradient>
+            </Pressable>
           ))}
         </View>
       </ScrollView>
       <Modal visible={visibleModalCatalogue} animationType="fade">
-        <View style={{flex: 1}}>
-          <ScrollView
-            showsVerticalScrollIndicator={false}
-            contentContainerStyle={[
-              style.container,
-              {backgroundColor: '#fff'},
-            ]}>
-            <View style={style.titleContainer}>
-              <Pressable style={style.title} onPress={handlerCatalogue}>
-                <Image source={icon.icon_arrow_left} />
-                <Text style={style.textTitle}>Catalogue sản phẩm</Text>
-              </Pressable>
-            </View>
-            <View style={{width: width - 24, top: 11, left: 12, rowGap: 20.1}}>
-              {detailCatalogue.map((item, index) => (
-                <View
-                  style={{width: width - 24, height: 255.68, rowGap: 8.1}}
-                  key={index}>
-                  <Image
-                    source={{uri: item.picture}}
-                    style={{width: '100%', height: '100%'}}
-                  />
-                  <View
-                    style={{
-                      height: 35,
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                    }}>
-                    <View
-                      style={{
-                        width: 144.22,
-                        height: 24.5,
-                        columnGap: 12,
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                      }}>
-                      <Image source={icon.icon_pdf} />
-                      <Text
-                        style={{
-                          fontSize: 18,
-                          fontWeight: 'semibold',
-                          color: '#212121',
-                        }}>
-                        {item.title}
-                      </Text>
-                    </View>
-                    <View style={{right: 0, position: 'absolute'}}>
-                      <Image source={icon.icon_download} />
-                    </View>
-                  </View>
-                </View>
-              ))}
-            </View>
-          </ScrollView>
+        <View style={style.titleContainer}>
+          <Pressable
+            style={style.title}
+            onPress={() => setVisibleModalCatalogue(!visibleModalCatalogue)}>
+            <Image source={icon.icon_arrow_left} />
+            <Text style={style.textTitle}>Catalogue sản phẩm</Text>
+          </Pressable>
         </View>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={[style.container, {backgroundColor: '#fff'}]}>
+          <View
+            style={{
+              width: width - 24,
+              top: 11,
+              left: 12,
+              rowGap: 12,
+            }}>
+            {dataCatalogue.map(item => (
+              <Pressable
+                style={{
+                  width: width - 24,
+                  height: 270,
+                  borderRadius: 10,
+                  rowGap: 14,
+                }}>
+                <Image
+                  source={{uri: item.picture}}
+                  style={{
+                    width: width - 24,
+                    height: 226.86,
+                    borderRadius: 10,
+                  }}
+                />
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                  }}>
+                  <View style={{flexDirection: 'row', columnGap: 12}}>
+                    <Image source={icon.icon_pdf} />
+                    <Text
+                      style={{
+                        fontSize: 18,
+                        fontWeight: 'semibold',
+                        color: '#000',
+                      }}>
+                      {item.title}
+                    </Text>
+                  </View>
+                  <Icon name="download" size={30} />
+                </View>
+              </Pressable>
+            ))}
+          </View>
+        </ScrollView>
       </Modal>
     </View>
   );

@@ -16,9 +16,9 @@ export const getGroupCategoryProduct = (...props) => {
 export const getDetailProductGroup = (...props) => {
   return reducerDefault(...props, actions.GET_DETAIL_CATEGORY);
 };
-// export const getProductFilters = (...props) => {
-//   return reducerDefault(...props, actions.GET_PRODUCT_FILTERS);
-// };
+export const getProductFilters = (...props) => {
+  return reducerDefault(...props, actions.GET_PRODUCT_FILTERS);
+};
 // export const getProductForYou = (...props) => {
 //   return reducerLoadMore(...props, actions.GET_PRODUCT_FOR_YOU);
 // };

@@ -59,9 +59,25 @@ function* getProductRelated(action) {
     yield put({type: _onFail(action.type), isLoading: false});
   }
 }
+function* getProductFilter(action) {
+  try {
+    const {group_id} = action.params;
+    const res = yield api.get(URL_API.product.product, {
+      filter: {group_id: group_id},
+    });
+    yield put({
+      type: _onSuccess(action.type),
+      data: res.data,
+    });
+  } catch (error) {
+    action._onFail?.(error);
+    yield put({type: _onFail(action.type), isLoading: false});
+  }
+}
 export function* watchProductSagas() {
   yield takeLatest(actions.GET_PRODUCT_LIST, getProduct);
   yield takeLatest(actions.GET_PRODUCT_BEST_SELLER, getProductBestSeller);
   yield takeLatest(actions.GET_DETAIL_PRODUCT, getProductDetail);
   yield takeLatest(actions.GET_PRODUCT_RELATED, getProductRelated);
+  yield takeLatest(actions.GET_PRODUCT_FILTERS, getProductFilter);
 }

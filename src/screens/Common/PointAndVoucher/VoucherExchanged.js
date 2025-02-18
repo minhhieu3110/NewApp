@@ -10,7 +10,8 @@ import {
   Dimensions,
 } from 'react-native';
 import {icon} from '@assets';
-import {root} from 'navigation/navigationRef';
+import {commonRoot, root} from 'navigation/navigationRef';
+import router from '@router';
 export default function VoucherRedeemed({navigation}) {
   return (
     <View style={style.container}>
@@ -30,7 +31,7 @@ export default function VoucherRedeemed({navigation}) {
             paddingBottom: 500,
           }}>
           <Pressable
-            onPress={() => navigation.navigate('DetailVoucher')}
+            onPress={() => commonRoot.navigate(router.DETAIL_VOUCHER)}
             style={{
               width: width - 24,
               height: 121,
@@ -123,7 +124,7 @@ export default function VoucherRedeemed({navigation}) {
             </View>
           </Pressable>
           <Pressable
-            onPress={() => navigation.navigate('DetailVoucher')}
+            onPress={() => commonRoot.navigate(router.DETAIL_VOUCHER)}
             style={{
               width: 395,
               height: 121,
@@ -217,7 +218,7 @@ export default function VoucherRedeemed({navigation}) {
           </Pressable>
           <Pressable
             disabled={true}
-            onPress={() => navigation.navigate('DetailVoucher')}
+            onPress={() => commonRoot.navigate(router.DETAIL_VOUCHER)}
             style={{
               width: 395,
               height: 121,

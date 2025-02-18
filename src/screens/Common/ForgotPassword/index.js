@@ -9,13 +9,15 @@ import {
   Dimensions,
 } from 'react-native';
 import {icon} from '@assets';
+import {commonRoot} from 'navigation/navigationRef';
+import router from '@router';
 const ForgotPassword = ({navigation}) => {
   return (
     <View style={style.container}>
       <View style={style.titleContainer}>
         <Pressable
           style={style.titleAddressSaved}
-          onPress={() => navigation.navigate('ChangePassword')}>
+          onPress={() => commonRoot.navigate(router.CHANGE_PASSWORD)}>
           <Image source={icon.icon_arrow_left} />
           <Text style={style.textTitleAddressSaved}>Đổi mật khẩu</Text>
         </Pressable>

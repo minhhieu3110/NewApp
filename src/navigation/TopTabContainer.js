@@ -1,53 +1,47 @@
+import React from 'react';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import router from '@router';
 import {top} from 'screens/Bottom/OrderScreen/top';
+
+const Tab = createMaterialTopTabNavigator();
+
+const screenOptions = {
+  tabBarLabelStyle: {
+    fontSize: 16,
+    fontWeight: 'semibold',
+    color: 'white',
+  },
+  tabBarItemStyle: {width: 100},
+  tabBarIndicatorContainerStyle: {
+    backgroundColor: '#0060af',
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
+  },
+  tabBarIndicatorStyle: {backgroundColor: '#FEC007', bottom: 5},
+  tabBarActiveTintColor: '#fff',
+  tabBarBounces: true,
+};
+
+const tabs = [
+  {name: router.ALL_ORDER, label: 'Tất cả'},
+  {name: router.WAIT_CONFIRM_ORDER, label: 'Chờ xác nhận'},
+  {name: router.WAIT_GET_ORDER, label: 'Chờ lấy hàng'},
+  {name: router.PROCESSING_ORDER, label: 'Đang giao'},
+  {name: router.COMPLETE_ORDER, label: 'Đã giao'},
+  {name: router.CANCEL_ORDER, label: 'Đã hủy'},
+];
+
 export default function TopTabContainer() {
-  const Tab = createMaterialTopTabNavigator();
   return (
-    <Tab.Navigator
-      screenOptions={{
-        tabBarLabelStyle: {fontSize: 16, fontWeight: 'semibold'},
-        tabBarItemStyle: {width: 100},
-        tabBarIndicatorContainerStyle: {
-          backgroundColor: '#0060af',
-          borderBottomLeftRadius: 10,
-          borderBottomRightRadius: 10,
-        },
-        tabBarIndicatorStyle: {backgroundColor: '#FEC007', bottom: 5},
-        tabBarActiveTintColor: '#fff',
-        tabBarBounces: true,
-      }}>
-      <Tab.Screen
-        name={router.ALL_ORDER}
-        component={top[router.ALL_ORDER]}
-        options={{tabBarLabel: 'Tất cả'}}
-      />
-      <Tab.Screen
-        name={router.WAIT_CONFIRM_ORDER}
-        component={top[router.WAIT_CONFIRM_ORDER]}
-        flag={1}
-        options={{tabBarLabel: 'Chờ xác nhận'}}
-      />
-      <Tab.Screen
-        name={router.WAIT_GET_ORDER}
-        component={top[router.WAIT_GET_ORDER]}
-        options={{tabBarLabel: 'Chờ lấy hàng'}}
-      />
-      <Tab.Screen
-        name={router.PROCESSING_ORDER}
-        component={top[router.PROCESSING_ORDER]}
-        options={{tabBarLabel: 'Đang giao'}}
-      />
-      <Tab.Screen
-        name={router.COMPLETE_ORDER}
-        component={top[router.COMPLETE_ORDER]}
-        options={{tabBarLabel: 'Đã giao'}}
-      />
-      <Tab.Screen
-        name={router.CANCEL_ORDER}
-        component={top[router.CANCEL_ORDER]}
-        options={{tabBarLabel: 'Đã hủy'}}
-      />
+    <Tab.Navigator screenOptions={screenOptions}>
+      {tabs.map(tab => (
+        <Tab.Screen
+          key={tab.name}
+          name={tab.name}
+          component={top[tab.name]}
+          options={{tabBarLabel: tab.label}}
+        />
+      ))}
     </Tab.Navigator>
   );
 }

@@ -12,8 +12,7 @@ import {
 } from 'react-native';
 import {image, icon} from '@assets';
 import Carousel from 'react-native-reanimated-carousel';
-import {useState, useEffect} from 'react';
-import axios from 'axios';
+import {useEffect} from 'react';
 import Video from 'react-native-video';
 import {formatNumber, formatCurrency, ConvertTimeStamp} from 'utils';
 import {commonRoot} from 'navigation/navigationRef';
@@ -21,7 +20,7 @@ import router from '@router';
 import {useDispatch, useSelector} from 'react-redux';
 import actions from 'redux/actions';
 import Icon from 'react-native-vector-icons/Ionicons';
-export default function Home({navigation}) {
+export default function Home() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch({
@@ -180,7 +179,7 @@ export default function Home({navigation}) {
                 </Text>
               </View>
               <Pressable
-                onPress={() => navigation.navigate('AboutCompany')}
+                onPress={() => commonRoot.navigate(router.ABOUT_COMPANY)}
                 style={{
                   width: 92,
                   height: 16,
@@ -242,6 +241,7 @@ export default function Home({navigation}) {
                 left: 12,
                 flexDirection: 'row',
                 gap: 135,
+                justifyContent: 'space-between',
               }}>
               <Image source={icon.icon_text_best_seller} />
               <View

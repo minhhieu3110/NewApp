@@ -10,7 +10,7 @@ import {
 import {icon} from '@assets';
 import {commonRoot, root} from 'navigation/navigationRef';
 import router from '@router';
-export default function CenterHelp({navigation}) {
+export default function CenterHelp() {
   return (
     <View style={style.container}>
       <View style={style.titleContainer}>

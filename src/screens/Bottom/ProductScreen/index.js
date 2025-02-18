@@ -21,13 +21,14 @@ import {useToast} from 'react-native-toast-notifications';
 import {formatCurrency} from 'utils';
 import actions from 'redux/actions';
 import {useDispatch, useSelector} from 'react-redux';
+import {commonRoot} from 'navigation/navigationRef';
+import router from '@router';
 export default function ProductScreen() {
   const toast = useToast();
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch({
       type: actions.GET_PRODUCT_LIST,
-      // total: children.reduce((total, child) => total + child.product.length, 0),
     });
   }, []);
   const dataProducts = useSelector(state => state.getProductsList?.data || []);
@@ -115,36 +116,43 @@ export default function ProductScreen() {
       friendly_link: '',
     },
   ]);
-  const getFillterProducts = async () => {
-    const response = await axios.get(
-      'http://rpm.demo.app24h.net:81/api/v1/product?filter[group_id]=' +
-        groupId,
-    );
-    const data = response.data.data;
-    const title = data[0].group.title;
-    // console.log(title);
-    setTitleResultFillter(title);
-    console.log(titleResultFillter);
-    const dataFillter = data.map(item => {
-      return {
-        id: item.id,
-        title: item.title,
-        price: item.price,
-        price_sale: item.price_sale,
-        picture: item.picture,
-        num_sold: item.num_sold,
-        num_view: item.num_view,
-        friendly_link: item.friendly_link,
-      };
-    });
-    setResultFillter(dataFillter);
+  const getFillterProducts = async group_id => {
+    // const response = await axios.get(
+    //   'http://rpm.demo.app24h.net:81/api/v1/product?filter[group_id]=' +
+    //     groupId,
+    // );
+    // const data = response.data.data;
+    // const title = data[0].group.title;
+    // // console.log(title);
+    // setTitleResultFillter(title);
+    // console.log(titleResultFillter);
+    // const dataFillter = data.map(item => {
+    //   return {
+    //     id: item.id,
+    //     title: item.title,
+    //     price: item.price,
+    //     price_sale: item.price_sale,
+    //     picture: item.picture,
+    //     num_sold: item.num_sold,
+    //     num_view: item.num_view,
+    //     friendly_link: item.friendly_link,
+    //   };
+    // });
+    // setResultFillter(dataFillter);
   };
   const saveFillterCategory = group_id => {
-    getFillterProducts();
+    dispatch({
+      type: actions.GET_PRODUCT_FILTERS,
+      params: {group_id: group_id},
+    });
     setTitleResultFillter;
     setVisibleModalCategory(!visibleModalCategory);
     setShowCategory(true);
   };
+  const dataFillter = useSelector(state => state.getProductFilters?.data || []);
+  console.log('dataFillter');
+  console.log(dataFillter);
+
   const [titlePriceRange, setTitlePriceRange] = useState('');
   const evaluateProduct = [
     {
@@ -367,7 +375,15 @@ export default function ProductScreen() {
               {dataProducts.map(item =>
                 item.children.map(child =>
                   child.product.map(product => (
-                    <Pressable style={style.itemContainer} key={product.id}>
+                    <Pressable
+                      style={style.itemContainer}
+                      key={product.id}
+                      onPress={() =>
+                        commonRoot.navigate(router.PRODUCT_DETAIL, {
+                          item_id: product.item_id,
+                          group_id: product.group_id,
+                        })
+                      }>
                       <View style={style.imgItem}>
                         {product.percent_discount !== 0 && (
                           <View style={style.percentDiscounts}>
@@ -452,7 +468,13 @@ export default function ProductScreen() {
               {dataProducts.map(item =>
                 item.children.map(child =>
                   child.product.map(product => (
-                    <View
+                    <Pressable
+                      onPress={() =>
+                        commonRoot.navigate(router.PRODUCT_DETAIL, {
+                          item_id: product.item_id,
+                          group_id: product.group_id,
+                        })
+                      }
                       style={{
                         width: (width - 24) / 2 - 6,
                         height: 349.14,
@@ -522,7 +544,7 @@ export default function ProductScreen() {
                           </Text>
                         </View>
                       </View>
-                    </View>
+                    </Pressable>
                   )),
                 ),
               )}

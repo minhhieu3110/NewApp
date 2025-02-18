@@ -2733,6 +2733,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@react-navigation/elements@npm:^2.2.5":
+  version: 2.2.5
+  resolution: "@react-navigation/elements@npm:2.2.5"
+  dependencies:
+    color: ^4.2.3
+  peerDependencies:
+    "@react-native-masked-view/masked-view": ">= 0.2.0"
+    "@react-navigation/native": ^7.0.14
+    react: ">= 18.2.0"
+    react-native: "*"
+    react-native-safe-area-context: ">= 4.0.0"
+  peerDependenciesMeta:
+    "@react-native-masked-view/masked-view":
+      optional: true
+  checksum: 226dbf0350eb65a45cd488421a39338f321dfd44fc15ba8b37385799707446ae7563ab417ec00f6bed6caf25e5348fed7485c2ad26e48b160fa6216ef1bc5d2e
+  languageName: node
+  linkType: hard
+
 "@react-navigation/material-top-tabs@npm:^6.x":
   version: 6.6.14
   resolution: "@react-navigation/material-top-tabs@npm:6.6.14"
@@ -2786,6 +2804,23 @@ __metadata:
   dependencies:
     nanoid: ^3.1.23
   checksum: 3a3392ce095d6a2bd2aad69856f513b35774f943a3dc73d8ffb75127de6773203e3264188d87058bdea4c0c9a7d43ed28d0cbf3a1f1cdc086df3ee255d8e1e27
+  languageName: node
+  linkType: hard
+
+"@react-navigation/stack@npm:^7.1.1":
+  version: 7.1.1
+  resolution: "@react-navigation/stack@npm:7.1.1"
+  dependencies:
+    "@react-navigation/elements": ^2.2.5
+    color: ^4.2.3
+  peerDependencies:
+    "@react-navigation/native": ^7.0.14
+    react: ">= 18.2.0"
+    react-native: "*"
+    react-native-gesture-handler: ">= 2.0.0"
+    react-native-safe-area-context: ">= 4.0.0"
+    react-native-screens: ">= 4.0.0"
+  checksum: 3af39b34ad2747cce1679cb671c317ade3401bf7b184f04504c59d60bdcea8317cc0052d7636f725f045a51d171f90adba30592533f29c257f782e3b1978cbc0
   languageName: node
   linkType: hard
 
@@ -3296,6 +3331,7 @@ __metadata:
     "@react-navigation/material-top-tabs": ^6.x
     "@react-navigation/native": ^6.x
     "@react-navigation/native-stack": ^6.11.0
+    "@react-navigation/stack": ^7.1.1
     "@types/react": ^18.2.6
     "@types/react-test-renderer": ^18.0.0
     axios: ^1.7.7

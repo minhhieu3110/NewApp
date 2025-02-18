@@ -15,7 +15,7 @@ import Icon from 'react-native-vector-icons/Entypo';
 import {useState} from 'react';
 import {commonRoot, root} from 'navigation/navigationRef';
 import router from '@router';
-export default function CumulativePoints({navigation}) {
+export default function CumulativePoints() {
   return (
     <View style={style.container}>
       <View style={style.titleContainer}>

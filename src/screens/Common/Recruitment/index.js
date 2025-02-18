@@ -20,7 +20,7 @@ import DocumentPicker from 'react-native-document-picker';
 import axios from 'axios';
 import RenderHTML from 'react-native-render-html';
 import {ConvertTimeStamp} from 'utils';
-import {bottomRoot} from 'navigation/navigationRef';
+import {bottomRoot, root} from 'navigation/navigationRef';
 import router from '@router';
 import {useDispatch, useSelector} from 'react-redux';
 import actions from 'redux/actions';
@@ -71,37 +71,21 @@ export default function Recruitment() {
       date_end: [{human: '', timestamp: ''}],
     },
   ]);
-  const handlerDetailRecruitment = itemId => {
-    setVisibleModalDetailRecruitment(true);
-    const detailRecruitment = dataRecruitment.filter(
-      item => item.item_id === itemId,
-    );
-    setDetailRecruitment(
-      detailRecruitment.map(item => ({
-        id: item.id,
-        item_id: item.item_id,
-        title: item.title,
-        wage: item.wage,
-        quantity: item.quantity,
-        work: item.work,
-        rank: item.rank,
-        experience: item.experience,
-        sex: item.sex,
-        short: item.short,
-        content: item.content,
-        benefits: item.benefits,
-        apply_type: item.apply_type,
-        date_end: item.date_end,
-      })),
-    );
+  const handlerDetailRecruitment = item_id => {
+    setVisibleModalDetailRecruitment(!visbleModalDetailRecruitment);
+    dispatch({
+      type: actions.GET_RECRUITMENT_DETAIL,
+      params: {item_id: item_id},
+    });
   };
+  const recruitmentDetail = useSelector(
+    state => state.getRecruitmentDetail?.data || [],
+  );
 
   return (
     <View style={[style.container, {flex: 1}]}>
       <View style={style.titleContainer}>
-        <Pressable
-          style={style.title}
-          onPress={() => bottomRoot.navigate(router.HOME_SCREEN)}>
+        <Pressable style={style.title} onPress={() => root.goBack()}>
           <Image source={icon.icon_arrow_left} />
           <Text style={style.textTitle}>Tuyển dụng</Text>
         </Pressable>
@@ -162,15 +146,16 @@ export default function Recruitment() {
           <View style={style.titleContainer}>
             <Pressable
               style={style.title}
-              onPress={() => setVisibleModalDetailRecruitment(false)}>
+              onPress={() =>
+                setVisibleModalDetailRecruitment(!visbleModalDetailRecruitment)
+              }>
               <Image source={icon.icon_arrow_left} />
               <Text style={style.textTitle}>Chi tiết tuyển dụng</Text>
             </Pressable>
           </View>
-          {detailRecruitment.map(item => (
+          <View style={{width: width - 24, top: 11}}>
             <View>
               <Text
-                key={item.id}
                 style={{
                   fontSize: 18,
                   fontWeight: 'semibold',
@@ -179,7 +164,7 @@ export default function Recruitment() {
                   left: 12,
                   textTransform: 'uppercase',
                 }}>
-                {item.title}
+                {recruitmentDetail.title}
               </Text>
               <View style={[style.seperator, {top: 25}]} />
               <Text
@@ -200,7 +185,9 @@ export default function Recruitment() {
                   </View>
                   <View>
                     <Text style={style.titleItemInfo}>Mức lương</Text>
-                    <Text style={style.valueItemInfo}>Thỏa thuận</Text>
+                    <Text style={style.valueItemInfo}>
+                      {recruitmentDetail.wage}
+                    </Text>
                   </View>
                 </View>
                 <View style={style.itemInfo}>
@@ -209,7 +196,9 @@ export default function Recruitment() {
                   </View>
                   <View>
                     <Text style={style.titleItemInfo}>Hình thức làm việc</Text>
-                    <Text style={style.valueItemInfo}>{item.work}</Text>
+                    <Text style={style.valueItemInfo}>
+                      {recruitmentDetail.work}
+                    </Text>
                   </View>
                 </View>
                 <View style={style.itemInfo}>
@@ -218,7 +207,9 @@ export default function Recruitment() {
                   </View>
                   <View>
                     <Text style={style.titleItemInfo}>Kinh nghiệm</Text>
-                    <Text style={style.valueItemInfo}>{item.experience}</Text>
+                    <Text style={style.valueItemInfo}>
+                      {recruitmentDetail.experience}
+                    </Text>
                   </View>
                 </View>
                 <View style={style.itemInfo}>
@@ -228,7 +219,7 @@ export default function Recruitment() {
                   <View>
                     <Text style={style.titleItemInfo}>Số lượng</Text>
                     <Text style={style.valueItemInfo}>
-                      {item.quantity} người
+                      {recruitmentDetail.quantity} người
                     </Text>
                   </View>
                 </View>
@@ -238,7 +229,9 @@ export default function Recruitment() {
                   </View>
                   <View>
                     <Text style={style.titleItemInfo}>Cấp bậc</Text>
-                    <Text style={style.valueItemInfo}>{item.rank}</Text>
+                    <Text style={style.valueItemInfo}>
+                      {recruitmentDetail.rank}
+                    </Text>
                   </View>
                 </View>
                 <View style={style.itemInfo}>
@@ -247,7 +240,9 @@ export default function Recruitment() {
                   </View>
                   <View>
                     <Text style={style.titleItemInfo}>Giới tính</Text>
-                    <Text style={style.valueItemInfo}>{item.sex}</Text>
+                    <Text style={style.valueItemInfo}>
+                      {recruitmentDetail.sex}
+                    </Text>
                   </View>
                 </View>
               </View>
@@ -260,7 +255,7 @@ export default function Recruitment() {
                   <View style={style.valueItemJobDescription}>
                     <RenderHTML
                       contentWidth={width}
-                      source={{html: item.short}}
+                      source={{html: recruitmentDetail.short}}
                       tagsStyles={{
                         p: {
                           fontSize: 15,
@@ -278,9 +273,8 @@ export default function Recruitment() {
                   </Text>
                   <View style={style.valueItemJobDescription}>
                     <RenderHTML
-                      // style={style.textValue}
                       contentWidth={width}
-                      source={{html: item.content}}
+                      source={{html: recruitmentDetail.content}}
                       tagsStyles={{
                         p: {
                           fontSize: 15,
@@ -298,7 +292,7 @@ export default function Recruitment() {
                     <RenderHTML
                       style={style.textValue}
                       contentWidth={width}
-                      source={{html: item.benefits}}
+                      source={{html: recruitmentDetail.benefits}}
                       tagsStyles={{
                         p: {
                           fontSize: 15,
@@ -318,7 +312,7 @@ export default function Recruitment() {
                     <RenderHTML
                       style={style.textValue}
                       contentWidth={width}
-                      source={{html: item.apply_type}}
+                      source={{html: recruitmentDetail.apply_type}}
                       tagsStyles={{
                         p: {
                           fontSize: 15,
@@ -332,13 +326,13 @@ export default function Recruitment() {
                 </View>
               </View>
             </View>
-          ))}
+          </View>
         </ScrollView>
         <View
           style={{
             width: width,
             height: 65,
-            top: height - 80,
+            bottom: 0,
             position: 'absolute',
             alignItems: 'center',
             justifyContent: 'center',

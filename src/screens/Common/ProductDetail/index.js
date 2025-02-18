@@ -25,7 +25,7 @@ import {
   formatNumber,
   formatToHTML,
 } from 'utils';
-import {bottomRoot, commonRoot} from 'navigation/navigationRef';
+import {bottomRoot, commonRoot, root} from 'navigation/navigationRef';
 import router from '@router';
 import {useDispatch, useSelector} from 'react-redux';
 import actions from 'redux/actions';
@@ -167,9 +167,7 @@ export default function ProductDetail({route, item_id, group_id}) {
                   )}
                 </View>
               </View>
-              <Pressable
-                style={style.goBack}
-                onPress={() => bottomRoot.navigate(router.HOME_SCREEN)}>
+              <Pressable style={style.goBack} onPress={() => root.goBack()}>
                 <Image source={icon.icon_arrow_left} />
               </Pressable>
               <View style={style.topRightDetailProduct}>

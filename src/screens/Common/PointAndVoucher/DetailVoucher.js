@@ -59,7 +59,7 @@ export default function DetailVoucher({navigation}) {
             }}>
             Ngày 25/11/2024
           </Text>
-          <View style={{borderWidth: 1, borderColor: '#f1f1f1'}}></View>
+          <View style={{borderWidth: 1, borderColor: '#f1f1f1'}} />
           <View style={{rowGap: 4}}>
             <Text
               style={{fontSize: 16, fontWeight: 'semibold', color: '#0060af'}}>

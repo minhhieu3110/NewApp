@@ -346,7 +346,7 @@ export default function Pay({route, item_id}) {
                 </Text>
               </View>
               <Pressable
-                onPress={() => navigation.navigate('AddressSaved', {flag: 1})}
+                onPress={() => commonRoot.navigate(router.ADDRESS, {flag: 1})}
                 style={{width: 35, height: 35, right: 0, position: 'absolute'}}>
                 <Image source={icon.icon_edit_address} />
               </Pressable>

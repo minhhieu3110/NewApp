@@ -11,14 +11,11 @@ import {
 } from 'react-native';
 import {icon, image} from '@assets';
 import {bottomRoot, root} from 'navigation/navigationRef';
-import router from '@router';
 const InfoUser = () => {
   return (
     <View style={style.container}>
       <View style={style.titleContainer}>
-        <Pressable
-          style={style.titleInfoAccount}
-          onPress={() => root.goBack()}>
+        <Pressable style={style.titleInfoAccount} onPress={() => root.goBack()}>
           <View style={style.iconTitleInfoAccount}>
             <Image
               source={icon.icon_arrow_left}

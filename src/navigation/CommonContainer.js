@@ -1,83 +1,46 @@
+import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {common} from 'screens/Common';
 import router from '@router';
+
+const CommonStack = createNativeStackNavigator();
+
+const commonStack = [
+  {name: router.ORDER_DETAIL},
+  {name: router.NEW},
+  {name: router.RECRUITMENT},
+  {name: router.ABOUT_COMPANY},
+  {name: router.PRODUCT_DETAIL},
+  {name: router.PAY},
+  {name: router.CART},
+  {name: router.INFO_USER},
+  {name: router.PRODUCT_SEEN},
+  {name: router.PRODUCT_SAVE},
+  {name: router.PRODUCT_FAVORITE},
+  {name: router.ADDRESS},
+  {name: router.CUMULATIVE_POINT},
+  {name: router.VOUCHER_EXCHANGE},
+  {name: router.DETAIL_VOUCHER},
+  {name: router.HELP},
+  {name: router.CONTRACT},
+  {name: router.DEBT},
+  {name: router.SETTING},
+  {name: router.HELPWITHEMAIL},
+  {name: router.VIDEO},
+  {name: router.CATALOGUE},
+  {name: router.CHANGE_PASSWORD},
+];
+
 export default function CommonContainer() {
-  const CommonStack = createNativeStackNavigator();
   return (
     <CommonStack.Navigator screenOptions={{headerShown: false}}>
-      <CommonStack.Screen
-        name={router.ORDER_DETAIL}
-        component={common[router.ORDER_DETAIL]}
-      />
-      <CommonStack.Screen name={router.NEW} component={common[router.NEW]} />
-      <CommonStack.Screen
-        name={router.RECRUITMENT}
-        component={common[router.RECRUITMENT]}
-      />
-      <CommonStack.Screen
-        name={router.ABOUT_COMPANY}
-        component={common[router.ABOUT_COMPANY]}
-      />
-      <CommonStack.Screen
-        name={router.PRODUCT_DETAIL}
-        component={common[router.PRODUCT_DETAIL]}
-      />
-      <CommonStack.Screen name={router.PAY} component={common[router.PAY]} />
-      <CommonStack.Screen name={router.CART} component={common[router.CART]} />
-      <CommonStack.Screen
-        name={router.INFO_USER}
-        component={common[router.INFO_USER]}
-      />
-      <CommonStack.Screen
-        name={router.PRODUCT_SEEN}
-        component={common[router.PRODUCT_SEEN]}
-      />
-      <CommonStack.Screen
-        name={router.PRODUCT_FAVORITE}
-        component={common[router.PRODUCT_FAVORITE]}
-      />
-      <CommonStack.Screen
-        name={router.PRODUCT_SAVE}
-        component={common[router.PRODUCT_SAVE]}
-      />
-      <CommonStack.Screen
-        name={router.ADDRESS}
-        component={common[router.ADDRESS]}
-      />
-      <CommonStack.Screen
-        name={router.CUMULATIVE_POINT}
-        component={common[router.CUMULATIVE_POINT]}
-      />
-      <CommonStack.Screen
-        name={router.VOUCHER_EXCHANGE}
-        component={common[router.VOUCHER_EXCHANGE]}
-      />
-      <CommonStack.Screen
-        name={router.DETAIL_VOUCHER}
-        component={common[router.DETAIL_VOUCHER]}
-      />
-      <CommonStack.Screen name={router.HELP} component={common[router.HELP]} />
-      <CommonStack.Screen
-        name={router.CONTRACT}
-        component={common[router.CONTRACT]}
-      />
-      <CommonStack.Screen name={router.DEBT} component={common[router.DEBT]} />
-      <CommonStack.Screen
-        name={router.SETTING}
-        component={common[router.SETTING]}
-      />
-      <CommonStack.Screen
-        name={router.HELPWITHEMAIL}
-        component={common[router.HELPWITHEMAIL]}
-      />
-      <CommonStack.Screen
-        name={router.VIDEO}
-        component={common[router.VIDEO]}
-      />
-      <CommonStack.Screen
-        name={router.CATALOGUE}
-        component={common[router.CATALOGUE]}
-      />
+      {commonStack.map(stack => (
+        <CommonStack.Screen
+          key={stack.name}
+          name={stack.name}
+          component={common[stack.name]}
+        />
+      ))}
     </CommonStack.Navigator>
   );
 }

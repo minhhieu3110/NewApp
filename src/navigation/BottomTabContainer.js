@@ -24,69 +24,60 @@ const getTabBarIcon = (route, focused) => {
       return null;
   }
 };
+const screenOptions = ({route, navigation}) => {
+  const currentRoute = navigation
+    .getState()
+    .routes.find(r => r.name === route.name);
 
+  const isInitialRoute =
+    currentRoute && currentRoute.state ? currentRoute.state.index === 0 : true;
+
+  return {
+    headerShown: false,
+    tabBarStyle: {
+      display: isInitialRoute ? 'flex' : 'none',
+      height: 65,
+      paddingBottom: 8,
+      paddingTop: 9,
+    },
+    tabBarIcon: ({focused}) => (
+      <Image
+        source={getTabBarIcon(route, focused)}
+        style={{width: 24, height: 24}}
+      />
+    ),
+    tabBarLabelStyle: {
+      fontSize: 12,
+      fontWeight: 'regular',
+    },
+    tabBarActiveTintColor: '#0060af',
+    tabBarInactiveTintColor: '#808080',
+  };
+};
+const tabs = [
+  {name: router.HOME_SCREEN, label: 'Trang Chủ'},
+  {
+    name: router.PRODUCT_SCREEN,
+    label: 'Sản Phẩm',
+  },
+  {name: router.NOTIFICATION_SCREEN, label: 'Thông Báo'},
+  {name: router.ORDER_SCREEN, label: 'Đơn Hàng'},
+  {name: router.PROFILE_SCREEN, label: 'Tài Khoản'},
+];
 export default function BottomTabContainer() {
   return (
     <NavigationContainer independent={true}>
       <Tab.Navigator
         initialRouteName={router.HOME_SCREEN}
-        screenOptions={({route, navigation}) => {
-          const currentRoute = navigation
-            .getState()
-            .routes.find(r => r.name === route.name);
-
-          const isInitialRoute =
-            currentRoute && currentRoute.state
-              ? currentRoute.state.index === 0
-              : true;
-
-          return {
-            headerShown: false,
-            tabBarStyle: {
-              display: isInitialRoute ? 'flex' : 'none',
-              height: 65,
-              paddingBottom: 8,
-              paddingTop: 9,
-            },
-            tabBarIcon: ({focused}) => (
-              <Image
-                source={getTabBarIcon(route, focused)}
-                style={{width: 24, height: 24}}
-              />
-            ),
-            tabBarLabelStyle: {
-              fontSize: 12,
-              fontWeight: 'regular',
-            },
-            tabBarActiveTintColor: '#0060af',
-            tabBarInactiveTintColor: '#808080',
-          };
-        }}>
-        <Tab.Screen
-          name={router.HOME_SCREEN}
-          component={bottom[router.HOME_SCREEN]}
-          options={{tabBarLabel: 'Trang Chủ'}}
-        />
-        <Tab.Screen
-          name={router.PRODUCT_SCREEN}
-          component={bottom[router.PRODUCT_SCREEN]}
-          options={{tabBarLabel: 'Sản phẩm'}}
-        />
-        <Tab.Screen
-          name={router.NOTIFICATION_SCREEN}
-          component={bottom[router.NOTIFICATION_SCREEN]}
-          options={{tabBarLabel: 'Thông báo'}}
-        />
-        <Tab.Screen
-          name={router.ORDER_SCREEN}
-          component={bottom[router.ORDER_SCREEN]}
-          options={{tabBarLabel: 'Đơn Hàng'}}
-        />
-        <Tab.Screen
-          name={router.PROFILE_SCREEN}
-          component={bottom[router.PROFILE_SCREEN]}
-          options={{tabBarLabel: 'Tài Khoản'}}
-        />
+        screenOptions={screenOptions}>
+        {tabs.map(tab => (
+          <Tab.Screen
+            key={tab.name}
+            name={tab.name}
+            component={bottom[tab.name]}
+            options={{tabBarLabel: tab.label}}
+          />
+        ))}
       </Tab.Navigator>
     </NavigationContainer>
   );

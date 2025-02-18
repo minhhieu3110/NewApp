@@ -103,6 +103,7 @@ export const URL_API = {
     shipping: 'method/shipping',
   },
   catalogue_group: 'catalogue_group',
+  catalogue: 'catalogue',
   video: 'video',
   voucher: {
     check: 'check',
