@@ -19,7 +19,8 @@ import {commonRoot} from 'navigation/navigationRef';
 import router from '@router';
 import {useDispatch, useSelector} from 'react-redux';
 import actions from 'redux/actions';
-import Icon from 'react-native-vector-icons/Ionicons';
+import Icon from 'react-native-vector-icons/AntDesign';
+import RenderHTML from 'react-native-render-html';
 export default function Home() {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -46,6 +47,10 @@ export default function Home() {
       type: actions.GET_VIDEO,
     });
     dispatch({type: actions.GET_TOKEN});
+    dispatch({
+      type: actions.GET_ABOUT,
+      params: {type: 0},
+    });
   }, []);
   const news = useSelector(state => state.getNew?.data || []);
   const limitNews = news.slice(0, 6);
@@ -57,6 +62,9 @@ export default function Home() {
   const certificate = useSelector(state => state.getCertificate?.data || []);
   const videos = useSelector(state => state.getVideo?.data || []);
   const recruitment = useSelector(state => state.getRecruitment?.data || []);
+  const about = useSelector(state => state.getAbout?.data || []);
+  console.log('about');
+
   const limitRecruitment = recruitment.slice(0, 5);
   const videoHome = videos.filter(item => item.id === 31);
   const imageHeader = [
@@ -107,39 +115,26 @@ export default function Home() {
               columnGap: 15,
             }}>
             <TextInput
-              style={{
-                width: width - 75,
-                height: 35,
-                left: 13,
-                backgroundColor: '#fff',
-                borderRadius: 23,
-                paddingTop: 8,
-                paddingLeft: 12,
-                alignItems: 'center',
-              }}
+              style={style.searchInput}
               placeholder="Tìm kiếm sản phẩm"
-              placeholderTextColor={'#808080'}
+              placeholderTextColor="#808080"
+              returnKeyType="search"
+              accessibilityLabel="Search products input"
             />
-            <View
+            <Pressable
+              onPress={() => commonRoot.navigate(router.CART)}
               style={{
-                width: 44,
-                height: 35,
+                width: 35,
                 right: 3,
                 position: 'absolute',
+                aspectRatio: 1 / 1,
+                borderRadius: 18,
+                backgroundColor: '#000',
+                alignItems: 'center',
+                justifyContent: 'center',
               }}>
-              <Pressable
-                onPress={() => commonRoot.navigate(router.CART)}
-                style={{
-                  width: 35,
-                  aspectRatio: 1 / 1,
-                  borderRadius: 18,
-                  backgroundColor: '#000',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}>
-                <Icon name="cart" color="#fff" size={25} />
-              </Pressable>
-            </View>
+              <Image source={icon.icon_cart} />
+            </Pressable>
           </View>
         </View>
         <View
@@ -169,8 +164,20 @@ export default function Home() {
                 flexDirection: 'row',
               }}>
               <View>
+                {/* <RenderHTML
+                  contentWidth={width}
+                  source={{html: about.title}}
+                  tagsStyles={{
+                    p: {fontSize: 20, fontWeight: 'bold', color: '#212121'},
+                  }}
+                /> */}
                 <Text
-                  style={{fontSize: 20, fontWeight: 'bold', color: '#212121'}}>
+                  style={{
+                    fontSize: 20,
+                    fontWeight: 'bold',
+                    color: '#212121',
+                    fontFamily: '',
+                  }}>
                   Kixx
                 </Text>
                 <Text
@@ -181,9 +188,8 @@ export default function Home() {
               <Pressable
                 onPress={() => commonRoot.navigate(router.ABOUT_COMPANY)}
                 style={{
-                  width: 92,
                   height: 16,
-                  top: 35,
+                  top: 31,
                   flexDirection: 'row',
                   alignItems: 'center',
                   gap: 5,
@@ -198,7 +204,7 @@ export default function Home() {
                   }}>
                   Tìm hiểu thêm
                 </Text>
-                <Image source={icon.icon_arrow} />
+                <Icon name="arrowright" size={12.8} color="#808080" />
               </Pressable>
             </View>
             <View
@@ -217,20 +223,24 @@ export default function Home() {
                 />
               ))}
             </View>
-            <Text
-              style={{
-                fontSize: 15,
-                fontWeight: 'regular',
-                color: '#212121',
-                left: 10,
-                lineHeight: 25,
-                width: width - 44,
-                top: -11,
-              }}>
-              Dầu nhớt Số 1 Hàn Quốc _ Kixx luôn là thương hiệu dẫn đầu thị
-              trường. Xếp thứ nhất trong các hạng mục khảo sát về mức độ hài
-              lòng của người tiêu dùng.
-            </Text>
+            <View style={{width: width - 44}}>
+              <RenderHTML
+                source={{html: about.content}}
+                contentWidth={width}
+                tagsStyles={{
+                  p: {
+                    fontSize: 15,
+                    fontWeight: 'regular',
+                    color: '#212121',
+                    lineHeight: 25,
+                    left: 10,
+                    position: 'absolute',
+                    bottom: 19,
+                    marginBottom: -10,
+                  },
+                }}
+              />
+            </View>
           </View>
           <View style={style.bestSellerContainer}>
             <View
@@ -246,14 +256,19 @@ export default function Home() {
               <Image source={icon.icon_text_best_seller} />
               <View
                 style={{
-                  width: 71,
+                  width: 72,
                   height: 16,
                   flexDirection: 'row',
-                  gap: 5,
+                  columnGap: 5,
                   alignItems: 'center',
+                  position: 'absolute',
+                  right: 12,
                 }}>
-                <Text style={{color: '#fff'}}>Xem tất cả</Text>
-                <Image style={{color: '#fff'}} source={icon.icon_arrow_white} />
+                <Text
+                  style={{fontSize: 12, fontWeight: 'regular', color: '#fff'}}>
+                  Xem tất cả
+                </Text>
+                <Icon name="arrowright" color="#fff" size={12.8} />
               </View>
             </View>
             <View style={{top: 12, width: width - 48, left: 12}}>
@@ -828,6 +843,24 @@ const style = StyleSheet.create({
   headerContainer: {
     width: width,
     height: 294,
+  },
+  searchInput: {
+    width: width - 75,
+    height: 35,
+    marginLeft: 13,
+    backgroundColor: '#fff',
+    borderRadius: 23,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    fontSize: 13,
+    fontWeight: '400',
+    includeFontPadding: false,
+    textAlignVertical: 'center',
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 1},
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
+    elevation: 2,
   },
   bestSellerContainer: {
     width: width - 24,

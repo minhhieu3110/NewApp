@@ -37,7 +37,7 @@ const Register = () => {
         password: values.pass,
         phone: values.phone,
         device_name: DeviceInfo.getDeviceName(),
-        device_token: DeviceInfo.getUniqueId(),
+        device_token: DeviceInfo.getDeviceId(),
       },
       onSuccess: () => {
         authRoot.navigate(router.LOGIN_SCREEN);
@@ -194,7 +194,7 @@ const Register = () => {
             </Text>
           </View>
           <Pressable
-            onPress={handleSubmit(_onSubmit)}
+            onPress={_onSubmit}
             style={{
               width: width - 65,
               height: 47,

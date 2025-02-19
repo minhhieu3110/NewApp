@@ -68,10 +68,23 @@ function* getCatalogueList(action) {
     yield put({type: _onFail(action.type)});
   }
 }
+function* getAbout(action) {
+  try {
+    const res = yield api.get(URL_API.about, action.params);
+    yield put({
+      type: _onSuccess(action.type),
+      data: res.data[0],
+    });
+  } catch (error) {
+    action.onFail?.(error);
+    yield put({type: _onFail(action.type)});
+  }
+}
 export function* watchOtherSagas() {
   yield takeLatest(actions.GET_BRAND_PARTNER, getBannerBrand);
   yield takeLatest(actions.GET_CERTIFICATE, getCertificate);
   yield takeLatest(actions.GET_VIDEO, getVideo);
   yield takeLatest(actions.GET_CATALOGUE_GROUP, getCatalogueGroup);
   yield takeLatest(actions.GET_LIST_CATALOGUE, getCatalogueList);
+  yield takeLatest(actions.GET_ABOUT, getAbout);
 }

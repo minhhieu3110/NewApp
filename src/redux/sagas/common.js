@@ -117,4 +117,5 @@ export const URL_API = {
   banner: {
     brand: 'banner/brand',
   },
+  location: 'location',
 };

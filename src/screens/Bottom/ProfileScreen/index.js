@@ -12,7 +12,7 @@ import {icon, image} from '@assets';
 import {authRoot, bottomRoot, commonRoot} from 'navigation/navigationRef';
 import router from '@router';
 import Icon from 'react-native-vector-icons/AntDesign';
-const ProfileScreen = ({navigation}) => {
+const ProfileScreen = () => {
   return (
     <View style={style.container}>
       <View style={{width: width, height: 235, backgroundColor: '#0060af'}}>

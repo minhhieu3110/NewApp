@@ -30,6 +30,7 @@ import router from '@router';
 import {useDispatch, useSelector} from 'react-redux';
 import actions from 'redux/actions';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import {common} from '..';
 export default function ProductDetail({route, item_id, group_id}) {
   const dispatch = useDispatch();
   const [showChooseProduct, setShowChooseProduct] = useState(false);
@@ -72,6 +73,10 @@ export default function ProductDetail({route, item_id, group_id}) {
       setChooseType(productInfo.option[0]);
     }
     setShowChooseProduct(!showChooseProduct);
+  };
+  const handlerPayNow = () => {
+    setShowChooseProduct(!showChooseProduct);
+    commonRoot.navigate(router.PAY);
   };
   useEffect(() => {
     item_id = route.params?.item_id;
@@ -156,14 +161,12 @@ export default function ProductDetail({route, item_id, group_id}) {
                       )}
                     />
                   ) : (
-                    <Text
-                      style={{
-                        fontSize: 18,
-                        fontWeight: 'bold',
-                        color: '#212121',
-                      }}>
-                      No images available
-                    </Text>
+                    <View style={{width: width, height: width}}>
+                      <Image
+                        source={{uri: productInfo.picture}}
+                        style={{width: '100%', height: '100%'}}
+                      />
+                    </View>
                   )}
                 </View>
               </View>
@@ -175,8 +178,8 @@ export default function ProductDetail({route, item_id, group_id}) {
                   style={{
                     width: 44,
                     height: 35,
-                    left: 106,
                     position: 'absolute',
+                    right: 45,
                   }}>
                   <Pressable
                     onPress={() => commonRoot.navigate(router.CART)}
@@ -184,15 +187,14 @@ export default function ProductDetail({route, item_id, group_id}) {
                       width: 35,
                       aspectRatio: 1 / 1,
                       borderRadius: 18,
-                      backgroundColor: '#000',
+                      backgroundColor: '#707070',
                       alignItems: 'center',
                       justifyContent: 'center',
                     }}>
-                    <Ionicons name="cart" color="#fff" size={25} />
+                    <Image source={icon.icon_cart} />
                   </Pressable>
                   <Text style={style.numberProducts}>99+</Text>
                 </View>
-
                 <Pressable
                   onPress={handlerMenuThreePoint}
                   style={style.menuThreePoint}>
@@ -349,7 +351,7 @@ export default function ProductDetail({route, item_id, group_id}) {
                   </Text>
                 )}
               </View>
-              <View style={style.seperator} />
+              <View style={style.seperator2} />
               <View style={{width: width - 24}}>
                 <Text
                   style={{
@@ -997,7 +999,8 @@ export default function ProductDetail({route, item_id, group_id}) {
                   justifyContent: 'center',
                   position: 'absolute',
                 }}>
-                <View
+                <Pressable
+                  onPress={handlerPayNow}
                   style={{
                     width: width - 24,
                     height: 45,
@@ -1010,7 +1013,7 @@ export default function ProductDetail({route, item_id, group_id}) {
                     style={{fontSize: 15, fontWeight: 'medium', color: '#fff'}}>
                     Mua ngay
                   </Text>
-                </View>
+                </Pressable>
               </Pressable>
             </View>
           </TouchableOpacity>
@@ -1369,7 +1372,7 @@ const style = StyleSheet.create({
     width: 195,
     height: 163,
     position: 'absolute',
-    left: 221,
+    right: 12,
     top: 10,
     zIndex: 10,
   },
@@ -1398,7 +1401,7 @@ const style = StyleSheet.create({
     width: 35,
     height: 35,
     position: 'absolute',
-    left: 160,
+    right: 0,
     zIndex: 20,
   },
   menuContainerThreePoint: {
@@ -1428,11 +1431,11 @@ const style = StyleSheet.create({
     left: 24,
     fontSize: 14,
     fontWeight: 'regular',
+    color: '#212121',
   },
   seperator: {
     width: 195,
-    height: 0,
-
+    borderWidth: 1,
     borderColor: '#f1f1f1',
   },
   discountTicket: {
@@ -1509,7 +1512,7 @@ const style = StyleSheet.create({
     backgroundColor: '#FF0000',
     borderRadius: 5,
   },
-  seperator: {
+  seperator2: {
     width: width,
     height: 5,
     left: 0,

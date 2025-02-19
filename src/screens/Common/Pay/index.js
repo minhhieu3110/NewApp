@@ -436,7 +436,7 @@ export default function Pay({route, item_id}) {
                   }}>
                   <View style={{width: 80, height: 80}}>
                     <Image
-                      source={productsPay.picture}
+                      source={{uri: productsPay.picture}}
                       style={{width: '100%', height: '100%'}}
                     />
                   </View>
