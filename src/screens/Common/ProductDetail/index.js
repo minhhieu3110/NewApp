@@ -119,6 +119,18 @@ export default function ProductDetail({route, item_id, group_id}) {
       },
     });
   };
+  const addToCart = () => {
+    dispatch({
+      type: actions.UPDATE_CART_OF_YOU,
+      body: {
+        item_id: productInfo.item_id,
+        option_id: productInfo.option_id,
+        combo_id: productInfo.combo_id,
+        quantity: 1,
+        is_active: 1,
+      },
+    });
+  };
   return (
     <View style={{flex: 1}}>
       {productInfo.length === 0 ? (
@@ -1029,6 +1041,7 @@ export default function ProductDetail({route, item_id, group_id}) {
             justifyContent: 'space-between',
           }}>
           <Pressable
+            onPress={() => addToCart()}
             style={{
               width: (width - 24) / 2 - 5,
               height: 45,

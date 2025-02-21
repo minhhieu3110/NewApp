@@ -12,6 +12,9 @@ import {image} from '@assets';
 import {formatCurrency} from 'utils/formatCurrency';
 import router from '@router';
 import {commonRoot} from 'navigation/navigationRef';
+import {useDispatch, useSelector} from 'react-redux';
+import actions from 'redux/actions';
+import {useEffect} from 'react';
 export const dataOrders = [
   {
     id: '2314abc',
@@ -149,6 +152,15 @@ export default function AllOrders({navigation}) {
         return commonRoot.navigate(router.ORDER_DETAIL, {flag: 5});
     }
   };
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch({
+      type: actions.STATUS_ORDER,
+    });
+  }, [dispatch]);
+  const statusOrder = useSelector(state => state.getStatusOrder?.data || []);
+  console.log('statusOrder');
+  console.log(statusOrder);
   return (
     <View style={{backgroundColor: '#fff', flex: 1}}>
       <View style={{flex: 1, top: 12}}>

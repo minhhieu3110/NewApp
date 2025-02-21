@@ -96,6 +96,7 @@ export const URL_API = {
     evaluate_complete: 'evaluate_complete',
     cancel: 'cancel',
     reason_cancel: 'reason_cancel',
+    status: 'order/status',
   },
   cart: 'cart',
   method: {

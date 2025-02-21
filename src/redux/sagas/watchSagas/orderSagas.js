@@ -29,7 +29,20 @@ function* getShipping(action) {
     yield put({type: _onFail(action.type)});
   }
 }
+function* getStatusOrder(action) {
+  try {
+    const res = yield api.get(URL_API.order.status);
+    yield put({
+      type: _onSuccess(action.type),
+      data: res.data,
+    });
+  } catch (error) {
+    action.onFail?.(action.type);
+    yield put({type: _onFail(action.type)});
+  }
+}
 export function* watchOrderSagas() {
   yield takeLatest(actions.GET_PAYMENT, getPayment);
   yield takeLatest(actions.GET_SHIPPING, getShipping);
+  yield takeLatest(actions.STATUS_ORDER, getStatusOrder);
 }

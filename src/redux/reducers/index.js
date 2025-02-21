@@ -17,6 +17,7 @@ import * as liabilityReducers from './combineReducers/liabilityReducers';
 import * as pageReducers from './combineReducers/pageReducers';
 import * as notificationReducers from './combineReducers/notificationReducers';
 import * as otherReducers from './combineReducers/otherReducers';
+import * as cartReducers from './combineReducers/cartReducers';
 const rootReducer = combineReducers({
   ...userReducers,
   ...addressBookReducers,
@@ -36,6 +37,7 @@ const rootReducer = combineReducers({
   ...pageReducers,
   ...notificationReducers,
   ...otherReducers,
+  ...cartReducers,
 });
 
 export default rootReducer;

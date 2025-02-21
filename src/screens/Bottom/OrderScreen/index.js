@@ -45,8 +45,8 @@ export default function OrderScreen({route}) {
 const {width, height} = Dimensions.get('window');
 const style = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: '#ffffff',
+    flex: 1,
   },
   header: {
     width: width,

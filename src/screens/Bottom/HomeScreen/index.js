@@ -52,6 +52,7 @@ export default function Home() {
       params: {type: 0},
     });
   }, []);
+
   const news = useSelector(state => state.getNew?.data || []);
   const limitNews = news.slice(0, 6);
   const products = useSelector(state => state.getProductsList?.data || []);
