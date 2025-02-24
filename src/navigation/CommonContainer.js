@@ -33,7 +33,9 @@ const commonStack = [
 
 export default function CommonContainer() {
   return (
-    <CommonStack.Navigator screenOptions={{headerShown: false}}>
+    <CommonStack.Navigator
+      initialRouteName={router.PAY}
+      screenOptions={{headerShown: false}}>
       {commonStack.map(stack => (
         <CommonStack.Screen
           key={stack.name}

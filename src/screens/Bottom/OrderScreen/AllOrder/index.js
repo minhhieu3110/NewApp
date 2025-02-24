@@ -159,8 +159,6 @@ export default function AllOrders({navigation}) {
     });
   }, [dispatch]);
   const statusOrder = useSelector(state => state.getStatusOrder?.data || []);
-  console.log('statusOrder');
-  console.log(statusOrder);
   return (
     <View style={{backgroundColor: '#fff', flex: 1}}>
       <View style={{flex: 1, top: 12}}>

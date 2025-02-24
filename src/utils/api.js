@@ -3,7 +3,7 @@ import axios from 'axios';
 import {handleExpiredToken, throttle} from './helper';
 
 // axios.defaults.baseURL = 'http://192.168.1.55/baoan/carta/website/api/v1';
-axios.defaults.baseURL = 'http://rpm.demo.app24h.net:83/api/v1';
+axios.defaults.baseURL = 'http://rpm.demo.app24h.net:81/api/v1';
 
 const getDataBody = config => {
   let data = '';

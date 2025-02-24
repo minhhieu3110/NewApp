@@ -1,44 +1,33 @@
 import {CODE_REGEX} from '@constants';
 import {yupResolver} from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import {FORM_INPUT} from '../LoginScreen/formConfig';
+import {resolver} from '../../../../metro.config';
 
-export const FORM_INPUT = {
-  userName: 'userName',
+export const FROM_INPUT = {
+  username: 'username',
+  password: 'password',
   phone: 'phone',
-  pass: 'pass',
   fb: 'fb',
   gg: 'gg',
-  ap: 'ap',
 };
-
 const schema = yup
   .object({
-    [FORM_INPUT.userName]: yup
-      .string()
-      .nullable()
-      .required('CheckForm.userName')
-      .matches(CODE_REGEX, 'CheckForm.regexName'),
-    [FORM_INPUT.phone]: yup
-      .string()
-      .nullable()
-      .min(8, 'Login.regexPhone')
-      .required('Login.phone_empty_error'),
-    [FORM_INPUT.pass]: yup.string().nullable().required('CheckForm.pass'),
-    [FORM_INPUT.fb]: yup.string(),
-    [FORM_INPUT.gg]: yup.string(),
-    [FORM_INPUT.ap]: yup.string(),
+    [FROM_INPUT.username]: yup.string().nullable(),
+    [FORM_INPUT.password]: yup.string().nullable(),
+    [FROM_INPUT.phone]: yup.string().nullable(),
+    [FROM_INPUT.fb]: yup.string(),
+    [FROM_INPUT.gg]: yup.string(),
   })
   .required();
-
-const formConfig = {
+const formCofig = {
   resolver: yupResolver(schema),
-  defaultValues: {
-    [FORM_INPUT.userName]: '',
-    [FORM_INPUT.pass]: '',
-    [FORM_INPUT.fb]: '',
-    [FORM_INPUT.gg]: '',
-    [FORM_INPUT.ap]: '',
+  defaultValus: {
+    [FROM_INPUT.username]: '',
+    [FROM_INPUT.password]: '',
+    [FROM_INPUT.phone]: '',
+    [FROM_INPUT.fb]: '',
+    [FROM_INPUT.gg]: '',
   },
 };
-
-export default formConfig;
+export default formCofig;

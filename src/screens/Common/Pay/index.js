@@ -18,6 +18,8 @@ import {bottomRoot, commonRoot, root} from 'navigation/navigationRef';
 import router from '@router';
 import {useDispatch, useSelector} from 'react-redux';
 import actions from 'redux/actions';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import RenderHTML from 'react-native-render-html';
 export default function Pay({route, item_id}) {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -34,10 +36,9 @@ export default function Pay({route, item_id}) {
     });
   }, []);
   const productsPay = useSelector(state => state.getDetailProduct?.data || []);
-  const payment = useSelector(state => state.getPayment?.data | []);
-  console.log('payment', payment);
-  const shipping = useSelector(state => state.getShipping?.data || []);
-  console.log('shipping', shipping);
+  const paymentData = useSelector(state => state.getPayment?.data || []);
+  const shippingData = useSelector(state => state.getShipping?.data || []);
+  console.log('payment', paymentData);
 
   const provisionalMoney = productsPay.price;
   const [showFormChooseMethodPayment, setShowFormChooseMethodPayment] =
@@ -66,48 +67,6 @@ export default function Pay({route, item_id}) {
   const [detailVoucher, setDetailVoucher] = useState([
     {id: '', title: '', timeExpire: '', dateExpire: '', conditionApply: []},
   ]);
-  const infoPay = [
-    {
-      id: 1,
-      option: 'bankTransfer',
-      title: 'Chuyển khoản',
-      value: {
-        STK: '123456789',
-        nameAccount: 'Nguyen Van A',
-        nameBank: 'Vietcombank',
-        contentBankTransfer:
-          'Chuyen tien thanh cong, vui long kiem tra so tien trong tai khoan',
-      },
-    },
-    {
-      id: 2,
-      option: 'COD',
-      title: 'Thanh toán khi nhận hàng',
-      value: 'Quý Khách Hàng vui lòng thanh toán tiền mặt khi nhận hàng',
-    },
-    {
-      id: 3,
-      option: 'payCompany',
-      title: 'Thanh toán tại công ty',
-      value:
-        'Quý Khách Hàng có thể mua hàng và thanh toán trực tiếp tại công ty',
-    },
-    {
-      id: 4,
-      option: 'payOnline',
-      title: 'Thanh toán online',
-      value: 'Quý Khách Hàng có thể mua hàng và thanh toán online',
-    },
-  ];
-  const infoShipping = [
-    {id: 1, option: 'fastDelivery', title: 'Giao hàng nhanh', fee: 37000},
-    {
-      id: 2,
-      option: 'economyDelivery',
-      title: 'Giao hàng tiết kiệm',
-      fee: 35000,
-    },
-  ];
   const fakeDataVoucher = [
     {
       id: 1,
@@ -186,10 +145,18 @@ export default function Pay({route, item_id}) {
       dateExpire: '15/10/2023',
     },
   ];
+  const [paymentInfo, setPaymentInfo] = useState(null);
+  const [shippingInfo, setShippingInfo] = useState(null);
   const [showPopupOrderSuccess, setShowPopupOrderSuccess] = useState(false);
-  const handlerChoose = option => {
-    setSelectOption(option);
-    setShowInfoPay(!showInfoPay);
+  const handlerChooseMethodPayment = id => {
+    setSelectOption(id);
+    const payment = paymentData.filter(item => item.method_id === id);
+    setPaymentInfo(payment);
+  };
+  const handlerChooseMethodShipping = id => {
+    setSelectOption(id);
+    const shipping = shippingData.filter(item => item.shipping_id === id);
+    setShippingInfo(shipping);
   };
   const handlerChooseVoucher = id => {
     setSelectOption(id);
@@ -198,16 +165,9 @@ export default function Pay({route, item_id}) {
   };
   const handlerFormChooseMethodPayment = () => {
     setShowFormChooseMethodPayment(!showFormChooseMethodPayment);
-    if (titlePay === 'Chọn phương thức thanh toán') {
-      setSelectOption('bankTransfer');
-    }
-    setShowInfoPay(!showInfoPay);
   };
   const handlerFormChooseMethodShipping = () => {
     setShowFormChooseMethodShipping(!showFormChooseMethodShipping);
-    if (titleShipping === 'Chọn phương thức vận chuyển') {
-      setSelectOption('fastDelivery');
-    }
   };
   const handlerFormChooseVoucher = () => {
     setShowFormChooseVoucher(!showFormChooseVoucher);
@@ -218,13 +178,14 @@ export default function Pay({route, item_id}) {
   const handlerConfirm = () => {
     if (showFormChooseMethodPayment === true) {
       setShowFormChooseMethodPayment(!showFormChooseMethodPayment);
-      setTitlePay(getInfoPay()[0].title);
+      setTitlePay(paymentInfo[0].title);
     }
     if (showFormChooseMethodShipping === true) {
       setShowFormChooseMethodShipping(!showFormChooseMethodShipping);
-      setTitleShipping(getInfoShipping()[0].title);
-      setFeeShipping(getInfoShipping()[0].fee);
+      setTitleShipping(shippingInfo[0].title);
+      setFeeShipping(shippingInfo[0].price);
     }
+    //
     if (showFormChooseVoucher === true) {
       setShowFormChooseVoucher(!showFormChooseVoucher);
       setTitleVoucher(getInfoVoucher()[0].title);
@@ -237,6 +198,7 @@ export default function Pay({route, item_id}) {
         console.log(getInfoVoucher()[0].number);
       }
     }
+    //
   };
   const handlerDetailVoucher = id => {
     setSelectDetailVoucher(id);
@@ -252,7 +214,6 @@ export default function Pay({route, item_id}) {
       },
     ]);
     setModalVisible(true);
-    console.log(detailVoucher);
   };
   const handlerBackPay = () => {
     setModalVisible(false);
@@ -265,7 +226,6 @@ export default function Pay({route, item_id}) {
         conditionApply: [],
       },
     ]);
-    console.log(detailVoucher);
   };
   const handlerUseNow = () => {
     setModalVisible(false);
@@ -281,12 +241,6 @@ export default function Pay({route, item_id}) {
   };
   const handlerShowPopupOrderSuccess = () => {
     setShowPopupOrderSuccess(true);
-  };
-  const getInfoPay = () => {
-    return infoPay.filter(item => item.option === selectOption);
-  };
-  const getInfoShipping = () => {
-    return infoShipping.filter(item => item.option === selectOption);
   };
   const getInfoVoucher = () => {
     return fakeDataVoucher.filter(item => item.id === selectOption);
@@ -777,7 +731,7 @@ export default function Pay({route, item_id}) {
             width: width,
             height: 65,
             left: 0,
-            top: height - 158,
+            bottom: 10,
             position: 'absolute',
             alignItems: 'center',
             flexDirection: 'row',
@@ -897,153 +851,48 @@ export default function Pay({route, item_id}) {
                     <Image source={icon.icon_close} />
                   </Pressable>
                 </View>
-                <View style={[style.menuChoose, {height: 'auto'}]}>
-                  <Pressable
-                    onPress={() => handlerChoose('bankTransfer')}
-                    style={style.itemMenuChoose}>
-                    <View style={style.titleItemChoose}>
-                      <View style={style.radioButton}>
-                        <Image
-                          source={
-                            selectOption === 'bankTransfer'
-                              ? radioButton
-                              : radioButtonNoSelect
-                          }
-                        />
-                      </View>
-                      <Text style={style.textItemMenuChoose}>Chuyển khoản</Text>
-                    </View>
-                    {selectOption === 'bankTransfer' && (
-                      <View
-                        style={{
-                          height: 147,
-                          borderRadius: 10,
-                          backgroundColor: '#F3F7FC',
-                        }}>
-                        <View
-                          style={{height: 118, left: 30, top: 14, rowGap: 15}}>
-                          <Text style={style.textInfoBankTransfer}>
-                            STK:{' '}
-                            <Text
-                              style={[
-                                style.textInfoBankTransfer,
-                                {color: '#FD6C31'},
-                              ]}>
-                              123 456 789
-                            </Text>
-                          </Text>
-                          <Text style={style.textInfoBankTransfer}>
-                            Chủ tài khoản:{' '}
-                            <Text
-                              style={[
-                                style.textInfoBankTransfer,
-                                {fontWeight: 'regular'},
-                              ]}>
-                              Nguyen Van A
-                            </Text>
-                          </Text>
-                          <Text style={style.textInfoBankTransfer}>
-                            Ngân hàng:{' '}
-                            <Text
-                              style={[
-                                style.textInfoBankTransfer,
-                                {fontWeight: 'regular'},
-                              ]}>
-                              Vietcombank
-                            </Text>
-                          </Text>
-                          <Text style={style.textInfoBankTransfer}>
-                            Nội dung:{' '}
-                            <Text
-                              style={[
-                                style.textInfoBankTransfer,
-                                {fontWeight: 'regular'},
-                              ]}>
-                              Số điện thoại
-                            </Text>
-                          </Text>
+                <ScrollView
+                  showsVerticalScrollIndicator={false}
+                  contentContainerStyle={[style.menuChoose]}>
+                  {paymentData.map(item => (
+                    <Pressable
+                      onPress={() => handlerChooseMethodPayment(item.method_id)}
+                      style={style.itemMenuChoose}>
+                      <View style={style.titleItemChoose}>
+                        <View style={style.radioButton}>
+                          <Icon
+                            name={
+                              selectOption === item.method_id
+                                ? 'radiobox-marked'
+                                : 'radiobox-blank'
+                            }
+                            size={20}
+                            color="#0060af"
+                          />
                         </View>
-                      </View>
-                    )}
-                  </Pressable>
-                  <Pressable
-                    onPress={() => handlerChoose('COD')}
-                    style={style.itemMenuChoose}>
-                    <View style={style.titleItemChoose}>
-                      <View style={style.radioButton}>
-                        <Image
-                          source={
-                            selectOption === 'COD'
-                              ? radioButton
-                              : radioButtonNoSelect
-                          }
-                        />
-                      </View>
-                      <Text style={style.textItemMenuChoose}>
-                        Thanh toán khi nhận hàng
-                      </Text>
-                    </View>
-                    {selectOption === 'COD' && (
-                      <View style={style.payOrther}>
-                        <Text style={style.textPayOrther}>
-                          Quý Khách Hàng vui lòng thanh toán tiền mặt khi nhận
-                          hàng
+                        <Text style={style.textItemMenuChoose}>
+                          {item.title}
                         </Text>
                       </View>
-                    )}
-                  </Pressable>
-                  <Pressable
-                    onPress={() => handlerChoose('payCompany')}
-                    style={style.itemMenuChoose}>
-                    <View style={style.titleItemChoose}>
-                      <View style={style.radioButton}>
-                        <Image
-                          source={
-                            selectOption === 'payCompany'
-                              ? radioButton
-                              : radioButtonNoSelect
-                          }
-                        />
-                      </View>
-                      <Text style={style.textItemMenuChoose}>
-                        Thanh toán tại công ty
-                      </Text>
-                    </View>
-                    {selectOption === 'payCompany' && (
-                      <View style={style.payOrther}>
-                        <Text style={style.textPayOrther}>
-                          Quý Khách Hàng có thể mua hàng và thanh toán trực tiếp
-                          tại công ty
-                        </Text>
-                      </View>
-                    )}
-                  </Pressable>
-                  <Pressable
-                    onPress={() => handlerChoose('payOnline')}
-                    style={style.itemMenuChoose}>
-                    <View style={style.titleItemChoose}>
-                      <View style={style.radioButton}>
-                        <Image
-                          source={
-                            selectOption === 'payOnline'
-                              ? radioButton
-                              : radioButtonNoSelect
-                          }
-                        />
-                      </View>
-                      <Text style={style.textItemMenuChoose}>
-                        Thanh toán online
-                      </Text>
-                    </View>
-                    {selectOption === 'payOnline' && (
-                      <View style={style.payOrther}>
-                        <Text style={style.textPayOrther}>
-                          Quý Khách Hàng có thể mua hàng và thanh toán online
-                        </Text>
-                      </View>
-                    )}
-                  </Pressable>
-                </View>
+                      {selectOption === item.method_id && (
+                        <View style={{left: 30}}>
+                          <RenderHTML
+                            source={{html: item.content}}
+                            contentWidth={width}
+                            tagsStyles={{
+                              p: {
+                                fontSize: 14,
+                                fontWeight: 'regular',
+                                color: '#808080',
+                                marginBottom: -10,
+                              },
+                            }}
+                          />
+                        </View>
+                      )}
+                    </Pressable>
+                  ))}
+                </ScrollView>
                 <View style={style.confirmContainer}>
                   <Pressable onPress={handlerConfirm} style={style.btnConfirm}>
                     <Text style={style.textConfirm}>Xác nhận</Text>
@@ -1091,72 +940,61 @@ export default function Pay({route, item_id}) {
                     <Image source={icon.icon_close} />
                   </Pressable>
                 </View>
-                <View style={[style.menuChoose, {height: 'auto'}]}>
-                  <Pressable
-                    onPress={() => handlerChoose('fastDelivery')}
-                    style={style.itemMenuChoose}>
-                    <View
-                      style={[
-                        style.titleItemChoose,
-                        {height: 'auto', alignItems: 'flex-start'},
-                      ]}>
-                      <View style={[style.radioButton, {top: 0}]}>
-                        <Image
-                          source={
-                            selectOption === 'fastDelivery'
-                              ? radioButton
-                              : radioButtonNoSelect
-                          }
-                        />
+                <ScrollView
+                  contentContainerStyle={[style.menuChoose]}
+                  showsVerticalScrollIndicator={false}>
+                  {shippingData.map(item => (
+                    <Pressable
+                      onPress={() =>
+                        handlerChooseMethodShipping(item.shipping_id)
+                      }
+                      style={style.itemMenuChoose}>
+                      <View
+                        style={[
+                          style.titleItemChoose,
+                          {height: 'auto', alignItems: 'flex-start'},
+                        ]}>
+                        <View style={[style.radioButton, {top: 0}]}>
+                          <Icon
+                            name={
+                              selectOption === item.shipping_id
+                                ? 'radiobox-marked'
+                                : 'radiobox-blank'
+                            }
+                            size={20}
+                            color="#0060af"
+                          />
+                        </View>
+                        <View style={{rowGap: 4.4}}>
+                          <Text style={style.textItemMenuChoose}>
+                            {item.title}
+                          </Text>
+                          <Text
+                            style={{
+                              fontSize: 14,
+                              fontWeight: 'medium',
+                              color: '#FD6C31',
+                            }}>
+                            {formatCurrency(item.price)}
+                          </Text>
+                          {selectOption === item.shipping_id && (
+                            <RenderHTML
+                              source={{html: item.content}}
+                              contentWidth={width}
+                              tagsStyles={{
+                                p: {
+                                  fontSize: 14,
+                                  fontWeight: 'regular',
+                                  marginBottom: -10,
+                                },
+                              }}
+                            />
+                          )}
+                        </View>
                       </View>
-                      <View style={{rowGap: 4.4}}>
-                        <Text style={style.textItemMenuChoose}>
-                          Giao hàng nhanh
-                        </Text>
-                        <Text
-                          style={{
-                            fontSize: 14,
-                            fontWeight: 'medium',
-                            color: '#FD6C31',
-                          }}>
-                          37.000đ
-                        </Text>
-                      </View>
-                    </View>
-                  </Pressable>
-                  <Pressable
-                    onPress={() => handlerChoose('economyDelivery')}
-                    style={style.itemMenuChoose}>
-                    <View
-                      style={[
-                        style.titleItemChoose,
-                        {height: 'auto', alignItems: 'flex-start'},
-                      ]}>
-                      <View style={[style.radioButton, {top: 0}]}>
-                        <Image
-                          source={
-                            selectOption === 'economyDelivery'
-                              ? radioButton
-                              : radioButtonNoSelect
-                          }
-                        />
-                      </View>
-                      <View style={{rowGap: 4.4}}>
-                        <Text style={style.textItemMenuChoose}>
-                          Giao hàng tiết kiệm
-                        </Text>
-                        <Text
-                          style={{
-                            fontSize: 14,
-                            fontWeight: 'medium',
-                            color: '#FD6C31',
-                          }}>
-                          35.000đ
-                        </Text>
-                      </View>
-                    </View>
-                  </Pressable>
-                </View>
+                    </Pressable>
+                  ))}
+                </ScrollView>
                 <View style={style.confirmContainer}>
                   <Pressable onPress={handlerConfirm} style={style.btnConfirm}>
                     <Text style={style.textConfirm}>Xác nhận</Text>
@@ -1564,6 +1402,7 @@ const style = StyleSheet.create({
     width: 339,
     left: 12,
     rowGap: 14,
+    paddingBottom: 100,
   },
   itemMenuChoose: {
     rowGap: 10.4,

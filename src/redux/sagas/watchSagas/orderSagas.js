@@ -6,8 +6,6 @@ import {URL_API} from '../common';
 function* getPayment(action) {
   try {
     const res = yield api.get(URL_API.method.payment);
-    console.log('payment', JSON.stringify(res));
-
     yield put({
       type: _onSuccess(action.type),
       data: res.data,
