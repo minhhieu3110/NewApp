@@ -15,7 +15,7 @@ import actions from 'redux/actions';
 import {useDispatch, useSelector} from 'react-redux';
 import {Controller, useForm} from 'react-hook-form';
 import formConfig, {FORM_INPUT} from './formConfig';
-import {authRoot} from 'navigation/navigationRef';
+import {authRoot, bottomRoot} from 'navigation/navigationRef';
 import router from '@router';
 import HttpService from 'utils/api';
 import axios from 'axios';
@@ -24,7 +24,6 @@ import {getDeviceName, getDeviceId} from 'react-native-device-info';
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/AntDesign';
 import Entypo from 'react-native-vector-icons/Entypo';
-import {FormInput} from 'components';
 const Register = () => {
   const dispatch = useDispatch();
   const {control, handleSubmit} = useForm(formConfig);
@@ -33,23 +32,18 @@ const Register = () => {
     dispatch({
       type: actions.SIGNUP,
       body: {
-        username: values.userName,
-        password: values.pass,
+        username: values.username,
         phone: values.phone,
+        password: values.password,
         device_name: DeviceInfo.getDeviceName(),
         device_token: DeviceInfo.getDeviceId(),
       },
       onSuccess: () => {
         authRoot.navigate(router.LOGIN_SCREEN);
       },
-      onFail(e) {
-        Toast.show({
-          type: 'error',
-          text1: 'Đăng ký thất bại',
-        });
-      },
     });
   };
+
   return (
     <View style={styles.container}>
       <View style={{width: width, height: width}}>
@@ -120,7 +114,7 @@ const Register = () => {
             }}>
             <Controller
               control={control}
-              name={FORM_INPUT.userName}
+              name={FORM_INPUT.username}
               render={({field: {onChange, value}}) => (
                 <TextInput
                   value={value}
@@ -145,7 +139,7 @@ const Register = () => {
             <View style={{flexDirection: 'row', width: width - 64}}>
               <Controller
                 control={control}
-                name={FORM_INPUT.pass}
+                name={FORM_INPUT.password}
                 render={({field: {onChange, value}}) => (
                   <TextInput
                     value={value}
@@ -194,7 +188,7 @@ const Register = () => {
             </Text>
           </View>
           <Pressable
-            onPress={_onSubmit}
+            onPress={handleSubmit(_onSubmit)}
             style={{
               width: width - 65,
               height: 47,

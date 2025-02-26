@@ -51,6 +51,12 @@ export default function Home() {
       type: actions.GET_ABOUT,
       params: {type: 0},
     });
+    dispatch({
+      type: actions.SAVE_USER_INFO,
+    });
+    dispatch({
+      type: actions.GET_BANNER,
+    });
   }, []);
 
   const news = useSelector(state => state.getNew?.data || []);
@@ -59,20 +65,26 @@ export default function Home() {
   const bestSeller = useSelector(
     state => state.getProductsBestSeller?.data || [],
   );
-  const partner = useSelector(state => state.getBannerBrand?.data || []);
+  //
+  // const partner = useSelector(state => state.getBannerBrand?.data || []);
+  //
   const certificate = useSelector(state => state.getCertificate?.data || []);
   const videos = useSelector(state => state.getVideo?.data || []);
   const recruitment = useSelector(state => state.getRecruitment?.data || []);
   const about = useSelector(state => state.getAbout?.data || []);
-  console.log('about');
-
+  const banner = useSelector(state => state.getBanner?.data || []);
   const limitRecruitment = recruitment.slice(0, 5);
   const videoHome = videos.filter(item => item.id === 31);
+  const partner = banner.filter(item => item.group_name === 'brand');
+  const bannerMain = banner.filter(
+    item => item.group_name === 'app-banner-main',
+  );
+  console.log('bannerMain', bannerMain);
+
   const imageHeader = [
     {id: 1, image: `${image.image_header_home_1}`},
     {id: 2, image: `${image.image_header_home_2}`},
   ];
-
   const topImageBannerProduct = [
     {id: 1, image: `${image.image_product_banner_home_1}`},
     {id: 2, image: `${image.image_product_banner_home_2}`},
@@ -272,84 +284,84 @@ export default function Home() {
                 <Icon name="arrowright" color="#fff" size={12.8} />
               </View>
             </View>
-            <View style={{top: 12, width: width - 48, left: 12}}>
-              <FlatList
-                scrollEnabled={false}
-                keyExtractor={item => item.id}
-                data={bestSeller}
-                renderItem={({item}) => (
-                  <View style={style.itemBestSeller}>
-                    <View style={style.imageBestSeller}>
-                      {item.price_sale !== item.price && (
-                        <View style={style.percentDiscounts}>
-                          <Text style={style.textPercentDiscount}>
-                            {((item.price - item.price_sale) * 100) /
-                              item.price}
-                            %
-                          </Text>
-                        </View>
-                      )}
-                      {item.price_sale !== item.price && (
-                        <Image
-                          style={style.discountTicket}
-                          source={icon.icon_discount}
-                        />
-                      )}
-                      <Image
-                        source={{uri: item.picture}}
-                        style={{
-                          width: '100%',
-                          height: '100%',
-                          resizeMode: 'cover',
-                          borderRadius: 5,
-                        }}
-                      />
-                    </View>
-                    <View style={style.infoProductBestSeller}>
-                      <View style={style.titleBestSeller}>
-                        <Text style={style.textTitleBestSeller}>
-                          {item.title}
+            <View style={{top: 12, width: width - 48, left: 12, rowGap: 12}}>
+              {bestSeller.map(item => (
+                <Pressable
+                  onPress={() =>
+                    commonRoot.navigate(router.PRODUCT_DETAIL, {
+                      item_id: item.item_id,
+                      group_id: item.group.gruop_id,
+                    })
+                  }
+                  key={item.id}
+                  style={style.itemBestSeller}>
+                  <View style={style.imageBestSeller}>
+                    {item.price_sale !== item.price && (
+                      <View style={style.percentDiscounts}>
+                        <Text style={style.textPercentDiscount}>
+                          {((item.price - item.price_sale) * 100) / item.price}%
                         </Text>
                       </View>
-                      <View style={style.priceBestSeller}>
-                        {item.price_sale !== item.price ? (
-                          <>
-                            <Text
-                              style={style.priceDiscount}>{`${formatCurrency(
-                              item.price_sale,
-                            )}`}</Text>
-                            <Text style={style.priceOriginal}>
-                              {`${formatCurrency(item.price)}`}
-                            </Text>
-                          </>
-                        ) : (
+                    )}
+                    {item.price_sale !== item.price && (
+                      <Image
+                        style={style.discountTicket}
+                        source={icon.icon_discount}
+                      />
+                    )}
+                    <Image
+                      source={{uri: item.picture}}
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        resizeMode: 'cover',
+                        borderRadius: 5,
+                      }}
+                    />
+                  </View>
+                  <View style={style.infoProductBestSeller}>
+                    <View style={style.titleBestSeller}>
+                      <Text style={style.textTitleBestSeller}>
+                        {item.title}
+                      </Text>
+                    </View>
+                    <View style={style.priceBestSeller}>
+                      {item.price_sale !== item.price ? (
+                        <>
                           <Text style={style.priceDiscount}>{`${formatCurrency(
-                            item.price,
+                            item.price_sale,
                           )}`}</Text>
-                        )}
-                        {item.price_sale === '' && (
-                          <Text style={style.priceDiscount}>
+                          <Text style={style.priceOriginal}>
                             {`${formatCurrency(item.price)}`}
                           </Text>
-                        )}
-                      </View>
-                      <View style={style.footerBestSeller}>
-                        <Text style={style.numberRate}>
-                          {' '}
-                          {formatNumber(item.rate_avg)}
+                        </>
+                      ) : (
+                        <Text style={style.priceDiscount}>{`${formatCurrency(
+                          item.price,
+                        )}`}</Text>
+                      )}
+                      {item.price_sale === '' && (
+                        <Text style={style.priceDiscount}>
+                          {`${formatCurrency(item.price)}`}
                         </Text>
-                        <Image
-                          style={style.iconRateStar}
-                          source={icon.icon_rate_star}
-                        />
-                        <Text style={style.numberPersonInteract}>
-                          ({item.num_view})
-                        </Text>
-                      </View>
+                      )}
+                    </View>
+                    <View style={style.footerBestSeller}>
+                      <Text style={style.numberRate}>
+                        {' '}
+                        {formatNumber(item.rate_avg)}
+                      </Text>
+                      <Image
+                        style={style.iconRateStar}
+                        source={icon.icon_rate_star}
+                      />
+                      <Text style={style.numberPersonInteract}>
+                        ({item.num_view})
+                      </Text>
                     </View>
                   </View>
-                )}
-              />
+                </Pressable>
+              ))}
             </View>
           </View>
           <View style={{width: width - 24, height: 150}}>
@@ -430,7 +442,7 @@ export default function Home() {
                       </Text>
                       <View
                         style={{
-                          width: 180,
+                          width: (width - 24) / 2 - 22,
                           borderWidth: 1,
                           borderColor: '#F3F7FC',
                         }}></View>
@@ -865,10 +877,10 @@ const style = StyleSheet.create({
   },
   bestSellerContainer: {
     width: width - 24,
-    paddingBottom: 12.4,
     backgroundColor: '#0060af',
-    gap: 12,
+    rowGap: 12,
     borderRadius: 10,
+    paddingBottom: 24,
   },
   itemBestSeller: {
     width: width - 48,
@@ -876,23 +888,22 @@ const style = StyleSheet.create({
     backgroundColor: '#fff',
     borderRadius: 8,
     flexDirection: 'row',
-    gap: 12,
+    columnGap: 12,
     alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 12,
+    // justifyContent: 'center',
   },
   imageBestSeller: {
     width: 141,
     height: 143.26,
     backgroundColor: '#fff',
+    left: 8,
   },
   infoProductBestSeller: {
     width: 202.45,
     height: 123.26,
   },
   titleBestSeller: {
-    width: 201,
-    height: 43,
+    width: width - 227,
   },
   priceBestSeller: {
     height: 40,
@@ -964,7 +975,7 @@ const style = StyleSheet.create({
   itemProducts: {
     width: (width - 24) / 2 - 6,
     height: 348.68,
-    gap: 10,
+    rowGap: 10,
     alignItems: 'center',
     backgroundColor: '#fff',
     borderRadius: 10,
@@ -974,12 +985,11 @@ const style = StyleSheet.create({
     height: 197.68,
   },
   titleProduct: {
-    width: 180,
+    width: (width - 24) / 2 - 22,
     height: 129,
-    gap: 10,
+    rowGap: 10,
   },
   nameProduct: {
-    height: 43,
     fontSize: 16,
     fontWeight: 'semibold',
     color: '#212121',

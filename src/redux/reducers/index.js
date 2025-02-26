@@ -11,7 +11,6 @@ import * as orderReducers from './combineReducers/orderReducers';
 import * as catalogueReducers from './combineReducers/catalogueReducers';
 import * as videoReducers from './combineReducers/videoReducers';
 import * as voucherReducers from './combineReducers/voucherReducers';
-import * as bannerReducers from './combineReducers/bannerReducers';
 import * as contractReducers from './combineReducers/contractReducers';
 import * as liabilityReducers from './combineReducers/liabilityReducers';
 import * as pageReducers from './combineReducers/pageReducers';
@@ -31,7 +30,6 @@ const rootReducer = combineReducers({
   ...catalogueReducers,
   ...videoReducers,
   ...voucherReducers,
-  ...bannerReducers,
   ...contractReducers,
   ...liabilityReducers,
   ...pageReducers,

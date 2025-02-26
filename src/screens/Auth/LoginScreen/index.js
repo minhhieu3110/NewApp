@@ -11,49 +11,35 @@ import {
 } from 'react-native';
 import Toast from 'react-native-toast-message';
 import {icon, image} from '@assets';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {authRoot, bottomRoot} from 'navigation/navigationRef';
 import router from '@router';
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/AntDesign';
 import Entypo from 'react-native-vector-icons/Entypo';
 import formConfig, {FORM_INPUT} from './formConfig';
+import {Controller, useForm} from 'react-hook-form';
+import actions from 'redux/actions';
+import DeviceInfo from 'react-native-device-info';
 
 const Login = () => {
   const [eye, setEye] = useState(false);
-
-  const [dataLogin, setDataLogin] = useState({username: '', password: ''});
-  const data = useSelector(state => state.signInUser);
-  const handlerLogin = async () => {
-    try {
-      const res = await fetch(
-        'http://rpm.demo.app24h.net:81/api/v1/user/login',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(dataLogin),
-        },
-      );
-      const result = await res.json;
-      // console.log(dataLogin);
-      if (res.ok) {
-        Toast.show({
-          type: 'success',
-          text1: 'Đăng nhập thành công',
-        });
-      }
-      bottomRoot.navigate(router.HOME_SCREEN);
-    } catch (err) {
-      Toast.show({
-        type: 'error',
-        text1: 'Đăng nhập thất bại',
-      });
-      console.log(err);
-    }
+  const {control, handleSubmit} = useForm(formConfig);
+  const dispatch = useDispatch();
+  const _onLogin = values => {
+    dispatch({
+      type: actions.SIGNIN,
+      body: {
+        username: values.username,
+        password: values.password,
+        device_name: DeviceInfo.getDeviceName(),
+        device_token: DeviceInfo.getDeviceId(),
+      },
+      onSuccess: () => {
+        bottomRoot.navigate(router.HOME_SCREEN);
+      },
+    });
   };
-
   return (
     <View style={styles.container}>
       <View style={{width: width, height: width}}>
@@ -123,18 +109,31 @@ const Login = () => {
               top: 67,
               rowGap: 10,
             }}>
-            <TextInput
-              name={FORM_INPUT.userName}
-              placeholder="Email"
-              keyboardType="default"
-              style={styles.input}
+            <Controller
+              control={control}
+              name={FORM_INPUT.username}
+              render={({field: {onChange, value}}) => (
+                <TextInput
+                  value={value}
+                  onChangeText={onChange}
+                  placeholder="Email"
+                  style={styles.input}
+                />
+              )}
             />
             <View style={{flexDirection: 'row', width: width - 64}}>
-              <TextInput
-                name={FORM_INPUT.pass}
-                placeholder="Mật khẩu"
-                secureTextEntry={!eye}
-                style={styles.input}
+              <Controller
+                control={control}
+                name={FORM_INPUT.password}
+                render={({field: {onChange, value}}) => (
+                  <TextInput
+                    value={value}
+                    onChangeText={onChange}
+                    secureTextEntry={!eye}
+                    placeholder="Mật khẩu"
+                    style={styles.input}
+                  />
+                )}
               />
               <Pressable
                 onPress={() => setEye(!eye)}
@@ -153,28 +152,8 @@ const Login = () => {
               </Pressable>
             </View>
           </View>
-          {/* <View
-            style={{
-              width: width - 65,
-              height: 35,
-              top: 97,
-            }}>
-            <Text
-              style={{
-                fontSize: 13,
-                fontWeight: 'regular',
-                color: '#000',
-                textAlign: 'center',
-              }}>
-              Bằng việc đăng ký tài khoản, bạn đã đồng ý với {'\n'}
-              <Text style={{color: '#0060af'}}>
-                Chính sách & Quy định chung
-              </Text>{' '}
-              của chúng tôi
-            </Text>
-          </View> */}
           <Pressable
-            onPress={() => bottomRoot.navigate(router.HOME_SCREEN)}
+            onPress={handleSubmit(_onLogin)}
             style={{
               width: width - 65,
               height: 47,

@@ -3,10 +3,10 @@ import {put, takeLatest} from 'redux-saga/effects';
 import api from 'utils/api';
 import {URL_API, ACCOUNT} from '../common';
 import queryString from 'query-string';
-function* getBannerBrand(action) {
+
+function* getBanner(action) {
   try {
-    const res = yield api.get(URL_API.banner.brand);
-    console.log('brand', res.data);
+    const res = yield api.get(URL_API.banner);
     yield put({
       type: _onSuccess(action.type),
       data: res.data,
@@ -81,7 +81,7 @@ function* getAbout(action) {
   }
 }
 export function* watchOtherSagas() {
-  yield takeLatest(actions.GET_BRAND_PARTNER, getBannerBrand);
+  yield takeLatest(actions.GET_BANNER, getBanner);
   yield takeLatest(actions.GET_CERTIFICATE, getCertificate);
   yield takeLatest(actions.GET_VIDEO, getVideo);
   yield takeLatest(actions.GET_CATALOGUE_GROUP, getCatalogueGroup);

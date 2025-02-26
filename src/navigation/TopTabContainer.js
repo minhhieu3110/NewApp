@@ -4,7 +4,6 @@ import router from '@router';
 import {top} from 'screens/Bottom/OrderScreen/top';
 
 const Tab = createMaterialTopTabNavigator();
-
 const screenOptions = {
   tabBarLabelStyle: {
     fontSize: 16,
@@ -13,13 +12,12 @@ const screenOptions = {
   },
   tabBarItemStyle: {width: 100},
   tabBarIndicatorContainerStyle: {
-    backgroundColor: '#0060af',
+    backgroundColor: '#0060AF',
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
   },
   tabBarIndicatorStyle: {backgroundColor: '#FEC007', bottom: 5},
   tabBarActiveTintColor: '#fff',
-  tabBarBounces: true,
 };
 
 const tabs = [

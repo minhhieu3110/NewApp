@@ -1,4 +1,4 @@
-import actions from '../../actions';
+import actions, {_onFail, _onSuccess} from '../../actions';
 import {reducerDefault, reducerLoadMore} from '../../common/reducers';
 const initialState = {
   data: null,
@@ -54,4 +54,22 @@ export const saveProduct = (...props) => {
 };
 export const removeProductViewed = (...props) => {
   return reducerDefault(...props, actions.DELETE_PRODUCT_SEEN);
+};
+export const getReviewProduct = (state = initialState, action) => {
+  switch (action.type) {
+    case _onSuccess(actions.GET_REVIEW_PRODUCT):
+      return {
+        ...state,
+        data: action.data,
+        count: action.count,
+        isLoading: false,
+      };
+    case _onFail(actions.GET_REVIEW_PRODUCT):
+      return {
+        ...state,
+        isLoading: false,
+      };
+    default:
+      return state;
+  }
 };

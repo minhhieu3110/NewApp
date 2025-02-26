@@ -12,7 +12,18 @@ import {icon, image} from '@assets';
 import {authRoot, bottomRoot, commonRoot} from 'navigation/navigationRef';
 import router from '@router';
 import Icon from 'react-native-vector-icons/AntDesign';
+import {useDispatch} from 'react-redux';
+import actions from 'redux/actions';
 const ProfileScreen = () => {
+  const dispatch = useDispatch();
+  const Logout = () => {
+    dispatch({
+      type: actions.LOGOUT,
+      onSuccess: () => {
+        bottomRoot.navigate(router.HOME_SCREEN);
+      },
+    });
+  };
   return (
     <View style={style.container}>
       <View style={{width: width, height: 235, backgroundColor: '#0060af'}}>
@@ -306,7 +317,7 @@ const ProfileScreen = () => {
               left: 161,
               position: 'absolute',
             }}
-            onPress={() => authRoot.navigate(router.LOGIN_SCREEN)}>
+            onPress={() => Logout()}>
             <Text
               style={{
                 color: '#FD6C31',

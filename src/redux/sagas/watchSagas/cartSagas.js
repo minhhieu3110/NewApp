@@ -1,13 +1,14 @@
 import actions, {_onSuccess, _onFail1} from 'redux/actions';
 import api from 'utils/api';
 import {URL_API} from '../common';
-import {put, takeLatest} from 'redux-saga/effects';
+import {put, select, takeLatest} from 'redux-saga/effects';
 import {handleFormData} from 'utils/helper';
 
 function* updateCart(action) {
   const body = yield handleFormData(action.body);
+  const token = yield select(state => state.user.token);
   try {
-    const res = yield api.postFormData(URL_API.cart, body, {
+    const res = yield api.patch(URL_API.cart, body, {
       device_token:
         'eyJpdiI6Imw2VWpROUtTQWhodUwzaTFvTWhJaHc9PSIsInZhbHVlIjoibGZ5S3EvbVdpQTJkcWY3RUdYZzJ5UXNTdXc2YnBtR1YvRzBVOUFTMWJtQlJPbjZlcFpaUXI0c3RydGdBSHpSVHVpcjAvWUtHclJXK3d2',
     });
@@ -17,7 +18,7 @@ function* updateCart(action) {
     });
   } catch (error) {
     action._onFail?.(error);
-    yield put({type: _onFail(action.type)});
+    yield put({type: _onFail1(action.type)});
   }
 }
 function* getCart(action) {

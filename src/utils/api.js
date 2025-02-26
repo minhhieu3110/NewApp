@@ -131,14 +131,14 @@ export default class HttpService {
   }
   //TODO: FORM_DATA
   static async postFormData(url, formData, params = {}) {
-    const language = store.getState()?.other?.lang;
+    // const language = store.getState()?.other?.lang;
     try {
       return await axios
         .post(url, formData, {
           headers: {
             post: this.generateHeader('form-data'),
           },
-          params: {...params, lang: language},
+          params: {...params},
         })
         .then(response => response.data);
     } catch (error) {

@@ -38,13 +38,13 @@ export const updateInfoUser = (...props) => {
 export const loginSocial = (...props) => {
   return reducerDefault(...props, actions.SINGIN_SOCIAL);
 };
-// export const user = (state = initialState, action) => {
-//   switch (action.type) {
-//     case actions.SAVE_USER_INFO:
-//       return {...state, userToken: action.userToken};
-//     case actions.UNMOUNT_USER:
-//       return initialState;
-//     default:
-//       return state;
-//   }
-// };
+export const user = (state = initialState, action) => {
+  switch (action.type) {
+    case actions.SAVE_USER_INFO:
+      return {...state, token: action.accessToken};
+    case actions.UNMOUNT_USER:
+      return initialState;
+    default:
+      return state;
+  }
+};

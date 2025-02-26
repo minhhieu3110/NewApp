@@ -68,7 +68,7 @@ export const URL_API = {
     via: {
       google: 'google',
     },
-    logout: 'logout',
+    logout: 'user/logout',
     delete: 'delete',
     verify_password: 'verify_password',
     update_password: 'update_password',
@@ -115,8 +115,11 @@ export const URL_API = {
   liability: 'liability',
   page: 'page',
   notificatrion: 'notificatrion',
-  banner: {
-    brand: 'banner/brand',
-  },
+  banner: 'banner',
+  // banner: {
+  //   brand: 'banner/brand',
+  // },
+
   location: 'location',
+  notification: 'notification',
 };

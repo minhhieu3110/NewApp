@@ -1221,7 +1221,11 @@ export default function Pay({route, item_id}) {
                     </Pressable>
                     <Pressable
                       onPress={() =>
-                        commonRoot.navigate(router.ORDER_DETAIL, {flag: 1})
+                        commonRoot.navigate(
+                          router.ORDER_DETAIL,
+                          {flag: 1},
+                          setShowPopupOrderSuccess(!showPopupOrderSuccess),
+                        )
                       }
                       style={[
                         style.btnPopupOrderSuccess,
