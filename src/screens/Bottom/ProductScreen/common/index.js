@@ -50,7 +50,6 @@ export default function CategoryProducts({navigation, route}) {
       );
     }
   }, []);
-  console.log(dataCategory);
 
   return (
     <View style={style.container}>

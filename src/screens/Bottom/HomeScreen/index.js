@@ -290,7 +290,7 @@ export default function Home() {
                   onPress={() =>
                     commonRoot.navigate(router.PRODUCT_DETAIL, {
                       item_id: item.item_id,
-                      group_id: item.group.gruop_id,
+                      group_id: item.group.group_id,
                     })
                   }
                   key={item.id}
@@ -609,7 +609,10 @@ export default function Home() {
               backgroundColor: '#fff',
             }}>
             {limitNews.map((item, index) => (
-              <View style={style.news} key={index}>
+              <Pressable
+                onPress={() => commonRoot.navigate(router.NEW)}
+                style={style.news}
+                key={index}>
                 <View style={style.imageNews}>
                   <Image
                     source={{uri: `${item.picture}`}}
@@ -642,7 +645,7 @@ export default function Home() {
                     {item.title}
                   </Text>
                 </View>
-              </View>
+              </Pressable>
             ))}
           </ScrollView>
           <View style={{width: width - 24, height: 150}}>
@@ -695,50 +698,46 @@ export default function Home() {
             </Pressable>
           </View>
           <View style={{width: width - 24, height: 550}}>
-            <FlatList
-              data={limitRecruitment}
-              scrollEnabled={false}
-              keyExtractor={item => item.id}
-              renderItem={({item}) => (
-                <Pressable
-                  onPress={() => commonRoot.navigate(router.RECRUITMENT)}
-                  style={{
-                    width: width - 24,
-                    height: 102,
-                    backgroundColor: '#ffffff',
-                    borderRadius: 8,
-                    justifyContent: 'center',
-                    marginBottom: 10,
-                  }}>
-                  <View style={{left: 12, height: 79, gap: 10}}>
-                    <Text
-                      style={{
-                        fontSize: 16,
-                        fontWeight: 'semibold',
-                        color: '#212121',
-                      }}>
-                      {item.title}
-                    </Text>
-                    <Text
-                      style={{
-                        fontSize: 15,
-                        fontWeight: 'regular',
-                        color: '#808080',
-                      }}>
-                      Số lượng: {item.quantity}
-                    </Text>
-                    <Text
-                      style={{
-                        fontSize: 15,
-                        fontWeight: 'regular',
-                        color: '#0060af',
-                      }}>
-                      Hạn ứng tuyển: {ConvertTimeStamp(item.date_end.timestamp)}
-                    </Text>
-                  </View>
-                </Pressable>
-              )}
-            />
+            {limitRecruitment.map(item => (
+              <Pressable
+                key={item.item_id}
+                onPress={() => commonRoot.navigate(router.RECRUITMENT)}
+                style={{
+                  width: width - 24,
+                  height: 102,
+                  backgroundColor: '#ffffff',
+                  borderRadius: 8,
+                  justifyContent: 'center',
+                  marginBottom: 10,
+                }}>
+                <View style={{left: 12, height: 79, rowGap: 10}}>
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      fontWeight: 'semibold',
+                      color: '#212121',
+                    }}>
+                    {item.title}
+                  </Text>
+                  <Text
+                    style={{
+                      fontSize: 15,
+                      fontWeight: 'regular',
+                      color: '#808080',
+                    }}>
+                    Số lượng: {item.quantity}
+                  </Text>
+                  <Text
+                    style={{
+                      fontSize: 15,
+                      fontWeight: 'regular',
+                      color: '#0060af',
+                    }}>
+                    Hạn ứng tuyển: {ConvertTimeStamp(item.date_end.timestamp)}
+                  </Text>
+                </View>
+              </Pressable>
+            ))}
           </View>
           <View
             style={{

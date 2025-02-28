@@ -25,18 +25,6 @@ const AddressSaved = () => {
   const [editAddressModal, setEditAddressModal] = useState(false);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch({
-      type: actions.GET_PROVINCE,
-      params: {
-        type: 'province',
-      },
-    });
-  }, []);
-  const provinceData = useSelector(state => state.getProvince?.data || []);
-  console.log('DataProvince');
-  console.log(provinceData);
-
   const [address, setAddress] = useState([
     {
       id: 1,

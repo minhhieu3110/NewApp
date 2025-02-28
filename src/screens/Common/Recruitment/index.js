@@ -137,197 +137,203 @@ export default function Recruitment() {
         </ScrollView>
       </View>
       <Modal animationType="fade" visible={visbleModalDetailRecruitment}>
-        <ScrollView
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={[
-            style.container,
-            {backgroundColor: '#fff', paddingBottom: 300},
-          ]}>
-          <View style={style.titleContainer}>
-            <Pressable
-              style={style.title}
-              onPress={() =>
-                setVisibleModalDetailRecruitment(!visbleModalDetailRecruitment)
-              }>
-              <Image source={icon.icon_arrow_left} />
-              <Text style={style.textTitle}>Chi tiết tuyển dụng</Text>
-            </Pressable>
-          </View>
-          <View style={{width: width - 24, top: 11}}>
-            <View>
-              <Text
-                style={{
-                  fontSize: 18,
-                  fontWeight: 'semibold',
-                  color: '#212121',
-                  top: 13,
-                  left: 12,
-                  textTransform: 'uppercase',
-                }}>
-                {recruitmentDetail.title}
-              </Text>
-              <View style={[style.seperator, {top: 25}]} />
-              <Text
-                style={{
-                  fontSize: 16,
-                  fontWeight: 'semibold',
-                  color: '#212121',
-                  top: 36,
-                  left: 12,
-                }}>
-                Thông tin chung
-              </Text>
-              <View
-                style={{width: 167, height: 316, top: 47, left: 12, gap: 14}}>
-                <View style={style.itemInfo}>
-                  <View>
-                    <Image source={icon.icon_salary} />
+        <SafeAreaView>
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={[
+              style.container,
+              {backgroundColor: '#fff', paddingBottom: 300},
+            ]}>
+            <View style={style.titleContainer}>
+              <Pressable
+                style={style.title}
+                onPress={() =>
+                  setVisibleModalDetailRecruitment(
+                    !visbleModalDetailRecruitment,
+                  )
+                }>
+                <Image source={icon.icon_arrow_left} />
+                <Text style={style.textTitle}>Chi tiết tuyển dụng</Text>
+              </Pressable>
+            </View>
+            <View style={{width: width - 24, top: 11}}>
+              <View>
+                <Text
+                  style={{
+                    fontSize: 18,
+                    fontWeight: 'semibold',
+                    color: '#212121',
+                    top: 13,
+                    left: 12,
+                    textTransform: 'uppercase',
+                  }}>
+                  {recruitmentDetail.title}
+                </Text>
+                <View style={[style.seperator, {top: 25}]} />
+                <Text
+                  style={{
+                    fontSize: 16,
+                    fontWeight: 'semibold',
+                    color: '#212121',
+                    top: 36,
+                    left: 12,
+                  }}>
+                  Thông tin chung
+                </Text>
+                <View
+                  style={{width: 167, height: 316, top: 47, left: 12, gap: 14}}>
+                  <View style={style.itemInfo}>
+                    <View>
+                      <Image source={icon.icon_salary} />
+                    </View>
+                    <View>
+                      <Text style={style.titleItemInfo}>Mức lương</Text>
+                      <Text style={style.valueItemInfo}>
+                        {recruitmentDetail.wage}
+                      </Text>
+                    </View>
                   </View>
-                  <View>
-                    <Text style={style.titleItemInfo}>Mức lương</Text>
-                    <Text style={style.valueItemInfo}>
-                      {recruitmentDetail.wage}
+                  <View style={style.itemInfo}>
+                    <View>
+                      <Image source={icon.icon_time_work} />
+                    </View>
+                    <View>
+                      <Text style={style.titleItemInfo}>
+                        Hình thức làm việc
+                      </Text>
+                      <Text style={style.valueItemInfo}>
+                        {recruitmentDetail.work}
+                      </Text>
+                    </View>
+                  </View>
+                  <View style={style.itemInfo}>
+                    <View>
+                      <Image source={icon.icon_experience} />
+                    </View>
+                    <View>
+                      <Text style={style.titleItemInfo}>Kinh nghiệm</Text>
+                      <Text style={style.valueItemInfo}>
+                        {recruitmentDetail.experience}
+                      </Text>
+                    </View>
+                  </View>
+                  <View style={style.itemInfo}>
+                    <View>
+                      <Image source={icon.icon_quantity} />
+                    </View>
+                    <View>
+                      <Text style={style.titleItemInfo}>Số lượng</Text>
+                      <Text style={style.valueItemInfo}>
+                        {recruitmentDetail.quantity} người
+                      </Text>
+                    </View>
+                  </View>
+                  <View style={style.itemInfo}>
+                    <View>
+                      <Image source={icon.icon_rank} />
+                    </View>
+                    <View>
+                      <Text style={style.titleItemInfo}>Cấp bậc</Text>
+                      <Text style={style.valueItemInfo}>
+                        {recruitmentDetail.rank}
+                      </Text>
+                    </View>
+                  </View>
+                  <View style={style.itemInfo}>
+                    <View>
+                      <Image source={icon.icon_sex} />
+                    </View>
+                    <View>
+                      <Text style={style.titleItemInfo}>Giới tính</Text>
+                      <Text style={style.valueItemInfo}>
+                        {recruitmentDetail.sex}
+                      </Text>
+                    </View>
+                  </View>
+                </View>
+                <View style={[style.seperator, {top: 59}]} />
+                <View style={style.jobDecription}>
+                  <View style={style.itemJobDescription}>
+                    <Text style={style.titleItemJobDescription}>
+                      Mô tả công việc
                     </Text>
+                    <View style={style.valueItemJobDescription}>
+                      <RenderHTML
+                        contentWidth={width}
+                        source={{html: recruitmentDetail.short}}
+                        tagsStyles={{
+                          p: {
+                            fontSize: 15,
+                            fontWeight: 'regular',
+                            color: '#212121',
+                            marginBottom: -10,
+                          },
+                        }}
+                      />
+                    </View>
                   </View>
-                </View>
-                <View style={style.itemInfo}>
-                  <View>
-                    <Image source={icon.icon_time_work} />
-                  </View>
-                  <View>
-                    <Text style={style.titleItemInfo}>Hình thức làm việc</Text>
-                    <Text style={style.valueItemInfo}>
-                      {recruitmentDetail.work}
+                  <View style={style.itemJobDescription}>
+                    <Text style={style.titleItemJobDescription}>
+                      Yêu cầu ứng viên
                     </Text>
+                    <View style={style.valueItemJobDescription}>
+                      <RenderHTML
+                        contentWidth={width}
+                        source={{html: recruitmentDetail.content}}
+                        tagsStyles={{
+                          p: {
+                            fontSize: 15,
+                            fontWeight: 'regular',
+                            color: '#212121',
+                            marginBottom: -10,
+                          },
+                        }}
+                      />
+                    </View>
                   </View>
-                </View>
-                <View style={style.itemInfo}>
-                  <View>
-                    <Image source={icon.icon_experience} />
+                  <View style={style.itemJobDescription}>
+                    <Text style={style.titleItemJobDescription}>Quyền lợi</Text>
+                    <View style={style.valueItemJobDescription}>
+                      <RenderHTML
+                        style={style.textValue}
+                        contentWidth={width}
+                        source={{html: recruitmentDetail.benefits}}
+                        tagsStyles={{
+                          p: {
+                            fontSize: 15,
+                            fontWeight: 'regular',
+                            color: '#212121',
+                            marginBottom: -10,
+                          },
+                        }}
+                      />
+                    </View>
                   </View>
-                  <View>
-                    <Text style={style.titleItemInfo}>Kinh nghiệm</Text>
-                    <Text style={style.valueItemInfo}>
-                      {recruitmentDetail.experience}
+                  <View style={style.itemJobDescription}>
+                    <Text style={style.titleItemJobDescription}>
+                      Cách thức ứng tuyển
                     </Text>
-                  </View>
-                </View>
-                <View style={style.itemInfo}>
-                  <View>
-                    <Image source={icon.icon_quantity} />
-                  </View>
-                  <View>
-                    <Text style={style.titleItemInfo}>Số lượng</Text>
-                    <Text style={style.valueItemInfo}>
-                      {recruitmentDetail.quantity} người
-                    </Text>
-                  </View>
-                </View>
-                <View style={style.itemInfo}>
-                  <View>
-                    <Image source={icon.icon_rank} />
-                  </View>
-                  <View>
-                    <Text style={style.titleItemInfo}>Cấp bậc</Text>
-                    <Text style={style.valueItemInfo}>
-                      {recruitmentDetail.rank}
-                    </Text>
-                  </View>
-                </View>
-                <View style={style.itemInfo}>
-                  <View>
-                    <Image source={icon.icon_sex} />
-                  </View>
-                  <View>
-                    <Text style={style.titleItemInfo}>Giới tính</Text>
-                    <Text style={style.valueItemInfo}>
-                      {recruitmentDetail.sex}
-                    </Text>
-                  </View>
-                </View>
-              </View>
-              <View style={[style.seperator, {top: 59}]} />
-              <View style={style.jobDecription}>
-                <View style={style.itemJobDescription}>
-                  <Text style={style.titleItemJobDescription}>
-                    Mô tả công việc
-                  </Text>
-                  <View style={style.valueItemJobDescription}>
-                    <RenderHTML
-                      contentWidth={width}
-                      source={{html: recruitmentDetail.short}}
-                      tagsStyles={{
-                        p: {
-                          fontSize: 15,
-                          fontWeight: 'regular',
-                          color: '#212121',
-                          marginBottom: -10,
-                        },
-                      }}
-                    />
-                  </View>
-                </View>
-                <View style={style.itemJobDescription}>
-                  <Text style={style.titleItemJobDescription}>
-                    Yêu cầu ứng viên
-                  </Text>
-                  <View style={style.valueItemJobDescription}>
-                    <RenderHTML
-                      contentWidth={width}
-                      source={{html: recruitmentDetail.content}}
-                      tagsStyles={{
-                        p: {
-                          fontSize: 15,
-                          fontWeight: 'regular',
-                          color: '#212121',
-                          marginBottom: -10,
-                        },
-                      }}
-                    />
-                  </View>
-                </View>
-                <View style={style.itemJobDescription}>
-                  <Text style={style.titleItemJobDescription}>Quyền lợi</Text>
-                  <View style={style.valueItemJobDescription}>
-                    <RenderHTML
-                      style={style.textValue}
-                      contentWidth={width}
-                      source={{html: recruitmentDetail.benefits}}
-                      tagsStyles={{
-                        p: {
-                          fontSize: 15,
-                          fontWeight: 'regular',
-                          color: '#212121',
-                          marginBottom: -10,
-                        },
-                      }}
-                    />
-                  </View>
-                </View>
-                <View style={style.itemJobDescription}>
-                  <Text style={style.titleItemJobDescription}>
-                    Cách thức ứng tuyển
-                  </Text>
-                  <View style={style.valueItemJobDescription}>
-                    <RenderHTML
-                      style={style.textValue}
-                      contentWidth={width}
-                      source={{html: recruitmentDetail.apply_type}}
-                      tagsStyles={{
-                        p: {
-                          fontSize: 15,
-                          fontWeight: 'regular',
-                          color: '#212121',
-                          marginBottom: -10,
-                        },
-                      }}
-                    />
+                    <View style={style.valueItemJobDescription}>
+                      <RenderHTML
+                        style={style.textValue}
+                        contentWidth={width}
+                        source={{html: recruitmentDetail.apply_type}}
+                        tagsStyles={{
+                          p: {
+                            fontSize: 15,
+                            fontWeight: 'regular',
+                            color: '#212121',
+                            marginBottom: -10,
+                          },
+                        }}
+                      />
+                    </View>
                   </View>
                 </View>
               </View>
             </View>
-          </View>
-        </ScrollView>
+          </ScrollView>
+        </SafeAreaView>
         <View
           style={{
             width: width,

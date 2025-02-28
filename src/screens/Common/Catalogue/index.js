@@ -12,6 +12,7 @@ import {
   Dimensions,
   TouchableOpacity,
   Modal,
+  SafeAreaView,
 } from 'react-native';
 import {icon, image} from '@assets';
 import LinearGradient from 'react-native-linear-gradient';
@@ -123,62 +124,67 @@ export default function Catalogue() {
         </View>
       </ScrollView>
       <Modal visible={visibleModalCatalogue} animationType="fade">
-        <View style={style.titleContainer}>
-          <Pressable
-            style={style.title}
-            onPress={() => setVisibleModalCatalogue(!visibleModalCatalogue)}>
-            <Image source={icon.icon_arrow_left} />
-            <Text style={style.textTitle}>Catalogue sản phẩm</Text>
-          </Pressable>
-        </View>
-        <ScrollView
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={[style.container, {backgroundColor: '#fff'}]}>
-          <View
-            style={{
-              width: width - 24,
-              top: 11,
-              left: 12,
-              rowGap: 12,
-            }}>
-            {dataCatalogue.map(item => (
-              <Pressable
-                style={{
-                  width: width - 24,
-                  height: 270,
-                  borderRadius: 10,
-                  rowGap: 14,
-                }}>
-                <Image
-                  source={{uri: item.picture}}
+        <SafeAreaView>
+          <View style={style.titleContainer}>
+            <Pressable
+              style={style.title}
+              onPress={() => setVisibleModalCatalogue(!visibleModalCatalogue)}>
+              <Image source={icon.icon_arrow_left} />
+              <Text style={style.textTitle}>Catalogue sản phẩm</Text>
+            </Pressable>
+          </View>
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={[
+              style.container,
+              {backgroundColor: '#fff'},
+            ]}>
+            <View
+              style={{
+                width: width - 24,
+                top: 11,
+                left: 12,
+                rowGap: 12,
+              }}>
+              {dataCatalogue.map(item => (
+                <Pressable
                   style={{
                     width: width - 24,
-                    height: 226.86,
+                    height: 270,
                     borderRadius: 10,
-                  }}
-                />
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
+                    rowGap: 14,
                   }}>
-                  <View style={{flexDirection: 'row', columnGap: 12}}>
-                    <Image source={icon.icon_pdf} />
-                    <Text
-                      style={{
-                        fontSize: 18,
-                        fontWeight: 'semibold',
-                        color: '#000',
-                      }}>
-                      {item.title}
-                    </Text>
+                  <Image
+                    source={{uri: item.picture}}
+                    style={{
+                      width: width - 24,
+                      height: 226.86,
+                      borderRadius: 10,
+                    }}
+                  />
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                    }}>
+                    <View style={{flexDirection: 'row', columnGap: 12}}>
+                      <Image source={icon.icon_pdf} />
+                      <Text
+                        style={{
+                          fontSize: 18,
+                          fontWeight: 'semibold',
+                          color: '#000',
+                        }}>
+                        {item.title}
+                      </Text>
+                    </View>
+                    <Icon name="download" size={30} />
                   </View>
-                  <Icon name="download" size={30} />
-                </View>
-              </Pressable>
-            ))}
-          </View>
-        </ScrollView>
+                </Pressable>
+              ))}
+            </View>
+          </ScrollView>
+        </SafeAreaView>
       </Modal>
     </View>
   );
