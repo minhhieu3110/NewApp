@@ -15,6 +15,21 @@ function* getProduct(action) {
     yield put({type: _onFail(action.type)});
   }
 }
+function* getProductCategoryDetails(action) {
+  try {
+    const [group_id] = action.params;
+    const res = yield api.get(URL_API.product_group.category, {
+      filter: {group_id: group_id},
+    });
+    yield put({
+      type: _onSuccess(action.type),
+      data: res.data,
+    });
+  } catch (error) {
+    action._onFail?.(error);
+    yield put({type: _onFail(action.type)});
+  }
+}
 function* getProductBestSeller(action) {
   try {
     const res = yield api.get(URL_API.product.product, {
@@ -91,6 +106,10 @@ function* getReviewProduct(action) {
 }
 export function* watchProductSagas() {
   yield takeLatest(actions.GET_PRODUCT_LIST, getProduct);
+  yield takeLatest(
+    actions.GET_PRODUCT_CATEGORY_DETAIL,
+    getProductCategoryDetails,
+  );
   yield takeLatest(actions.GET_PRODUCT_BEST_SELLER, getProductBestSeller);
   yield takeLatest(actions.GET_DETAIL_PRODUCT, getProductDetail);
   yield takeLatest(actions.GET_PRODUCT_RELATED, getProductRelated);

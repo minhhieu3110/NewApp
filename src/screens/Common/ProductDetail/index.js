@@ -101,7 +101,12 @@ export default function ProductDetail({route, item_id, group_id}) {
         product_id: item_id,
       },
     });
+    dispatch({
+      type: actions.SAVE_USER_INFO,
+    });
   }, []);
+  const token = useSelector(state => state.user.token);
+  console.log('token', token);
   const productInfo = useSelector(state => state.getDetailProduct?.data || []);
   const productsRelated = useSelector(
     state => state.getProductRelated?.data || [],

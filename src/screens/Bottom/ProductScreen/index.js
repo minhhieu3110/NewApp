@@ -9,20 +9,16 @@ import {
   ScrollView,
   Modal,
   TouchableOpacity,
-  Dimensions,
 } from 'react-native';
-import {icon, image, lotties} from '@assets';
+import {icon, lotties} from '@assets';
 import {useState, useEffect} from 'react';
 import LottieView from 'lottie-react-native';
-import axios from 'axios';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
-import numbro from 'numbro';
-import {useToast} from 'react-native-toast-notifications';
 import {formatCurrency} from 'utils';
 import actions from 'redux/actions';
 import {useDispatch, useSelector} from 'react-redux';
@@ -114,7 +110,12 @@ export default function ProductScreen() {
   };
   const [saveCategory, setSaveCategory] = useState(null);
   const saveCate = () => {
-    selectionCate !== null && setSaveCategory(selectionCate);
+    selectionCate !== null &&
+      setSaveCategory(selectionCate) &&
+      dispatch({
+        type: actions.GET_PRODUCT_CATEGORY_DETAIL,
+        params: {group_id: saveCategory},
+      });
     selectionCate !== null &&
       selectedChild !== null &&
       setSaveCategory(selectedChild);
@@ -122,8 +123,12 @@ export default function ProductScreen() {
       selectedChild !== null &&
       selectedProduct !== null &&
       setSaveCategory(selectedProduct);
-    console.log(saveCategory);
   };
+  const categoryDetail = useSelector(
+    state => state.getProductCategoryDetail?.data || [],
+  );
+  console.log('categoryDetail', categoryDetail);
+
   return (
     <View
       style={{
@@ -224,7 +229,7 @@ export default function ProductScreen() {
                 <Pressable
                   onPress={() =>
                     commonRoot.navigate(router.PRODUCT_DETAIL, {
-                      iten_id: pro.item_id,
+                      item_id: pro.item_id,
                       group_id: pro.group_id,
                     })
                   }
@@ -379,7 +384,7 @@ export default function ProductScreen() {
                 <Pressable
                   onPress={() =>
                     commonRoot.navigate(router.PRODUCT_DETAIL, {
-                      iten_id: pro.item_id,
+                      item_id: pro.item_id,
                       group_id: pro.group_id,
                     })
                   }

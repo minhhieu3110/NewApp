@@ -55,6 +55,9 @@ export const saveProduct = (...props) => {
 export const removeProductViewed = (...props) => {
   return reducerDefault(...props, actions.DELETE_PRODUCT_SEEN);
 };
+export const getProductCategoryDetail = (...props) => {
+  return reducerDefault(...props, actions.GET_PRODUCT_CATEGORY_DETAIL);
+};
 export const getReviewProduct = (state = initialState, action) => {
   switch (action.type) {
     case _onSuccess(actions.GET_REVIEW_PRODUCT):

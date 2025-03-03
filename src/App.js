@@ -7,14 +7,20 @@ import {
 } from 'react-native-reanimated';
 import {ToastProvider} from 'react-native-toast-notifications';
 
-import {Provider} from 'react-redux';
+import {Provider, useDispatch} from 'react-redux';
 import store from './redux/store/index';
+import actions from 'redux/actions';
 export default function App() {
   configureReanimatedLogger({
     level: ReanimatedLogLevel.warn,
     strict: false,
   });
-
+  // const dispatch = useDispatch();
+  // useEffect(() => {
+  //   dispatch({
+  //     type: actions.SAVE_USER_INFO,
+  //   });
+  // });
   return (
     <Provider store={store}>
       <SafeAreaView style={styles.container}>

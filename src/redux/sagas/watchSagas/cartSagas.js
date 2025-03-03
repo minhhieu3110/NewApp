@@ -7,10 +7,11 @@ import {handleFormData} from 'utils/helper';
 function* updateCartOfYou(action) {
   const body = yield handleFormData(action.body);
   const token = yield select(state => state.user.token);
+  console.log('token', token);
+
   try {
     const res = yield api.patch(URL_API.cart, body, {
-      device_token:
-        '8rDRvj0AyxFeOTMGbWQL7OOXjeScoe3m6Tja2yWusdZ1QLQKOSt6CWrDsAti',
+      device_token: token,
     });
     yield put({
       type: _onSuccess(actions.type),

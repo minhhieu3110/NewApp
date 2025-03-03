@@ -52,9 +52,6 @@ export default function Home() {
       params: {type: 0},
     });
     dispatch({
-      type: actions.SAVE_USER_INFO,
-    });
-    dispatch({
       type: actions.GET_BANNER,
     });
   }, []);
@@ -65,9 +62,7 @@ export default function Home() {
   const bestSeller = useSelector(
     state => state.getProductsBestSeller?.data || [],
   );
-  //
-  // const partner = useSelector(state => state.getBannerBrand?.data || []);
-  //
+
   const certificate = useSelector(state => state.getCertificate?.data || []);
   const videos = useSelector(state => state.getVideo?.data || []);
   const recruitment = useSelector(state => state.getRecruitment?.data || []);
@@ -79,8 +74,6 @@ export default function Home() {
   const bannerMain = banner.filter(
     item => item.group_name === 'app-banner-main',
   );
-  console.log('bannerMain', bannerMain);
-
   const imageHeader = [
     {id: 1, image: `${image.image_header_home_1}`},
     {id: 2, image: `${image.image_header_home_2}`},
@@ -177,13 +170,6 @@ export default function Home() {
                 flexDirection: 'row',
               }}>
               <View>
-                {/* <RenderHTML
-                  contentWidth={width}
-                  source={{html: about.title}}
-                  tagsStyles={{
-                    p: {fontSize: 20, fontWeight: 'bold', color: '#212121'},
-                  }}
-                /> */}
                 <Text
                   style={{
                     fontSize: 20,
